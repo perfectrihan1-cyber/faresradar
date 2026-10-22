@@ -1,0 +1,78 @@
+﻿@using Viman.Models
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.StaticURL = Common.StaticURL;
+}
+@using SagePay.IntegrationKit;
+
+<div class="background_top"></div>
+
+<div class="container">
+
+    <div class="gap_small">&nbsp;</div>
+    <div class="row">
+        <div class="col-xs-12">
+            @if (ViewBag.PayResponse == "Session Error")
+            {
+                <h2 style="color:#ff0000; text-align:center;">@ViewBag.PayResponse</h2>
+            }
+            else if (ViewBag.PayResponse == "Server Error")
+            {
+                <h2 style="color:#ff0000; text-align:center;">@ViewBag.PayResponse</h2>
+            }
+            else if (ViewBag.PayResponse == "Payment Error")
+            {
+                <h2 style="color:#ff0000; text-align:center;">@ViewBag.PayResponse</h2>
+            }
+            else if (ViewBag.PayResponse == "Inhouse Redirect")
+            {
+                <div class="fl_pay_main_con">
+                    <div class="fl_pay_head">
+                        <i class="fa fa-spinner fa-pulse fa-5x"></i>
+                        <span>Processing...</span>
+                        <p>Please wait we are processing with your payment! It will take few seconds.</p>
+                        <bdo>The processing is going on. Do not refresh the page or click the <b>"Back"</b> or <b>"Close"</b> button of your browser.</bdo>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <form action="@SagePaySettings.FormPaymentUrl" method="post" id="SagePayForm" name="SagePayForm">
+                    <input type="hidden" name="VPSProtocol" id="VPSProtocol" value="@SagePaySettings.ProtocolVersion.VersionString()" />
+                    <input type="hidden" name="TxType" id="TxType" value="@SagePaySettings.DefaultTransactionType" />
+                    <input type="hidden" name="Vendor" id="Vendor" value="@SagePaySettings.VendorName" />
+                    <input type="hidden" name="Crypt" id="Crypt" value="@(ViewBag.PayResponse)" />
+                    <div class="fl_pay_main_con">
+                        <div class="fl_pay_head">
+                            <i class="fa fa-spinner fa-pulse fa-5x"></i>
+                            <span>Processing...</span>
+                            <p>Soon you will be redirected to sagepay website!  Please wait it will take few seconds.</p>
+                            <bdo>The processing is going on. Do not refresh the page or click the <b>"Back"</b> or <b>"Close"</b> button of your browser.</bdo>
+                            <input id="submitPayment" name="submitPayment" type="submit" value="Make Payment" style="visibility:hidden;position:absolute;" class="btn btn-primary">
+                        </div>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    @if (ViewBag.PayResponse == "Inhouse Redirect")
+    {
+        <script type="text/javascript">
+            window.setTimeout(function () {
+                window.location.href = "@(ViewBag.StaticURL + "hotels/notification/?ref=" + ViewBag.HotelId)";
+            }, 6000);
+        </script>
+    }
+    else
+    {
+        <script type="text/javascript">
+            document.getElementById("SagePayForm").submit();
+        </script>
+    }
+}
+

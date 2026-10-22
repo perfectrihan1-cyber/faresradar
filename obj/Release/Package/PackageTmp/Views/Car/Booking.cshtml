@@ -1,0 +1,375 @@
+﻿@model Viman.Models.CarsBooking
+@using Viman.Models
+@{
+    ViewBag.Title = "Booking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.StaticURL = Common.StaticURL;
+    ViewBag.Currency = Common.Currency;
+    int total_days = Convert.ToInt32(Common.GetDateDiffDay(Model.CarsSearch.DropoffDate, Model.CarsSearch.PickupDate));
+
+    double carTotal = Model.Cars.TotalCost;
+    if (Model.Cars.XsellLocal != null)
+    {
+        foreach (CarsExtras item in Model.Cars.XsellLocal)
+        {
+            if (item.IsSelect)
+            {
+                carTotal += item.Gross;
+            }
+        }
+    }
+    if (Model.Cars.XsellExtra != null)
+    {
+        foreach (CarsExtras item in Model.Cars.XsellExtra)
+        {
+            if (item.IsSelect)
+            {
+                carTotal += item.Gross;
+            }
+        }
+    }
+}
+
+<div class="background_top"></div>
+<div class="">
+    &nbsp;
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <form method="post" name="booking_frm" id="booking_frm" action="@Url.Content("~/car/payment/")">
+                <div class="car_pay_wrapper">
+                    <div class="car_pay_mnbx clearfix">
+                        <div class="car_pay_hd">
+                            <h3>@(Model.Cars.Name)</h3>
+                        </div>
+                        <div class="car_pay_img_bx">
+                            <img src="@(Model.Cars.ImagePath)" />
+                        </div>
+                        <div class="car_pay_feat_bx">
+                            <ul>
+                                <li><bdo class="luggage"></bdo> <span>@(Model.Cars.LargeBag + Model.Cars.SmallBag) Pieces of Luggage</span> </li>
+                                <li><bdo class="passenger"></bdo> <span>Up to @(Model.Cars.Adult + Model.Cars.Child + Model.Cars.Infant) Passengers</span></li>
+                                <li><bdo class="transmission"></bdo> <span>@((Model.Cars.Transmission == "A") ? "Automatic" : "Manual") Transmission</span></li>
+                                @if (Model.Cars.HasAircondition)
+                                {
+                                    <li><bdo class="ac"></bdo> <span>Air Condition</span></li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="car_container_passeger">
+                        <div class="car_bk_pss_hd">
+                            <h4>
+                                <i class="fa fa-users"></i> Guest Details <span class="fa fa-edit"></span>
+                            </h4>
+                        </div>
+                        <div class="car_bk_ps_dtl_main">
+                            <div class="car_bk_mn_pss clearfix">
+                                <div class="car_bk_nm_pss">
+                                    Lead Passenger
+                                </div>
+                                <div class="car_main_mr">
+                                    <select class="car_main_fmr chk_pass" id="title_1" name="title_1">
+                                        <option value="">Select</option>
+                                        <option value="Mr.">Mr.</option>
+                                        <option value="Mrs.">Mrs.</option>
+                                        <option value="Miss">Miss</option>
+                                    </select>
+                                </div>
+                                <div class="car_bk_name">
+                                    <input type="text" placeholder="First Name" name="fname_1" id="fname_1" class="car_bk_fname chk_pass">
+                                </div>
+                                <div class="car_bk_name">
+                                    <input type="text" placeholder="Last Name" name="lname_1" id="lname_1" class="car_bk_fname chk_pass">
+                                </div>
+                                <div class="car_bk_nm_pss">
+                                    Contact Detail
+                                </div>
+                                <div class="car_bk_add_pss clearfix">
+                                    <div class="car_bk_add_field_main">
+                                        <input type="text" placeholder="Phone" id="phone" name="phone" class="car_bk_add_field">
+                                    </div>
+                                    <div class="car_bk_add_field_main marginLft2">
+                                        <input type="text" placeholder="Email Id" id="email" name="email" class="car_bk_add_field">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="car_container_passeger">
+                        <div class="car_bk_pss_hd">
+                            <h4>
+                                <i class="fa fa-map-marker"></i> Address Detail <span class="fa fa-edit"></span>
+                            </h4>
+                        </div>
+                        <div class="car_bk_ps_dtl_main">
+                            <div class="car_bk_add_pss clearfix">
+                                <div class="car_bk_add_field_main">
+                                    <input type="text" placeholder="Address" class="car_bk_add_field" id="address" name="address">
+                                </div>
+                                <div class="car_bk_add_field_main marginLft2">
+                                    <select class="car_bk_add_field" name="country" id="country">
+                                        <option value="">Select Country</option>
+                                        @foreach (Country country in ViewBag.countryList)
+                                        {
+                                            <option @((country.Code.Equals("GB")) ? "selected" : "") value="@(country.Code)">@(country.Name)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="car_bk_add_field_main">
+                                    <input type="text" placeholder="City" class="car_bk_add_field" id="city" name="city">
+                                </div>
+                                <div class="car_bk_add_field_main marginLft2">
+                                    <input type="text" placeholder="Postal Code" id="postal" name="postal" class="car_bk_add_field">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="car_bk_main_card_box">
+                        <div class="car_bk_card_hd">
+                            <h4><i class="fa fa-credit-card"></i> Card Detail</h4>
+                        </div>
+                        <div class="car_bk_card_dtl_box">
+                            <img src="@(ViewBag.StaticURL + "Content/images/visa_cards.svg")">
+                        </div>
+                        <div class="car_bk_card_dtl_main">
+                            <div class="car_bk_card_pss clearfix">
+                                <div class="car_bk_card_field_main">
+                                    <label>Card holder's Name</label>
+                                    <input type="text" class="car_bk_card_field" name="cc_name" id="cc_name">
+                                </div>
+                                <div class="car_bk_card_field_main">
+                                    <label>Card Number</label>
+                                    <input type="hidden" name="cc_card_type" id="cc_card_type" value="" />
+                                    <input type="text" class="car_bk_card_field cc_number" name="cc_number" id="cc_number" placeholder="•••• •••• •••• ••••">
+                                    <i class="fa fa-credit-card"></i>
+                                </div>
+                                <div class="car_bk_card_field_main">
+                                    <div class="car_bk_crdexp_Main">
+                                        <label>Expiry Date</label>
+                                        <input type="text" class="car_bk_card_field cc_exp" name="cc_exp" id="cc_exp" placeholder="•• / ••">
+                                    </div>
+                                    <div class="car_bk_crdexp_Main">
+                                        <label>CVV Code</label>
+                                        <input type="text" class="car_bk_card_field cc_cvc" name="cc_cvc" id="cc_cvc" placeholder="•••" maxlength="3">
+                                        <i id="card_cvc_info" class="fa fa-question"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="car_bk_total clearfix">
+                                <div class="car_bk_you_pay">
+                                    <label>You Pay</label>
+                                    <span>@(ViewBag.Currency) @(carTotal.ToString("0.00"))</span>
+                                </div>
+                                <div class="car_bk_con_para">
+                                    <p>
+                                        By clicking on "Make Payments" I accept the <a href="@Url.Content("~/terms-conditions/")">Terms &amp; Conditions</a> of
+                                        Flight Office and I accept that my bank card will be charged for the above total amount for this purchase.
+                                    </p>
+                                </div>
+                                <div class="car_bk_btn">
+                                    <input type="submit" name="make_payment" id="make_payment" value="Make Payments">
+                                    <span>
+                                        <i class="fa fa-lock"></i>
+                                        Your payment is 100% safe
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="car_bk_scrty">
+                            <h4>Security Code</h4>
+                            <i class="fa fa-times"></i>
+                            <div class="car_bk_scrty_cont">
+                                <p>Where can I find my card's security code?</p>
+                                <img src="@(ViewBag.StaticURL + "Content/images/card_security.svg")">
+                                <p>
+                                    The card security code is located on the back of Visa, Master Card, Discover, Diners Club, and JCB credit
+                                    or debit cards and is typically a separate group of 3 digits to the right of the signature strip.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-4">
+            <div class="car_pay_rgt_pnl">
+                <div class="car_pay_hd">
+                    <h3>Car Summary</h3>
+                </div>
+                <div class="car_pay_cont clearfix">
+                    <div class="car_bk_cont_right">
+                        <ul>
+                            <li>
+                                <h4>Pick UP:</h4>
+                                <p><i class="fa fa-map-marker"></i>@(Model.CarsSearch.FromLocation.CityName)</p>
+                                <p><i class="fa fa-calendar"></i>@(Model.CarsSearch.PickupDate.ToString("dd/MM/yyyy"))</p>
+                                <p><i class="fa fa-clock-o"></i>@(Model.CarsSearch.PickupDate.ToString("HH:mm"))</p>
+                            </li>
+                            <li>
+                                <h4>Drop Off:</h4>
+                                <p><i class="fa fa-map-marker"></i>@(Model.CarsSearch.ToLocation.CityName)</p>
+                                <p><i class="fa fa-calendar"></i>@(Model.CarsSearch.DropoffDate.ToString("dd/MM/yyyy"))</p>
+                                <p><i class="fa fa-clock-o"></i>@(Model.CarsSearch.DropoffDate.ToString("HH:mm"))</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="car_pay_pymnt">
+                    <h4><i class="fa fa-car"></i> Car (@(total_days) Days)</h4>
+                    <h5><i class="fa fa-gbp"></i> Price Detail (GBP)</h5>
+                    <ul>
+                        <li>Car Total <bdo>@(ViewBag.Currency) @(Model.Cars.TotalCost.ToString("0.00"))</bdo></li>
+                        @if (Model.Cars.XsellLocal != null)
+                        {
+                            foreach (CarsExtras item in Model.Cars.XsellLocal)
+                            {
+                                if (item.IsSelect)
+                                {
+                                    <li>@(item.Name) <bdo>@(ViewBag.Currency) @(item.Gross.ToString("0.00"))</bdo></li>
+                                }
+                            }
+                        }
+                        @if (Model.Cars.XsellExtra != null)
+                        {
+                            foreach (CarsExtras item in Model.Cars.XsellExtra)
+                            {
+                                if (item.IsSelect)
+                                {
+                                    <li>@(item.Name) <bdo>@(ViewBag.Currency) @(item.Gross.ToString("0.00"))</bdo></li>
+                                }
+                            }
+                        }
+                    </ul>
+                    <h3>Total trip: <bdo>@(ViewBag.Currency) @(carTotal.ToString("0.00"))</bdo></h3>
+                </div>
+                <span class="bk_disc">
+                    All prices (including taxes &amp; fees) are quoted in British Pound
+                </span>
+                <p class="bk_chkMrk">
+                    <i class="fa fa-check-circle"></i>
+                    Price Guarantee
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript" src="@(ViewBag.StaticURL + "Content/js/jquery.payment.min.js")"></script>
+    <script type="text/javascript">
+        $("[data-numeric]").payment('restrictNumeric');
+        $(".cc_number").payment('formatCardNumber');
+        $(".cc_exp").payment('formatCardExpiry');
+        $(".cc_cvc").payment('formatCardCVC');
+
+        $(document).ready(function () {
+            $("#card_cvc_info").click(function(){
+                $("#card_cvc_info_popup").fadeToggle(500);
+            });
+            $("#card_cvc_info_close").click(function(){
+                $("#card_cvc_info_popup").fadeOut(500);
+            });
+
+            $("#make_payment").click(function () {
+                var pass_flag = true;
+                $(".chk_pass").each(function(i){
+                    if($(this).val().trim(' ') == "")
+                    {
+                        alert("Please enter your lead passenger detail.");
+                        $(this).focus();
+                        pass_flag = false;
+                        return false;
+                    }
+                });
+
+                if(pass_flag)
+                {
+                    if ($("#phone").val().trim(' ') == "")
+                    {
+                        alert("Please enter your phone number.");
+                        $("#phone").focus();
+                        return false;
+                    }
+                    else
+                    {
+                        var phoneNum = $("#phone").val().replace(/[^\d]/g, '');
+                        if(!(phoneNum.length > 7 && phoneNum.length < 15))
+                        {
+                            alert("Please enter your valid phone number.");
+                            $("#phone").focus();
+                            return false;
+                        }
+                    }
+                    if ($("#email").val().trim(' ') == "")
+                    {
+                        alert("Please enter your email.");
+                        $("#email").focus();
+                        return false;
+                    }
+                    else
+                    {
+                        var filter = @("/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{0,4}$/");
+                        if (!filter.test(document.getElementById("email").value)) {
+                            alert("Please enter your valid email.");
+                            document.getElementById("email").focus();
+                            return false;
+                        }
+                    }
+
+                    if ($("#address").val().trim(' ') == "") {
+                        alert("Please enter your full address.");
+                        $("#address").focus();
+                        return false;
+                    }
+                    else if ($("#countryCode").val().trim(' ') == "") {
+                        alert("Please select your country.");
+                        $("#countryCode").focus();
+                        return false;
+                    }
+                    else if ($("#city").val().trim(' ') == "") {
+                        alert("Please enter your city.");
+                        $("#city").focus();
+                        return false;
+                    }
+                    else if ($("#postcode").val().trim(' ') == "") {
+                        alert("Please enter your postcode.");
+                        $("#postcode").focus();
+                        return false;
+                    }
+
+                    var cardType = $.payment.cardType($('.cc_number').val());
+                    if ($("#cc_name").val().trim(' ') == "") {
+                        alert("Please enter your card name.");
+                        $("#cc_name").focus();
+                        return false;
+                    }
+                    else if (!$.payment.validateCardNumber($(".cc_number").val())) {
+                        alert("Please enter your valid card number.");
+                        $(".cc_number").focus();
+                        return false;
+                    }
+                    else if (!$.payment.validateCardExpiry($('.cc_exp').payment('cardExpiryVal'))) {
+                        alert("Please enter your valid card expiry.");
+                        $(".cc_exp").focus();
+                        return false;
+                    }
+                    else if (!$.payment.validateCardCVC($('.cc_cvc').val(), cardType)) {
+                        alert("Please enter your valid card CVC.");
+                        $(".cc_cvc").focus();
+                        return false;
+                    }
+                    $("#cc_card_type").val(cardType);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            });
+        });
+    </script>
+}

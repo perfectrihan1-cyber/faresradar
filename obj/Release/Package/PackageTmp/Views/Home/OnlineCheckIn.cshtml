@@ -1,0 +1,182 @@
+﻿@using Viman.Models
+@{
+    ViewBag.Title = "Online Check In";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="background_top"></div>
+<div class="main_bredcrum">
+    <div class="container">
+        <div class="col-xs-12">
+            <div class="bread_head">
+                <ul>
+                    <li><a href="@Url.Content("~/")">Home</a></li>
+                    <li> <a href="javascript:void(0);" class="fa fa-angle-right angle_bred"></a> </li>
+                    <li><a href="@Url.Content("~/online-check-in/")">Online Check In</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 abut_bodyhead"><h2>Online Check In</h2></div>
+        <div class="col-xs-12 abut_bodyPrt">
+            <p>We help you to take the stress out of travelling and make sure that planning a holiday trip is fun and easy. We all come across the tedious pre-arrival process which includes heavy traffic jams, long queues at airports, long waiting times and heavy rush on help desks etc which all take the fantasy of travelling. But now you can enjoy a hassle-free travel experience because check-in for your flights is just a click away. Whether you are on a business trip or want to enjoy a leisure holiday, simply check-in and reserve your preferred seat for a fee between 12 to 48 hours prior to departure. You can avail this facility from your office, home or any other location.</p>
+            <p>Just select your preferred airline and select your desired seat and click the Go button to go directly to online check-in and provide the necessary basic information like name, address, credit card number along with booking confirmation number etc to enjoy a stress-free journey to your choicest destination.</p>
+            <p>Note:- Before selecting any airline it is recommended to familiarise yourself with all the facilities provided by it. If the airline is not listed on the given page then it means it may not provide you the online check-in facility and this may require check-in at the airport.</p>
+        </div>
+        <div class="col-xs-12">
+            <div class="oc_main_con">
+                <span class="oc_sub">
+                    <img src="@(ViewBag.StaticURL + "Content//airline/full/AF.png")" />
+                    <p>
+                        <b>Air France:</b> Between 30 hours and 2 hours before your flight's departure time.
+                    </p>
+                    <a target="_blank" href="http://www.airfrance.co.uk/GB/en/common/guidevoyageur/e_services/e_services_echeckin_airfrance.htm">GO</a>
+                </span>
+                <span class="oc_sub">
+                    <img src="@(ViewBag.StaticURL + "Content//airline/full/AZ.png")" />
+                    <p>
+                        <b>Alitalia:</b> Between 20 hours and 1 hours before your flight's departure time.
+                    </p>
+                    <a target="_blank" href="https://check-in.alitalia.com/WebCheckIn/en_en">GO</a>
+                </span>
+                <span class="oc_sub">
+                    <img src="@(ViewBag.StaticURL + "Content//airline/full/AA.png")" />
+                    <p>
+                        <b>American Airlines:</b> Between 24 hours and 1 hours before your flight's departure time.
+                    </p>
+                    <a target="_blank" href="https://www.aa.com/reservation/flightCheckInViewReservationsAccess.do">GO</a>
+                </span>
+                <span class="oc_sub">
+                    <img src="@(ViewBag.StaticURL + "Content//airline/full/BA.png")" />
+                    <p>
+                        <b>British Airways:</b> Between 24 hours and 2 hours before your flight's departure time.
+                    </p>
+                    <a target="_blank" href="http://www.britishairways.com/travel/olcilandingpageauthreq/public/en_gb">GO</a>
+                </span>
+                <span class="oc_sub">
+                    <img src="@(ViewBag.StaticURL + "Content//airline/full/SN.png")" />
+                    <p>
+                        <b>Brussels Airlines:</b> Between 24 hours and 1 hours before your flight's departure time.
+                    </p>
+                    <a target="_blank" href="https://checkin.brusselsairlines.com/">GO</a>
+                </span>
+                <span class="oc_sub">
+                    <img src="@(ViewBag.StaticURL + "Content//airline/full/EK.png")" />
+                    <p>
+                        <b>Emirates Airways:</b> Between 24 hours and 90 minutes before your flight's departure time.
+                    </p>
+                    <a target="_blank" href="http://www.emirates.com/uk/english/index.aspx">GO</a>
+                </span>
+                <span class="oc_sub">
+                    <img src="@(ViewBag.StaticURL + "Content//airline/full/EY.png")" />
+                    <p>
+                        <b>Etihad Airways:</b> Between 24 hours and 2 hours before your flight's departure time.
+                    </p>
+                    <a target="_blank" href="http://www.etihad.com/en/before-you-fly/check-in-online/">GO</a>
+                </span>
+                <span class="oc_sub">
+                    <img src="@(ViewBag.StaticURL + "Content//airline/full/BR.png")" />
+                    <p>
+                        <b>EVA Air:</b> Between 24 hours and 3 hours before your flight's departure time.
+                    </p>
+                    <a target="_blank" href="https://eservice.evaair.com/Evaweb/EVA/B2C/manage-your-trip/log_in.aspx">GO</a>
+                </span>
+                <span class="oc_sub">
+                    <img src="@(ViewBag.StaticURL + "Content//airline/full/GF.png")" />
+                    <p>
+                        <b>Gulf Air:</b> Between 24 hours and 90 minutes before your flight's departure time.
+                    </p>
+                    <a target="_blank" href="http://www.gulfair.com/English/info/Checkin/Pages/WebCheck-in.aspx">GO</a>
+                </span>
+                <span class="oc_sub">
+                    <img src="@(ViewBag.StaticURL + "Content//airline/full/ib.png")" />
+                    <p>
+                        <b>Iberia Airlines:</b> Between 24 hours and 2 hours before your flight's departure time.
+                    </p>
+                    <a target="_blank" href="http://www.iberia.com/onlinecheckin/">GO</a>
+                </span>
+                <span class="oc_sub">
+                    <img src="@(ViewBag.StaticURL + "Content//airline/full/9W.png")" />
+                    <p>
+                        <b>Jet Airways:</b> Between 24 hours and 2 hours before your flight's departure time.
+                    </p>
+                    <a target="_blank" href="http://www.jetairways.com/EN/IN/PlanYourTravel/WebCheck-in.aspx">GO</a>
+                </span>
+                <span class="oc_sub">
+                    <img src="@(ViewBag.StaticURL + "Content//airline/full/KL.png")" />
+                    <p>
+                        <b>KLM Royal Dutch Airlines:</b> Between 30 hours and 1 hours before your flight's departure time.
+                    </p>
+                    <a target="_blank" href="https://www.klm.com/travel/gb_en/prepare_for_travel/checkin_options/internet_checkin/ici_jffp_app.htm">GO</a>
+                </span>
+                <span class="oc_sub">
+                    <img src="@(ViewBag.StaticURL + "Content//airline/full/LH.png")" />
+                    <p>
+                        <b>Lufthansa:</b> Between 23 hours and 1 hours before your flight's departure time.
+                    </p>
+                    <a target="_blank" href="http://www.lufthansa.com/uk/en/Online-Check-in">GO</a>
+                </span>
+                <span class="oc_sub">
+                    <img src="@(ViewBag.StaticURL + "Content//airline/full/QR.png")" />
+                    <p>
+                        <b>Qatar Airways:</b> Between 36 hours and 90 minutes before your flight's departure time.
+                    </p>
+                    <a target="_blank" href="http://www.qatarairways.com/global/en/online-checkin.html">GO</a>
+                </span>
+                <span class="oc_sub">
+                    <img src="@(ViewBag.StaticURL + "Content//airline/full/RJ.png")" />
+                    <p>
+                        <b>Royal Jordanian:</b> Between 24 hours and 1 hours before your flight's departure time.
+                    </p>
+                    <a target="_blank" href="http://www.flyroyalbrunei.com/uk/">GO</a>
+                </span>
+                <span class="oc_sub">
+                    <img src="@(ViewBag.StaticURL + "Content//airline/full/LX.png")" />
+                    <p>
+                        <b>Swiss Airlines:</b> Between 23 hours and 1 hours before your flight's departure time.
+                    </p>
+                    <a target="_blank" href="https://www.swiss.com/gb/EN/profile/login">GO</a>
+                </span>
+                <span class="oc_sub">
+                    <img src="@(ViewBag.StaticURL + "Content//airline/full/JJ.png")" />
+                    <p>
+                        <b>LATAM Airlines:</b> Between 72 hours and 2 hours before your flight's departure time.
+                    </p>
+                    <a target="_blank" href="https://www.latam.com/en_uk/apps/personas/checkinunified">GO</a>
+                </span>
+                <span class="oc_sub">
+                    <img src="@(ViewBag.StaticURL + "Content//airline/full/TP.png")" />
+                    <p>
+                        <b>TAP Portugal:</b> Between 24 hours and 90 minutes before your flight's departure time.
+                    </p>
+                    <a target="_blank" href="https://checkin.si.amadeus.net/1ASIHSSCWEBTP/sscwtp/checkin?ln=en">GO</a>
+                </span>
+                <span class="oc_sub">
+                    <img src="@(ViewBag.StaticURL + "Content//airline/full/TG.png")" />
+                    <p>
+                        <b>Thai Airways:</b> Between 24 hours and 2 hours before your flight's departure time.
+                    </p>
+                    <a target="_blank" href="http://www.thaiairways.co.in/booking-form/en/internet-checkin.html">GO</a>
+                </span>
+                <span class="oc_sub">
+                    <img src="@(ViewBag.StaticURL + "Content//airline/full/TK.png")" />
+                    <p>
+                        <b>Turkish Airlines:</b> Between 24 hours and 90 minutes before your flight's departure time.
+                    </p>
+                    <a target="_blank" href="http://www4.thy.com/onlinecheckin/start.tk?lang=en">GO</a>
+                </span>
+                <span class="oc_sub">
+                    <img src="@(ViewBag.StaticURL + "Content//airline/full/VS.png")" />
+                    <p>
+                        <b>Virgin Atlantic:</b> Between 24 hours and 2 hours before your flight's departure time.
+                    </p>
+                    <a target="_blank" href="https://www.virgin-atlantic.com/en/gb/manageyourflights/diycheckin/index.jsp">GO</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

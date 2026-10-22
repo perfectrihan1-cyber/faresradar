@@ -1,0 +1,111 @@
+﻿@model Viman.Models.FlightsBooking
+@using Viman.Models
+@{
+    ViewBag.Title = "Confirm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.WebsiteURL = Common.WebsiteURL;
+    ViewBag.StaticURL = Common.StaticURL;
+    ViewBag.Currency = Common.Currency;
+}
+<div class="background_top"></div>
+<div class="container">
+    <div class="gap_small">&nbsp;</div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="cn_check">
+                <i class="fa fa-check-circle"></i>
+
+                <h2> ONLINE ORDER RECEIVED</h2>
+                    We have received Your Online Order and it has been sent to the airlines for confirmation purposes. One of our Sales representatives will contact you with an update shortly, alternatively you can give us a call at 0203 642 6835 or send us an email at info@viman.co.uk
+                   <br /> Please find the details of your online order below (Please note these are not your e tickets)
+
+
+                @*<h2>@(Model.BookerDetail.FirstName), your payment was successful!</h2>
+                <h3>Booking details has been send to <b>@(Model.BookerDetail.Email)</b></h3>*@
+                <p>Booking Reference No : <b>@(Model.BookingId)</b> &nbsp; <b style="color:#f00;">@((!string.IsNullOrEmpty(Model.PNRNo)) ? "PNR NO : " + Model.PNRNo : "")</b></p>
+            </div>
+            <div class="cn_list_order">
+                <div class="cn_flt_dtl">
+                    <div class="cn_total">
+                        <span>Total</span>
+                        <strong>@(ViewBag.Currency) @((Model.FlightsFare.GrandTotal + Model.FlightsFare.AtolCharge).ToString("0.00"))</strong>
+                    </div>
+                    <div class="cn_pss_dtl">
+                        <i class="fa fa-plane"></i>
+                        @((Model.FlightsSearch.FlightWay == FlightWay.OneWay) ? "OneWay Flight" : "Return Flight")
+                        <span>
+                            @(Model.FlightsSearch.Adult + Model.FlightsSearch.Child + Model.FlightsSearch.Infant) Tickets:
+                            <bdo>@(Model.FlightsSearch.Adult) Adults@((Model.FlightsSearch.Child > 0) ? ", " + Model.FlightsSearch.Child + " Child" : "")@((Model.FlightsSearch.Infant > 0) ? ", " + Model.FlightsSearch.Infant + " Infant" : "")</bdo>
+                        </span>
+                    </div>
+                    <div class="cn_right_dtl">
+                        <div class="cn_lft_logo">
+                            <img src="@(ViewBag.StaticURL + "Content/airline/fit/" + Model.Flights.Outbound[0].Airline.Code + ".gif")" />
+                            <span>@(Model.Flights.Outbound[0].Airline.Code)-@(Model.Flights.Outbound[0].FlightNo)</span>
+                        </div>
+                        <div class="cn_arrDes_main">
+                            <span class="cn_arr">
+                                @(Model.Flights.Outbound[0].FromAirport.Code)
+                                <em>@(Model.Flights.Outbound[0].DepartureDate.ToString("dd MMM yyyy"))</em>
+                                <span>@(Model.Flights.Outbound[0].DepartureDate.ToString("HH:mm"))</span>
+                            </span>
+                            <span class="cn_mark">
+                                <span class="cn_smr_line">
+                                    <span class="cn_smry_arrow">
+                                        <i class="fa fa-plane"></i>
+                                    </span>
+                                </span>
+                            </span>
+                            <span class="cn_dest">
+                                @(Model.Flights.Outbound[Model.Flights.Outbound.Count - 1].ToAirport.Code)
+                                <em>@(Model.Flights.Outbound[Model.Flights.Outbound.Count - 1].ArrivalDate.ToString("dd MMM yyyy"))</em>
+                                <span>@(Model.Flights.Outbound[Model.Flights.Outbound.Count - 1].ArrivalDate.ToString("HH:mm"))</span>
+                            </span>
+                        </div>
+                    </div>
+                    @if (Model.FlightsSearch.FlightWay == FlightWay.RoundTrip)
+                    {
+                        <div class="cn_right_dtl">
+                            <div class="cn_lft_logo">
+                                <img src="@(ViewBag.StaticURL + "Content/airline/fit/" + Model.Flights.Inbound[0].Airline.Code + ".gif")" />
+                                <span>@(Model.Flights.Inbound[0].Airline.Code)-@(Model.Flights.Inbound[0].FlightNo)</span>
+                            </div>
+                            <div class="cn_arrDes_main">
+                                <span class="cn_arr">
+                                    @(Model.Flights.Inbound[0].FromAirport.Code)
+                                    <em>@(Model.Flights.Inbound[0].DepartureDate.ToString("dd MMM yyyy"))</em>
+                                    <span>@(Model.Flights.Inbound[0].DepartureDate.ToString("HH:mm"))</span>
+                                </span>
+                                <span class="cn_mark">
+                                    <span class="cn_smr_line">
+                                        <span class="cn_smry_arrow">
+                                            <i class="fa fa-plane"></i>
+                                        </span>
+                                    </span>
+                                </span>
+                                <span class="cn_dest">
+                                    @(Model.Flights.Inbound[Model.Flights.Inbound.Count - 1].ToAirport.Code)
+                                    <em>@(Model.Flights.Inbound[Model.Flights.Inbound.Count - 1].ArrivalDate.ToString("dd MMM yyyy"))</em>
+                                    <span>@(Model.Flights.Inbound[Model.Flights.Inbound.Count - 1].ArrivalDate.ToString("HH:mm"))</span>
+                                </span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cn_link_main_border">&nbsp;</div>
+    <div class="cn_link_main clearfix">
+
+        <h2>You might also need in <span> @(Model.Flights.Outbound[Model.Flights.Outbound.Count - 1].ToAirport.CityName) </span></h2>
+
+        <ul class="cn_othr_link">
+            <li><a href="@Url.Content("~/hotel/")">Hotel</a></li>
+            <li><a href="@Url.Content("~/car/")">Car</a></li>
+            <li><a href="@Url.Content("~/holiday-offers/")">Car + Hotel</a></li>
+            <li><a href="@Url.Content("~/")">Another Search</a></li>
+        </ul>
+    </div>
+</div>
+

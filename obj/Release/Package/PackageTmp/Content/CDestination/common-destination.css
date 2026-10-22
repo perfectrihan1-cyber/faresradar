@@ -1,0 +1,4306 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Francois+One');
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:200');
+@import url('https://fonts.googleapis.com/css?family=Oswald:500');
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+
+
+
+.myDivFull .Zebra_DatePicker_Icon_Wrapper > .Zebra_DatePicker_Icon{
+	visibility: hidden;
+}
+.myHideDiv .Zebra_DatePicker_Icon_Wrapper > .Zebra_DatePicker_Icon{
+	visibility: hidden;
+}
+/*cloud css*/
+.Fly2IndusParent{
+	position:relative;
+	top:0px;
+	z-index:2;
+}
+.cloudParent{
+	position:absolute;
+	top:0px;
+	z-index:1;
+    left: 0px;
+    right: 0px;
+}
+#background-wrap {
+	bottom: 0;
+	left: 0;
+	padding-top: 50px;
+	position: relative;
+	right: 0;
+	top: 0;
+	overflow:hidden;
+	/* z-index: -1; */
+}
+
+/* KEYFRAMES */
+
+@-webkit-keyframes animateCloud {
+    0% {
+        margin-left: -500px;
+    }
+    100% {
+        margin-left: 100%;
+    }
+}
+
+@-moz-keyframes animateCloud {
+    0% {
+        margin-left: -500px;
+    }
+    100% {
+        margin-left: 100%;
+    }
+}
+
+@keyframes animateCloud {
+    0% {
+        margin-left: -500px;
+    }
+    100% {
+        margin-left: 100%;
+    }
+}
+
+/* ANIMATIONS */
+
+.x1 {
+	-webkit-animation: animateCloud 35s linear infinite;
+	-moz-animation: animateCloud 35s linear infinite;
+	animation: animateCloud 35s linear infinite;
+	
+	-webkit-transform: scale(0.25);
+	-moz-transform: scale(0.25);
+	transform: scale(0.25);
+}
+
+.x2 {
+	-webkit-animation: animateCloud 20s linear infinite;
+	-moz-animation: animateCloud 20s linear infinite;
+	animation: animateCloud 20s linear infinite;
+	
+	-webkit-transform: scale(0.1);
+	-moz-transform: scale(0.1);
+	transform: scale(0.1);
+}
+
+.x3 {
+	-webkit-animation: animateCloud 30s linear infinite;
+	-moz-animation: animateCloud 30s linear infinite;
+	animation: animateCloud 30s linear infinite;
+	
+	-webkit-transform: scale(0.30);
+	-moz-transform: scale(0.30);
+	transform: scale(0.30);
+}
+
+.x4 {
+	-webkit-animation: animateCloud 18s linear infinite;
+	-moz-animation: animateCloud 18s linear infinite;
+	animation: animateCloud 18s linear infinite;
+	
+	-webkit-transform: scale(0.4);
+	-moz-transform: scale(0.4);
+	transform: scale(0.4);
+}
+
+.x5 {
+	-webkit-animation: animateCloud 25s linear infinite;
+	-moz-animation: animateCloud 25s linear infinite;
+	animation: animateCloud 25s linear infinite;
+	
+	-webkit-transform: scale(0.2);
+	-moz-transform: scale(0.2);
+	transform: scale(0.2);
+}
+
+/* OBJECTS */
+
+.cloudX {
+	background: #a4dbef;
+	
+	-webkit-border-radius: 100px;
+	-moz-border-radius: 100px;
+	border-radius: 100px;
+	
+	-webkit-box-shadow: 0 8px 5px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: 0 8px 5px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 8px 5px rgba(0, 0, 0, 0.1);
+
+	height: 120px;
+	position: relative;
+	width: 350px;
+}
+
+.cloudX:after, .cloudX:before {
+    background: #a4dbef;
+	content: '';
+	position: absolute;
+	z-indeX: -1;
+}
+
+.cloudX:after {
+	-webkit-border-radius: 100px;
+	-moz-border-radius: 100px;
+	border-radius: 100px;
+
+	height: 100px;
+	left: 50px;
+	top: -50px;
+	width: 100px;
+}
+
+.cloudX:before {
+	-webkit-border-radius: 200px;
+	-moz-border-radius: 200px;
+	border-radius: 200px;
+	width: 180px;
+	height: 180px;
+	right: 50px;
+	top: -90px;
+}
+
+img.vert-move {
+    -webkit-animation: mover .5s infinite  alternate;
+    animation: mover .5s infinite  alternate;
+}
+@-webkit-keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+@keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+
+/*cloud css*/
+
+
+/* TADA */
+
+@-webkit-keyframes tada {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  10%, 20% {
+    -webkit-transform: scale(.9) rotate(-8deg);
+    transform: scale(.9) rotate(-8deg);
+  }
+
+  30%, 50%, 70% {
+    -webkit-transform: scale(1.3) rotate(8deg);
+    transform: scale(1.3) rotate(8deg);
+  }
+
+  40%, 60% {
+    -webkit-transform: scale(1.3) rotate(-8deg);
+    transform: scale(1.3) rotate(-8deg);
+  }
+
+  80% {
+    -webkit-transform: scale(1) rotate(0);
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes tada {
+  0% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+
+  10%, 20% {
+    -webkit-transform: scale(.9) rotate(-8deg);
+    -ms-transform: scale(.9) rotate(-8deg);
+    transform: scale(.9) rotate(-8deg);
+  }
+
+  30%, 50%, 70% {
+    -webkit-transform: scale(1.3) rotate(8deg);
+    -ms-transform: scale(1.3) rotate(8deg);
+    transform: scale(1.3) rotate(8deg);
+  }
+
+  40%, 60% {
+    -webkit-transform: scale(1.3) rotate(-8deg);
+    -ms-transform: scale(1.3) rotate(-8deg);
+    transform: scale(1.3) rotate(-8deg);
+  }
+
+  80% {
+    -webkit-transform: scale(1) rotate(0);
+    -ms-transform: scale(1) rotate(0);
+    transform: scale(1) rotate(0);
+  }
+}
+
+.faa-tada.animated,
+.faa-tada.animated-hover:hover,
+.faa-parent.animated-hover:hover > .faa-tada {
+  -webkit-animation: tada 2s linear infinite;
+  animation: tada 2s linear infinite;
+}
+
+p,a,li,input,button,h2{
+font-family: 'Roboto', sans-serif;	
+}
+.navbar-fixed-top{
+	padding: 10px 0px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    background: #ffffff;
+    height: 70px;
+    box-shadow: 2px 2px 8px #0000002e;
+}
+.navbar-brand > img {
+    margin-top: -16px;
+}
+.unitedBannerImg{
+	background: #005695;
+	background: -moz-linear-gradient(left, #005695 0%, #005695 100%);
+	background: -webkit-gradient(left top, right top, color-stop(0%, #005695), color-stop(100%, #005695));
+	background: -webkit-linear-gradient(left, #005695 0%, #005695 100%);
+	background: -o-linear-gradient(left, #005695 0%, #005695 100%);
+	background: -ms-linear-gradient(left, #005695 0%, #005695 100%);
+	background: linear-gradient(to right, #005695 0%, #005695 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#005695', endColorstr='#005695', GradientType=1 );
+    padding-bottom: 10px;
+}
+.united-navbar-right > li > a{
+    font-size: 12px;
+    padding: 15px 20px;
+    color: #000000;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.united-navbar-right-img {
+    margin-top: 4px;
+}
+.united-navbar-right-img ul{
+    margin-right: 0px;
+    margin-top: 0px;
+    width: 56%;
+}
+.united-navbar-right-img li {
+    width: 100%;
+    color: #000000;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+}
+.unitedImgLeft{}
+.unitedImgLeft li{text-align:left;}
+.united-navbar-right-img span{
+	margin-left: 0px;
+    float: left;
+    width: 44%;
+    text-align: right;
+    padding-right: 15px;
+}
+
+.united-navbar-right-img li:nth-child(2){
+    font-size: 14px;
+}
+.shrink {
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    padding: 5px 0px;
+}
+.shrink .united-navbar-right > li > a{
+	color:#000000;
+}
+.shrink .united-navbar-right-img li{
+	color:#000000;	
+}
+.u-m-t-100{
+    margin-top: 68px;
+    padding: 50px 85px;
+    background-image: url(../../images/cdestination/background.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #005695;
+}
+.unitedQueryForm{}
+.unitedQueryForm .nav-tabs > li {
+    background: #6c7682;
+    border-radius: 0px 0px 0px 0px;
+    margin-right: 5px;
+}
+.unitedQueryForm .nav-tabs > li >a {
+    padding: 10px 30px;
+    font-size: 14px;
+	margin-right:0px;
+}
+.unitedQueryForm .nav-tabs > li.active > a, .unitedQueryForm .nav-tabs > li.active > a:hover, .unitedQueryForm .nav-tabs > li.active > a:focus {
+    color: #fff;
+    cursor: default;
+    background-color: #222b3a;
+    border: 1px solid #222b3a;
+    border-bottom-color: transparent;
+    border-radius: 0px 0px 0 0;
+}
+.unitedQueryForm .nav-tabs > li >a:hover{
+	border-color: #fff #fff #fff;
+    background-color: #fff;
+    border-radius: 0px 0px 0 0;
+    border: 1px solid #fff;
+    border-bottom: 1px solid #222b3a;
+}
+
+.united-tab-content {
+    background: transparent;
+    padding: 25px 20px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    width: 100%;
+    background-color: #005695
+}
+
+
+
+#exTab2 .nav-tabs {
+    border-bottom: 0px solid #222b3a;
+}
+
+.bookAircanada{
+    background-color: #ffffff;
+    width:90%;
+    text-align: center;	
+    padding: 40px 4px;
+    margin:90px auto;
+}
+
+.bookAircanada h2  {
+    color: #005695;
+    font-size: 40px;
+}
+
+.bookAircanada p {
+    font-size: 25px;
+    color: #000000;
+}
+
+.bookAircanada ul {
+    list-style: none;
+    display: inline-flex;
+    padding:0px 0px;
+}
+
+.bookAircanada img {padding: 10px 10px;}
+
+.bookAircanada .unitedBestPrice {
+	background:#fff;
+    padding: 37px 25px;
+    width: 100%;
+    border-radius: 0;
+    margin: auto;
+    float: right;
+    margin-top: 0px;
+    text-align: center;
+    -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.12);
+    -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.12);
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.12);
+    padding-top: 50px;
+}
+
+.unitedBestPrice div:nth-child(1){
+    font-size: 32px;
+    font-weight: 600;	
+    color: #000;
+    line-height: 55px;
+}
+
+.unitedBestPrice div:nth-child(2){
+
+}
+
+.unitedBestPrice div:nth-child(2) img{
+
+}
+
+.unitedBestPrice div:nth-child(3){
+    font-size: 48px;
+    font-weight: 500;	
+    color: #000;
+}
+
+.usa2India{
+    text-transform: uppercase;
+    color: #fbb03b;
+    float: left;
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 50px;
+}
+.usa2India div:nth-child(1){
+    float: left;
+    width: 35%;
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 49px;
+    color: #fbb03b;
+}
+.usa2India div:nth-child(2){
+    float: left;
+    width: 30%;
+    line-height: 49px;
+}
+.usa2India div:nth-child(2) img{}
+.usa2India div:nth-child(3){
+    float: left;
+    width: 35%;
+    line-height: 49px;
+    color: #fbb03b;
+}
+
+.bookAircanada .unitedBestPriceSpan{
+    font-family: arial;
+    font-weight: bold;	
+}
+.bookAircanada .unitedBestPrice span:nth-child(1) {
+    float: left;
+    width: 25%;
+}
+.bookAircanada .unitedBestPrice span:nth-child(2) {
+	font-family: 'Source Code Pro', monospace;
+    float: left;
+    width: 75%;
+    margin-top: 0px;
+    font-size: 32px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    line-height: 42px;
+    margin-bottom: 3px;
+}
+.bookAircanada .unitedBestPriceSpan span:nth-child(1){
+    width: auto;
+    float: left;
+    font-size: 19px;
+    text-transform: capitalize;	
+	margin-top:0px;
+    color: #fd0004;
+}
+.bookAircanada .unitedBestPriceSpan span:nth-child(2){
+    width: auto;
+    font-family: arial;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;	
+	margin-top:0px;
+    line-height: inherit;
+    margin-bottom: 0px;
+}
+
+.airCanadaAiroplan{
+	/* text-align:center; */
+    background: #000000b0;
+    width: 75%;
+    margin: auto;
+    padding: 25px 10px;
+    border-radius: 5px;
+    margin-top: 25px;
+	float:left;
+}
+.airCanadaAiroplan img {
+    width: 100%;
+    margin: auto;
+    padding: 10px 10px;
+	-webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+	/* margin-left:-1500px; */
+	position:relative;
+	left:-1500px;
+}
+
+.airCanadaAiroplanNew{
+    background: transparent;
+    margin: 0px;
+    padding: 0px;
+    float: none;	
+}
+/* TODO change the cursor */
+/* Hide default checkboxes */
+.form-group-united-radio input[type=radio]{
+  display: none;
+}
+
+/* Style custom radio button shell */
+.form-group-united-radio input[type=radio] + label > span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 3px 6px 3px 3px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    vertical-align: bottom;
+    background: transparent;
+}
+
+/* If you want cursor change on hover */
+/* input[type=radio] + label > span:hover {
+  cursor: pointer;
+} */
+
+/* Style custom selected radio button bullet */
+.form-group-united-radio input[type=radio]:checked + label > span > span {
+	display: block;
+    width: 11px;
+    height: 10px;
+    margin: 4px;
+    border: 1px solid #ff6600;
+    border-radius: 5px;
+    background: #ff6600;
+}
+
+.united-tab-content .form-control {
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    height: 50px;
+    padding: 6px 12px;
+    padding-left: 55px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #000;
+    background-color: #fff !important;
+    border: 0px solid #ccc;
+    border-radius: 0px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    font-weight: bold;
+   -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.12);
+    -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.12);
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.12);
+}
+
+.united-tab-content select {
+    display: block;
+    width: 100%;
+    height: 50px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #000;
+    background-color: #fff;
+    border: 0px solid #ccc;
+    border-radius: 0px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    font-weight: bold;	
+	text-align:center;
+   -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.12);
+    -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.12);
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.12);
+}
+
+.form-group-select .col-md-4:nth-child(2){
+    padding-left: 0px;
+    padding-right: 0px;	
+}
+
+
+.flyingFrom{
+    background-image: url(../../error/notfoundfeeb.html) !important;
+    background-repeat: no-repeat;
+    background-position: left 15px top 9px;
+}
+
+.flyingTo{
+    background-image: url(../../error/notfoundfeeb.html) !important;
+    background-repeat: no-repeat;
+    background-position: left 15px top 9px;
+}
+
+.validate-input-group-me{
+    background-image: url(../../error/notfound4bcb.html) !important;
+    background-repeat: no-repeat;
+    background-position: left 15px top 7px;	
+}
+.calImg{
+    background-image: url(../../error/notfoundd982.html) !important;
+    background-repeat: no-repeat;
+    background-position: left 15px top 7px;
+}
+
+.submitForm{
+    background-image: url(../../error/notfound1157.html) !important;
+    background-repeat: no-repeat;
+    background-position: left 15px top 9px;
+    width: 100%;
+    height: 50px;
+    border: none;
+    background-color: #ff6600;
+    font-size: 16px;
+    font-weight: bold;
+   -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.12);
+    -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.12);
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.12);
+}
+
+.form-group-cal .col-md-6:nth-child(odd){
+    padding-right: 5px;	
+}
+.form-group-cal .col-md-6:nth-child(even){
+    padding-left: 5px;	
+}
+.united-tab-content .form-control::placeholder {
+  color: #000;
+  opacity: 1; /* Firefox */
+}
+
+.united-tab-content .form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+ color: #000;
+}
+
+.united-tab-content .form-control::-ms-input-placeholder { /* Microsoft Edge */
+ color: #000;
+}
+
+
+.form-group-united-radio label {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: 500;
+    margin-bottom: 25px;
+}
+.unitedInputImg{
+    background: transparent;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    border-left: 1px solid #dad6d6;
+    margin: auto;
+    padding: 5px 25px;
+    padding-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-top: 2px;
+    padding-bottom: 0px;
+}
+.unitedInputImg img{
+	display: block;
+}
+.unitedSearchFlightButton {}
+.unitedSearchFlightButton button{
+    width: 100%;
+    border-radius: 25px;
+    background-color: #ff6060;
+    border-color: #c51a31;
+    color: #fff;
+    font-size: 16px;
+    font-weight: lighter;
+    padding: 4px 10px;	
+}
+.united-tab-content .form-group {
+    margin-bottom: 32px !important;
+}
+
+/*passangers css*/
+.numberOfPassenger {
+    position: absolute;
+    z-index: 9999998;
+    background: white;
+    right: 0px;
+    left: 15px;
+    border: 1px dashed #00213d;
+    border-radius: 0px 0px 0px 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 300px;
+    display: none;
+    padding: 15px 10px;
+}
+.box-shadow-me {
+    -webkit-box-shadow: -3px 6px 40px -5px rgba(26, 23, 26, 0.18);
+    -moz-box-shadow: -3px 6px 40px -5px rgba(26, 23, 26, 0.18);
+    box-shadow: -3px 6px 40px -5px rgba(26, 23, 26, 0.18);
+}
+.numberOfadult {
+    width: 33.33%;
+    float: left;
+    padding: 5px 5px;
+}
+.flightMybutton {
+    float: right;
+    width: 100%;
+    text-align: right;
+    padding-top: 10px;
+}
+.flightMybutton button{
+	color: #fff;
+    background-color: #00213d;
+    border-color: #e6e6e6a8;
+    display: block;
+    width: 100%;	
+}
+.numberOfadult p {
+    text-align: center;
+}
+.SecondAdult {
+}
+.SecondAdult span.glyphicon.glyphicon-minus {
+    float: left;
+    width: 25%;
+    text-align: center;
+    background: #00213d;
+    color: #fff;
+    padding: 3px 0px;
+    border-radius: 0px;
+    cursor: pointer;
+}
+.SecondAdult span.glyphicon.glyphicon-plus {
+    float: left;
+    width: 25%;
+    text-align: center;
+    background: #00213d;
+    color: #fff;
+    padding: 3px 0px;
+    border-radius: 0px;
+    cursor: pointer;
+}
+.numberOfadult:nth-child(2) {
+    border-left: 1px solid #e5e5e5;
+    border-right: 1px solid #e6e6e6;
+}
+.united-tab-content .SecondAdult input {
+    float: left;
+    width: 50%;
+    text-align: center;
+    background: #ffffff !important;
+    border: none;
+    box-shadow: none;
+    height: 20px;
+    padding-left: inherit;
+    padding-right: inherit;
+}
+/*passangers css*/
+
+/*Select class css*/
+.econemyGroup {
+    width: 93%;
+    position: absolute;
+    z-index: 9999998;
+    background: white;
+    right: 0px;
+    left: 15px;
+    padding: 5px 0px;
+    border: 1px dashed #005695;
+    border-top: none;
+    padding-bottom: 0px;
+    display: none;
+    padding-top: 0px;
+    top: 100%;
+}
+.econemyGroup ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+.econemyGroup li {
+    padding: 5px 5px;
+    cursor: pointer;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.econemyGroup li:hover {
+	padding: 5px 5px;
+    cursor: pointer;
+    color: #fff;
+	background: #005695;
+    background: rgb(12, 181, 240);
+    background: hsl(196, 90%, 49%);
+}
+.validate-input-group-me , .validate-input-group-adult{
+	cursor:pointer;
+}
+/*Select class css*/
+
+.unitedBookDeals{
+    width: 100%;
+    margin: auto;
+}
+
+.unitedBookDeals h1{
+    /* font-family: 'Source Code Pro', monospace; */
+    font-family: arial;
+    color: #fff;
+    font-size: 26px;
+    margin-bottom: 0px;
+    font-weight: bolder;
+    text-align: left;
+    margin-top: 0px;
+    padding-left: 2px;
+
+}
+
+.unitedBookDeals h2 {
+    font-family: 'Source Code Pro', monospace;
+    color: #fff;
+    font-size: 26px;
+    margin-top: 0px;
+}
+.unitedLogo{
+    background: #00213d;
+    opacity: .75;
+    text-align: center;
+    padding-bottom: 12px;
+    margin-bottom: 15px;
+}
+
+.unitedLogo img{
+    border-bottom: 1.25px solid #fff;
+    padding-bottom: 5px;	
+}
+
+.unitedLogo h3{
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.arange {
+    color: #fff;
+    text-align: center;
+    background: #045ba2;
+    min-height: 46px;
+    position: relative;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 46px;
+}
+
+.arange span {
+    padding-left: 50px;
+}
+
+.unitedCallImg{
+    position: absolute;
+    left: 0px;
+    background: #00213d;
+    padding: 10.5px 15px;
+}
+.starImg{
+    padding-bottom: 1px;
+    line-height: 0px;
+}
+.starImg img{
+
+}
+.satisGuar {
+	line-height: 27px;
+}
+
+.arangestar {
+    background: #00213d;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    text-align: center;
+    min-height: 46px;
+    line-height: 23px;
+}
+.unitedBgColor{
+	/* background: #e6e6e6; */
+	background: #ffffff;
+    padding: 15px 10px;	
+}
+
+.unitedBestPrice{
+    font-family: 'Roboto', sans-serif;
+    float: left;
+    width: 100%;
+    color: #000000;
+}
+.unitedBestPrice img{}
+
+.unitedBestPrice span:nth-child(1):after{
+    content: "";
+    background: #e6e6e6;
+    background: #e6e6e6;
+    background: #e6e6e6;
+    width: 1px;
+    position: absolute;
+    z-index: 999;
+    top: 0px;
+    bottom: 0px;
+    height: 50px;
+    margin: auto;
+    margin-left: 7px;
+}
+
+.unitedBestPrice span{
+    text-transform: capitalize;
+    font-size: 18px;
+}
+.unitedBestPrice span:nth-child(1) {
+    float: left;
+    width: 25%;
+}
+.unitedBestPrice span:nth-child(2){
+	float: left;
+    width: 75%;	
+    margin-top: 10px;
+    padding-left: 15px;
+}
+.unitedBestPriceSpan{
+    line-height: 9px;
+    float: left;
+    width: 75%;	
+    padding-left: 15px;
+}
+
+.unitedBannerImgNew{
+  /* The image used */
+    background: url(../../error/notfound50e0.html);
+
+  /* Set a specific height */
+  min-height: 202px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  text-align: center;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  
+}
+.unitedLooking{
+	width: 68%;
+    background: transparent;
+    margin: auto;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    height: 105px;	
+}
+
+.unitedBannerImgNew h2{
+    font-size: 48px;
+    font-weight: bold;
+	margin-top:0px;
+}
+.unitedBannerImgNew p{
+    font-size: 11px;
+}
+.m-t-b-50 {
+    margin: 50px 0px;
+}
+
+.unitedH2 {
+    padding-top: 20px;
+}
+.unitedH2 h2{
+    color: #000;
+    text-align: left;
+    margin-top: 0px;
+    padding-bottom: 5px;
+    margin: auto;
+    padding-top: 5px;
+}
+
+.img-width-full{}
+.img-width-full img{
+    width:100%;
+}
+.unitedH2Img{
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+}
+.unitedH2Img h2{}
+.unitedH2Img img{
+    background: #fff;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+    top: -21px;
+}
+/*Canada Css*/
+.canada-half {
+    width: 100%;
+    float: left;
+}
+
+.topDestination{
+	background:#fbfbfb;
+	float:left;
+	width:100%;
+    margin-bottom: 25px;
+}
+.topDestination div:nth-child(1){
+	float:left;
+	width:50%;
+}
+
+.topDestination div:nth-child(1) img{
+	width:100%;
+}
+.topDestination div:nth-child(2){
+	float:left;
+	width:50%;
+}
+
+.lastThreeDiv{
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    width: 100% !important;
+    padding: 15px 20px;
+}
+.lastThreeDiv a{
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    color: #005695;
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+    float: left;
+    width: 100%;
+    font-size: 14px;
+    border-bottom: 1px dashed #9E9E9E;
+    margin-bottom: 10px;
+	font-weight:500;
+}
+.lastThreeDiv div:nth-child(1){
+	float:left;
+    width: 40%;
+    text-align: left;
+}
+.lastThreeDiv div:nth-child(2){
+	float:left;
+    width: 20%;
+}
+
+.lastThreeDiv div:nth-child(2) img{
+    width: 50px;
+}
+
+.lastThreeDiv div:nth-child(3){
+	float:left;
+    width: 40%;
+    text-align: right;
+}
+
+.shadow-bottom-new-indus > div {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    z-index: -1;
+    bottom: 15px !important;
+}
+
+.bg-grey-1 {
+    background: #e6e6e6;
+    padding-bottom: 50px;
+    padding-top: 50px;
+}
+.bg-grey-1-blue{
+    background: #005695;	
+}
+.bg-grey-1 .col-sm-3{
+    min-height: 170px;	
+}
+.head-h4 h4 {
+    color: #635f5ffa;
+    /* text-shadow: 1px 1px 0px #9999998a; */
+    font-size: 20px;
+}
+.list-group-me{}
+.list-group-me li {
+    padding: 2px 0px;
+}
+.list-group-me a {
+    color: #b0aaa2;
+    /* text-shadow: 1px 1px 1px #9999998a; */
+    font-size: 13px;
+}
+.head-h4 h4 {
+    color: #ffffff;
+    /* text-shadow: 1px 1px 0px #9999998a; */
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 0px;
+}
+.br {
+    border-right: 1px solid #d0cccc;
+    border-left: 1px solid #d0cccc;
+}
+.b-r-1{
+    border-right: 1px solid #d0cccc;	
+}
+.list-group-me-big {
+    /* padding-top: 20px; */
+    /* padding-left: 30px; */
+}
+.list-group-me-big li{
+    color: #ffffff;
+    /* text-shadow: 1px 1px 1px #9999998a; */
+    font-size: 16px;
+}
+#form-id{
+    background: #fff;
+    padding: 13px 10px;
+    border-radius: 0px 0px 5px 5px;
+}
+#form-id input[type=submit]{
+	float: right;
+    background: #55acee;
+    border-color: #55acee;
+    color: #fff;
+    border: 2px solid #55acee;
+    text-transform: capitalize;
+    width: 22%;
+}
+#form-id input[type=text]{
+    padding-left: 5px;
+    width: 78%;	
+}
+.new-form-id input[type=text]{
+	width:65% !important;
+}
+.new-form-id input[type=submit]{
+	width:35% !important;
+}
+.list-group-me-big li:nth-child(2){
+    display: block;	
+}
+.list-group-me-big span{
+    margin-right: 15px;
+}
+a.list-group-item, button.list-group-item {
+    color: #000;
+    padding: 3px 0px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.border-bottom .list-group{
+    border-right: 1px solid #ccc;	
+}
+.border-bottom .no-list-group{
+    border-right: 0px solid #ccc;		
+}
+.cssForPadd{padding: 0px 3px 0px 3px;}
+.list-group-me-big img {
+
+}
+.pl-30 h4{    
+	/* padding-left: 30px; */
+}
+.mt-top {}
+.mt-top img {
+    vertical-align: baseline;
+}
+.list-group-me-big li:nth-child(1) {
+    margin-top: 0px;
+}
+.list-group-me-big li:nth-child(2) {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+.list-group-me-big li:nth-child(3) {
+    margin-top: 1px;
+}
+.list-group-me a {
+    color: #ffffff;
+    /* text-shadow: 1px 1px 1px #9999998a; */
+    font-size: 14px;
+}
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 5px 15px;
+    margin-bottom: -1px;
+    background-color: transparent;
+    border: 0px solid #ddd;
+}
+.faax {
+	padding: 8px 5px;
+    font-size: 20px;
+    width: 40px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+}
+
+.fa:hover {
+    opacity: 0.9;
+	text-decoration:none;
+	color: #e6e6e6;
+}
+
+.fa-facebook {
+    background: transparent;
+    color: #ff6600;
+    border: 1px solid #ff6600;
+    font-size: 20px !important;
+}
+
+.fa-twitter {
+    background: transparent;
+    color: #ff6600;
+    border: 1px solid #ff6600;
+    font-size: 20px !important;
+}
+
+.fa-google {
+    background: transparent;
+    color: #ff6600;
+    border: 1px solid #ff6600;
+    font-size: 20px !important;
+}
+
+.fa-instagram {
+    background: transparent;
+    color: #ff6600;
+    border: 1px solid #ff6600;
+    font-size: 20px !important;
+}
+
+.fa-linkedin {
+    background: transparent;
+    color: #ff6600;
+    border: 1px solid #ff6600;
+    font-size: 20px !important;
+}
+
+.social-icon{}
+.social-icon li{}
+.social-icon a{}
+.social-icon img{
+    width: 100%;
+}
+/*carousel*/
+
+.carousel-control img{
+    /* background: linear-gradient(to top left, #fc4604 0%, #dc0909 100%); */
+    /* padding: 30px 5px; */
+    /* padding-left: 5px; */
+    /* padding-right: 7px; */
+    width: 30px;
+    height: 30px;
+}
+.firstRotate{
+  -ms-transform: rotate(180deg); /* IE 9 */
+  -webkit-transform: rotate(180deg); /* Safari 3-8 */
+  transform: rotate(180deg);	
+}
+
+.carousel {
+    margin-bottom: 0;
+    padding: 45px 20px 45px 20px;
+}
+/* The controlsy */
+.carousel-control {
+    /* left: -25px; */
+    left: -30px;
+    height: 40px;
+    width: 40px;
+    background: none repeat scroll 0 0 #222222;
+    /* border: 4px solid #FFFFFF; */
+    border-radius: 23px 23px 23px 23px;
+    margin-top: 69px;
+}
+.carousel-control.right {
+	 /* right: -5px; */
+}
+/* The indicators */
+.carousel-indicators {
+    top: auto;
+    bottom: 0px;
+    width: 100%;
+    margin-left: -40%;
+    margin-bottom: 0px;
+}
+/* The colour of the indicators */
+.carousel-indicators li {
+	background: #cecece;
+}
+.carousel-indicators .active {
+background: #428bca;
+}
+/*carousel*/
+.block img {width:100%;height:100%;border-radius:5px;}
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
+
+.carousel-control { 
+    width: 8%;
+    width: 0px;
+}
+.carousel-control.left,
+.carousel-control.right { 
+    background-image: none;
+    opacity: 1;
+    top: 50px;
+}
+.carousel-control > a > span {
+    color: white;
+	  font-size: 29px !important;
+}
+
+.carousel-col { 
+    position: relative; 
+    min-height: 1px; 
+    padding: 5px; 
+    float: left;
+ }
+
+ .active > div { display:none; }
+ .active > div:first-child { display:block; }
+
+/*xs*/
+@media (max-width: 768px) {
+
+.form-group-united-radio label {
+        color: #005695;
+}
+
+.form-group-united-radio input[type=radio] + label > span{
+        border: 1px solid #005695;
+}
+
+.united-tab-content .form-control {
+    border: none;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.42857143;
+    color: #000;
+    background-color: transparent !important;
+    border-bottom: 1px solid #ccc;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.united-tab-content select {
+    border: none;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.42857143;
+    color: #000;
+    background-color: transparent !important;
+    border-bottom: 1px solid #ccc;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+  .carousel-inner .active.left { left: -50%; }
+  .carousel-inner .active.right { left: 50%; }
+	.carousel-inner .next        { left:  50%; }
+	.carousel-inner .prev		     { left: -50%; }
+  .carousel-col                { width: 50%; }
+	.active > div:first-child + div { display:block; }
+
+  #otherNav{
+	  display:block !important;
+		background: #29abe2;
+		background-color: #29aae3;
+		border-color: #29abe2;
+	}
+.otherformMeSearch{
+	position:initial !important;
+}
+
+}
+
+/*sm*/
+@media (min-width: 768px) and (max-width: 991px) {
+
+.tab { background: #005695 !important;  }
+
+.Mobile-Nav1 { displya:none !important; }
+.united-tab-content .form-control {
+    border: none;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.42857143;
+    color: #000;
+    background-color: transparent !important;
+    border-bottom: 1px solid #ccc;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.united-tab-content select {
+    border: none;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.42857143;
+    color: #000;
+    background-color: transparent !important;
+    border-bottom: 1px solid #ccc;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.form-group-united-radio label {
+        color: #005695;
+}
+
+.form-group-united-radio input[type=radio] + label > span{
+        border: 1px solid #005695;
+}
+
+
+.united-tab-content .form-control {
+    border: none;
+    font-size: 22px;
+    line-height: 1.42857143;
+    color: #000;
+    background-color: transparent !important;
+    border-bottom: 1px solid #ccc;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.united-tab-content select {
+    border: none;
+    font-size: 22px;
+    line-height: 1.42857143;
+    color: #000;
+    background-color: transparent !important;
+    border-bottom: 1px solid #ccc;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+
+.unitedAnotherTab {
+    padding-bottom: 10px !important;
+    padding-top: 10px !important;
+}
+
+.border-top-1px {
+    padding-top: 0px !important;
+    margin-top: 0px !important;
+}
+
+.checkBoxSectionMe b {
+    font-size: 22px;
+}
+.img-center-search img{width:100%;}
+.otherformMeSearch .from {
+    font: 400 normal 2.20em "Roboto",Arial,Verdana,sans-serif;
+}
+.btn-group-justified li {
+    font-size: 12px;
+    padding: 6px 10px;
+}
+
+  .carousel-inner .active.left { left: -50%; }
+  .carousel-inner .active.right { left: 50%; }
+	.carousel-inner .next        { left:  50%; }
+	.carousel-inner .prev		     { left: -50%; }
+  .carousel-col                { width: 50%; }
+	.active > div:first-child + div { display:block; }
+	
+.secondSlider .carousel {
+    border: 0px solid #fdd3b4;
+}	
+
+
+
+	
+}
+
+/*md*/
+@media (min-width: 992px) and (max-width: 1000px) {
+
+.container {
+
+        padding: 0px 0px;
+}
+
+.form-group-united-radio label {
+        color: #005695;
+}
+
+.form-group-united-radio input[type=radio] + label > span{
+        border: 1px solid #005695;
+}
+
+.united-tab-content .form-control {
+    border: none;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.42857143;
+    color: #000;
+    background-color: transparent !important;
+    border-bottom: 1px solid #ccc;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.united-tab-content select {
+    border: none;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.42857143;
+    color: #000;
+    background-color: transparent !important;
+    border-bottom: 1px solid #ccc;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+
+.united-navbar-right > li > a{
+    font-size: 10px;
+    padding: 15px 20px;
+    color: #000000;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+  .carousel-inner .active.left { left: -33%; }
+  .carousel-inner .active.right { left: 33%; }
+	.carousel-inner .next        { left:  33%; }
+	.carousel-inner .prev		     { left: -33%; }
+  .carousel-col                { width: 33%; }
+	.active > div:first-child + div { display:block; }
+  .active > div:first-child + div + div { display:block; }
+}
+
+/*lg*/
+@media (min-width: 1000px) {
+
+     
+     .container {
+    
+        padding: 0px 0px;
+}
+
+    .united-tab-content { background-color: #005695 !important;}
+
+  .carousel-inner .active.left { left: -25%; }
+  .carousel-inner .active.right{ left:  25%; }
+	.carousel-inner .next        { left:  25%; }
+	.carousel-inner .prev		     { left: -25%; }
+  .carousel-col                { width: 25%; }
+	.active > div:first-child + div { display:block; }
+  .active > div:first-child + div + div { display:block; }
+	.active > div:first-child + div + div + div { display:block; }
+}
+
+.block {
+    /* width: 300px; */
+    width: 100%;
+    height: 180px;
+}
+
+
+/*carousel*/
+
+.bg-greyy{
+    /* background: #e6e6e6; */
+    /* margin-top: 50px; */
+    /* padding-top: 25px; */
+}
+.bg-greyy .each-section{margin-top:0px;}
+.affordable{}
+.affordable p{
+    color: #9a9a9a;
+    /* text-shadow: 1px 1px 2px #d0c8c840, 0 0 0.1em #73656540, 0 0 0.2em #524d4d05; */
+    font-size: 15px;
+    margin-bottom: 20px;
+    text-align: justify;
+
+}
+.affordable h2 {
+    font-weight: bold;
+    color: #999999;
+    /* text-shadow: 1px 1px 2px #e6e6e6, 0 0 1em #dddcdd, 0 0 0.2em #F7F7F6; */
+	margin-top: 0px;
+    margin-bottom: 20px;
+}
+.affordable span {
+    color: #ed1c24;
+}
+.canadaFlight{
+	
+}
+.canadaFlight img{
+	width:100%;
+}
+.lookingToGo{
+    padding: 25px 0px;
+}
+.lookingToGo img{
+    width: 100%;	
+}
+.lookingToGo h2{
+    color: #fd0004;
+    text-transform: uppercase;
+}
+
+.lookingToGo p {
+    font-size: 24px;
+    font-weight: 100;
+}
+.lookingToGo p:nth-child(even){
+    margin-bottom: 0px;	
+    font-weight: 100;
+}
+.lookingToGo p > span{
+    color: #fd0004;
+    font-size: 24px;
+	font-weight: 500;
+}
+.lookingToGo ul{
+    padding: 0px;
+    list-style-position: inside;
+    margin-top: 15px;	
+}
+.lookingToGo ul > li{
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: lighter;	
+}
+.lookingToGo button{
+    background: #000;
+    border: 1px solid #000;
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 20px;	
+}
+
+.canadaAnotherTab{
+    background: url(../../error/notfoundecf9.html);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+    margin: 0px;
+}
+.canadaAnotherTab > .container-fluid{
+    margin-right: 15px;
+    margin-left: 15px;	
+}
+
+/*bootem nav tabs section*/
+.canadatabpanel-new{
+    min-height: 500px !important;	
+}
+
+.canadatabpanel p{
+    color: #fff;
+    text-align: justify;	
+}
+
+.canadatabpanel{
+    float: left;
+    width: 100%;
+    border: 1px solid #7f7f81;
+    margin-top: 15px;
+    margin-bottom: 15px;	
+}
+.tab-content-padding{
+    padding: 35px 15px 35px 15px;	
+}
+
+.canadatabpanel .col-sm-8{
+	border-left: 1px solid #7f7f81;	
+}
+.nav-stacked {
+    text-align: center;
+    /* border-right: 1px solid #7f7f81; */
+}
+
+.brand-pills > li > a {
+    border-radius: 0px;
+    font-size: 21px;
+}
+.brand-pills > li {
+    float: none;
+    background: #ffffff61;
+    margin-bottom: 50px;
+}
+.brand-pills > li.active > a, .brand-pills > li.active > a:hover, .brand-pills > li.active > a:focus {
+    color: #fff;
+    background-color: #000;
+}
+@media (min-width: 768px) {
+
+    .brand-pills > li > a {
+        border-top-right-radius: 0px;
+    	border-bottom-right-radius: 0px;
+    }
+    
+    li.brand-nav.active a:after{
+    	/*content: " ";
+    	display: block;
+    	width: 0;
+    	height: 0;
+    	border-top: 20px solid transparent;
+    	border-bottom: 20px solid transparent;
+    	border-left: 9px solid #428bca;
+    	position: absolute;
+    	top: 50%;
+    	margin-top: -20px;
+    	left: 100%;
+    	z-index: 2;*/
+    }
+}
+/*bootem nav tabs section*/
+/*Canada Css*/
+.unitedUniversel{
+    /* border: .25px solid #ccc; */
+    float: left;
+    width: 100%;
+    position: relative;
+    min-height: 65px;
+}
+.Uone{
+    float: left;
+    /* border: .25px solid #ccc; */
+    width: 9%;
+    padding: 5px 5px 5px 5px;
+}
+.Uone img {
+	width: auto;
+    height: auto;
+    padding-top: 18px;
+    padding-left: 12px;
+}
+
+.Utwo{
+    font-family: 'Roboto', sans-serif;
+    float: left;
+    /* border: .25px solid #ccc; */
+    width: 68%;
+    padding-top: 15px;
+    padding-left: 5px;
+    padding-bottom: 0px;
+    padding-right: 5px;
+    text-transform: capitalize;
+	color:#000;
+}
+.unitedSmall{
+    text-align: center;
+    line-height: 9px;
+}
+.unitedSmall span{font-size: 80%;}
+
+.unitedSmall span:nth-child(1){
+	
+}
+.unitedSmall span:nth-child(2){
+	
+}
+.unitedSmall span:nth-child(3){
+	
+}
+.Uleft{
+    float: left;
+    width: 20%;	
+    text-align: center;
+    color: #005695;
+}
+
+.Uleft > b{
+    text-transform: uppercase;
+    font-size: 22px;	
+}
+
+.Uleft > div{
+    font-size: 12px;
+    line-height: 9px;	
+}
+
+.Umid{
+    float: left;
+    width: 40%;	
+    line-height: 50px;
+}
+
+.Umid div:nth-child(1){
+	float:left;
+    width: 100%;
+    text-align: center;
+}
+.Umid div:nth-child(2){
+	float:left;	
+    width: 40%;
+    text-align: center;
+}
+.Umid div:nth-child(3){
+	float:left;	
+    width: 30%;
+    text-align: center;
+}
+.URight{
+    float: left;
+    width: 20%;	
+    text-align: center;
+    color: #005695;
+}
+.URightNew{color:#000;}
+.URight > div{
+    font-size: 12px;
+    line-height: 9px;	
+}
+
+.URight > b{
+    text-transform: uppercase;
+    font-size: 22px;	
+}
+
+.Uthree{
+    float: left;
+    /* border: .25px solid #ccc; */
+    width: 22%;
+	background:#ff6600;
+	color:#fff;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    top: 0px;
+    text-align: center;
+    line-height: 43px;
+}
+
+
+
+.Uthree::before{
+	content: " ";
+    width: 0;
+    height: 0;
+    border-left: 9px solid transparent;
+    border-right: 9px solid #ff6600;
+    border-bottom: 9px solid transparent;
+    border-top: 9px solid transparent;
+    position: absolute;
+    top: 28px;
+    left: -18px;
+}
+.Uthree:before{
+	content: " ";
+    width: 0;
+    height: 0;
+    border-left: 9px solid transparent;
+    border-right: 9px solid #ff6600;
+    border-bottom: 9px solid transparent;
+    border-top: 9px solid transparent;
+    position: absolute;
+    top: 28px;
+    left: -18px;
+}
+.Uthree b {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    display: block;
+    padding-top: 15px;
+	color: #000;
+}
+.Uthree p {
+    text-transform: capitalize;
+    line-height: 0px;
+}
+
+.nextUnitedUniversel .Uthree{
+    position: initial;
+    position: unset;
+    position: inherit;
+    min-height: 69px;
+}
+.nextUnitedUniversel .Uone{
+	text-align: right;
+    padding: 5px 4px 5px 5px;	
+}
+.nextUnitedUniversel .Uthree:before{
+	display:none;
+}
+.nextUnitedUniversel .Uthree::before{
+	display:none;
+}
+
+.nextUnitedUniversel .Utwo:before{
+    content: " ";
+    width: 0;
+    height: 0;
+    border-left: 9px solid #000;
+    border-right: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-top: 9px solid transparent;
+    position: absolute;
+    top: 23px;
+    left: unset;
+    margin-left: -5px;
+}
+.nextUnitedUniversel .Utwo:before{
+    content: " ";
+    width: 0;
+    height: 0;
+    border-left: 9px solid #000;
+    border-right: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-top: 9px solid transparent;
+    position: absolute;
+    top: 23px;
+    left: unset;
+    margin-left: -5px;
+}
+.nextUnitedUniversel .Utwo::before{
+    content: " ";
+    width: 0;
+    height: 0;
+    border-left: 9px solid #000;
+    border-right: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-top: 9px solid transparent;
+    position: absolute;
+    top: 23px;
+    left: unset;
+    margin-left: -5px;
+}
+.shadow-top{
+    position: relative;	
+}
+.shadow-top > div{
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: -38px;
+    z-index: -1;	
+}
+
+.shadow-top img {
+    width: 50%;
+    float: left;
+}
+.shadow-bottom{
+    position: relative;	
+}
+.shadow-bottom > div {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    z-index: -1;
+    bottom: -73px;
+}
+
+.shadow-bottom img{
+	width: 100%;
+    float: left;
+}
+
+.shrink .shadow-bottom > div {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    z-index: -1;
+    bottom: -35px;
+    display: none;
+}
+.fff{background:#fff;}
+
+nav.navbar.navbar-fixed-top.no-fixed-top.shrink::after{
+	display:none;
+}
+
+
+.shadow-bottom-new{
+    position: relative;	
+}
+.shadow-bottom-new > div {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    z-index: -1;
+    bottom: -21px;
+}
+
+.shadow-bottom-new img{
+	width: 100%;
+    float: left;
+}
+
+
+.navbar-fixed-top::after{
+    background: url(../../error/notfound1abf.html) no-repeat scroll center bottom rgba(0, 0, 0, 0);
+    bottom: -46px;
+    content: "";
+    height: 45px;
+    position: absolute;
+    width: 100%;
+	display:none;
+}
+
+.unitedCallUsAt{
+    /* background: #e6e6e6; */
+    background: #f5f5f5;
+    padding: 30px 10px;
+    /* -webkit-box-shadow:0 1px 10px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset; */
+    /* -moz-box-shadow:0 1px 10px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset; */
+    /* box-shadow:0 1px 10px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset; */
+}
+.unitedCallUsAt > .container{
+	
+}
+.unitedCallUsAt span:nth-child(1){
+    float: left;	
+}
+.unitedCallUsAt span:nth-child(2){
+    font-family: 'Roboto', sans-serif;
+    color: #2172bb;
+    font-size: 30px;
+    padding: 0px 15px;
+    float: left;
+    padding-top: 19px;
+    padding-bottom: 15px;
+}
+.unitedCallUsAt span:nth-child(2) b{
+	color: #000;	
+}
+.unitedAnotherTab{
+    background: #e6e6e6;
+    padding: 50px 0px;
+    padding-bottom: 40px;
+    padding-top: 25px;
+}
+.unitedAnotherTab > .container-fluid{
+	
+}
+
+
+.p-r-0{
+	padding-right:0px;
+}
+.p-l-0{
+	padding-left:0px;
+}
+.UnitedAir{
+    background: transparent;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    width: 75%;
+    height: 400px;
+    margin: auto;	
+}
+.UnitedAirHeading{
+    font-family: arial;
+    color: #fff;
+    font-size: 42px;
+    margin-bottom: 0px;
+    font-weight: bolder;
+    text-align: center;
+    line-height: 23px;
+}
+.UnitedAirText{
+    font-family: 'Source Code Pro', monospace;
+    color: #ecec21;
+    font-size: 36px;
+    margin-top: 0px;
+    text-align: center;	
+	margin-left: 15px;
+}
+
+.UnitedAirHeadingA{
+    font-family: 'Source Code Pro', monospace;
+    color: #fff;
+    font-size: 42px;
+    margin-bottom: 0px;
+    font-weight: bolder;
+    text-align: center;	
+}
+.UnitedAirTextA{
+    font-family: 'Source Code Pro', monospace;
+    color: #ecec21;
+    font-size: 24px;
+    margin-top: 0px;
+    text-align: center;	
+}
+
+
+.unitedPlane{
+	
+}
+
+.unitedPlane img{
+	
+}
+
+.border-bottom {
+    border-bottom: 1px solid #f2f2f2;
+    border-top: 1px solid #f2f2f2;
+}
+.border-bottom .each-section{
+    margin-top: 25px;	
+}
+.bg-grey-1-me{
+    padding-top: 0px;
+    padding-bottom: 0px;	
+}
+.saying h2 {
+    /* color: #999999; */
+    /* text-shadow: 1px 1px 1px #9999998a; */
+    margin-bottom: 10px;
+    margin-top: 20px;
+    color: #005695;
+    font-size: 21px;
+}
+
+.border-top-margin{
+	margin-top:25px;
+}
+.each-section-color h2{color:#005695;}
+
+.each-section-color a.list-group-item, button.list-group-item {
+    color: #000;
+}
+
+.border-bottom .each-section-color .list-group {
+    border-right: 1px solid #ccc;
+}
+
+.border-bottom .each-section-color .no-list-group {
+    border-right: 0px solid #005695;
+}
+
+.best-fare.saying .list-group {
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+/*Another Tab Css*/
+#exTab1{
+	margin-top: 25px;	
+}
+#exTab1 .tab-content {
+  color : #000;
+  background-color: #ffffff;
+  padding: 30px 35px;
+    height: 430px;
+}
+#exTab1 .nav-pills > li > a {
+    border-radius: 5px 5px 0px 0px;
+    background: #ecb72b;
+    color: #000;
+    padding: 5px 40px;
+    font-weight: bold;
+    font-size: 12px;
+    margin-right: 25px;
+	-webkit-box-shadow: -3px -8px 13px -4px rgba(0,0,0,0.21);
+	-moz-box-shadow: -3px -8px 13px -4px rgba(0,0,0,0.21);
+	box-shadow: -3px -8px 13px -4px rgba(0,0,0,0.21);
+}
+
+#exTab1 .nav-pills > li.active > a, #exTab1 .nav-pills > li.active > a:hover, #exTab1 .nav-pills > li.active > a:focus {
+    color: #000;
+    background-color: #fff;
+}
+#exTab1 .tab-content p{
+    font-size: 12px;
+    color: #8e8e8e;
+    text-transform: capitalize;	
+}
+#exTab1 .tab-content h4 {
+    font-family: 'Roboto', sans-serif;
+    color: #8e8e8e;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#exTab1 .tab-content h4 b{
+    color: #000;	
+}
+
+.unitedLeftborder {
+    position: absolute;
+    top: 52px;
+    right: -89px;
+}
+.unitedLeftborder > div{}
+.unitedLeftborder img {
+    height: 430px;
+}
+/*Another Tab Css*/
+
+
+/*carosul css*/
+
+#carousel-reviews{
+    padding: 25px 0px;	
+    padding-bottom: 0px;
+    padding-top: 5px;
+}
+#carousel-reviews .row{
+    /* margin-bottom: 25px;	 */
+}
+
+#carousel-reviews h5{
+    margin-bottom: 0px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;	
+    margin-top: 0px;
+}
+.carousel-reviews.broun-block{
+	/* background:#e6e6e6;	 */
+	background:#f5f5f5;
+    padding: 40px 0px;
+	padding-bottom: 0px;
+    /* -webkit-box-shadow:0 1px 10px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset; */
+    /* -moz-box-shadow:0 1px 10px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset; */
+    /* box-shadow:0 1px 10px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset; */
+}
+.carousel-reviews.broun-block h3{
+    font-family: 'Roboto', sans-serif;	
+    text-transform: uppercase;
+    font-size: 20px;
+    margin-bottom: 0px;
+}
+.carousel-reviews.broun-block h3 + span{
+	
+}
+.carousel-reviews.broun-block h3 + span:before{
+    content: "";
+    height: 1px;
+    width: 80px;
+    background: red;
+    z-index: 9999999999999999;
+    position: absolute;
+    color: red;
+    margin-top: 10px;
+}
+.carousel-reviews.broun-block h3 + span::before{
+    content: "";
+    height: 1px;
+    width: 80px;
+    background: red;
+    z-index: 9999999999999999;
+    position: absolute;
+    color: red;
+    margin-top: 10px;
+}
+.carousel-reviews.broun-block h3:before{
+    content: "";
+    height: 1px;
+    width: 100px;
+    background: red;
+    z-index: 9999999999999999;
+    position: absolute;
+    color: red;
+    margin-top: 25px;
+}
+.carousel-reviews.broun-block h3::before{
+    content: "";
+    height: 1px;
+    width: 100px;
+    background: red;
+    z-index: 9999999999999999;
+    position: absolute;
+    color: red;
+    margin-top: 25px;	
+}
+#carousel-reviews .carousel-control.left, #carousel-reviews.carousel-control.right  {background:none;width:25px;}
+#carousel-reviews .carousel-control.left {left:-25px;}
+#carousel-reviews .carousel-control.right {right:-25px;}
+#carousel-reviews .broun-block {
+    background:#e6e6e6;
+    padding-bottom: 34px;
+}
+#carousel-reviews .block-text {
+    /* background-color: #fff; */
+    /* border-radius: 5px; */
+    /* box-shadow: 0 3px 0 #2c2222; */
+    color: #626262;
+    font-size: 14px;
+    /* margin-top: 27px; */
+    padding: 15px 15px;
+	/* text-align:center; */
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+#carousel-reviews .col-sm-3, .col-sm-9 {
+    min-height: inherit;
+    min-height: initial;
+}
+#carousel-reviews .block-text img{
+    /* border: 3px solid #2272b9; */
+    /* border-radius: 50%; */
+    width: 100%;
+}
+
+#carousel-reviews .block-text a {
+ color: #7d4702;
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 21px;
+    text-decoration: none;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+#carousel-reviews .mark {
+    padding: 12px 0;background:none;
+}
+#carousel-reviews .block-text p {
+    font-family: Georgia;
+    font-style: italic;
+    line-height: 20px;
+    font-size: 11px;
+    background: #005695;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 15px;
+    margin-bottom: 0px;
+}
+
+#carousel-reviews .block-text p:before {
+    content: url(../../error/notfound47e4.html);
+    position: absolute;
+    left: -5px;
+}
+#carousel-reviews .block-text p::before {
+    content: url(../../error/notfound47e4.html);
+    position: absolute;
+    left: -5px;
+}
+#carousel-reviews .sprite-i-triangle {
+    background-position: 0 -1298px;
+    height: 44px;
+    width: 50px;
+}
+#carousel-reviews .block-text ins {
+    bottom: -44px;
+    left: 50%;
+    margin-left: -60px;
+}
+
+
+#carousel-reviews .block {
+    display: block;
+}
+#carousel-reviews .zmin {
+    z-index: 1;
+}
+#carousel-reviews .ab {
+    position: absolute;
+}
+
+#carousel-reviews .person-text {
+    padding: 10px 0 0;
+    text-align: center;
+    z-index: 2;
+}
+#carousel-reviews .person-text a {
+    color: #ffcc00;
+    display: block;
+    font-size: 14px;
+    margin-top: 3px;
+    text-decoration: underline;
+}
+#carousel-reviews .person-text i {
+    color: #fff;
+    font-family: Georgia;
+    font-size: 13px;
+}
+#carousel-reviews .rel {
+    position: relative;
+}
+
+#carousel-reviews .item div:nth-child(2){
+    /*border: 1px solid #dadada;
+    border-top: none;
+    border-bottom: none;*/
+    padding-left: 0px;
+}
+.unitedRevStar{}
+.unitedRevStar i{
+    color: #005695;
+    margin-right: 5px;
+}
+/*carosul css*/
+
+
+/*last Parlexx Css*/
+.unitedBannerImgNewLast{
+    background: url(../../error/notfound6eec.html);
+    /* min-height: 202px; */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    text-align: center;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 50px;
+    padding: 50px 5px;
+    padding-bottom: 70px;
+  
+}
+
+.unitedBannerImgNewLast blockquote{
+    border-left: 0px solid #eee;	
+}
+
+.unitedBannerImgNewLast .carousel-indicators li {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: 1px;
+    text-indent: -999px;
+    cursor: pointer;
+    background-color: #000 \9;
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid #ffff01;
+    border-radius: 10px;
+    background: #ffff01;
+}
+
+.unitedBannerImgNewLast .carousel-indicators .active {
+  width: 12px;
+  height: 12px;
+  margin: 1px;
+  background-color: #fff;
+}
+.unitedBannerImgNewLast h2{
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+}
+.unitedBannerImgNewLast p{
+    font-size: 14px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 25px;
+    padding-right: 25px;	
+}
+.UnitedAirTextMe{
+    font-family: 'Source Code Pro', monospace;
+    color: #ecec21;
+    font-size: 30px;
+    margin-top: 0px;
+    text-align: center;	
+}
+
+.unitedBannerImgNewLast .carousel-indicators {
+    bottom: 0px ;
+}
+/*last Parlexx Css*/
+.unitedFooter {
+	
+}
+
+.unitedFooter p{
+    font-size: 21px;
+    text-transform: capitalize;	
+}
+.unitedFooterSecond{
+    padding-left: 15px;	
+}
+.unitedPaypal{}
+.unitedPaypal img{width:100%;}
+.unitedFooterStripe{
+    background: #000;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    padding: 15px 0px;
+}
+
+/*popUp Css*/
+#msg {
+    width: 330px;
+    height: auto;
+    background-color:#fff;
+    /* display: none; */
+    position: fixed;
+    bottom: -250px;
+    right: 35px;
+    border: 0px solid #111;
+    z-index: 99;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-box-shadow: -3px 6px 40px -5px rgba(26, 23, 26, 0.18);
+    -moz-box-shadow: -3px 6px 40px -5px rgba(26, 23, 26, 0.18);
+    box-shadow: -3px 6px 40px -5px rgba(26, 23, 26, 0.18);
+    border-radius: 2px;
+    padding: 10px 10px;
+}
+.callPopUpHeading {
+    float: left;
+    width: 100%;
+    background: transparent;
+}
+.msg-text {
+    float: left;
+    font-family: 'Roboto', sans-serif;
+}
+.close-msg {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    float: right;
+}
+.close-msg i {
+    color: #f15c28;
+    padding: 5px 0px;
+    width: auto;
+    padding: 2px 5px;
+}
+.fa.fa-userr {
+    position: absolute;
+    padding: 0px;
+    left: 20px;
+    width: auto;
+    top: 3px;
+    color: #00213d;
+    margin: auto;
+}
+.callPopUpHeading input {
+    padding-left: 25px;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid #e6e6e6;
+    width: 100%;
+}
+.wrap-contact100-form-btn{text-align:center;}
+.wrap-contact100-form-btn button{width:auto;}
+.unitedClosePopUp{float:right;color: #fff;cursor:pointer;}
+#econemyGroup-pop{left:5px;width: 88%;}
+.preClasspop{cursor:pointer;}
+.preClasspopX{cursor:pointer;}
+.preClasspopXNew{cursor:pointer;}
+/*popUp Css*/
+
+
+/*internationalFlightDeals*/
+.internationalFlightDeals{
+    background: #fff;
+    float: left;
+    width: 95%;
+    margin: auto;
+    border: 1px solid #9e9e9ed1;
+    padding: 15px 15px;
+    padding-top: 15px;
+    -webkit-box-shadow: 5px 4px 7px -4px rgba(0, 0, 0, 0.48);
+    -moz-box-shadow: 5px 4px 7px -4px rgba(0, 0, 0, 0.48);
+    box-shadow: 5px 4px 7px -4px rgba(0, 0, 0, 0.48);
+}
+
+.darkPlane{}
+.darkPlane > div{
+    text-align: center;
+    position: relative;
+    top: -30px;
+}
+.darkPlane > div > img{}
+.internationalFlightDeals p{
+    text-align: center;
+    font-size: 16px;
+    color: #000;
+    font-weight: 500;
+    margin-top: -20px;
+    margin-bottom: 20px;
+}
+.destinationPreferdParent div:nth-child(1) {
+    float: left;
+    width: 100%;
+    padding: 0px 0px;
+    font-size: 15px;
+    background: transparent;
+    margin-bottom: 10px;
+}
+.destinationPreferd div:nth-child(1) {
+    background: #002e5a;
+    color: #fff;
+    text-align: center;
+    font-size: 16px;
+    padding: 10px 5px;
+    font-family: 'Roboto', sans-serif;
+}
+.destinationPrice {
+    font-size: 15px;
+    float: left;
+    width: 100%;
+    padding: 0px 0px;
+    background: transparent;
+    margin-bottom: 10px;
+-webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.destinationPrice a {
+    display: block;
+    background: transparent;
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid #9e9e9e;
+    padding-bottom: 10px;
+-webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.destinationPrice span:nth-child(1) {
+    float: left;
+    text-transform: capitalize;
+    color: #ff6600;
+}
+.destinationPrice span:nth-child(2) {
+    float: right;
+    color: #000;
+    font-size: 14px;
+    font-weight: 500;
+}
+.destinationPrice a:hover{
+    border-bottom: 1px dashed #ff6600;	
+}
+
+
+.border-top-1px{
+	border-top: 1px solid #e6e6e6;
+    padding-top: 50px;
+    padding-bottom: 25px;
+    margin-top: 25px;
+}
+
+.border-top-1px .col-md-4:nth-child(2){
+    border-left: 1px solid #e6e6e6;	
+    border-right: 1px solid #e6e6e6;	
+}
+
+.border-top-1px h2{
+    margin-top: 0px;
+    font-size: 24px;	
+}
+
+.callNowIndus{
+    float: left;
+    width: 100%;
+    margin-top: 10px;	
+}
+
+.callNowIndus div:nth-child(1){
+    float: left;
+    width: 25%;
+}
+.callNowIndus div:nth-child(2){
+    float: left;
+    width: 75%;
+}
+.callNowIndus div:nth-child(2) p{
+    margin-bottom: 0px;
+    font-size: 24px;
+    font-weight: 300;
+}
+.callNowIndus div:nth-child(2) b{
+    font-size: 29px;
+    line-height: 19px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+
+.subscribeIndus{
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+}
+.subscribeIndus form{}
+.subscribeIndus form input[type=email]{
+    width: 70%;
+    border: 1px solid #dedede;
+    height: 30px;
+    float: left;
+    padding-left: 30px;
+    background-image: url(../../error/notfound678b.html);
+    background-repeat: no-repeat;
+    background-position: left 7px top 8px;
+}
+.subscribeIndus form input[type=submit]{
+    width: 30%;
+    border: 1px solid #fe6600;
+    height: 30px;
+    background: #ff6600;
+    color: #fff;
+    float: left;
+}
+.whyBook{
+    float: none;
+    width: 85%;
+    margin: auto;
+}
+.whyBook ul{
+	margin: 0px;
+    padding: 0px;
+	list-style-image: url('../../error/notfound7aaf.html');
+	list-style-position: inside;
+    margin-top: 20px;
+}
+.whyBook li{
+    font-weight: 400;
+    font-size: 15px;
+    margin-bottom: 3px;
+}
+/*internationalFlightDeals*/
+
+/*17-oct-css*/
+.NewForm {
+    float: left;
+    width: 100%;
+    margin-top: -20px;
+    padding-top: 20px;
+    background: #005695;
+    margin-bottom: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.form-submit-again-srch{
+    position: absolute;
+    right: 30px;	
+}
+
+.form-submit-again-srch button{
+    height: 42px;
+    background: #ff6600;
+    color: #fff;
+    border-radius: 0px 4px 4px 0px;
+}
+/*17-oct-css*/
+.pos { display: relative; }
+
+.dip {
+    background-repeat: no-repeat;
+    background-position: center left 15px;
+}
+
+.dip-drop {
+	background-repeat: no-repeat;
+    background-position: -3px -3px;
+}
+.dip-from { background-image: url(../../Images/i-from.png); }
+.dip-to { background-image: url(../../Images/i-to.png); }
+.dip-cal { background-image: url(../../Images/i-dep.png); }
+.dip-seat { background-image: url(../../Images/i-seat.png); }
+
+
+/*datepicker PopUp*/
+.UnitedPopUpSection{
+    float: left;
+    width: 100%;	
+    cursor: pointer;
+    background: #fff;
+    margin-bottom:20px;
+    -webkit-box-shadow: 5px 4px 7px -4px rgba(0, 0, 0, 0.48);
+    -moz-box-shadow: 5px 4px 7px -4px rgba(0, 0, 0, 0.48);
+    box-shadow: 5px 4px 7px -4px rgba(0, 0, 0, 0.48);
+}
+.united-tab-content-popup{
+    position: absolute;
+    top: 100%;
+    width: 300px;
+    padding: 5px 5px;
+    z-index: 999;
+    -webkit-box-shadow: 0px 10px 12px 0px rgba(26, 23, 26, 0.02);
+    -moz-box-shadow: 0px 10px 12px 0px rgba(26, 23, 26, 0.02);
+    box-shadow: 0px 10px 12px 0px rgba(26, 23, 26, 0.02);
+    border: 1px dashed #fff;
+    right: 0px;
+    background: #005695;
+    left: 0px;
+    margin: auto;
+    visibility: hidden;
+    margin-top: -20px;
+}
+.united-tab-content-popup.united-tab-content .form-group {
+    margin-bottom: 15px !important;
+}
+.united-tab-content-popup.united-tab-content .col-sm-6:nth-child(odd){padding-right: 5px;}
+.united-tab-content-popup.united-tab-content .col-sm-6:nth-child(even){padding-left: 5px;}
+.united-tab-content-popup .form-control{
+	height:30px;
+    padding-left: 5px;
+    background: #fff;
+}
+.united-tab-content-popup .unitedInputImg {
+   /*  background: #00213d;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    padding: 5px 7px; */
+    padding: 0px 15px 0px 2px;
+}
+
+/* TODO change the cursor */
+/* Hide default checkboxes */
+.form-group-united-radio-popUp input[type=radio]{
+    display: inline-block;
+    position: absolute;
+    width: 23px;
+    opacity: 0;
+	
+    height: 30px;
+    width: 104px;
+    margin: 0px;
+	
+	
+}
+
+/* Style custom radio button shell */
+.form-group-united-radio-popUp input[type=radio] + label > span {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin: 3px 6px 3px 3px;
+  border: 1px solid #fff;
+  border-radius: 8px;
+  vertical-align: bottom;
+}
+
+/* If you want cursor change on hover */
+/* input[type=radio] + label > span:hover {
+  cursor: pointer;
+} */
+
+/* Style custom selected radio button bullet */
+.form-group-united-radio-popUp input[type=radio]:checked + label > span > span {
+    display: block;
+    width: 7px;
+    height: 7px;
+    margin: 3px;
+    border: 1px dashed #ffffff;
+    border-radius: 5px;
+    background: #ffffff;
+}
+.mywidth{width:100% !important;}
+.validate-input-group-me-popUp{
+	/* padding-left: 33px !important; */
+}
+.validate-input-group-adult-popUp{
+	/* padding-left: 35px !important; */
+}
+
+.united-tab-content-popup::before{
+    content: " ";
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #005695;
+    position: absolute;
+    top: -9px;
+    right: 15px;
+}
+.united-tab-content-popup:before{
+    content: " ";
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #005695;
+    position: absolute;
+    top: -8px;
+    right: 15px;
+}
+.form-group-united-radio-popUp label{
+    color: #fff;	
+}
+.united-tab-content-popup button{
+    /* background: #fff; */
+    /* color: #00213d !important; */
+    background: #ff6600;
+    color: #ffffff !important;
+    font-weight: 500;
+    border-color: #ff6600;
+}
+
+.united-tab-content-popup button:hover {
+    color: #333;
+    background-color: #ffffff;
+    border-color: #adadad;
+    color: #fd0004 !important;
+}
+
+
+/*datepicker PopUp*/
+
+
+.unitedGreatDeals{
+    position: fixed;
+    top: 35%;
+	right:0px;
+    cursor: pointer;
+    z-index: 999;
+    width: 26px;
+    background: white;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+	height:99px;
+    -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.03), 0 0 40px rgba(0, 0, 0, 0.02);
+    -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.03), 0 0 40px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.03), 0 0 40px rgba(0, 0, 0, 0.02);
+}
+.unitedGreatDeals img{
+    float: left;
+    position: absolute;
+    left: 0px;
+    top: -1px;
+    bottom: 0px;
+    height: 99px;
+}
+.unitedGreatDeals span{
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    text-align: center;
+    width: 250px;
+    float: left;	
+}
+.unitedGreatDeals span:nth-child(1){
+
+}
+.unitedGreatDeals span:nth-child(2){
+    font-size: 30px;
+    text-align: center;
+    width: 250px;
+    float: left;	
+    padding-top: 15px;
+}
+
+
+/*media Query*/
+.shadow-top-new {
+	
+}
+.shadow-top-new img{
+	
+}
+.shadow-top-new > div {
+    top: -35px; 
+}
+
+.myBrR {
+    border-right: 1px solid #28669a;
+}
+.myBrl {
+    border-left: 1px solid #28669a;
+}
+
+.toll-free-call-mobile {
+    background: #1a3851;
+    text-align: center;
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    padding: 10px 0px;
+    font-size: 15px;
+    bottom: -75px;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    z-index: 99;
+}
+.toll-free-call-mobile i {
+    position: absolute;
+    top: -16px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+    background: #ffffff;
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+    padding-top: 7px;
+    color: #fe9601;
+    border: 1px solid #fe9601;
+}
+
+
+@media only screen and ( min-width:300px) and ( max-width:479px){
+	
+.form-group.add-m-b-0-xs.no-margin {
+    margin-bottom: 0px !important;
+}
+
+.united-tab-content .form-group {
+    margin-bottom: 15px !important;
+}
+
+.unitedSearchFlightButton button {
+    background-color: #e4171a;
+    border-color: #c51a31;
+    font-size: 19px;
+    padding: 6px 10px;
+    font-weight: 400;
+}
+.br {
+    border-right: 0px solid #d0cccc;
+    border-left: 0px solid #d0cccc;
+}
+.b-r-1 {
+    border-right: 0px solid #d0cccc;
+}
+.head-h4 .col-xs-6{
+	width:100%;
+}
+.head-h4 .col-xs-6:nth-child(even) {
+    padding-left: 15px !important;
+}
+.form-horizontal .col-xs-6{
+	width:100%;
+}
+.form-horizontal .col-xs-12{
+	width:100%;	
+}
+
+.saying h2 {
+    font-size: 19px;
+}	
+.united-tab-content .form-group.m-b-0-xs{
+	margin-bottom:0px !important;
+}
+
+.add-m-b-0-xs{
+
+}
+.col-sm-4.unitedSearchFlightButton.p-r-0 {
+	padding-right:15px;
+}
+.each-section .list-group a{
+    font-size: 12px;	
+}
+.each-section .list-group a:nth-child(odd){
+    padding-right: 0px;	
+    padding-left: 0px;	
+}
+.each-section .list-group a:nth-child(even){
+	padding-right: 0px;	
+	padding-left: 0px;	
+}
+.each-section .col-xs-6:nth-child(odd){
+    padding-right: 0px;	
+}
+.each-section .col-xs-6:nth-child(even){
+    padding-left: 0px;	
+}
+.border-bottom .each-section {
+    margin-top: unset;
+}
+/*.bg-black-xs{
+	background:#000;
+}*/
+.bg-grey-1 {
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+.list-group-me {
+    margin-bottom: 0px;
+}
+.bg-grey-1 .col-sm-3 {
+    min-height: unset;
+}
+.head-h4 h4 {
+    color: #635f5ffa;
+    /* text-shadow: 1px 1px 0px #9999998a; */
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 10px;
+}
+
+
+/*canada Css*/	
+
+
+nav.navbar.navbar-fixed-top.no-fixed-top {
+    position: inherit;
+}
+	
+.unitedBannerImg .container{
+	
+}
+
+.unitedBannerImg{
+	background:#fff;
+    min-height: auto;
+}
+.navbar-brand{
+	width:100%;
+    height: auto;
+    padding: 2px 15px;
+    padding-bottom: 7px;
+}	
+.navbar-brand > img {
+    /* margin: auto; */
+    margin-top: 0px !important;
+    width: 100px;
+	float: left;
+}
+.navbar-brand > i {
+    float: right;
+    font-size: 18px;
+    margin: 0px;
+    line-height: unset;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    padding: 2px 5px 1px 5px;	
+}
+.unitedForMobile{
+    background: #fff;
+    float: left;
+    width: 100%;
+    line-height: 49px;
+    /* margin-bottom: -1px; */
+}
+
+.unitedForMobile .a{
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    left: -10px;
+    float: left;
+    width: 60%;
+    background-color: #00213d;
+    color: #ffffff;
+    -ms-transform: skewX(-20deg);
+    -webkit-transform: skewX(-20deg);
+    transform: skewX(-20deg);
+    opacity: .9;
+}
+.unitedForMobile .b{
+    float: left;
+    width: 40%;
+    text-align: center;
+}
+.unitedForMobile .b img{
+    width: 40px;
+    margin: auto;
+    height: 40px;
+    margin-top: -4px;
+}
+
+/*.navbar {
+    min-height: auto;
+    margin-bottom: 0px;
+    background: #1a3851;
+    padding: 5px 0px;
+    padding-bottom: 0px;
+
+}*/
+.u-m-t-100 {
+    margin-top: 0px;
+}
+.united-tab-content {
+    padding: 15px 5px;
+	padding-left: 5px;
+    padding-right: 5px;
+}
+.united-tab-content .form-group {
+    margin-bottom: 15px;
+}
+
+.united-tab-content .col-xs-6:nth-child(odd){
+    /* padding-right: 0px;	 */
+}
+.united-tab-content .col-xs-6:nth-child(even){
+    /* padding-left: 0px;	 */
+}
+
+.numberOfPassenger {
+    left: 0px;
+    width: 100%;
+}
+.m-t-10-xs {
+    margin-top: 15px;
+}
+
+.econemyGroup {
+    width: 90%;
+    right: 15px;
+    left: 15px;
+}
+
+
+/*fly to indus csss*/
+.unitedBannerImg {
+    padding-bottom: 0px;
+}
+.u-m-t-100 {
+    padding: 0px 0px;
+}
+.bg-black-xs {
+    background: #005695;
+}
+.united-tab-content {
+    width: 100%;
+    padding: 10px 5px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.form-group-united-radio label {
+    margin-bottom: 15px;
+}
+.myDivFull{
+	float:left;
+	width:50%;
+    padding-left: 5px;
+}
+.myHideDiv{
+	float:left;
+	width:50%;	
+    padding-right: 5px;
+}
+.half-xs{
+	/* float:left; */
+	/* width:50%;	 */
+    margin-bottom: 15px;
+}
+.navbar-brand > i {
+    margin-top: 5px;
+}
+.p-l-r-5-xs{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.p-l-5-xs{
+    padding-left: 5px;
+}
+.p-r-5-xs{
+    padding-right: 5px;
+}
+
+.econemyGroup {
+    width: 97%;
+    right: 5px;
+    left: 5px;
+}
+
+.united-tab-content .form-control{
+    height: 40px;	
+}
+.united-tab-content select{
+    height: 40px;	
+    padding: 6px 3px;	
+}
+.submitForm{
+    height: 40px;	
+    background-position: left -1px top 7px;	
+}
+.flyingFrom {
+    background-position: left 15px top 6px;
+}
+.flyingTo {
+    background-position: left 15px top 6px;
+}
+.calImg {
+    background-position: left 15px top 4px;
+}
+.validate-input-group-me {
+    background-position: left 10px top 4px;
+    padding-left: 40px !important;
+}
+.my-div-full-xs{
+    float: left;
+    width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;	
+}
+
+body{
+    background: #005695;	
+}
+.united-tab-content-popup{
+	width:300px !important;
+}
+/*fly to indus csss*/
+
+
+}	
+
+
+
+@media only screen and ( min-width:480px) and ( max-width:767px){
+	
+.myBrR {
+    border-right: 0px solid #203d5a;
+}
+.myBrl {
+    border-left: 0px solid #203d5a;
+}
+
+.b-r-1 {
+    border-right: 0px solid #d0cccc;
+}
+.br {
+    border-right: 0px solid #d0cccc;
+    border-left: 0px solid #d0cccc;
+}	
+
+nav.navbar.navbar-fixed-top.no-fixed-top {
+    position: inherit;
+}
+	
+.unitedBannerImg .container{
+	
+}
+
+.unitedBannerImg{
+	background:#fff;
+    min-height: auto;
+}
+.navbar-brand{
+	width:100%;
+    height: auto;
+    padding: 2px 15px;
+    padding-bottom: 7px;
+}	
+.navbar-brand > img {
+    /* margin: auto; */
+    margin-top: 0px !important;
+    width: 100px;
+	float: left;
+}
+.navbar-brand > i {
+    float: right;
+    font-size: 18px;
+    margin: 0px;
+    line-height: unset;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    padding: 2px 5px 1px 5px;	
+}
+.unitedForMobile{
+    background: #fff;
+    float: left;
+    width: 100%;
+    line-height: 49px;
+    /* margin-bottom: -1px; */
+}
+
+.unitedForMobile .a{
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    left: -10px;
+    float: left;
+    width: 60%;
+    background-color: #00213d;
+    color: #ffffff;
+    -ms-transform: skewX(-20deg);
+    -webkit-transform: skewX(-20deg);
+    transform: skewX(-20deg);
+    opacity: .9;
+}
+.unitedForMobile .b{
+    float: left;
+    width: 40%;
+    text-align: center;
+}
+.unitedForMobile .b img{
+    width: 40px;
+    margin: auto;
+    height: 40px;
+    margin-top: -4px;
+}
+
+.navbar {
+    min-height: auto;
+    margin-bottom: 0px;
+    background: #1a3851;
+    padding: 5px 0px;
+    padding-bottom: 0px;
+
+}
+.u-m-t-100 {
+    margin-top: 0px;
+}
+.united-tab-content {
+    padding: 15px 5px;
+	padding-left: 5px;
+    padding-right: 5px;
+}
+.united-tab-content .form-group {
+    margin-bottom: 15px;
+}
+
+.united-tab-content .col-xs-6:nth-child(odd){
+    padding-right: 5px;	
+}
+.united-tab-content .col-xs-6:nth-child(even){
+    padding-left: 5px;	
+}
+
+.numberOfPassenger {
+    /* left: 0px; */
+    /* width: 100%; */
+}
+.m-t-10-xs {
+    margin-top: 0px;
+}
+
+.econemyGroup {
+    /* width: 90%; */
+    /* right: 15px; */
+    /* left: 15px; */
+}
+	
+/*canada Css*/
+.saying h2 {
+    font-size: 24px;
+}	
+.m-b-0-xs{
+	margin-bottom:0px !important;
+}
+
+.add-m-b-0-xs{
+
+}
+.col-sm-4.unitedSearchFlightButton.p-r-0 {
+	padding-right:0px;
+}
+.each-section .list-group a{
+    font-size: 14px;	
+}
+.each-section .list-group a:nth-child(odd){
+    padding-right: 0px;	
+    padding-left: 0px;	
+}
+.each-section .list-group a:nth-child(even){
+	padding-right: 0px;	
+	padding-left: 0px;	
+}
+.each-section .col-xs-6:nth-child(odd){
+    padding-right: 0px;	
+}
+.each-section .col-xs-6:nth-child(even){
+    padding-left: 0px;	
+}
+.border-bottom .each-section {
+    margin-top: unset;
+}
+.bg-black-xs{
+	background:#000;
+}
+.bg-grey-1 {
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+.list-group-me {
+    margin-bottom: 0px;
+}
+.bg-grey-1 .col-sm-3 {
+    min-height: unset;
+}
+.head-h4 h4 {
+    color: #635f5ffa;
+    /* text-shadow: 1px 1px 0px #9999998a; */
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 10px;
+}
+/*canada Css*/	
+
+/*fly to indus csss*/
+.unitedBannerImg {
+    padding-bottom: 0px;
+}
+.u-m-t-100 {
+    padding: 0px 0px;
+}
+.bg-black-xs {
+    background: #005695;
+}
+.united-tab-content {
+    width: 100%;
+    padding: 10px 5px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.form-group-united-radio label {
+    margin-bottom: 15px;
+}
+.myDivFull{
+	float:left;
+	width:50%;
+    padding-left: 5px;
+}
+.myHideDiv{
+	float:left;
+	width:50%;	
+    padding-right: 5px;
+}
+.half-xs{
+	/* float:left; */
+	/* width:50%;	 */
+    margin-bottom: 15px;
+}
+.navbar-brand > i {
+    margin-top: 5px;
+}
+.p-l-r-5-xs{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.p-l-5-xs{
+    padding-left: 5px;
+}
+.p-r-5-xs{
+    padding-right: 5px;
+}
+
+.econemyGroup {
+    width: 94%;
+    right: 5px;
+    left: 5px;
+}
+
+.united-tab-content .form-control{
+    height: 40px;	
+}
+.united-tab-content select{
+    height: 40px;	
+    padding: 6px 3px;	
+}
+.submitForm{
+    height: 40px;	
+    background-position: left -1px top 7px;	
+}
+.flyingFrom {
+    background-position: left 15px top 6px;
+}
+.flyingTo {
+    background-position: left 15px top 6px;
+}
+.calImg {
+    background-position: left 15px top 4px;
+}
+.validate-input-group-me {
+    background-position: left 10px top 4px;
+    padding-left: 40px !important;
+}
+.my-div-full-xs{
+    float: left;
+    width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;	
+}
+
+body{
+    background: #005695;	
+}
+.united-tab-content-popup{
+	width:300px !important;
+}
+/*fly to indus csss*/
+
+}	
+
+/*@media only screen and ( min-width:300px) and ( max-width:320px){
+.united-tab-content .form-group {
+    margin-bottom: 25px;
+}	
+}*/
+
+.Mobile-Nav { 
+    display: none; 
+    background-color: #ffffff;
+
+}
+
+.Mobile-Nav1 { 
+    display: none;
+    background-color: #005695;
+    text-align: center;
+
+}
+
+@media only screen and ( max-width:768px)  {
+     
+    .Mobile-Nav { 
+        display: block; 
+        width: 100%;
+        padding: 5px 15px;
+    } 
+
+ .Mobile-Nav span > img {
+    width: 45%;
+ } 
+
+ .mob-img { 
+    width: 10% !important;
+    float: right;
+  }  
+
+  .Mobile-Nav1 { 
+        display: block; 
+        width: 100%;
+        padding: 2px 5px;
+        position: sticky;
+        bottom:0px;
+    }
+
+.Mobile-Nav1 p{
+    font-size: 24px;
+    font-weight: 500;
+    color: #ffffff;
+    margin: 0px 0px;
+}
+
+.Mobile-Nav1 ul {
+    display: inline-flex;
+    list-style: none;
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 10px 0px;
+    padding: 0px 0px;
+    width: 100%;
+
+}
+
+.Mobile-Nav1 ul > li > span > h3{
+    display: inline-flex;
+    list-style: none;
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0px 0px;
+
+}
+
+   
+
+
+    .u-m-t-100 { background-image: none; }
+    .submitForm { margin: 10px 0px; }
+    .united-tab-content {
+        width: 100%;
+        padding: 30px 0px;
+        background-color: white;
+    }
+
+    .bg-black-xs {
+    background-color: #ffffff;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+    margin: 10px 0px;
+    }
+/*
+    .u-m-t-100 {
+     text-align: center;
+    }*/
+
+    .row {
+    background-color: #ffffff;
+    width: 100%;
+    margin: 8px auto;
+    padding: 0px 0px;
+
+    }
+    
+    .united-tab-content .form-control {
+            height: 45px;
+    }
+}
+
+
+
+
+
+
+@media only screen and ( min-width:768px) and ( max-width:991px){
+	
+/*Canada Css*/
+
+
+
+
+
+
+
+
+.submitForm { margin: 0px 0px; }
+
+.unitedBgColor { border: 5px solid #e6e6e6; }
+.Mobile-Nav1 { 
+        display: none; 
+    } 
+
+.Mobile-Nav { 
+        display: none; 
+    } 
+
+.Uthree b { font-size: 14px; }
+
+.form-group-united-radio label {
+
+        margin-top: 25px;
+}
+
+.econemyGroup{
+	width: 91%;	
+}
+.united-tab-content-popup{
+	width:300px !important;
+}
+.carousel-control {
+	left: -18px;
+}
+.carousel-control.right {
+	right: 12px;
+}
+.bookAircanada .unitedBestPrice{
+	padding:15px 10px;
+}
+.united-navbar-right-img{
+	display:none !important;
+}
+.navbar-brand > img{
+	margin-top: -11px !important;
+    width: 90%;
+}
+.united-navbar-right{
+	margin-top:5px;
+    margin-right: 0px;
+}
+.bookAircanada .unitedBestPrice {
+    width: 100%;
+}
+.bookAircanada .unitedBestPrice span:nth-child(2) {
+    font-size: 26px;
+}
+.bookAircanada .unitedBestPriceSpan span:nth-child(1){font-size: 16px;}
+.bookAircanada .unitedBestPriceSpan span:nth-child(2){font-size: 16px;}
+
+.airCanadaAiroplan {
+    width: 100%;
+    padding-top: 0px;
+}
+.unitedBookDeals h2 {
+    font-size: 24px !important;
+}
+.unitedBookDeals h1 {
+    font-size: 26px !important;
+}
+.unitedBannerImg {
+    min-height: 505px;
+}
+.shadow-top-new > div {
+    top: -20px !important;
+}
+.shadow-bottom-new > div {
+    bottom: -21px !important;
+}
+.Uleft > div {
+    font-size: 10px;
+}
+.URight > div {
+    font-size: 10px;
+}
+.nextUnitedUniversel .Uthree {
+    min-height: 65px;
+}
+.internationalFlightDeals{
+	width:100%;
+    margin-bottom: 25px;
+}
+.topDestination div:nth-child(1) {
+    float: left;
+    width: 100%;
+}
+.topDestination div:nth-child(2) {
+    float: left;
+    width: 100%;
+}
+.lastThreeDiv div:nth-child(1) {
+    float: left;
+    width: 40%;
+    text-align: left;
+}
+.lastThreeDiv div:nth-child(2) {
+    float: left;
+    width: 20%;
+}
+.lastThreeDiv div:nth-child(3) {
+    float: left;
+    width: 40%;
+    text-align: right;
+}
+.border-bottom .no-list-group {
+    border-right: 1px solid #ccc;
+}
+.border-bottom .each-section-color .no-list-group {
+    border-right: 1px solid #005695;
+}
+.Uthree p {
+    font-size: 12px;
+}
+.lookingToGo {
+    padding: 0px 0px;
+    padding-bottom: 15px;
+}
+.lookingToGo h2 {
+    font-size: 24px;
+    margin-top: 10px;
+}
+.lookingToGo p:nth-child(even) {
+    font-size: 18px;
+}
+.lookingToGo ul {
+    list-style: none;
+}
+.tab-content-padding {
+    padding: 15px 15px 15px 15px;
+}
+.list-group-item {
+    padding: 5px 0px;
+}
+.head-h4 h4 {
+    font-size: 24px;
+}
+/*Canada Css*/
+
+.united-navbar-right > li > a {
+    font-size: 14px;
+    padding: 10px 15px;
+}
+.unitedQueryForm .nav-tabs > li >a {
+    padding: 10px 15px;
+    font-size: 14px;
+}
+.u-m-t-100 {
+    padding: 0px 0px;
+}
+.unitedBookDeals {
+    width: 100%;
+    padding-top: 12px;
+}
+.unitedBookDeals h1 {
+    font-size: 56px;
+}
+.unitedBookDeals h2 {
+    font-size: 61px;
+}
+.arangestar{
+	margin-top:15px;
+}
+.united-tab-content {
+    padding: 0px 0px;
+    width: 100%;
+    background-color: #ffffff;
+}
+.unitedBestPrice div:nth-child(3) {
+    font-size: 44px;
+}
+.united-tab-content .form-group {
+    margin-bottom: 15px !important;
+}
+.usa2India div:nth-child(1) {
+    font-size: 32px;
+}
+.usa2India div:nth-child(3){
+    font-size: 32px;	
+}
+.united-tab-content .col-sm-6:nth-child(odd){
+    padding-right: 5px;
+}
+.united-tab-content .col-sm-6:nth-child(even){
+    padding-left: 5px;
+}
+.unitedBestPrice span {
+	font-size:14px;
+}
+.unitedBestPrice img {
+    width: 100%;
+}
+.unitedBestPrice span:nth-child(2) {
+    margin-top: 0px;
+}
+.unitedBannerImgNew h2 {
+    font-size: 32px;
+}
+.unitedBannerImgNew p {
+    font-size: 12px;
+}
+.unitedCallUsAt span:nth-child(1) {
+    width: 15%;
+}
+.unitedCallUsAt span:nth-child(2) {
+    width: 85%;
+    padding-top: 0px;
+}
+#exTab1 .nav-pills > li > a {
+    padding: 5px 15px;
+    font-size: 12px;
+    margin-right: 10px;
+}
+#exTab1 {
+    /* margin-bottom: 25px; */
+}
+.unitedLeftborder img {
+    height: 180px;
+}
+#exTab1 .tab-content {
+	min-height: 180px;
+    overflow: hidden;
+    height: 180px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 10px 10px;
+}
+.unitedLeftborder {
+    top: 52px;
+    right: -38px;
+}
+.UnitedAir {
+    width: 100%;
+    height: 250px;
+    padding-right: 10px;
+}
+.UnitedAirHeading {
+    font-size: 30px;
+    text-align: right;
+    line-height: 23px;
+}
+.UnitedAirText {
+    font-size: 24px;
+    text-align: right;
+    margin-left: 0px;
+}
+.UnitedAirHeadingA {
+    font-size: 24px;
+    text-align: right;
+}
+.UnitedAirTextA {
+    font-size: 16px;
+    text-align: right;
+}
+.Uone img {
+    width: 65px;
+    height: 65px;
+}
+.shadow-top > div {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: -16px;
+    z-index: -1;
+}
+.unitedFooter p {
+    font-size: 16px;
+}
+.carousel-indicators{
+	display:none;
+}
+#carousel-reviews .block-text p {
+    line-height: 27px;
+    font-size: 21px;
+}
+
+}
+
+
+	
+@media only screen and ( min-width:992px) and ( max-width:1024px){
+/*Canada Css*/
+
+.navbar-fixed-top, .navbar-fixed-bottom {
+    position: absolute;
+}
+
+.form-group-united-radio label { margin-top: 25px; }
+
+.unitedBestPriceSpan{
+	padding-left: 15px !important;	
+}
+.carousel-indicators{
+	display:none;
+}
+.my-div-full-sm {
+    padding-right: 15px !important;
+}
+.callNowIndus div:nth-child(2) b {
+    font-size: 26px;
+    line-height: 33px;
+}
+
+.whyBook li {
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.callNowIndus div:nth-child(2) p {
+    font-size: 22px;
+}
+.Uthree b {
+    font-size: 14px;
+}
+.destinationPrice {
+    font-size: 12px;
+}
+.usa2India {
+    margin-bottom: 27px;
+}
+.u-m-t-100 {
+    padding: 0px 0px;
+}
+.united-navbar-right-img li:nth-child(2) {
+    font-size: 15px;
+    font-weight: bold;
+	margin-top: 5px;
+}
+
+.bookAircanada .unitedBestPrice{
+	padding:15px 10px;
+}
+.united-navbar-right-img{
+
+}
+.navbar-brand > img{
+	margin-top: -15px !important;
+    width: 90%;
+}
+.united-navbar-right{
+	/* margin-top:5px; */
+}
+.united-navbar-right > li{
+    margin-top: 5px;	
+}
+.united-navbar-right-img{
+    margin-top: 0px !important;		
+}
+.bookAircanada .unitedBestPrice {
+    /* width: 75%; */
+}
+.bookAircanada .unitedBestPrice span:nth-child(2) {
+    font-size: 26px;
+}
+.bookAircanada .unitedBestPriceSpan span:nth-child(1){font-size: 16px;}
+.bookAircanada .unitedBestPriceSpan span:nth-child(2){font-size: 16px;}
+
+.airCanadaAiroplan {
+    width: 75%;
+    padding-top: 0px;
+}
+.unitedBookDeals h2 {
+    font-size: 22px !important;
+}
+.unitedBookDeals h1 {
+    font-size: 26px !important;
+}
+.unitedBannerImg {
+    /* min-height: 550px; */
+}
+.shadow-top-new > div {
+    top: -25px !important;
+}
+.shadow-bottom-new > div {
+    bottom: -15px !important;
+}
+
+.shadow-bottom-new-indus > div{
+    bottom: 18px !important;	
+}
+
+.Uleft > div {
+    /* font-size: 10px; */
+}
+.URight > div {
+    /* font-size: 10px; */
+}
+.nextUnitedUniversel .Uthree {
+    min-height: 65px;
+}
+.Uthree p {
+    font-size: 12px;
+}
+.lookingToGo {
+    padding: 0px 0px;
+    padding-bottom: 15px;
+}
+.lookingToGo h2 {
+    font-size: 24px;
+    margin-top: 10px;
+}
+.lookingToGo p:nth-child(even) {
+    font-size: 18px;
+}
+.lookingToGo ul {
+    list-style: none;
+}
+.tab-content-padding {
+    padding: 15px 15px 15px 15px;
+}
+.list-group-item {
+    /* padding: 5px 0px; */
+}
+.head-h4 h4 {
+    font-size: 24px;
+}
+.carousel-control {
+	left: -18px;
+}
+.carousel-control.right {
+	right: 12px;
+}
+#carousel .carousel-col {
+    width: 33.33%;
+}
+.social-icon li {
+    padding-right: 3px;
+    padding-left: 4px;
+}
+/*Canada Css*/
+.united-navbar-right > li > a {
+    font-size: 12px;
+    padding: 10px 8px;
+}
+.unitedQueryForm .nav-tabs > li >a {
+    padding: 10px 15px;
+    font-size: 14px;
+}
+.unitedBookDeals {
+    width: 100%;
+    padding-top: 12px;
+}
+.unitedBookDeals h1 {
+    font-size: 56px;
+}
+.unitedBookDeals h2 {
+    font-size: 61px;
+	text-align: left;
+    margin-left: 0px;
+}
+.arangestar{
+	margin-top:0px;
+}
+.united-tab-content {
+    padding: 0px 15px;
+    background-color: #ffffff;
+}
+.united-tab-content .col-sm-6:nth-child(odd){
+    padding-right: 5px;
+}
+.united-tab-content .col-sm-6:nth-child(even){
+    padding-left: 5px;
+}
+.unitedBestPrice span {
+	font-size:16px;
+padding-left: 5px;
+}
+.unitedBestPrice img {
+    width: 100%;
+}
+.unitedBestPrice span:nth-child(2) {
+    margin-top: 5px;
+}
+.unitedBannerImgNew h2 {
+    font-size: 32px;
+}
+.unitedBannerImgNew p {
+    font-size: 12px;
+}
+.unitedCallUsAt span:nth-child(1) {
+    width: 10%;
+}
+.unitedCallUsAt span:nth-child(2) {
+    width: 90%;
+    /* padding-top: 0px; */
+    font-size: 24px;
+}
+#exTab1 .nav-pills > li > a {
+    padding: 5px 15px;
+    font-size: 12px;
+    margin-right: 10px;
+}
+#exTab1 {
+    /* margin-bottom: 25px; */
+}
+.unitedLeftborder img {
+    height: 280px;
+}
+#exTab1 .tab-content {
+	min-height: 180px;
+    overflow: hidden;
+    height: 280px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 10px 10px;
+}
+.unitedLeftborder {
+    top: 52px;
+    right: -58px;
+}
+.UnitedAir {
+    width: 100%;
+    height: 250px;
+    padding-right: 10px;
+}
+.UnitedAirHeading {
+    font-size: 30px;
+    text-align: right;
+    line-height: 23px;
+}
+.UnitedAirText {
+    font-size: 24px;
+    text-align: right;
+    margin-left: 0px;
+}
+.UnitedAirHeadingA {
+    font-size: 24px;
+    text-align: right;
+}
+.UnitedAirTextA {
+    font-size: 16px;
+    text-align: right;
+}
+.Uone img {
+    width: 55px;
+    height: 65px;
+}
+.shadow-top > div {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: -16px;
+    z-index: -1;
+}
+.unitedFooter p {
+    font-size: 16px;
+}
+
+/*fly to indus css*/	
+
+/*fly to indus css*/
+
+	
+}
+
+
+/*media Query*/

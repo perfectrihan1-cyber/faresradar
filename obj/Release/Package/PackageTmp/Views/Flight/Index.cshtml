@@ -1,0 +1,513 @@
+﻿@using Viman.Models
+@{
+    ViewBag.Title = "Flight Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.WebsiteURL = Common.WebsiteURL;
+    ViewBag.StaticURL = Common.StaticURL;
+}
+
+<link type="text/css" rel="stylesheet" href="@(ViewBag.StaticURL + "Content/css/owl.carousel.min.css")" />
+<link type="text/css" rel="stylesheet" href="@(ViewBag.StaticURL + "Content/css/owl.theme.default.min.css")" />
+
+<div class="background_top"></div>
+<div class="back_img_main">
+    <div class="ind_sear_outbox">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="ind_srch_head">
+                        <h3>Book Domestic and International Flights</h3>
+                    </div>
+                    <div class="ind_main_searbox">
+                        <form method="post" name="flight_frm" id="flight_frm">
+                            <div class="rtrn_oneway">
+                                <label for="flight_way_1" class="flight_way_chk @((ViewBag.flightWay != "OneWay") ? "active" : "")">
+                                    Roundtrip
+                                    <input type="radio" @((ViewBag.flightWay == "RoundTrip" || ViewBag.flightWay == "") ? "checked" : "") name="flight_way" id="flight_way_1" value="2" style="visibility:hidden; position:absolute;" />
+                                </label>
+                                <label for="flight_way_2" class="flight_way_chk @((ViewBag.flightWay == "OneWay") ? "active" : "")">
+                                    Oneway
+                                    <input type="radio" @((ViewBag.flightWay == "OneWay") ? "checked" : "") name="flight_way" id="flight_way_2" value="1" style="visibility:hidden; position:absolute;" />
+                                </label>
+                            </div>
+                            <div>
+                                <div class="ind_srch_subBox">
+                                    <i class="fa fa-map-marker"></i>
+                                    <input type="text" placeholder="Departure City" class="ind_inputBox" name="flight_from" id="flight_from" value="@(ViewBag.fromName)" />
+                                </div>
+                                <div class="ind_srch_subBox">
+                                    <i class="fa fa-map-marker"></i>
+                                    <input type="text" placeholder="Destination City" class="ind_inputBox" name="flight_to" id="flight_to" value="@(ViewBag.toName)" />
+                                </div>
+                                <div class="ind_srch_subBox">
+                                    <i class="fa fa-calendar"></i>
+                                    <input type="text" value="@((ViewBag.depDate!="")?ViewBag.depDate:DateTime.Now.AddDays(1).ToString("dd-MM-yyyy"))" placeholder="Departure Date" class="ind_inputBox" name="flight_from_date" id="flight_from_date" readonly />
+                                </div>
+                                <div class="ind_srch_subBox">
+                                    <div class="oneway_return_date" style="display:@((ViewBag.flightWay == "OneWay") ? "none" : "block")">
+                                        <i class="fa fa-calendar"></i>
+                                        <input type="text" value="@((ViewBag.retDate!="")?ViewBag.retDate:DateTime.Now.AddDays(8).ToString("dd-MM-yyyy"))" placeholder="Return Date" class="ind_inputBox" name="flight_to_date" id="flight_to_date" readonly />
+                                    </div><div class="ind_inputBox_date" style="display:@((ViewBag.flightWay == "OneWay") ? "block" : "none")">&nbsp;</div>
+                                </div>
+                                <div class="ind_srch_subBox prp_popup">
+                                    <div class="prsn_popup" id="prsn_add">
+                                        <i class="fa fa-angle-down"></i>
+                                        <input type="text" readonly name="pass_info" id="pass_info" placeholder="1 Pax, Economy" class="ind_inputBox" />
+                                    </div>
+                                    <div class="person_dropdown" id="prsn_popup">
+                                        <ul class="slect_pssngr">
+                                            <li>
+                                                <label>Adult &nbsp;<span>(12+ Years)</span></label>
+                                                <div class="count_pssngr">
+                                                    <a href="javascript:void(0);"><em data-field="adult" data-opt="-" class="fa fa-minus inc_der"></em></a>
+                                                    <input type="text" readonly value="1" name="flight_adult" id="flight_adult" class="inpt_cout_pssngr" />
+                                                    <a href="javascript:void(0);"><em data-field="adult" data-opt="+" class="fa fa-plus inc_der"></em></a>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <label>Children &nbsp;<span>(2-11 Years)</span></label>
+                                                <div class="count_pssngr">
+                                                    <a href="javascript:void(0);"><em data-field="child" data-opt="-" class="fa fa-minus inc_der"></em></a>
+                                                    <input type="text" readonly value="0" name="flight_child" id="flight_child" class="inpt_cout_pssngr" />
+                                                    <a href="javascript:void(0);"><em data-field="child" data-opt="+" class="fa fa-plus inc_der"></em></a>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <label>Infant &nbsp;<span>(0-2 Years)</span></label>
+                                                <div class="count_pssngr">
+                                                    <a href="javascript:void(0);"><em data-field="infant" data-opt="-" class="fa fa-minus inc_der"></em></a>
+                                                    <input type="text" readonly value="0" name="flight_infant" id="flight_infant" class="inpt_cout_pssngr" />
+                                                    <a href="javascript:void(0);"><em data-field="infant" data-opt="+" class="fa fa-plus inc_der"></em></a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="combin_class">
+                                            <ul class="in_list_cls">
+                                                <li><input type="radio" name="flight_class" id="flight_class_4" value="4" checked /> <label for="flight_class_4">Economy</label></li>
+                                                <li><input type="radio" name="flight_class" id="flight_class_3" value="3" /> <label for="flight_class_3">Premimum Economy</label></li>
+                                                <li><input type="radio" name="flight_class" id="flight_class_2" value="2" /> <label for="flight_class_2">Business</label></li>
+                                                <li><input type="radio" name="flight_class" id="flight_class_1" value="1" /> <label for="flight_class_1">First</label></li>
+                                            </ul>
+                                        </div>
+                                        <div class="clss_done" id="ind_done">
+                                            <a href="javascript:void(0);" id="prsn_done">Done</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="button" class="ind_sbm_btn" name="flight_submit" id="flight_submit" value="Search Flights" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="gap">&nbsp;</div>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="FliIndHd">
+                    <h2>POPULAR HOLIDAYS</h2>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="IndPopDes">
+                    <figure>
+                        <img src="@(ViewBag.StaticURL + "Content/images/holiday1.jpg")" />
+                    </figure>
+                    <div class="text">
+                        <p>3Days, 4 NIghts Start From $40</p>
+                        <h6>Paris City Tour</h6>
+                        <a href="#">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="IndPopDes">
+                    <figure>
+                        <img src="@(ViewBag.StaticURL + "Content/images/holiday1.jpg")" />
+                    </figure>
+                    <div class="text">
+                        <p>3Days, 4 NIghts Start From $40</p>
+                        <h6>Paris City Tour</h6>
+                        <a href="#">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="IndPopDes">
+                    <figure>
+                        <img src="@(ViewBag.StaticURL + "Content/images/holiday1.jpg")" />
+                    </figure>
+                    <div class="text">
+                        <p>3Days, 4 NIghts Start From $40</p>
+                        <h6>Paris City Tour</h6>
+                        <a href="#">Read More</a>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</section>
+
+
+
+<div class="gap">
+    &nbsp;
+</div>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="FliIndHd">
+                    <h2>BEST TRAVEL TIPS</h2>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="IndTraTip">
+                    <figure>
+                        <img src="@(ViewBag.StaticURL + "Content/images/trip1.jpg")" />
+                    </figure>
+                    <h4>
+                        Enquire about the price BEFORE You Take Public Transportation
+                    </h4>
+                    <p>
+                        Lorem ipsum dolor sit, ctetueradng elit. Aenean commodo ligulammodo ligla eget dolet dolor. Aenea
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="IndTraTip">
+                    <figure>
+                        <img src="@(ViewBag.StaticURL + "Content/images/trip1.jpg")" />
+                    </figure>
+                    <h4>
+                        Enquire about the price BEFORE You Take Public Transportation
+                    </h4>
+                    <p>
+                        Lorem ipsum dolor sit, ctetueradng elit. Aenean commodo ligulammodo ligla eget dolet dolor. Aenea
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="IndTraTip">
+                    <figure>
+                        <img src="@(ViewBag.StaticURL + "Content/images/trip1.jpg")" />
+                    </figure>
+                    <h4>
+                        Enquire about the price BEFORE You Take Public Transportation
+                    </h4>
+                    <p>
+                        Lorem ipsum dolor sit, ctetueradng elit. Aenean commodo ligulammodo ligla eget dolet dolor. Aenea
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<div class="gap">
+    &nbsp;
+</div>
+
+@section scripts{
+    <script type="text/javascript" src="@(ViewBag.StaticURL + "Content/js/owl.carousel.min.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#flight_submit").click(function () {
+                if ($("#flight_from").val().trim(' ') == "") {
+                    alert("Please enter your departure airport");
+                    $("#flight_from").focus();
+                    return false;
+                }
+                else if ($("#flight_from").val().trim(' ').indexOf('-') != 3) {
+                    alert("Kindly select departure airport from auto suggest list!");
+                    $("#flight_from").focus();
+                    return false;
+                }
+                else if ($("#flight_to").val().trim(' ') == "") {
+                    alert("Please enter your departure airport");
+                    $("#flight_to").focus();
+                    return false;
+                }
+                else if ($("#flight_to").val().trim(' ').indexOf('-') != 3) {
+                    alert("Kindly select departure airport from auto suggest list!");
+                    $("#flight_to").focus();
+                    return false;
+                }
+                else if ($("#flight_to").val().trim(' ') == $("#flight_from").val().trim(' ')) {
+                    alert("Departure Airport and Destination Airport can't be same!!");
+                    $("#flight_to").focus();
+                    return false;
+                }
+                else {
+
+                    var fway = $('input[name=flight_way]:checked').val();
+                    var fcls = $('input[name=flight_class]:checked').val();
+                    var from = "&From=" + $("#flight_from").val().split("-")[0];
+                    var to = "&To=" + $("#flight_to").val().split("-")[0];
+                    var fromDate = "&DepDate=" + $("#flight_from_date").val().split("-")[2] + "-" + $("#flight_from_date").val().split("-")[1] + "-" + $("#flight_from_date").val().split("-")[0];
+                    var toDate = "&RetDate=";
+
+                    if (fway == "2") {
+                        toDate = "&RetDate=" + $("#flight_to_date").val().split("-")[2] + "-" + $("#flight_to_date").val().split("-")[1] + "-" + $("#flight_to_date").val().split("-")[0];
+                    }
+                    var adult = "&Adult=" + $("#flight_adult").val();
+                    var child = "&Child=" + $("#flight_child").val();
+                    var infant = "&Infant=" + $("#flight_infant").val();
+                    var airline = "&Airline=" + "";
+                    var isdirect = "&IsDirect=" + (($("input[name=is_direct]:checked").val() == "1") ? "true" : "false");
+                    var isflexi = "&IsFlexi=" + (($("input[name=flight_flexi]:checked").val() == "1") ? "true" : "false");
+                    fway_s = "&FlightWay=" + fway;
+                    fcls_s = "&FlightClass=" + fcls;
+
+                    var str = "@(ViewBag.WebsiteURL + "flight/search?")SiteCode=VIMAN&SourceMedia=VIMAN" + from + to + fromDate + toDate + adult + child + infant + fway_s + fcls_s + airline + isdirect + isflexi + "&Currency=GBP";
+                    //alert(str);
+
+                    $("#search_popup").show();
+                    window.location = str;
+
+                }
+            });
+
+            var selectFrom = false;
+            var selectTo = false;
+
+            $('#flight_from').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/api/getairport",
+                        dataType: "json",
+                        data: {
+                            pickUpLocation: request.term
+                        },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    value: item.Code,
+                                    label: (item.Code + "-" + item.Name + ", " + item.CityName)
+                                }
+                            }));
+                        }
+                    })
+                },
+                open: function (event, ui) { selectFrom = true; },
+                select: function (event, ui) {
+                    $(this).val(ui.item.label);
+                    selectFrom = false;
+                    return false;
+                },
+                close: function (event, ui) {
+                    selectFrom = false;
+                },
+                minLength: 3,
+                autoFocus: true
+            }).blur(function () {
+                if (selectFrom) {
+                    $("#flight_from").val($('ul.ui-autocomplete li:first a').text());
+                }
+            }).focus(function () {
+                $(this).autocomplete("search");
+            });
+
+            $("#flight_to").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/api/getairport",
+                        dataType: "json",
+                        data: {
+                            pickUpLocation: request.term
+                        },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    value: item.Code,
+                                    label: (item.Code + "-" + item.Name + ", " + item.CityName)
+                                }
+                            }));
+                        }
+                    })
+                },
+                open: function (event, ui) {
+                    selectTo = true;
+                },
+                select: function (event, ui) {
+                    $(this).val(ui.item.label);
+                    selectTo = false;
+                    return false;
+                },
+                close: function (event, ui) {
+                    selectTo = false;
+                },
+                minLength: 3,
+                autoFocus: true
+            }).blur(function () {
+                if (selectTo) {
+                    $("#flight_to").val($('ul.ui-autocomplete li:first a').text());
+                }
+            }).focus(function () {
+                $(this).autocomplete("search");
+            });
+
+            $("label.flight_way_chk").click(function () {
+                var fway = $('input[name=flight_way]:checked').val();
+                $(".flight_way_chk").removeClass("active");
+                $(this).addClass("active");
+                if (fway == "1") {
+                    $(".oneway_return_date").hide();
+                    $(".ind_inputBox_date").show();
+                }
+                else {
+                    $(".oneway_return_date").show();
+                    $(".ind_inputBox_date").hide();
+                }
+            });
+
+            $(".inc_der").click(function () {
+                var fld = $(this).attr("data-field");
+                var fld_opt = $(this).attr("data-opt");
+                var adt = parseInt($("#flight_adult").val());
+                var chd = parseInt($("#flight_child").val());
+                var inf = parseInt($("#flight_infant").val());
+
+                if (fld == "adult") {
+                    if (fld_opt == "+") {
+                        if ((adt + chd) < 9) {
+                            $("#flight_adult").val(adt + 1);
+                        }
+                    }
+                    else if (fld_opt == "-") {
+                        if (adt > 1) {
+                            $("#flight_adult").val(adt - 1);
+                        }
+                    }
+                }
+                else if (fld == "child") {
+                    if (fld_opt == "+") {
+                        if ((adt + chd) < 9) {
+                            $("#flight_child").val(chd + 1);
+                        }
+                    }
+                    else if (fld_opt == "-") {
+                        if (chd > 0) {
+                            $("#flight_child").val(chd - 1);
+                        }
+                    }
+                }
+                else if (fld == "infant") {
+                    if (fld_opt == "+") {
+                        if (adt > inf) {
+                            $("#flight_infant").val(inf + 1);
+                        }
+                    }
+                    else if (fld_opt == "-") {
+                        if (inf > 0) {
+                            $("#flight_infant").val(inf - 1);
+                        }
+                    }
+                }
+
+                getPassenger();
+            });
+
+            $("input[name=flight_class]").change(function () {
+                getPassenger();
+            });
+
+            $("#flight_from_date").datepicker({
+                format: 'dd-mm-yyyy',
+                startDate: '@DateTime.Now.ToString("dd-MM-yyyy")',
+                autoHide: true
+            }).on('pick.datepicker', function (e) {
+                var currdate = getStr(e.date.getDate()) + "-" + getStr((e.date.getMonth() + 1)) + "-" + e.date.getFullYear();
+                $("#flight_to_date").val(currdate);
+                $("#flight_to_date").datepicker('setDate', e.date);
+                $("#flight_to_date").datepicker('setStartDate', e.date);
+                $("#flight_to_date").focus();
+            });
+
+            $("#flight_to_date").datepicker({
+                format: 'dd-mm-yyyy',
+                startDate: '@DateTime.Now.AddDays(7).ToString("dd-MM-yyyy")',
+                autoHide: true
+            });
+
+            $("#prsn_add").click(function () {
+                $("#prsn_popup").slideDown("slow");
+            });
+            $("#prsn_done").click(function () {
+                $("#prsn_popup").slideUp("slow");
+            });
+            $('body').click(function () {
+                $("#prsn_popup").slideUp("slow");
+            });
+            $('.prp_popup').click(function (e) {
+                e.stopPropagation();
+            });
+
+            // owl caraousel
+            $('.owl-carousel').owlCarousel({
+                loop: false,
+                margin: 15,
+                nav: true,
+                navText: ['<i class="fa fa-angle-left">', '<i class="fa fa-angle-right">'],
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    456: {
+                        items: 2
+                    },
+                    600: {
+                        items: 2
+                    },
+                    1000: {
+                        items: 3
+                    }
+                }
+            });
+
+
+            function getPassenger() {
+                var str = (parseInt($("#flight_adult").val()) + parseInt($("#flight_child").val()) + parseInt($("#flight_infant").val())) + " Pax";
+                var chk_cls = $('input[name=flight_class]:checked').val();
+
+                if (chk_cls == "1") {
+                    str += ", First";
+                }
+                else if (chk_cls == "2") {
+                    str += ", Business";
+                }
+                else if (chk_cls == "3") {
+                    str += ", Premimum Economy";
+                }
+                else {
+                    str += ", Economy";
+                }
+
+                $("#pass_info").val(str);
+            }
+
+            function addNightToDate(fromD, toD, noD) {
+                var s_date_arr = $('#' + fromD).val().split("-");
+                var dat = new Date(s_date_arr[2] + "-" + s_date_arr[1] + "-" + s_date_arr[0]);
+                dat.addDays(noD);
+
+                var c_day = (dat.getDate().toString().length == 1) ? "0" + dat.getDate() : dat.getDate();
+                var c_month = ((dat.getMonth() + 1).toString().length == 1) ? "0" + (dat.getMonth() + 1) : (dat.getMonth() + 1);
+                $('#' + toD).val(c_day + "-" + c_month + "-" + dat.getFullYear());
+            }
+
+        });
+    </script>
+}

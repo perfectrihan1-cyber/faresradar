@@ -1,0 +1,1092 @@
+﻿@using Viman.Models
+@{
+    ViewBag.PageName = "home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.WebsiteURL = Common.WebsiteURL;
+    ViewBag.StaticURL = Common.StaticURL;
+}
+
+
+
+<div class="container-fluid">
+    <div class="formBannerSec">
+        <!--search-->
+        <link href="@(ViewBag.StaticURL + "Content/searchAirport.css")" rel="stylesheet" />
+
+        <script src="@(ViewBag.StaticURL + "scripts/lodash.min.js")"></script>
+        <script src="@(ViewBag.StaticURL + "scripts/fuse.min.js")"></script>
+        <script src="@(ViewBag.StaticURL + "scripts/airports.js")"></script>
+
+        <div class="container">
+            <div class="search-engine">
+                <form method="post" name="flight_frm" id="flight_frm">
+                    @*name="searchForm">*@
+                    <div class="tripType">
+                        <label class="radio-main">
+                            Round Trip
+                            <input type="radio" name="flight_way" id="rdoRoundtrip" class="radio" checked value="2">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="radio-main">
+                            One Way
+                            <input type="radio" name="flight_way" id="rdoOneway" class="radio" value="1">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="row-1" id="serachLocation">
+                        <div class="detail-fill">
+                            <label>Flying From</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-plane"></i></span>
+                                @*<input autocomplete="off" class="form-control autocomplete_from autocomplete_from_new" type="text" placeholder="Flying From" id="from_auto" name="Search.Origin" ng-model="Search.Origin" ng-required="true" required>*@
+                                <input type="text" class="form-control autocomplete_from autocomplete_from_new" id="flight_from" name="flight_from" placeholder="Enter Departure City" required="required" />
+                            </div>
+                        </div>
+                        <div class="detail-fill child">
+                            <label>Flying To</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-plane"></i></span>
+                                @*<input autocomplete="off" class="form-control autocomplete_to autocomplete_from_to" type="text" placeholder="Flying To" id="to_auto" name="Search.Destination" ng-model="Search.Destination" ng-required="true" required>*@
+                                <input type="text" class="form-control autocomplete_to autocomplete_from_to" id="flight_to" name="flight_to" placeholder="Enter Destination City" required="required" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-2">
+                        <div class="detail-fill">
+                            <label>Departure Date</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                @*<input class="form-control" type="text" name="Search.DepartDate" id="txtDepDate" placeholder="Select Date" ng-model="Search.DepartDate" ng-required="true" autocomplete="off">
+                                    <input type="hidden" id="hdDepDate" value="" />*@
+                                <input type="text" class="form-control" id="flight_from_date" name="flight_from_date" placeholder="DD-MM-YYYY" required />
+                            </div>
+                        </div>
+                        <div class="detail-fill child">
+                            <label>Return Date</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                @*<input class="form-control" type="text" name="Search.ReturnDate" id="txtRetDate" placeholder="Select Date" ng-model="Search.ReturnDate" ng-required="Search.JourneyType=='R'" ng-disabled="Search.JourneyType=='O'" autocomplete="off">
+                                    <input type="hidden" id="hdRetDate" value="" />*@
+                                <input type="text" class="form-control" id="flight_to_date" name="flight_to_date" placeholder="DD-MM-YYYY" required />
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-3 child">
+                        <div class="detail-fill-1">
+                            <label>Passengers</label>
+                            <div class="input-group">
+                                <ul>
+                                    <li>
+                                        <span class="input-group-addon"><i class="fa fa-user" style="margin-top: 2px; margin-left: -3px;"></i></span>
+                                        <select id="ddlAdult" class="form-control add">
+                                            <option value="1">1 Adult</option>
+                                            <option value="2">2 Adults</option>
+                                            <option value="3">3 Adults</option>
+                                            <option value="4">4 Adults</option>
+                                            <option value="5">5 Adults</option>
+                                            <option value="6">6 Adults</option>
+                                            <option value="7">7 Adults</option>
+                                            <option value="8">8 Adults</option>
+                                            <option value="9">9 Adults</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <span class="input-group-addon"><i class="fa fa-user" style="margin-top: 2px; margin-left: -3px;"></i></span>
+                                        <select id="ddlChild" class="form-control add">
+                                            <option value="0">0 Child</option>
+                                            <option value="1">1 Child</option>
+                                            <option value="2">2 Children</option>
+                                            <option value="3">3 Children</option>
+                                            <option value="4">4 Children</option>
+                                            <option value="5">5 Children</option>
+                                            <option value="6">6 Children</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <span class="input-group-addon"><i class="fa fa-user" style="margin-top: 2px; margin-left: -3px;"></i></span>
+                                        <select id="ddlInfant" class="form-control add">
+                                            <option value="0">0 Infant</option>
+                                            <option value="1">1 Infant</option>
+                                            <option value="2">2 Infants</option>
+                                            <option value="3">3 Infants</option>
+                                            <option value="4">4 Infants</option>
+                                            <option value="5">5 Infants</option>
+                                            <option value="6">6 Infants</option>
+                                        </select>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-4">
+                        <div class="detail-fill">
+                            <label>Class</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><img src="@(ViewBag.StaticURL + "Content/Images/cass-icon.png")" /></span>
+                                <select id="dpdnClass" class="form-control add">
+                                    <option value="4">Economy</option>
+                                    <option value="3">Premium Economy </option>
+                                    <option value="2">Business</option>
+                                    <option value="1">First Class</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="detail-fill child-1">
+                            <label>Airline</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-plane"></i></span>
+                                <select id="ddlairline" class="form-control add">
+                                    <option value="">Any Airline</option>
+                                    <option value="JP">Adria Airways</option>
+                                    <option value="EI">Aerlingus</option>
+                                    <option value="SU">Aeroflot</option>
+                                    <option value="AR">Aerolineas Argen </option>
+                                    <option value="AM">Aeromexico</option>
+                                    <option value="5L">Aerosur </option>
+                                    <option value="VV">Aerosvit</option>
+                                    <option value="8U">Afriqiyah Airline</option>
+                                    <option value="AH">Air Algerie</option>
+                                    <option value="KC">Air Astana</option>
+                                    <option value="BT">Air Baltic</option>
+                                    <option value="AB">Air Berlin</option>
+                                    <option value="2J">Air Burkina </option>
+                                    <option value="AC">Air Canada</option>
+                                    <option value="CA">Air China </option>
+                                    <option value="A7">Air Comet </option>
+                                    <option value="UX">Air Europa </option>
+                                    <option value="AF">Air France </option>
+                                    <option value="AI">Air India </option>
+                                    <option value="JM">Air Jamaica</option>
+                                    <option value="KM">Air Malta </option>
+                                    <option value="MK">Air Mauritius </option>
+                                    <option value="9U">Air Maldova</option>
+                                    <option value="SW">Air Namibia </option>
+                                    <option value="NZ">Air New Zealand </option>
+                                    <option value="TP">TAP Air Portugal </option>
+                                    <option value="HM">Air Seychelles </option>
+                                    <option value="VT">Air Tahiti </option>
+                                    <option value="TN">Air Tahiti Nui </option>
+                                    <option value="TS">Air Transat</option>
+                                    <option value="UM">Air Zimbabwe</option>
+                                    <option value="AS">Alaska Air</option>
+                                    <option value="LV">Albanian Air</option>
+                                    <option value="AZ">Alitalia </option>
+                                    <option value="NH">All Nippon </option>
+                                    <option value="AA">American Airlines</option>
+                                    <option value="OZ">Asiana Airlines</option>
+                                    <option value="GR">Aurigny</option>
+                                    <option value="OS">Austrian Airline </option>
+                                    <option value="AV">Avianca </option>
+                                    <option value="J2">Azerbaijan</option>
+                                    <option value="UP">Bahamasair</option>
+                                    <option value="PG">Bangkok Airways </option>
+                                    <option value="BG">Biman Bangla</option>
+                                    <option value="BD">Bmi British </option>
+                                    <option value="BA">British Air</option>
+                                    <option value="SN">Brussels Airline </option>
+                                    <option value="FB">Bulgaria Air</option>
+                                    <option value="BW">Caribbean Air</option>
+                                    <option value="CX">Cathay Pacific </option>
+                                    <option value="CI">China Airlines </option>
+                                    <option value="MU">China Eastern </option>
+                                    <option value="CZ">China Southern </option>
+                                    <option value="QI">Cimber Sterli</option>
+                                    <option value="CF">City Airline</option>
+                                    <option value="DE">Condor </option>
+                                    <option value="CO">Continental </option>
+                                    <option value="OU">Croatia Air </option>
+                                    <option value="CU">Cubana Airlines </option>
+                                    <option value="CY">Cyprus Airways </option>
+                                    <option value="OK">Czech Airlines </option>
+                                    <option value="D3">Daallo</option>
+                                    <option value="DL">Delta </option>
+                                    <option value="T3">Eastern airways</option>
+                                    <option value="MS">Egyptair </option>
+                                    <option value="EK">Emirates Air </option>
+                                    <option value="OV">Estonian Air</option>
+                                    <option value="ET">Ethiopian Air </option>
+                                    <option value="EY">Etihad Airways </option>
+                                    <option value="BR">EVA Airways </option>
+                                    <option value="AY">Finnair </option>
+                                    <option value="BE">Flybe </option>
+                                    <option value="GA">Garuda </option>
+                                    <option value="GF">Gulf Air </option>
+                                    <option value="HR">Hahn Air </option>
+                                    <option value="HU">Hainan Airlin</option>
+                                    <option value="YO">Heli-Air Monaco</option>
+                                    <option value="EO">Hewa Bora Air </option>
+                                    <option value="IB">Iberia </option>
+                                    <option value="FI">Iceland Air </option>
+                                    <option value="IC">Indian Air </option>
+                                    <option value="IR">Iran Air </option>
+                                    <option value="6H">Israir</option>
+                                    <option value="JL">Japan Airline</option>
+                                    <option value="JU">Jat Airways</option>
+                                    <option value="9W">Jet Airways </option>
+                                    <option value="KQ">Kenya Airways </option>
+                                    <option value="KL">KLM </option>
+                                    <option value="KE">Korean Air </option>
+                                    <option value="KU">Kuwait Airways </option>
+                                    <option value="LA">Lan Airlines </option>
+                                    <option value="LO">Lot-Polish </option>
+                                    <option value="LH">Lufthansa </option>
+                                    <option value="CC">Macair</option>
+                                    <option value="W5">Mahan Air </option>
+                                    <option value="MA">Malev </option>
+                                    <option value="MH">Malaysia </option>
+                                    <option value="MP">Martinair </option>
+                                    <option value="IG">Meridiana </option>
+                                    <option value="MX">Mexicana </option>
+                                    <option value="ME">Middle East</option>
+                                    <option value="YM">Montenegro</option>
+                                    <option value="CE">Nationwide Air </option>
+                                    <option value="NW">Northwest </option>
+                                    <option value="OA">Olympic </option>
+                                    <option value="WY">Oman Aviation </option>
+                                    <option value="PR">Philippine </option>
+                                    <option value="QF">Qantas Airways </option>
+                                    <option value="QR">Qatar Airways </option>
+                                    <option value="AT">Royal Air Maroc </option>
+                                    <option value="BI">Royal Brunei </option>
+                                    <option value="RJ">Royal Jordanian </option>
+                                    <option value="FV">Rossiya </option>
+                                    <option value="SK">Sas </option>
+                                    <option value="S4">Sata Intl </option>
+                                    <option value="SV">Saudi Arabian </option>
+                                    <option value="S7">Siberia Air</option>
+                                    <option value="SA">South African </option>
+                                    <option value="UL">SriLankan </option>
+                                    <option value="SD">Sudan </option>
+                                    <option value="LX">Swiss </option>
+                                    <option value="RB">Syrian Arab</option>
+                                    <option value="DT">Taag-Angola </option>
+                                    <option value="VR">Tacv Carbo Verdes </option>
+                                    <option value="JJ">Tam Linhas Aerea </option>
+                                    <option value="TG">Thai Intl </option>
+                                    <option value="UN">Transaero</option>
+                                    <option value="TU">Tunis Air</option>
+                                    <option value="TK">Turkish Airlines </option>
+                                    <option value="PS">Ukraine Intl </option>
+                                    <option value="UA">United Airlines</option>
+                                    <option value="US">US Airways </option>
+                                    <option value="HY">Uzbekistan </option>
+                                    <option value="VN">Vietnam Air </option>
+                                    <option value="VS">Virgin Atlantic </option>
+                                    <option value="VK">Virgin Nigeria </option>
+                                    <option value="WM">Windward Island</option>
+                                    <option value="IY">Yemenia Yemen </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-5">
+                        <div class="detail-fill child-1">
+                            <div class="chk-left hidden-xs">
+                                <label class="checkbox-main">
+                                    Direct Flights
+                                    <input type="checkbox" id="FNonStop" />
+                                    <span class="checkmark"></span>
+                                </label>
+
+                            </div>
+                            <div class="chk-right">
+                                @*<input type="submit" value="Search" class="btn btn-primary btn-new" id="search-submit" ng-click="SearchFlights()" />*@
+                                <input type="button" name="flight_submit" id="flight_submit" class="btn btn-primary btn-new" value="Search" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="fare">
+                <p><span class="percentageOff">UP TO $20 OFF </span> </p>
+                <h2>Domestic Flights Booking</h2>
+                <p><span class="percentageOff">UP TO $50 OFF </span> </p>
+                <h2>International Flights Booking</h2>
+            </div>
+        </div>
+        @*<input type="hidden" name="hdeprdate" id="hdeprdate">
+            <input type="hidden" name="setascurrdate" id="setascurrdate">
+            <script type="text/javascript" src="Scripts/jquery.validate.min.js"></script>
+            <script type="text/javascript" src="Scripts/jquery.validate.unobtrusive.js"></script>
+            <script src="scripts/index.js"></script>*@
+
+
+        <!--//search-->
+    </div>
+</div>
+<div class="container-fluid hidden-xs">
+    <div class="container">
+        <div class="container pdd">
+            <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3"> <img src="@(ViewBag.StaticURL +  "Content/images/scure-1.png")"> <h3>Best Customer Care</h3> <p>Get award-winning service  and special deals by calling <a href="tel: +1-646-9339-578">+1-646-9339-578</a></p></div>
+            <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3"> <img src="@(ViewBag.StaticURL +  "Content/images/price-icon-new.png")"> <h3>Price Match Promise</h3> <p>Find our lowest price to destinations worldwide, guaranteed!</p></div>
+            <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3"> <img src="@(ViewBag.StaticURL +  "Content/images/easy-icon.png")"> <h3>Easy Booking</h3> <p>Right from booking your flight till you complete your trip. </p></div>
+            <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3"> <img src="@(ViewBag.StaticURL +  "Content/images/like-icon.png")"><h3>Live Offers</h3> <p>People love our offers, you will too! Follow us on social media</p></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="container-fluid hidden-xs">
+            <div class="container">
+                <div class=" container-height-new">
+                    <div class="row fare-min-bg">
+                        <div class="col-md-6 border-right-px">
+                            <div class="box-color-new">
+                                <h2>USA Domestic</h2>
+                                <a href="cheap-flights/chicago-ord-to-new-york-jfk.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>ORD</b><p>Chicago</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>JFK</b><p>New York</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$154.50</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="cheap-flights/boston-bos-to-new-york-jfk.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>BOS</b><p>Boston</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>JFK</b><p>New York</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$165.40</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="cheap-flights/orlando-mco-to-new-york-jfk.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>MCO</b><p>Orlando</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>JFK</b><p>New York</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$190.50</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="cheap-flights/miami-mia-to-new-york-jfk.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>MIA</b><p>Miami</p>
+                                            </div>
+
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>JFK</b><p>New York</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$185.90</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6" ng-repeat="fare in fares" ng-show="$odd">
+                            <div class="box-color-new">
+                                <h2>USA-International</h2>
+                                <a href="cheap-flights/los-Angeles-lax-to-sydney-syd.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>LAX</b><p>Los Angeles</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>SYD</b><p>Sydney</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$550.20</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="cheap-flights/san-francisco-sfo-to-kuala-lumpur-kul.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>SFO</b><p>San Francisco</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>KUL</b><p>Kuala Lumpur</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$487.60</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="cheap-flights/new-york-jfk-to-london-lon.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>NYC</b><p>New York</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>LON</b><p>London</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$360.40</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="cheap-flights/chicago-ord-to-new-york-jfk.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>MIA</b><p>Miami</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>MIL</b><p>Milan</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$460.20</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="mid-container container-height-new">
+                    <div class="row fare-min-bg">
+                        <div class="col-md-6 border-right-px">
+                            <div class="box-color-new">
+                                <h2>Australia</h2>
+                                <a href="cheap-flights/san-francisco-sfo-to-sydney-syd.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>SFO</b><p>San Francisco</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>SYD</b><p>Sydney</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$780.10</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="cheap-flights/new-york-jfk-to-sydney-syd.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>JFK</b><p>New York</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>SYD</b><p>Sydney</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$950.30</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="cheap-flights/chicago-ord-to-sydney-syd.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>ORD</b><p>Chicago</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>SYD</b><p>Sydney</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$190.50</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="cheap-flights/miami-mia-to-new-york-jfk.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>SEA</b><p>Seattle</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>SYD</b><p>Sydney</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$876.20</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6" ng-repeat="fare in fares" ng-show="$odd">
+                            <div class="box-color-new">
+                                <h2>Europe</h2>
+                                <a href="cheap-flights/chicago-ord-to-london-lon.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>ORD</b><p>Chicago</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>LHR</b><p>London</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$402.50</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="cheap-flights/washington-iad-to-london-lhr.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>IAD</b><p>Washington</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>LHR</b><p>London</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$487.60</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="cheap-flights/los-angeles-lax-to-london-lhr.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>LAX</b><p>Los Angeles</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>LHR</b><p>London</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$459.65</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="cheap-flights/boston-bos-to-paris-cdg.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>BOS</b><p>Boston</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>CDG</b><p>Paris</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$344.20</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class=" container-height-new">
+                    <div class="row fare-min-bg">
+                        <div class="col-md-6 border-right-px">
+                            <div class="box-color-new">
+                                <h2>Africa</h2>
+                                <a href="cheap-flights/new-york-nyci-to-cairo-ca.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>NYC</b><p>New York</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>CAI</b><p>Cairo</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$550.20</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="cheap-flights/san-francisco-sfo-to-lagos-los.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>SFO</b><p>San Francisco</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>LOS</b><p>Lagos</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$830.60</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="cheap-flights/phoenix-phx-to-johannsburg-jnb.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>PHX</b><p>Phoenix</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>JNB</b><p>Johannsburg</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$460.20</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="cheap-flights/new-york-ewr-to-algiers-alg.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>EWR</b><p>New York</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>ALG</b><p>Algiers</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$970.50</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6" ng-repeat="fare in fares" ng-show="$odd">
+                            <div class="box-color-new">
+                                <h2>Middle East</h2>
+                                <a href="cheap-flights/san-francisco-sfo-to-dubai-dxb.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>SFO</b><p>San Francisco</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>DXB</b><p>Dubai</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$811.40</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="cheap-flights/chicago-ord-to-dubai-dxb.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>ORD</b><p>Chicago</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>DXB</b><p>Dubai</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$510.90</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="cheap-flights/cincinnati-cvg-to-dubai-dxb.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>CVG</b><p>Cincinnati</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" )" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>DXB</b><p>Dubai</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$920.20 </b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="cheap-flights/tampa-tpa-to-dubai-dxb.html">
+                                    <div class="fare-box fare-bottom-border">
+                                        <div class="fare-mid-box">
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/airlinessm/UA.gif")">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>TPA</b><p>Tampa</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <img src="@(ViewBag.StaticURL +  "Content/images/CAirline/fare-flit.png")" )" alt="">
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <b>DXB</b><p>Dubai</p>
+                                            </div>
+                                            <div class="fare-min-left">
+                                                <span><b>$1450.50</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <section class="content p-b-50">
+                <h3>Affordable Prices & Effortless Booking Experience</h3>
+                <p>
+                    We travel because we love to travel, but, we also travel because of personal emergencies or for business. Travelling has to
+                    be easy, convenient and hassle-free and most importantly, it should not burn a hole through your wallet. With this in mind,
+                    we at  FlightMover  created a one-stop shop for all your flight
+                    booking requirements. With flight prices skyrocketing these days, our unique and cutting edge search technology crawls
+                    through hundreds of carrier website for unconventionally cheap ticket bookings, which are most often unpublished on their
+                    website. This gives us an edge in the whole flight ticket booking ecosystem.
+                </p>
+                <h3>Budget Flight Ticket Bookings – Across Domestic Destinations in USA</h3>
+                <p>
+                    Booking flight tickets domestically has never been this convenient! Just enter your source and destination city, select the
+                    dates of journey on the calendar, enter the number of travellers and the seating class you want to book and click on the search
+                    option, voila! The best deals on flight tickets will be on your screen instantly. Don’t want to go through all the typing? Well,
+                    you can call our dedicated travel agent right away or request a call by clicking on the option present on the screen. How’s
+                    that for convenience?
+                </p>
+                <h3>Still Having Second Thoughts? Let Us Help!</h3>
+                <p>
+                    Stop worrying about ticket costs when you can book the most affordable flight tickets right now. All you need to do is
+                    request a call back or call us on our mentioned number, leave everything else to us. We promise complete customer satisfaction
+                    to the point where our services are recommended worldwide. You cannot just book flight tickets conveniently, you can also know
+                    everything there is to know about your destination, airline rules, baggage rules and other terms and conditions from our
+                    website. So stop thinking and request a call back, right now!
+                </p>
+            </section>
+        </div>
+    </div>
+</div>
+
+<!-- Popup Start Here -->
+@*<div class="blue_pop" id="search_popup">
+        <div class="blue_clock">
+            <div class="spinnerClock">
+                <div class="spinnerClock__clock"></div>
+                <div class="spinnerClock__minHand"></div>
+                <div class="spinnerClock__secHand"></div>
+                <div class="spinnerClock__secondHand"></div>
+            </div>
+
+            <h3>Looking for your flights!</h3>
+            <p>Please Wait... it will take a couple of seconds</p>
+        </div>
+    </div>*@
+
+<div class="container-fluid blue_pop" style="display:none;background-color:#ebebeb; opacity:96%;" id="search_popup">
+    <div class="container">
+        <div class="wait-page">
+            <h2>Searching the right flight for you..</h2>
+            <div class="depart">
+                <img src="@(ViewBag.StaticURL +  "Content/images/listing-loc.png")" alt="arrow">
+                <br>
+                <span class="loc-name">LHR </span>
+                <br>
+                <span class="dep-date">08/01/2022</span>
+            </div>
+            <div class="arrow">
+                <img src="@(ViewBag.StaticURL +  "Content/images/popup-arrow.png")" alt="arrow">
+                <br>
+                <span class="trvaller">
+                    1 Passenger
+                </span>
+            </div>
+            <div class="return-1">
+                <img src="@(ViewBag.StaticURL +  "Content/images/listing-loc.png")" alt="arrow">
+                <br>
+                <span class="loc-name">DXB</span>
+                <br>
+                <span class="dep-date">08/31/2022</span>
+            </div>
+            <div class="text-center"><img src="@(ViewBag.StaticURL +  "Content/images/loading1.gif")"></div>
+            <img src="@(ViewBag.StaticURL +  "Content/images/bestprice-new.jpg")">
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+@section scripts{
+
+    <script src="@(ViewBag.StaticURL +  "scripts/index.js")"></script>
+    <link href="@(ViewBag.StaticURL + "Content/jquery-ui.css")" rel="stylesheet" /> 
+
+    <script type="text/javascript" src="@(ViewBag.StaticURL + "Content/js/owl.carousel.min.js")"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $(function () {
+                $("#flight_from_date").datepicker({
+                    minDate: '+0D',
+                    maxDate: '+15M +1D',
+                    dateFormat: 'dd-mm-yy',
+                    showButtonPanel: false,
+                    numberOfMonths: 1,
+                    onSelect: (function (date) {
+                        $("#flight_from_date").val(date);
+                        if ($("input:radio[name='flight_way']:checked").val() == "2") {
+                            setTimeout(function () {
+                                $('#flight_to_date').datepicker('show');
+                            }, 0)
+                        }
+                    })
+                });
+            });
+            $(function () {
+                $("#flight_to_date").datepicker({
+                    minDate: -0, maxDate: '+15M +1D',
+                    dateFormat: 'dd-mm-yy',
+                    showButtonPanel: false,
+                    numberOfMonths: 1,
+                    beforeShow: customRange,
+                    onSelect: (function (date) {
+                        $("#flight_to_date").val(date);
+                    })
+                });
+            });
+
+            function customRange(a) {
+                var b = new Date();
+                var c = new Date(b.getFullYear(), b.getMonth(), b.getDate());
+                if (a.id == 'flight_to_date') {
+                    if ($("#flight_from_date").datepicker('getDate') != null) {
+                        c = $("#flight_from_date").datepicker('getDate');
+                    }
+                }
+                return {
+                    minDate: c = new Date(c.getFullYear(), c.getMonth(), c.getDate() + 1)
+                }
+            }
+
+            $("#flight_submit").click(function () {
+                debugger;
+                if ($("#flight_from").val().trim(' ') == "") {
+                    alert("Please enter your departure airport");
+                    $("#flight_from").focus();
+                    return false;
+                }
+                else if ($("#flight_from").val().trim(' ').indexOf('-') != 3) {
+                    alert("Kindly select departure airport from auto suggest list!");
+                    $("#flight_from").focus();
+                    return false;
+                }
+                else if ($("#flight_to").val().trim(' ').trim(' ') == "") {
+                    alert("Please enter your destination airport");
+                    $("#flight_to").focus();
+                    return false;
+                }
+                else if ($("#flight_to").val().trim(' ').indexOf('-') != 3) {
+                    alert("Kindly select destination airport from auto suggest list!");
+                    $("#flight_to").focus();
+                    return false;
+                }
+                else if ($("#flight_to").val().trim(' ') == $("#flight_from").val().trim(' ')) {
+                    alert("Departure Airport and Destination Airport can't be same!!");
+                    $("#flight_to").focus();
+                    return false;
+                }
+                else {
+                    var fway = $('input[name=flight_way]:checked').val();
+                    var fcls = $('#dpdnClass').val();
+                    var from = "&From=" + $("#flight_from").val().split("-")[0];
+                    var to = "&To=" + $("#flight_to").val().split("-")[0];
+                    var fromDate = "&DepDate=" + $("#flight_from_date").val().split("-")[2] + "-" + $("#flight_from_date").val().split("-")[1] + "-" + $("#flight_from_date").val().split("-")[0];
+                    var toDate = "&RetDate=";
+
+                    if (fway == "2") {
+                        toDate = "&RetDate=" + $("#flight_to_date").val().split("-")[2] + "-" + $("#flight_to_date").val().split("-")[1] + "-" + $("#flight_to_date").val().split("-")[0];
+                    }
+                    var adult = "&Adult=" + $("#ddlAdult").val();
+                    var child = "&Child=" + $("#ddlChild").val();
+                    var infant = "&Infant=" + $("#ddlInfant").val();
+                    var airline = "&Airline=" + ""; // $("#flight_airline").val();
+                    var isdirect = "&IsDirect=" + (($("input[name=is_direct]:checked").val() == "1") ? "true" : "false");
+                    var isflexi = "&IsFlexi=" + (($("input[name=flight_flexi]:checked").val() == "1") ? "true" : "false");
+                    fway_s = "&FlightWay=" + fway;
+                    fcls_s = "&FlightClass=" + fcls;
+
+                    var str = "@(ViewBag.WebsiteURL + "flight/search?")SiteCode=VIMAN&SourceMedia=VIMAN" + from + to + fromDate + toDate + adult + child + infant + fway_s + fcls_s + airline + isdirect + isflexi + "&Currency=GBP";
+                    //alert(str);
+                    //console.log(str);
+
+                    $("#search_popup").show();
+
+                    window.location = str;
+                }
+            });
+
+
+            var selectFrom = false;
+            var selectTo = false;
+
+            $("label.flight_way_chk").click(function () {
+                var fway = $('input[name=flight_way]:checked').val();
+                $(".flight_way_chk").removeClass("active");
+                $(this).addClass("active");
+                if (fway == "1") {
+                    $(".oneway_return_date").hide();
+                    $(".ind_inputBox_date").show();
+                }
+                else {
+                    $(".oneway_return_date").show();
+                    $(".ind_inputBox_date").hide();
+                }
+            });
+
+        });
+    </script>
+}

@@ -1,0 +1,629 @@
+﻿@using (Html.BeginForm("_SearchEngineHome", "Home"))
+{
+    <div class="search-box">
+        <!-- Top pill row -->
+        <div class="search-top-row">
+
+            <!-- Trip Type -->
+            <div style="position:relative">
+
+                <button type="button" class="trip-type-btn" id="tripTypeBtn" onclick="toggleTripType(event)">
+                    <span id="tripTypeLabel">↩ Round Trip</span>
+                    <span style="font-size:10px">▾</span>
+                </button>
+
+                <!-- Overlay (only visible/active on mobile bottom-sheet view) -->
+                <div class="tt-overlay" id="ttOverlay" onclick="toggleTripType(event)"></div>
+
+                <div class="tt-dropdown" id="tripTypeDD">
+
+                    <!-- Sheet header: only shown on mobile via CSS -->
+                    <div class="tt-sheet-header">
+                        <button type="button" class="tt-close" onclick="toggleTripType(event)" aria-label="Close">✕</button>
+                        <div class="tt-sheet-title">Trip type</div>
+                        <span class="tt-close-spacer"></span>
+                    </div>
+
+                    <div class="tt-opt selected"
+                         onclick="selectTripType(this,'rdoRoundtrip','↩ Round Trip')">
+                        <span class="tt-icon">⇄</span>
+                        <span class="tt-text">Return</span>
+
+                        <input type="radio"
+                               name="flight_way"
+                               id="rdoRoundtrip"
+                               value="2"
+                               class="flight_way"
+                               checked
+                               style="display:none;" />
+                    </div>
+
+                    <div class="tt-opt"
+                         onclick="selectTripType(this,'rdoOneway','→ One Way')">
+                        <span class="tt-icon">→</span>
+                        <span class="tt-text">One way</span>
+
+                        <input type="radio"
+                               name="flight_way"
+                               id="rdoOneway"
+                               value="1"
+                               class="flight_way"
+                               style="display:none;" />
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- Travellers pill (moved to top row like flight_result) -->
+          <div class="traveller-wrap" id="travellersBtn">
+
+              <!-- Traveller Button -->
+              <button type="button"
+                      class="baggage-btn"
+                      onclick="toggleTravellers(event)">
+
+                  <span id="travellerDisplay">1 Adult, Economy</span>
+
+                  <span class="traveller-arrow">▾</span>
+
+              </button>
+
+              <!-- Overlay (only visible/active on mobile bottom-sheet view) -->
+              <div class="tr-overlay" id="trOverlay" onclick="toggleTravellers(event)"></div>
+
+              <!-- Dropdown -->
+              <div class="tr-dropdown person_dropdown"
+                   id="prsn_popup"
+                   onclick="event.stopPropagation();">
+
+                  <!-- Sheet header: only shown on mobile via CSS -->
+                  <div class="tr-sheet-header">
+                      <button type="button" class="tr-close" onclick="toggleTravellers(event)" aria-label="Close">✕</button>
+                      <div class="tr-sheet-title">Select cabin class and travellers</div>
+                  </div>
+
+                  <!-- Adult -->
+                  <div class="tr-row">
+
+                      <div class="tr-info">
+
+                          <span class="tr-type">Adults</span>
+
+                          <span class="tr-sub">Aged 18+</span>
+
+                      </div>
+
+                      <div class="counter">
+
+                          <a href="javascript:void(0)">
+                              <em class="inc_der icn-minus"
+                                  data-field="adult"
+                                  data-opt="-">&minus;</em>
+                          </a>
+
+                          <input type="text"
+                                 id="flight_adult"
+                                 name="flight_adult"
+                                 runat="server"
+                                 ClientIDMode="Static"
+                                 readonly
+                                 value="1"
+                                 class="cnt-input inpt_cout_pssngr" />
+
+                          <a href="javascript:void(0)">
+                              <em class="inc_der icn-plus"
+                                  data-field="adult"
+                                  data-opt="+">+</em>
+                          </a>
+
+                      </div>
+
+                  </div>
+
+                  <!-- Child -->
+                  <div class="tr-row">
+
+                      <div class="tr-info">
+
+                          <span class="tr-type">Children<em class="tr-info-icon" title="Children aged 0 to 17">i</em></span>
+
+                          <span class="tr-sub">Aged 0 to 17</span>
+
+                      </div>
+
+                      <div class="counter">
+
+                          <a href="javascript:void(0)">
+                              <em class="inc_der icn-minus"
+                                  data-field="child"
+                                  data-opt="-">&minus;</em>
+                          </a>
+
+                          <input type="text"
+                                 id="flight_child"
+                                 name="flight_child"
+                                 runat="server"
+                                 ClientIDMode="Static"
+                                 readonly
+                                 value="0"
+                                 class="cnt-input inpt_cout_pssngr" />
+
+                          <a href="javascript:void(0)">
+                              <em class="inc_der icn-plus"
+                                  data-field="child"
+                                  data-opt="+">+</em>
+                          </a>
+
+                      </div>
+
+                  </div>
+
+                  <!-- Infant -->
+                  <div class="tr-row">
+
+                      <div class="tr-info">
+
+                          <span class="tr-type">Infants</span>
+
+                          <span class="tr-sub">Under 2</span>
+
+                      </div>
+
+                      <div class="counter">
+
+                          <a href="javascript:void(0)">
+                              <em class="inc_der icn-minus"
+                                  data-field="infant"
+                                  data-opt="-">&minus;</em>
+                          </a>
+
+                          <input type="text"
+                                 id="flight_infant"
+                                 name="flight_infant"
+                                 runat="server"
+                                 ClientIDMode="Static"
+                                 readonly
+                                 value="0"
+                                 class="cnt-input inpt_cout_pssngr" />
+
+                          <a href="javascript:void(0)">
+                              <em class="inc_der icn-plus"
+                                  data-field="infant"
+                                  data-opt="+">+</em>
+                          </a>
+
+                      </div>
+
+                  </div>
+
+                  <!-- Cabin -->
+                  <div class="cabin-wrap">
+
+                      <div class="cabin-lbl">
+
+                          Cabin class
+
+                      </div>
+
+                      <select id="cabinSelect"
+                              class="cabin-sel">
+
+                          <option value="4">Economy</option>
+
+                          <option value="3">Premium Economy</option>
+
+                          <option value="2">Business</option>
+
+                          <option value="1">First</option>
+
+                      </select>
+
+                  </div>
+
+                  <!-- Hidden Existing Radio -->
+
+                  <div style="display:none">
+
+                      <input type="radio"
+                             id="flight_class_4"
+                             name="flight_class"
+                             value="4"
+                             checked>
+
+                      <input type="radio"
+                             id="flight_class_3"
+                             name="flight_class"
+                             value="3">
+
+                      <input type="radio"
+                             id="flight_class_2"
+                             name="flight_class"
+                             value="2">
+
+                      <input type="radio"
+                             id="flight_class_1"
+                             name="flight_class"
+                             value="1">
+
+                  </div>
+
+                  <button type="button"
+                          class="tr-done"
+                          id="prsn_done">
+
+                      Apply
+
+                  </button>
+
+              </div>
+
+          </div>
+        </div>
+
+        <!-- Main pill search bar (exactly like flight_result white pill) -->
+       <div class="search-fields" id="searchFields">
+
+           <!-- Grouped card: From / To / Depart / Return (behaves as plain siblings on desktop via display:contents) -->
+           <div class="field-group" id="fieldGroup">
+
+           <!-- FROM -->
+           <div class="sfield" id="fromField">
+
+               <div class="sfield-label">
+                   From
+               </div>
+
+               <input name="flight_from"
+                      runat="server"
+                      type="text"
+                      id="flight_from"
+                      placeholder="City or airport"
+                      onchange="checkdata();"
+                      onclick="this.select();"
+                      autocomplete="off"
+                      class="sfield-input autocomplete_from autocomplete_from_new location" />
+
+           </div>
+
+
+           <!-- Swap -->
+
+           <div class="swap-btn" id="swapAirport" title="Swap Airport">
+
+               ⇄
+
+           </div>
+
+
+           <div class="sdivider"></div>
+
+
+           <!-- TO -->
+
+           <div class="sfield" id="toField">
+
+               <div class="sfield-label">
+
+                   To
+
+               </div>
+
+               <input name="flight_to"
+                      runat="server"
+                      type="text"
+                      id="flight_to"
+                      placeholder="City or airport"
+                      onchange="checkdata1();"
+                      onclick="this.select();"
+                      autocomplete="off"
+                      class="sfield-input autocomplete_to autocomplete_from_to location1" />
+
+           </div>
+
+
+           <div class="sdivider"></div>
+
+
+           <!-- Depart -->
+
+           <div class="sfield" id="departField">
+
+               <div class="sfield-label">
+
+                   Depart
+
+               </div>
+
+               <input type="text"
+                      id="flight_from_date"
+                      name="flight_from_date"
+                      runat="server"
+                      ClientIDMode="Static"
+                      class="sfield-input"
+                      placeholder="DD-MM-YYYY" />
+
+           </div>
+
+
+           <div class="sdivider"></div>
+
+
+           <!-- Return -->
+
+           <div class="sfield" id="returnField">
+
+               <div class="sfield-label">
+
+                   Return
+
+               </div>
+
+               <input type="text"
+                      id="flight_to_date"
+                      name="flight_to_date"
+                      runat="server"
+                      ClientIDMode="Static"
+                      class="sfield-input"
+                      placeholder="DD-MM-YYYY" />
+
+           </div>
+
+           </div>
+           <!-- /field-group -->
+
+           <!-- Search -->
+
+           <a onclick="return validateSearchengine();"
+              id="flight_submit"
+              class="search-btn">
+
+               <svg width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5">
+
+                   <circle cx="11"
+                           cy="11"
+                           r="7"></circle>
+
+                   <line x1="21"
+                         y1="21"
+                         x2="16.5"
+                         y2="16.5"></line>
+
+               </svg>
+
+               Search
+
+           </a>
+
+       </div>
+
+        <!-- Direct flights checkbox below bar (like flight_result) -->
+       
+    </div>
+
+}
+
+<link href="/Content/searchAirport.css" rel="stylesheet" />
+<script src="/scripts/lodash.min.js"></script>
+<script src="/scripts/fuse.min.js"></script>
+<script src="/scripts/airports.js"></script>
+<style>
+
+    .sfield-label {
+       
+        margin-bottom: -20px;
+    }
+
+    #travellersBtn {
+        position: relative;
+        display: inline-block;
+    }
+</style>
+
+<script>
+    function toggleTripType(e) {
+
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        const dd = document.getElementById("tripTypeDD");
+        const overlay = document.getElementById("ttOverlay");
+
+        if (dd) {
+            dd.classList.toggle("open");
+        }
+        if (overlay) {
+            overlay.classList.toggle("open");
+        }
+    }
+
+    function selectTripType(el, radioId, text) {
+
+        document.querySelectorAll("#tripTypeDD .tt-opt").forEach(function (item) {
+            item.classList.remove("selected");
+        });
+
+        el.classList.add("selected");
+
+        var radio = document.getElementById(radioId);
+        if (radio) {
+            radio.checked = true;
+        }
+
+        document.getElementById("tripTypeLabel").innerHTML = text;
+
+        document.getElementById("tripTypeDD").classList.remove("open");
+        document.getElementById("ttOverlay").classList.remove("open");
+
+        if (radioId === "rdoOneway") {
+            $("#returnField").hide();
+            $("#fieldGroup").addClass("one-way");
+        } else {
+            $("#returnField").show();
+            $("#fieldGroup").removeClass("one-way");
+        }
+    }
+
+    // Close dropdown on outside click
+    document.addEventListener("click", function (e) {
+
+        var btn = document.getElementById("tripTypeBtn");
+        var dd = document.getElementById("tripTypeDD");
+        var overlay = document.getElementById("ttOverlay");
+
+        if (!btn.contains(e.target) && !dd.contains(e.target)) {
+            dd.classList.remove("open");
+            if (overlay) overlay.classList.remove("open");
+        }
+
+    });
+
+
+
+</script>
+
+<script>
+
+    //=========================
+    // Traveller Dropdown
+    //=========================
+
+    function toggleTravellers(e) {
+
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        $("#prsn_popup").toggleClass("open");
+        $("#trOverlay").toggleClass("open");
+
+    }
+
+
+    //=========================
+    // Close on Outside Click
+    //=========================
+
+    $(document).on("click", function (e) {
+
+        if (!$(e.target).closest("#travellersBtn").length) {
+
+            $("#prsn_popup").removeClass("open");
+            $("#trOverlay").removeClass("open");
+
+        }
+
+    });
+
+
+    //=========================
+    // Cabin Class Mapping
+    //=========================
+
+    $("#cabinSelect").on("change", function () {
+
+        var value = $(this).val();
+
+        $("input[name='flight_class']").prop("checked", false);
+
+        $("#flight_class_" + value).prop("checked", true);
+
+        updateTravellerDisplay();
+
+    });
+
+
+
+    //=========================
+    // Update Traveller Display
+    //=========================
+
+    function updateTravellerDisplay() {
+
+        var adult = parseInt($("#flight_adult").val()) || 1;
+        var child = parseInt($("#flight_child").val()) || 0;
+        var infant = parseInt($("#flight_infant").val()) || 0;
+
+        var total = adult + child + infant;
+
+        var cabin = $("#cabinSelect option:selected").text();
+
+        var text = "";
+
+        if (adult == 1 && child == 0 && infant == 0) {
+
+            text = "1 Adult";
+
+        }
+        else {
+
+            text = total + " Travellers";
+
+        }
+
+        $("#travellerDisplay").text(text + ", " + cabin);
+
+    }
+
+
+
+    //=========================
+    // Existing Plus Minus Integration
+    //=========================
+
+    $(document).on("click", ".inc_der", function () {
+
+        setTimeout(function () {
+
+            updateTravellerDisplay();
+
+        }, 80);
+
+    });
+
+
+
+    //=========================
+    // Done Button
+    //=========================
+
+    $("#prsn_done").on("click", function () {
+
+        $("#prsn_popup").removeClass("open");
+        $("#trOverlay").removeClass("open");
+
+        updateTravellerDisplay();
+
+    });
+
+
+
+    //=========================
+    // First Load
+    //=========================
+
+    $(document).ready(function () {
+
+        var checked = $("input[name='flight_class']:checked").val();
+
+        $("#cabinSelect").val(checked);
+
+        updateTravellerDisplay();
+
+        // Keep return box hidden/collapsed if One Way is pre-selected on load/postback
+        if ($("#rdoOneway").is(":checked")) {
+            $("#returnField").hide();
+            $("#fieldGroup").addClass("one-way");
+        }
+
+    });
+
+</script>
+

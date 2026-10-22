@@ -1,0 +1,583 @@
+﻿@using Viman.Models
+@{
+    ViewBag.Title = ViewBag.Title;
+    ViewBag.MetaKeyword = ViewBag.MetaKeyword;
+    //ViewBag.MetaContent = "Flightoffice.co.uk offers cheap flights from UK to worldwide destinations with all major airlines. Book best deal cheap flight tickets and get huge discounts.";
+    ViewBag.PageName = "airline";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.StaticURL = Common.StaticURL;
+}
+
+<div class="back_img_main">
+    <div class="ind_sear_outbox">
+        <div class="container">
+            <div class="col-xs-12">
+                <div class="ind_srch_head">
+                    <h3>Book Best Deal International Flights</h3>
+                </div>
+                <div class="ind_main_searbox airlines_search">
+                    <form method="post" name="flight_frm" id="flight_frm">                        
+                        <div class="rtrn_oneway">
+                            <label for="flight_way_1" class="flight_way_chk @((ViewBag.flightWay != "OneWay") ? "active" : "")">
+                                Roundtrip
+                                <input type="radio" @((ViewBag.flightWay == "RoundTrip" || ViewBag.flightWay == "" || ViewBag.flightWay == null) ? "checked" : "") name="flight_way" id="flight_way_1" value="2" style="visibility:hidden; position:absolute;" />
+                            </label>
+                            <label for="flight_way_2" class="flight_way_chk @((ViewBag.flightWay == "OneWay") ? "active" : "")">
+                                Oneway
+                                <input type="radio" @((ViewBag.flightWay == "OneWay") ? "checked" : "") name="flight_way" id="flight_way_2" value="1" style="visibility:hidden; position:absolute;" />
+                            </label>
+                        </div>
+
+                        <div>
+                            <div class="ind_srch_subBox">
+                                <i class="fa fa-map-marker"></i>
+                                <input type="text" placeholder="Departure City" class="ind_inputBox" name="flight_from" id="flight_from" value="" />
+                            </div>
+                            <div class="ind_srch_subBox">
+                                <i class="fa fa-map-marker"></i>
+                                <input type="text" placeholder="Destination City" class="ind_inputBox" name="flight_to" id="flight_to" value="" />
+                            </div>
+                            <div class="ind_srch_subBox">
+                                <i class="fa fa-calendar"></i>
+                                <input type="text" value="" placeholder="Departure Date" class="ind_inputBox" name="flight_from_date" id="flight_from_date" readonly />
+                            </div>
+                            <div class="ind_srch_subBox">
+                                <div class="oneway_return_date" style="display:block">
+                                    <i class="fa fa-calendar"></i>
+                                    <input type="text" value="" placeholder="Return Date" class="ind_inputBox" name="flight_to_date" id="flight_to_date" readonly />
+                                </div><div class="ind_inputBox_date" style="display:none">&nbsp;</div>
+                            </div>
+                            <div class="ind_srch_subBox prp_popup">
+                                <div class="prsn_popup" id="prsn_add">
+                                    <i class="fa fa-angle-down"></i>
+                                    <input type="text" readonly name="pass_info" id="pass_info" placeholder="1 Pax, Economy" class="ind_inputBox" />
+                                </div>
+                                <div class="person_dropdown" id="prsn_popup">
+                                    <ul class="slect_pssngr">
+                                        <li>
+                                            <label>Adult &nbsp;<span>(12+ Years)</span></label>
+                                            <div class="count_pssngr">
+                                                <a href="javascript:void(0);"><em data-field="adult" data-opt="-" class="fa fa-minus inc_der"></em></a>
+                                                <input type="text" readonly value="1" name="flight_adult" id="flight_adult" class="inpt_cout_pssngr" />
+                                                <a href="javascript:void(0);"><em data-field="adult" data-opt="+" class="fa fa-plus inc_der"></em></a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label>Children &nbsp;<span>(2-11 Years)</span></label>
+                                            <div class="count_pssngr">
+                                                <a href="javascript:void(0);"><em data-field="child" data-opt="-" class="fa fa-minus inc_der"></em></a>
+                                                <input type="text" readonly value="0" name="flight_child" id="flight_child" class="inpt_cout_pssngr" />
+                                                <a href="javascript:void(0);"><em data-field="child" data-opt="+" class="fa fa-plus inc_der"></em></a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label>Infant &nbsp;<span>(0-2 Years)</span></label>
+                                            <div class="count_pssngr">
+                                                <a href="javascript:void(0);"><em data-field="infant" data-opt="-" class="fa fa-minus inc_der"></em></a>
+                                                <input type="text" readonly value="0" name="flight_infant" id="flight_infant" class="inpt_cout_pssngr" />
+                                                <a href="javascript:void(0);"><em data-field="infant" data-opt="+" class="fa fa-plus inc_der"></em></a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="combin_class">
+                                        <ul class="in_list_cls">
+                                            <li><input type="radio" name="flight_class" id="flight_class_4" value="4" checked /> <label for="flight_class_4">Economy</label></li>
+                                            <li><input type="radio" name="flight_class" id="flight_class_3" value="3" /> <label for="flight_class_3">Premimum Economy</label></li>
+                                            <li><input type="radio" name="flight_class" id="flight_class_2" value="2" /> <label for="flight_class_2">Business</label></li>
+                                            <li><input type="radio" name="flight_class" id="flight_class_1" value="1" /> <label for="flight_class_1">First</label></li>
+                                        </ul>
+                                    </div>
+                                    <div class="clss_done" id="ind_done">
+                                        <a href="javascript:void(0);" id="prsn_done">Done</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ind_srch_subBox">
+                                <div class="airlines_select">
+                                    <select name="flight_airline" id="flight_airline" disabled>
+                                        <option value="">All Airlines</option>
+                                        @foreach (Airline airline in ViewBag.SearchAirlineList)
+                                        {
+                                            if ((ViewBag.AirCode) == (airline.Code))
+                                            {
+                                        <option value="@(airline.Code)" selected="selected">@(airline.Name)</option>
+                                            }
+                                            else
+                                            {
+                                        <option value="@(airline.Code)">@(airline.Name)</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <input type="button" name="flight_submit" id="flight_submit" class="ind_sbm_btn" value="Search" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  Slider Image Ends Here -->
+
+<div class="main_bredcrum">
+    <div class="container">
+        <div class="bread_head">
+            <ul>
+                <li><a href="@Url.Content("~/")">Home</a></li>
+                <li><i class="fa fa-angle-right angle_bred"></i></li>
+                <li><a href="@Url.Content("~/airlines/")">Airlines</a></li>
+                <li><i class="fa fa-angle-right angle_bred"></i></li>
+                <li style="padding:12px">@(ViewBag.AirlineList.Name)</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+
+    @if (string.IsNullOrEmpty(ViewBag.airlines))
+    {
+        <div class="row">
+            <div class="col-xs-12 abut_bodyhead"><h2>Cheap Flights to Cities of the World</h2></div>
+
+            <div class="col-xs-12">
+                <div class="airpList_content">
+                    <p>Flight office works with almost all the airlines to provide you best deal on flights so that you can enjoy vacations to your most desired destination well within your budget. Flightoffice.co.uk goes for a colourful friendly approach. All just you need is just type the details and we clearly outline the best cheapest flights available for you. Our extensive network of travel partner lets us offer you cheap airfares to top spots with amazing airlines to uncountable destinations from the UK. We are renowned to offer best deals on first class, business class, economy and premium class flights to our esteemed clients so that they can enjoy an unmatched budget-friendly holiday experience.</p>
+                    <p>Our airline guide provides you comprehensive information about each airline, route maps, seating and comfort facilities and services etc so that you can select the best for your journeys. We are responsive to desktop and mobile and smart regarding presentation highlighting best options enabling you to track prices using email alerts. So search and compare to find the cheap and best flights with us and book online to save your precious time and money.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            @foreach (MetaAirline item in ViewBag.AirlineList)
+            {
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="arlList_Main_box">
+                        <a href="@(ViewBag.StaticURL + "airlines/" + item.Slug)">
+                            <div class="arlList_img">
+                                @if (!string.IsNullOrEmpty(item.ImagePath))
+                                {
+                                <img src="@(ViewBag.StaticURL + "Media/MetaData/" + item.ImagePath)" alt="@(item.Name)" />
+                                }
+                            </div>
+                            <span>@(item.Name)</span>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="gap"></div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="a_l_bx">
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="hdnAircode" value="0" />
+    }
+    else
+    {
+        <input type="hidden" id="hdnAircode" value="@(ViewBag.AirCode)" />
+        MetaAirline airlineItem = ViewBag.AirlineList;
+        <div class="row">
+            <div class="col-sm-8 col-xs-12">
+
+                <div class="home-deals">
+                    <div class="row" id="dvAirlinedeals">
+
+
+                    </div>
+                </div>
+
+                <div class="ap_mian_content clearfix">
+                    <h3>@(airlineItem.Name)</h3>
+                    @if (!string.IsNullOrEmpty(airlineItem.ImagePath))
+                    {
+                        <img src="@(ViewBag.StaticURL + "Media/MetaData/" + airlineItem.ImagePath)" alt="@(airlineItem.Name)" />
+                    }
+                    <p>@Html.Raw(HttpUtility.HtmlDecode(airlineItem.Description))</p>
+                </div>
+            </div>
+
+            <div class="col-sm-4 col-xs-12">
+                <div class="right_panl_airl">
+                    <div class="air_rght_smry">
+                        <div class="logo_right">
+                            <img src="@(ViewBag.StaticURL + "Content/airline/full/" + airlineItem.Code + ".png")" width="100%" />
+                        </div>
+                        <h3>@(airlineItem.Name) (@(airlineItem.Code))</h3>
+                        <p>@Html.Raw(HttpUtility.HtmlDecode(airlineItem.SideDescription))</p>
+                    </div>
+                    <div class="air_list">
+                        <h3>Top Airlines</h3>
+                        <ul>
+                            @{
+                                string strsql = "SELECT Top 16 Code,Name as AirName FROM MetaAirline MA INNER JOIN FlightDeals_AirCode AC  ON MA.Code=AC.Aircode WHERE SiteCode='FLIGHTOFFICE' ORDER BY NEWID()";
+                                System.Data.DataTable dt = SqlData.Data.SqlHelperData.ExecuteDataset(SqlData.Data.SqlHelperData.ConnectionString, System.Data.CommandType.Text, strsql).Tables[0];
+                                if (dt.Rows.Count > 0)
+                                {
+                                    foreach (System.Data.DataRow row in dt.Rows)
+                                    {
+                                        <li><a href="@(ViewBag.StaticURL + "airlines/" + row["AirName"].ToString().Replace(" ","-").ToLower())">@(row["AirName"].ToString())</a></li>
+                                    }
+                                }
+
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+                                }
+</div>
+
+<!-- Popup Start Here -->
+<div class="blue_pop" id="search_popup">
+    <div class="blue_clock">
+        <div class="spinnerClock">
+            <div class="spinnerClock__clock"></div>
+            <div class="spinnerClock__minHand"></div>
+            <div class="spinnerClock__secHand"></div>
+            <div class="spinnerClock__secondHand"></div>
+        </div>
+
+        <h3>Looking for your flights!</h3>
+        <p>Please Wait... it will take a couple of seconds</p>
+    </div>
+</div>
+
+
+@section scripts{
+
+
+    <script>
+        $(document).ready(function () {
+
+            if ($('#hdnAircode').val() != "0")
+
+                var htmlstr = '';
+            $.ajax({
+                url: '@(ViewBag.StaticURL)webapi/viman/GetDealsAirline/?Aircode=' + $('#hdnAircode').val(),
+                type: 'get',
+                dataType: 'json',
+                success: function (data, textStatus, xhr) {
+                    $.each(data, function (i, e) {
+                        var strurl = '@(ViewBag.StaticURL)flight/search?SiteCode=VIMAN&SourceMedia=VIMAN&From=' + e.DCode + '&To=' + e.GCode + '&DepDate=' + e.FromDate + '&RetDate=' + e.ToDate + '&Adult=1&amp;Child=0&Infant=0&FlightWay=2&FlightClass=4&Airline=&IsDirect=false&IsFlexi=false&Currency=GBP';
+                        htmlstr += "<a style='cursor:pointer;' href=" + strurl + " onclick='ShowUp();'>";
+                        htmlstr += "<div class='col-xs-12 col-md-6'>";
+                        htmlstr += "<div class='home-deals-box'>";
+                        htmlstr += "<div class='deal-icon'><img src='@(ViewBag.StaticURL)Content/airline/icon/" + e.ACode.trim() + ".png' /></div>";
+                        htmlstr += "<div class='deal-dlt'>";
+                        htmlstr += "  <p>Dep: " + e.DepartDate + " Rtn: " + e.ReturnDate + "</p>";
+                        htmlstr += "<div class='fr-dlt'>";
+                        htmlstr += "  <span>" + e.DCode + "</span>";
+                        htmlstr += "   <p>" + e.DCityName + "</p>";
+                        htmlstr += "</div>";
+                        htmlstr += "<div class='from-to'></div>";
+                        htmlstr += "<div class='fr-dlt'>";
+                        htmlstr += " <span>" + e.GCode + "</span>";
+                        htmlstr += "  <p>" + e.GCityName + "</p>";
+                        htmlstr += "</div>";
+                        htmlstr += "</div>";
+                        htmlstr += "<div class='deal-price'>";
+                        htmlstr += "<p>Prices from</p>";
+                        htmlstr += " <div class='dealPrice'><span>£</span>" + e.TotalFare + "</div>";
+                        htmlstr += "<a class='srch' href='" + strurl + "'>Search <i class='fa fa-angle-right' aria-hidden='true'></i></a>";
+                        htmlstr += "</div>";
+                        htmlstr += "</div>";
+                        htmlstr += "</div>";
+                        htmlstr += "</div></a>";
+                    });
+                    $('#dvAirlinedeals').html(htmlstr);
+                    console.log(data);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error in Operation');
+                }
+            });
+
+        });
+
+        function ShowUp() {
+            $("#search_popup").show();
+        }
+
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+           $("#flight_submit").click(function () {
+                if ($("#flight_from").val().trim(' ') == "") {
+                    alert("Please enter your departure airport");
+                    $("#flight_from").focus();
+                    return false;
+                }
+                else if ($("#flight_from").val().trim(' ').indexOf('-') != 3) {
+                    alert("Kindly select departure airport from auto suggest list!");
+                    $("#flight_from").focus();
+                    return false;
+                }
+                else if ($("#flight_to").val().trim(' ') == "") {
+                    alert("Please enter your destination airport");
+                    $("#flight_to").focus();
+                    return false;
+                }
+                else if ($("#flight_to").val().trim(' ').indexOf('-') != 3) {
+                    alert("Kindly select destination airport from auto suggest list!");
+                    $("#flight_to").focus();
+                    return false;
+                }
+                else if ($("#flight_to").val().trim(' ') == $("#flight_from").val().trim(' ')) {
+                    alert("Departure Airport and Destination Airport can't be same!!");
+                    $("#flight_to").focus();
+                    return false;
+                }
+                else {
+                    var fway = $('input[name=flight_way]:checked').val();
+                    var fcls = $('input[name=flight_class]:checked').val();
+                    var from = "&From=" + $("#flight_from").val().split("-")[0];
+                    var to = "&To=" + $("#flight_to").val().split("-")[0];
+                    var fromDate = "&DepDate=" + $("#flight_from_date").val().split("-")[2] + "-" + $("#flight_from_date").val().split("-")[1] + "-" + $("#flight_from_date").val().split("-")[0];
+                    var toDate = "&RetDate=";
+
+                    if (fway == "2") {
+                        toDate = "&RetDate=" + $("#flight_to_date").val().split("-")[2] + "-" + $("#flight_to_date").val().split("-")[1] + "-" + $("#flight_to_date").val().split("-")[0];
+                    }
+                    var adult = "&Adult=" + $("#flight_adult").val();
+                    var child = "&Child=" + $("#flight_child").val();
+                    var infant = "&Infant=" + $("#flight_infant").val();
+                    var airline = "&Airline=" + $("#flight_airline").val();
+                    var isdirect = "&IsDirect=" + (($("input[name=is_direct]:checked").val()=="1")?"true":"false");
+                    var isflexi = "&IsFlexi=" + (($("input[name=flight_flexi]:checked").val()=="1")?"true":"false");
+                    fway_s = "&FlightWay=" + fway;
+                    fcls_s = "&FlightClass=" + fcls;
+
+                    var str = "@(ViewBag.StaticURL + "flight/search?")SiteCode=VIMAN&SourceMedia=VIMAN" + from + to + fromDate + toDate + adult + child + infant + fway_s + fcls_s + airline + isdirect + isflexi + "&Currency=GBP";
+                    //alert(str);
+
+                    $("#search_popup").show();
+                    window.location = str;
+                }
+            });
+
+            var selectFrom = false;
+            var selectTo = false;
+
+            $('#flight_from').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/api/getairport",
+                        dataType: "json",
+                        data: {
+                            pickUpLocation: request.term
+                        },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    value: item.Code,
+                                    label: (item.Code + "-" + item.Name + ", " + item.CityName)
+                                }
+                            }));
+                        }
+                    })
+                },
+                open: function (event, ui) { selectFrom = true; },
+                select: function (event, ui) {
+                    $(this).val(ui.item.label);
+                    selectFrom = false;
+                    return false;
+                },
+                close: function (event, ui) {
+                    selectFrom = false;
+                },
+                minLength: 3,
+                autoFocus: true
+            }).blur(function () {
+                if (selectFrom) {
+                    $("#flight_from").val($('ul.ui-autocomplete li:first a').text());
+                }
+            }).focus(function () {
+                $(this).autocomplete("search");
+            });
+
+            $("#flight_to").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/api/getairport",
+                        dataType: "json",
+                        data: {
+                            pickUpLocation: request.term
+                        },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    value: item.Code,
+                                    label: (item.Code + "-" + item.Name + ", " + item.CityName)
+                                }
+                            }));
+                        }
+                    })
+                },
+                open: function (event, ui) {
+                    selectTo = true;
+                },
+                select: function (event, ui) {
+                    $(this).val(ui.item.label);
+                    selectTo = false;
+                    return false;
+                },
+                close: function (event, ui) {
+                    selectTo = false;
+                },
+                minLength: 3,
+                autoFocus: true
+            }).blur(function () {
+                if (selectTo) {
+                    $("#flight_to").val($('ul.ui-autocomplete li:first a').text());
+                }
+            }).focus(function () {
+                $(this).autocomplete("search");
+            });
+
+
+            $("label.flight_way_chk").click(function () {
+                var fway = $('input[name=flight_way]:checked').val();
+                $(".flight_way_chk").removeClass("active");
+                $(this).addClass("active");
+                if (fway == "1") {
+                    $(".oneway_return_date").hide();
+                    $(".ind_inputBox_date").show();
+                }
+                else {
+                    $(".oneway_return_date").show();
+                    $(".ind_inputBox_date").hide();
+                }
+            });
+
+            $(".inc_der").click(function () {
+                var fld = $(this).attr("data-field");
+                var fld_opt = $(this).attr("data-opt");
+                var adt = parseInt($("#flight_adult").val());
+                var chd = parseInt($("#flight_child").val());
+                var inf = parseInt($("#flight_infant").val());
+
+                if (fld == "adult") {
+                    if (fld_opt == "+") {
+                        if ((adt + chd) < 9) {
+                            $("#flight_adult").val(adt + 1);
+                        }
+                    }
+                    else if (fld_opt == "-") {
+                        if (adt > 1) {
+                            $("#flight_adult").val(adt - 1);
+                        }
+                    }
+                }
+                else if (fld == "child") {
+                    if (fld_opt == "+") {
+                        if ((adt + chd) < 9) {
+                            $("#flight_child").val(chd + 1);
+                        }
+                    }
+                    else if (fld_opt == "-") {
+                        if (chd > 0) {
+                            $("#flight_child").val(chd - 1);
+                        }
+                    }
+                }
+                else if (fld == "infant") {
+                    if (fld_opt == "+") {
+                        if (adt > inf) {
+                            $("#flight_infant").val(inf + 1);
+                        }
+                    }
+                    else if (fld_opt == "-") {
+                        if (inf > 0) {
+                            $("#flight_infant").val(inf - 1);
+                        }
+                    }
+                }
+
+                getPassenger();
+            });
+
+            $("input[name=flight_class]").change(function () {
+                getPassenger();
+            });
+
+            $("#flight_from_date").datepicker({
+                format: 'dd-mm-yyyy',
+                startDate: '@DateTime.Now.AddDays(2).ToString("dd-MM-yyyy")',
+                autoHide: true
+            }).on('pick.datepicker', function (e) {
+                var currdate = getStr(e.date.getDate()) + "-" + getStr((e.date.getMonth() + 1)) + "-" + e.date.getFullYear();
+                $("#flight_to_date").val(currdate);
+                $("#flight_to_date").datepicker('setDate', e.date);
+                $("#flight_to_date").datepicker('setStartDate', e.date);
+                $("#flight_to_date").focus();
+            });
+            $("#flight_to_date").datepicker({
+                format: 'dd-mm-yyyy',
+                startDate: '@DateTime.Now.AddDays(9).ToString("dd-MM-yyyy")',
+                autoHide: true
+            });
+
+            $("#prsn_add").click(function () {
+                $("#prsn_popup").slideDown("slow");
+            });
+            $("#prsn_done").click(function () {
+                $("#prsn_popup").slideUp("slow");
+            });
+            $('body').click(function () {
+                $("#prsn_popup").slideUp("slow");
+            });
+            $('.prp_popup').click(function (e) {
+                e.stopPropagation();
+            });
+        });
+
+        function getPassenger() {
+            var str = $("#flight_adult").val() + " Adult";
+            if ($("#flight_child").val() > 0) {
+                str += ", " + $("#flight_child").val() + "Child";
+            }
+            if ($("#flight_infant").val() > 0) {
+                str += ", " + $("#flight_infant").val() + "Infant";
+            }
+            var chk_cls = $('input[name=flight_class]:checked').val();
+
+            if (chk_cls == "1") {
+                str += ", First";
+            }
+            else if (chk_cls == "2") {
+                str += ", Business";
+            }
+            else if (chk_cls == "3") {
+                str += ", Premimum Economy";
+            }
+            else {
+                str += ", Economy";
+            }
+
+            $("#pass_info").val(str);
+        }
+
+        function addNightToDate(fromD, toD, noD) {
+            var s_date_arr = $('#' + fromD).val().split("-");
+            var dat = new Date(s_date_arr[2] + "-" + s_date_arr[1] + "-" + s_date_arr[0]);
+            dat.addDays(noD);
+
+            var c_day = (dat.getDate().toString().length == 1) ? "0" + dat.getDate() : dat.getDate();
+            var c_month = ((dat.getMonth() + 1).toString().length == 1) ? "0" + (dat.getMonth() + 1) : (dat.getMonth() + 1);
+            $('#' + toD).val(c_day + "-" + c_month + "-" + dat.getFullYear());
+        }
+    </script>
+
+
+
+}

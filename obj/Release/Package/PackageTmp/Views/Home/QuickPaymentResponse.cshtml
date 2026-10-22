@@ -1,0 +1,63 @@
+﻿@model Viman.Models.QuickPayment
+@using Viman.Models
+@{
+    ViewBag.Title = "QuickPaymentResponse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.WebsiteURL = Common.WebsiteURL;
+    ViewBag.StaticURL = Common.StaticURL;
+    ViewBag.Currency = Common.Currency;
+}
+
+<div class="background_top"></div>
+<div class="main_bredcrum">
+    <div class="container">
+        <div class="col-xs-12">
+            <div class="bread_head">
+                <ul>
+                    <li><a href="@Url.Content("~/")">Home</a></li>
+                    <li> <a href="javascript:void(0);" class="fa fa-angle-right angle_bred"></a> </li>
+                    <li><a href="@Url.Content("~/quick-payment/")">Quick Payment</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="gap_small">&nbsp;</div>
+    <div class="row">
+        <div class="col-xs-12">
+            @if (ViewBag.status == "ok")
+            {
+                <div class="cn_check">
+                    <i class="fa fa-check-circle"></i>
+                    <h2>@(Model.FirstName), your payment was successful!</h2>
+                    <h3>Payment details has been send to <b>@(Model.Email)</b></h3>
+                    <p>Payment Reference No : <b>@(Model.TranscationId)</b></p>
+                </div>
+            }
+            else
+            {
+                if (ViewBag.status == "error" && ViewBag.refId == "")
+                {
+                    <div class="can_check">
+                        <i class="fa fa-times-circle"></i>
+                        <h2>You got error on make payment!</h2>
+                        <h3>Please contact administrator for more detil or <b>CALL US 0203 745 4455</b></h3>
+                    </div>
+                }
+                else
+                {
+                    <div class="can_check">
+                        <i class="fa fa-times-circle"></i>
+                        <h2>@(Model.FirstName), you got error on make payment!</h2>
+                        <h3>Payment details has been send to <b>@(Model.Email)</b></h3>
+                        <p>Payment Reference No : <b>@(Model.TranscationId)</b></p>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <div class="gap_small">&nbsp;</div>
+</div>

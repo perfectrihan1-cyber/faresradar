@@ -1,0 +1,66 @@
+﻿<nav class="nav">
+    <div class="logo">
+        <img src="~/images/logo.png" alt="Airfarelookup" style="width:200px;height:auto;max-height:36px;object-fit:contain;">
+    </div>
+    <div class="nav-tabs">
+
+        <button class="ntab active" onclick="window.location.href='/'">
+            Home
+        </button>
+
+        <button class="ntab" onclick="window.location.href='/about'">
+           
+            About
+        </button>
+
+        <button class="ntab" onclick="window.location.href='/contact'">
+            
+            Contact
+        </button>
+
+    </div>
+    <div class="nav-right">
+        <a href="tel:+18332636016"><button class="btn-login">Call Us!</button></a>
+       
+    </div>
+    <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+
+    <button class="ntab active" onclick="window.location.href='/'">
+        <img src="~/images/flightmenu.png" width="16" height="16" style="vertical-align:middle;margin-right:6px;filter:brightness(0) invert(1)">
+        Home
+    </button>
+
+    <button class="ntab" onclick="window.location.href='/about'">
+        <img src="~/images/hotelmenu.png" width="16" height="16" style="vertical-align:middle;margin-right:6px;filter:brightness(0) invert(1)">
+        About
+    </button>
+
+    <button class="ntab" onclick="window.location.href='/contact'">
+        <img src="~/images/carmenu.png" width="16" height="16" style="vertical-align:middle;margin-right:6px;filter:brightness(0) invert(1)">
+        Contact
+    </button>
+
+    <div style="margin-top:12px;border-top:1px solid rgba(255,255,255,.1);padding-top:12px;display:flex;flex-direction:column;gap:8px">
+
+        <button class="btn-login" style="margin-top:8px;text-align:center">Call Us</button>
+    </div>
+</div>
+
+<style>
+    .mobile-menu.open {
+        display: flex;
+    }
+</style>
+
+<script>
+    function toggleMobileMenu() {
+        const m = document.getElementById('mobileMenu');
+        m.classList.toggle('open');
+    }
+</script>

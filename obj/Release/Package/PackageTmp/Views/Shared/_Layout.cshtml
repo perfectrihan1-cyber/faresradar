@@ -1,0 +1,445 @@
+﻿@using Viman.Models
+@{
+    ViewBag.StaticURL = Common.StaticURL;
+}
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="robots" content="index, follow" />
+    <meta name="google-site-verification" content="m_R4V_ofdo-33YdUXZLIrcFPocC8wxyNUJJ_rOoX0a0" />
+    <meta name="p:domain_verify" content="cfb6cb61fb774c749321d8abee8744cd" />
+
+    <title>@(ViewBag.Title != null ? ViewBag.Title : "Cheap Flights, Hotels, Car Rental, Holiday") - FlightMover</title>
+    <meta name="keywords" content="@(ViewBag.MetaKeyword!=null?ViewBag.MetaKeyword: "Cheap flight providers from London. Special Deals on flights, Low cost flight providers")" />
+    <meta name="description" content="@(ViewBag.MetaContent!=null?ViewBag.MetaContent: "cheap flight, airline tickets, cheap flights uk, low fare flights, cheap flights, cheap flights last minute, last minute flights, cheap flights, air fare")" />
+    @*<link type="image/png" rel="icon" sizes="32x32" href="@(ViewBag.StaticURL + "Content/images/favicon.png")">*@
+    <link type="text/css" rel="stylesheet" href="@(ViewBag.StaticURL + "Content/css/style.css")" />
+    @*<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700" />
+        <link type="text/css" rel="stylesheet" href="@(ViewBag.StaticURL + "Content/css/font-awesome.min.css")" />
+        <link type="text/css" rel="stylesheet" href="@(ViewBag.StaticURL + "Content/css/bootstrap.css")" />
+        <link type="text/css" rel="stylesheet" href="@(ViewBag.StaticURL + "Content/css/owl.carousel.min.css")" />
+        <link type="text/css" rel="stylesheet" href="@(ViewBag.StaticURL + "Content/css/owl.theme.default.min.css")" />
+        <link type="text/css" rel="stylesheet" href="@(ViewBag.StaticURL + "Content/css/style.css")" />
+        <link type="text/css" rel="stylesheet" href="@(ViewBag.StaticURL + "Content/css/jquery-ui.min.css")" />
+        <link type="text/css" rel="stylesheet" href="@(ViewBag.StaticURL + "Content/css/jquery.datetimepicker.css")" />
+        <link type="text/css" rel="stylesheet" href="@(ViewBag.StaticURL + "Content/css/datepicker.min.css")" />*@
+
+
+    <title> FlightMover </title>
+    <link href="@(ViewBag.StaticURL + "Content/bootstrap.css")" rel="stylesheet" />
+
+    <link href="@(ViewBag.StaticURL + "Content/mainstyle.css")" rel="stylesheet" />
+    <link href="@(ViewBag.StaticURL + "Content/mainmobile-responsive.css")" rel="stylesheet" />
+    <link href="@(ViewBag.StaticURL + "Content/font-awesome.min.css")" )" rel="stylesheet" />
+    <link href="@(ViewBag.StaticURL + "Content/jquery-ui.css")" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    @*<script src="@(ViewBag.StaticURL + "Scripts/bootstrap.min.js")"></script>
+        <script src="@(ViewBag.StaticURL + "Scripts/jquery-ui.js")"></script>*@
+
+</head>
+<body>
+    <div class="sticky">
+        <div class="container-fluid add-top">
+            <div class="container">
+                <div class="bookmange">
+                    <ul>
+                        <li><a href="#"><i class="fa fa-clock-o"></i> Mon-Fri 10am-5pm</a></li>
+                        <li><a href="tel:+1-888-5469-579">Toll Free <i class="fa fa-phone-square"></i>+1-888-5469-579</a></li>
+                        <li><a href="tel:+1-646-9339-578"><i class="fa fa-whatsapp"></i>&nbsp;<i class="fa fa-phone-square"></i> +1-646-9339-578</a></li>
+                        <li><a href="mailto:sales@flightmover.com"><i class="fa fa-envelope"></i> sales@flightmover.com</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="container">
+                <nav class="own-navbar">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a href="index.html"><img src="@(ViewBag.StaticURL +  "Content/Images/logo.png")" /></a>
+                        </div>
+                        <div class="collapse navbar-collapse" id="myNavbar">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li> <a href="index.html">Home</a></li>
+                                <li> <a href="Flight.html">Flights</a></li>
+                                <li> <a href="BusinessClass.html">Business</a></li>
+                                <li> <a href="AboutUs.html">About Us</a></li>
+                                <li><a href="ContactUs.html">Contact us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="@(ViewBag.StaticURL + "Content/CAirline/common-airline.css")">
+    @RenderBody()
+    @*<footer>
+            <div class="footer-icon">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="globalSites"><span>GLOBAL SITES </span><ul><li><a class="usa" href="https://www.travolie.com" target="_blank">&nbsp;</a></li><li><a class="ca" href="https://www.travolie.ca" target="_blank">&nbsp;</a></li></ul></div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="cards-footer">
+                                <div class="socil_txt">
+                                    <span>
+                                        CARDS WE ACCEPT
+                                    </span>
+                                </div>
+                                <div class="social_icon">
+                                    <a><img src="~/content/images/cards.png" /></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main_cont_fotr">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-3">
+                            <div class="fotr_addrss">
+                                <div class="footr_fl_logo">
+                                    <a href="@Url.Content("~/")"><img src="@(ViewBag.StaticURL + "Content/images/logo_Viman1.png")" /></a>
+                                </div>
+                                <p>
+                                    2nd Floor, 7 mackenzie St,<br />
+                                    Slough SL1 1XQ, UK
+                                </p>
+                                <span>
+                                    <a href="tel:@((Session["SitePhone"]==null)?"+442037454455": "+44"+Session["SitePhone"].ToString().Replace(" ", "").Substring(1))">@((Session["SitePhone"] == null) ? "0203 642 6830" : Session["SitePhone"])</a>
+                                </span>
+
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3">
+                            <div class="offr_lnk">
+                                <h4>Who We Are</h4><br />
+                                <ul>
+                                    <li><a href="@Url.Content("~/about/")">About us</a></li>
+                                    <li><a href="@Url.Content("~/contact/")">Contact us</a></li>
+                                    <li><a href="@Url.Content("~/sitemap/")">Sitemap</a></li>
+                                    <li><a href="@Url.Content("~/faq/")">FAQ</a></li>
+                                    <li><a href="@Url.Content("~/quick-payment/")">Online Payment</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3">
+                            <div class="offr_lnk">
+                                <h4>Important Information</h4><br />
+                                <ul>
+                                    <li><a href="@Url.Content("~/terms-conditions/")">Terms of Use</a></li>
+                                    <li><a href="@Url.Content("~/privacy-policy/")">Privacy Policy</a></li>
+                                    <li><a href="@Url.Content("~/cookies-policy/")">Cookies Policy</a></li>
+                                    <li><a href="@Url.Content("~/customer-support/")">Customer Support</a></li>
+                                    <li><a href="@Url.Content("~/travel-documents/")">Travel Documents</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6 col-md-3">
+                            <div class="offr_lnk">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="gap_small">&nbsp;</div>
+                            <div class="bok_conf_txt">
+                                <span>BOOK WITH CONFIDENCE</span>
+                            </div>
+                            <div class="bok_conf"> <span></span></div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="text-center">
+                                <div class="certfcate_logo"><img src="@(ViewBag.StaticURL + "Content/images/certifiedlogo.svg")" class="img-responsive" /></div>
+                                <hr class="hr_line">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p class="copy_right">© Copyright @DateTime.Now.Year. viman.co.uk. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <div class="es_p_g" id="signup_popup">
+            <div class="es_pg_bx_cntr">
+                <div class="es_pop_bx clearfix">
+                    <div class="es_leftBx">
+                        <h3>Stay connected with us</h3>
+                        <p>Subscribe to our newsletter for latest travel updates and get the best of flightoffice straight to your inbox.</p>
+                        <h4>
+                            <a href="@Url.Content("~/best-deals/")" target="_blank"><i class="fa fa-arrow-circle-right"></i></a>
+                        </h4>
+                    </div>
+                    <div class="es_right_box">
+                        <h3>Subscribe Now</h3>
+                        <h4>
+                            <span>
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </h4>
+                        <p>
+                            <input type="text" id="txt_signup_email" name="txt_signup_email" placeholder="Enter Your Email Here" />
+                        </p>
+                        <h5>
+                            <input type="button" id="popup_subscribe" name="popup_subscribe" value="Subscribe Now" />
+                        </h5>
+                    </div>
+                    <div class="es_cls_btn">
+                        <i class="fa fa-times" id="close_signup_popup"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="header_top" id="cookie_popup">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+
+                        <div class="marquee_edit">
+                            We use cookies to deliver our services. By using our services, you agree to our use of cookies. Learn more <a href="@Url.Content("~/cookies-policy/")">here</a>.
+                        </div>
+                        <div class="marq_btn">
+                            <a href="javascript:void(0);" onclick="setPrivacyCookie()" class="top_OK">OK</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+
+
+    <footer class="hidden-xs">
+        <div class="container">
+            <ul>
+                <p>About </p>
+                <li><a href="aboutus-2.html">About US</a></li>
+                <li><a href="disclaimer.html">Disclaimer</a></li>
+                <li><a href="contactus-2.html">Contact Us</a></li>
+                <li><a href="faq.html">faq</a></li>
+                <li><a href="terms_and_conditions.html">Terms & Conditions</a></li>
+                <li><a href="privacy_policy.html">Privacy Policy</a></li>
+                <li><a href="makepayment.html">Make Payment</a></li>
+            </ul>
+            <ul>
+                <p>popular airlines</p>
+                <li><a href="airline/ua-united-airlines-cheap-flight-tickets.html">United Airlines</a></li>
+                <li><a href="airline/aa-american-airlines-cheap-flight-tickets.html">American Airlines</a></li>
+                <li><a href="airline/ac-air-canada-cheap-flight-tickets.html">Air Canada</a></li>
+                <li><a href="airline/am-aeromexico-cheap-flight-tickets.html">Aeromexico Airlines</a></li>
+                <li><a href="airline/wn-southwest-airlines-cheap-flight-tickets.html">Southwest Airlines</a></li>
+                <li><a href="airline/ws-westJet-cheap-flight-tickets.html">WestJet Airlines</a></li>
+            </ul>
+            <ul>
+                <p>Domestic destinations</p>
+                <li><a href="cheap-flights-to-atlanta-atl.html">Atlanta - ATL</a></li>
+                <li><a href="cheap-flights-to-los-angeles-lax.html"> Los Angeles- LAX</a></li>
+                <li><a href="cheap-flights-to-chicago-ord.html">Chicago- ORD</a></li>
+                <li><a href="cheap-flights-to-denver-den.html">Denver- DEN</a></li>
+                <li><a href="cheap-flights-to-san-francisco-sfo.html">San Francisco-SFO</a></li>
+                <li><a href="cheap-flights-to-orlando-mco.html"> Orlando-MCO</a></li>
+
+            </ul>
+            <ul>
+                <p>international destinations</p>
+                <li><a href="cheap-flights-to-london-lhr.html">London- LHR</a></li>
+                <li><a href="cheap-flights-to-amsterdam-ams.html">Amsterdam- AMS</a></li>
+                <li><a href="cheap-flights-to-frankfurt-fra.html">Frankfurt- FRA</a></li>
+                <li><a href="cheap-flights-to-moscow-dme.html">Moscow- DME</a></li>
+                <li><a href="cheap-flights-to-milan-mil.html">Milan- MIL</a></li>
+                <li><a href="cheap-flights-to-cancun-cun.html">Cancun- CUN</a></li>
+            </ul>
+            <ul>
+                <p>PAYMENT MODE</p>
+                <div class="cards">
+                    <a class="visa" title="Visa"></a>
+                    <a class="master" title="Master Card"></a>
+                    <a class="american" title="American Express"></a>
+                    <a class="py_pal" title="PayPal"></a>
+                    <a class="rupaylg" title="RuPay"></a>
+                </div>
+            </ul>
+            <div class="mail-1">
+                <p>mail us</p>
+                <a href="mailto:sales@flightmover.com">sales@flightmover.com</a>
+            </div>
+            <div class="mail-2">
+                <p>call us </p>
+                <a href="tel: +1-646-9339-578"><i class="fa fa-phone" style="color:#ccc;"></i> +1-646-9339-578</a> <a href="tel:+1-646-9339-578">
+                </a>
+            </div>
+            
+        </div>
+        
+    </footer>
+    <div class="txt-center copyright">
+        Copyright &copy; 2022  FlightMover . All rights reserved!
+
+        <p class="footermail"><a href="mailto:sales@flightmover.com"><i class="fa fa-envelope"></i> sales@flightmover.com</a></p>
+    </div>
+
+    <script type="text/javascript" src="@(ViewBag.StaticURL + "Content/js/jquery-3.2.1.min.js")"></script>
+    <script type="text/javascript" src="@(ViewBag.StaticURL + "Content/js/jquery-ui.min.js")"></script>
+    <script type="text/javascript" src="@(ViewBag.StaticURL + "Content/js/bootstrap.min.js")"></script>
+    @*<script type="text/javascript" src="@(ViewBag.StaticURL + "Content/js/jquery.datetimepicker.full.min.js")"></script>
+    <script type="text/javascript" src="@(ViewBag.StaticURL + "Content/js/datepicker.min.js")"></script>*@
+
+    <script type="text/javascript">
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function checkCookie() {
+            var cookie = getCookie("setCookieFlag");
+            if (cookie == "") {
+                $("#cookie_popup").show();
+            }
+        }
+        checkCookie();
+
+        function setPrivacyCookie()
+        {
+            setCookie('setCookieFlag', '1', 30);
+            $("#cookie_popup").fadeOut(300);
+        }
+
+        $(window).on("load", function () {
+            $.ready.then(function () {
+                var signup = getCookie("setSignupFlag");
+                if (signup == "") {
+                    setTimeout(function () { $("#signup_popup").fadeIn(300); }, 15000);
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $("#popup_subscribe").click(function () {
+                if ($("#txt_signup_email").val().trim(' ') == "") {
+                    alert("Please enter your email.");
+                    $("#txt_signup_email").focus();
+                    return false;
+                }
+                else
+                {
+                    var filter = @("/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{0,4}$/");
+                    if (!filter.test($("#txt_signup_email").val())) {
+                        alert("Please enter your valid email.");
+                        $("#txt_signup_email").focus();
+                        return false;
+                    }
+                }
+
+                $.ajax(
+                {
+                    type: "POST",
+                    url: "@(ViewBag.StaticURL)Home/Subscriber",
+                    data: {
+                        Email: $("#txt_signup_email").val(),
+                    },
+                    success: function(result){
+                        if(result=="success")
+                        {
+                            alert("Thank You for subscribing  to our newsletter ! We will get back to you with some of our best deals and offers. Stay tuned.");
+                        }
+                        else if(result=="already")
+                        {
+                            alert("You are already subscribe to our newslatter.");
+                        }
+                        else
+                        {
+                            alert("Opps!.. Something problem in newslatter. Please call us 0203 642 6835");
+                        }
+                        setCookie('setSignupFlag', '1', 365);
+                        $("#signup_popup").fadeOut(300);
+                    }
+                });
+            });
+
+            $("#close_signup_popup").click(function(){
+                setCookie('setSignupFlag', '1', 1);
+                $("#signup_popup").fadeOut(300);
+            });
+
+            $('.nav_bar').click(function () {
+                $('.top_nav_mobile').animate({width:"toggle"});
+                $(".nav_bar:first i").toggleClass("fa-times");
+                $(".nav_bar:first i").toggleClass("fa-bars");
+            });
+
+            Date.prototype.addDays = function (days) {
+                this.setDate(this.getDate() + parseInt(days));
+                return this;
+            };
+        });
+
+        function getStr(str) {
+            if (str.toString().length == 1)
+                return "0" + str;
+            else
+                return str;
+        }
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-81342269-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-81342269-2');
+    </script>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/5f0c027f67771f3813c0ea84/default';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

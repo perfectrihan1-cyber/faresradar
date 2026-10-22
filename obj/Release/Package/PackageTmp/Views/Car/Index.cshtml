@@ -1,0 +1,408 @@
+﻿@using Viman.Models
+@{
+    ViewBag.Title = "Book Cheap Car Rental | Cheap Car Hire Deals | Budget Car Hire ";
+    ViewBag.MetaContent = "Flight Office offers best car hire services to various destinations throughout the world. Book online best car hire deals at the lowest price ever.";
+    ViewBag.PageName = "car";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.StaticURL = Common.StaticURL;
+}
+
+<div class="background_top"></div>
+
+<div class="car_back_img_main">
+    <div class="ind_sear_outbox">
+        <div class="container">
+            <div class="col-xs-12">
+                <div class="car_ind_srch_head">
+                    <h3>Car Hire</h3>
+                </div>
+                <div class="car_ind_searBx">
+                    <div class="car_ind_srch_subBox">
+                        <i class="fa fa-map-marker"></i>
+                        <input type="hidden" name="car_pickup_location_id" id="car_pickup_location_id" value="@(ViewBag.pickupCode)" />
+                        <input type="text" name="car_pickup_location" id="car_pickup_location" placeholder="Location/City" class="car_ind_inputBox" value="@(ViewBag.pickupName)" />
+                    </div>
+                    <div class="car_ind_srch_subBox">
+                        <i class="fa fa-map-marker"></i>
+                        <input type="hidden" name="car_dropoff_location_id" id="car_dropoff_location_id" value="@(ViewBag.dropoffCode)" />
+                        <input type="text" name="car_dropoff_location" id="car_dropoff_location" placeholder="Location/City" class="car_ind_inputBox" value="@(ViewBag.dropoffName)" />
+                    </div>
+                    <div class="car_ind_srch_subBox_dt">
+                        <i class="fa fa-map-marker"></i>
+                        <input type="text" name="car_pickup_date" id="car_pickup_date" placeholder="Pickup Date" value="@((ViewBag.pickupDate=="")?DateTime.Now.AddDays(2).ToString("dd-MM-yyyy"):ViewBag.pickupDate)" class="car_ind_inputBox" />
+                    </div>
+                    <div class="car_ind_srch_subBox_tm">
+                        <i class="fa fa-clock-o"></i>
+                        <input type="text" name="car_pickup_time" id="car_pickup_time" placeholder="Time" value="@((ViewBag.pickupTime=="")?DateTime.Now.AddDays(2).ToString("HH:mm"):ViewBag.pickupTime)" class="car_ind_inputBox" />
+                    </div>
+                    <div class="car_ind_srch_subBox_dt">
+                        <i class="fa fa-map-marker"></i>
+                        <input type="text" name="car_dropoff_date" id="car_dropoff_date" placeholder="Dropoff Date" value="@((ViewBag.dropoffDate=="")?DateTime.Now.AddDays(9).ToString("dd-MM-yyyy"):ViewBag.dropoffDate)" class="car_ind_inputBox" />
+                    </div>
+                    <div class="car_ind_srch_subBox_tm">
+                        <i class="fa fa-clock-o"></i>
+                        <input type="text" name="car_dropoff_time" id="car_dropoff_time" placeholder="Time" value="@((ViewBag.dropoffTime=="")?DateTime.Now.AddDays(9).ToString("HH:mm"):ViewBag.dropoffTime)" class="car_ind_inputBox" />
+                    </div>
+                    <input type="button" src="javascript:void(0);" name="car_submit" id="car_submit" placeholder="All Airline" class="car_ind_sbm_btn" value="CAR SEARCH">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="ind_air_log_head">
+                <h3><span>Leading brands for car hire- Search, Compare and Save</span></h3>
+            </div>
+            <div class="in_air_box">
+                <div class="in_air_sub_box">
+                    <span><img src="@(ViewBag.StaticURL + "Content/images/dollar.png")" /></span>
+                    <span><img src="@(ViewBag.StaticURL + "Content/images/europcar.png")" /></span>
+                    <span><img src="@(ViewBag.StaticURL + "Content/images/sixt.png")" /></span>
+                    <span><img src="@(ViewBag.StaticURL + "Content/images/goldcar.png")" /></span>
+                </div>
+                <div class="in_air_sub_box_1">
+                    <span><img src="@(ViewBag.StaticURL + "Content/images/greenmotion.png")" /></span>
+                    <span><img src="@(ViewBag.StaticURL + "Content/images/hertz.png")" /></span>
+                    <span><img src="@(ViewBag.StaticURL + "Content/images/record.png")" /></span>
+                    <span><img src="@(ViewBag.StaticURL + "Content/images/thrifty.png")" /></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="car_ind_list_hd">
+                <h3>Popular Cities</h3>
+                <p>The Most Popular Cities for Car Rentals on viman.co.uk</p>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="car_ind_city_list">
+                <div class="car_ind_imgBX">
+                    <img src="@(ViewBag.StaticURL + "Content/images/car_index.jpg")" />
+                </div>
+                <div class="car_ind_contBX">
+                    <p>Cars In</p>
+                    <h3>London</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="car_ind_city_list">
+                <div class="car_ind_imgBX">
+                    <img src="@(ViewBag.StaticURL + "Content/images/car_index.jpg")" />
+                </div>
+                <div class="car_ind_contBX">
+                    <p>Cars In</p>
+                    <h3>London</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="car_ind_city_list">
+                <div class="car_ind_imgBX">
+                    <img src="@(ViewBag.StaticURL + "Content/images/car_index.jpg")" />
+                </div>
+                <div class="car_ind_contBX">
+                    <p>Cars In</p>
+                    <h3>London</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="car_ind_city_list">
+                <div class="car_ind_imgBX">
+                    <img src="@(ViewBag.StaticURL + "Content/images/car_index.jpg")" />
+                </div>
+                <div class="car_ind_contBX">
+                    <p>Cars In</p>
+                    <h3>London</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="car_ind_city_list">
+                <div class="car_ind_imgBX">
+                    <img src="@(ViewBag.StaticURL + "Content/images/car_index.jpg")" />
+                </div>
+                <div class="car_ind_contBX">
+                    <p>Cars In</p>
+                    <h3>London</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="car_ind_city_list">
+                <div class="car_ind_imgBX">
+                    <img src="@(ViewBag.StaticURL + "Content/images/car_index.jpg")" />
+                </div>
+                <div class="car_ind_contBX">
+                    <p>Cars In</p>
+                    <h3>London</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="car_ind_city_list">
+                <div class="car_ind_imgBX">
+                    <img src="@(ViewBag.StaticURL + "Content/images/car_index.jpg")" />
+                </div>
+                <div class="car_ind_contBX">
+                    <p>Cars In</p>
+                    <h3>London</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="car_ind_city_list">
+                <div class="car_ind_imgBX">
+                    <img src="@(ViewBag.StaticURL + "Content/images/car_index.jpg")" />
+                </div>
+                <div class="car_ind_contBX">
+                    <p>Cars In</p>
+                    <h3>London</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="car_ind_city_list">
+                <div class="car_ind_imgBX">
+                    <img src="@(ViewBag.StaticURL + "Content/images/car_index.jpg")" />
+                </div>
+                <div class="car_ind_contBX">
+                    <p>Cars In</p>
+                    <h3>London</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="car_ind_city_list">
+                <div class="car_ind_imgBX">
+                    <img src="@(ViewBag.StaticURL + "Content/images/car_index.jpg")" />
+                </div>
+                <div class="car_ind_contBX">
+                    <p>Cars In</p>
+                    <h3>London</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="car_ind_city_list">
+                <div class="car_ind_imgBX">
+                    <img src="@(ViewBag.StaticURL + "Content/images/car_index.jpg")" />
+                </div>
+                <div class="car_ind_contBX">
+                    <p>Cars In</p>
+                    <h3>London</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="car_ind_city_list">
+                <div class="car_ind_imgBX">
+                    <img src="@(ViewBag.StaticURL + "Content/images/car_index.jpg")" />
+                </div>
+                <div class="car_ind_contBX">
+                    <p>Cars In</p>
+                    <h3>London</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="car_ind_city_list">
+                <div class="car_ind_imgBX">
+                    <img src="@(ViewBag.StaticURL + "Content/images/car_index.jpg")" />
+                </div>
+                <div class="car_ind_contBX">
+                    <p>Cars In</p>
+                    <h3>London</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="car_ind_city_list">
+                <div class="car_ind_imgBX">
+                    <img src="@(ViewBag.StaticURL + "Content/images/car_index.jpg")" />
+                </div>
+                <div class="car_ind_contBX">
+                    <p>Cars In</p>
+                    <h3>London</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="car_ind_city_list">
+                <div class="car_ind_imgBX">
+                    <img src="@(ViewBag.StaticURL + "Content/images/car_index.jpg")" />
+                </div>
+                <div class="car_ind_contBX">
+                    <p>Cars In</p>
+                    <h3>London</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="gap">
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#car_submit").click(function () {
+                if ($("#car_pickup_location").val().trim(' ') == "") {
+                    alert("Please enter your pickup location");
+                    $("#car_pickup_location").focus();
+                    return false;
+                }
+                else if ($("#car_pickup_location").val().trim(' ').indexOf('-') != 3) {
+                    alert("Kindly select pickup location from auto suggest list!");
+                    $("#car_pickup_location").focus();
+                    return false;
+                }
+                else if ($("#car_dropoff_location").val().trim(' ') == "") {
+                    alert("Please enter your dropoff location");
+                    $("#car_dropoff_location").focus();
+                    return false;
+                }
+                else if ($("#car_dropoff_location").val().trim(' ').indexOf('-') != 3) {
+                    alert("Kindly select dropoff location from auto suggest list!");
+                    $("#car_dropoff_location").focus();
+                    return false;
+                } else {
+                    var pickup = "&Pickup=" + $("#car_pickup_location_id").val();
+                    var dropoff = "&Dropoff=" + $("#car_dropoff_location_id").val();
+                    var pickupDate = "&PickupDate=" + $("#car_pickup_date").val().split("-")[2] + "-" + $("#car_pickup_date").val().split("-")[1] + "-" + $("#car_pickup_date").val().split("-")[0] + " " + $("#car_pickup_time").val();
+                    var dropoffDate = "&DropoffDate=" + $("#car_dropoff_date").val().split("-")[2] + "-" + $("#car_dropoff_date").val().split("-")[1] + "-" + $("#car_dropoff_date").val().split("-")[0] + " " + $("#car_dropoff_time").val();
+
+                    var str = "@(ViewBag.StaticURL + "car-hire/search?")SiteCode=VIMAN&SourceMedia=VIMAN" + pickup + dropoff + pickupDate + dropoffDate + "&Currency=GBP";
+                    //alert(str);
+                    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                    $("#cp_from_name").html($("#car_pickup_location").val().split("-")[1]);
+                    $("#cp_from_code").html($("#car_pickup_location").val().split("-")[0]);
+                    $("#cp_to_name").html($("#car_dropoff_location").val().split("-")[1]);
+                    $("#cp_to_code").html($("#car_dropoff_location").val().split("-")[0]);
+                    var pd_tp = $("#car_pickup_date").val().split("-");
+                    $("#cp_pickup_date").html(pd_tp[0] + " " + monthNames[pd_tp[1] - 1] + ", " + pd_tp[2] + " " + $("#car_pickup_time").val());
+                    var dd_tp = $("#car_dropoff_date").val().split("-");
+                    $("#cp_dropoff_date").html(dd_tp[0] + " " + monthNames[dd_tp[1] - 1] + ", " + dd_tp[2] + " " + $("#car_dropoff_time").val());
+                    $("#car_search_popup").show();
+
+                    $('#car_plane').css({ 'left': '0%' }).animate({ 'left': '70%' }, 7000);
+                    window.location = str;
+                }
+            });
+
+            $('#car_pickup_location').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/api/getlocation",
+                        dataType: "json",
+                        data: {
+                            pickUpLocation: request.term
+                        },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    value: item.LocationId,
+                                    label: (item.CityCode + "-" + item.Name)
+                                }
+                            }));
+                        }
+                    })
+                },
+                open: function (event, ui) { selectLocation = false; },
+                select: function (event, ui) {
+                    $("#car_pickup_location").val(ui.item.label);
+                    $("#car_pickup_location_id").val(ui.item.value);
+                    selectLocation = false;
+                    return false;
+                },
+                close: function (event, ui) {
+                    selectLocation = false;
+                },
+                minLength: 3,
+                autoFocus: true
+            }).blur(function () {
+                if (selectLocation) {
+                    $("#car_pickup_location").val($('ul.ui-autocomplete li:first a').text());
+                }
+            }).focus(function () {
+                $(this).autocomplete("search");
+            });
+
+            $('#car_dropoff_location').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/api/getlocation",
+                        dataType: "json",
+                        data: {
+                            pickUpLocation: request.term
+                        },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    value: item.LocationId,
+                                    label: (item.CityCode + "-" + item.Name)
+                                }
+                            }));
+                        }
+                    })
+                },
+                open: function (event, ui) { selectLocation = false; },
+                select: function (event, ui) {
+                    $("#car_dropoff_location").val(ui.item.label);
+                    $("#car_dropoff_location_id").val(ui.item.value);
+                    selectLocation = false;
+                    return false;
+                },
+                close: function (event, ui) {
+                    selectLocation = false;
+                },
+                minLength: 3,
+                autoFocus: true
+            }).blur(function () {
+                if (selectLocation) {
+                    $("#car_dropoff_location").val($('ul.ui-autocomplete li:first a').text());
+                }
+            }).focus(function () {
+                $(this).autocomplete("search");
+            });
+
+            $("#car_pickup_date").datepicker({
+                format: 'dd-mm-yyyy',
+                startDate: '@DateTime.Now.AddDays(2).ToString("dd-MM-yyyy")',
+                autoHide: true
+            }).on('pick.datepicker', function (e) {
+                var currdate = getStr(e.date.getDate()) + "-" + getStr((e.date.getMonth() + 1)) + "-" + e.date.getFullYear();
+                $("#car_dropoff_date").val(currdate);
+                $("#car_dropoff_date").datepicker('setDate', e.date);
+                $("#car_dropoff_date").datepicker('setStartDate', e.date);
+                $("#car_pickup_time").focus();
+            });
+            $("#car_dropoff_date").datepicker({
+                format: 'dd-mm-yyyy',
+                startDate: '@DateTime.Now.AddDays(9).ToString("dd-MM-yyyy")',
+                autoHide: true
+            });
+            $("#car_pickup_time").datetimepicker({
+                timepicker: true,
+                datepicker: false,
+                step: 5,
+                format: 'H:i',
+            });
+            $("#car_dropoff_time").datetimepicker({
+                timepicker: true,
+                datepicker: false,
+                step: 5,
+                format: 'H:i',
+            });
+        });
+    </script>
+}

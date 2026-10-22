@@ -1,0 +1,309 @@
+﻿@using Viman.Models
+@{
+    ViewBag.Title = "Group Travel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.StaticURL = Common.StaticURL;
+    ViewBag.Currency = Common.Currency;
+}
+
+<div class="background_top"></div>
+<div class="main_bredcrum">
+    <div class="container">
+        <div class="col-xs-12">
+            <div class="bread_head">
+                <ul>
+                    <li><a href="@Url.Content("~/")">Home</a></li>
+                    <li> <a href="javascript:void(0);" class="fa fa-angle-right angle_bred"></a> </li>
+                    <li><a href="@Url.Content("~/group-travel/")">Group Travel</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 abut_bodyhead">
+            <h2>Group Traveler</h2>
+        </div>
+        <div class="col-xs-12">
+            <p>Get inspired, grab the best deals on flights, hotels, car rentals and give a flying start to your journey to your choicest destination at a price that you just can’t imagine.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="gt_form">
+                <h3>Please Fill the Detail Below</h3>
+                @if (ViewBag.msg == "1")
+                {
+                    <p style="color:green;">Thank you for submit your contact us request. Administrator contact will be soon.</p>
+                }
+                <form name="grouptravel_frm" id="grouptravel_frm" method="post" onsubmit="javascript:return frmCheck();">
+                    <div class="gt_con_info">
+                        <label>Origin</label>
+                        <input type="text" placeholder="Origin" class="gt_con_info_box ui-autocomplete-input" name="txtFlightFrom" id="txtFlightFrom" value="@(ViewBag.fromName)" autocomplete="off">
+                        <i class="fa fa-map-marker"></i>
+                    </div>
+                    <div class="gt_con_info">
+                        <label>Destination</label>
+                        <input type="text" placeholder="Destination" class="gt_con_info_box ui-autocomplete-input" name="txtFlightTo" id="txtFlightTo" value="@(ViewBag.toName)" autocomplete="off">
+                        <i class="fa fa-map-marker"></i>
+                    </div>
+                    <div class="gt_con_info">
+                        <label>Departure Date</label>
+                        <input type="text" placeholder="Departure Date" class="gt_con_info_box" value="@((ViewBag.depDate!="")?ViewBag.depDate:DateTime.Now.AddDays(1).ToString("dd-MM-yyyy"))" id="flight_from_date" name="flight_from_date" />
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <div class="gt_con_info">
+                        <label>Return Date</label>
+                        <input type="text" placeholder="Return Date" class="gt_con_info_box" value="@((ViewBag.retDate!="")?ViewBag.retDate:DateTime.Now.AddDays(8).ToString("dd-MM-yyyy"))" id="flight_to_date" name="flight_to_date" />
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <div class="gt_mr">
+                        <label>Title</label>
+                        <select class="gt_mr_box">
+                            <option value="Mr.">Mr.</option>
+                            <option value="Mrs.">Mrs.</option>
+                            <option value="Miss.">Miss.</option>
+                        </select>
+                    </div>
+                    <div class="gt_name">
+                        <label>First Name</label>
+                        <input type="text" class="gt_name_box" placeholder="First Name" id="txt_fname" name="txt_fname">
+                    </div>
+                    <div class="gt_name">
+                        <label>Last Name</label>
+                        <input type="text" class="gt_name_box" placeholder="Last Name" id="txt_lname" name="txt_lname">
+                    </div>
+                    <div class="gt_mr">
+                        <label>Traveller</label>
+                        <input type="text" class="gt_mr_box" placeholder="Total" maxlength="2" id="txt_Traveller" name="txt_Traveller">
+                    </div>
+                    <div class="gt_name">
+                        <label>Email</label>
+                        <input type="text" class="gt_name_box" placeholder="Email" id="txt_email" name="txt_email">
+                    </div>
+                    <div class="gt_name">
+                        <label>Phone</label>
+                        <input type="text" class="gt_name_box" placeholder="Phone" id="txt_phone" name="txt_phone">
+                    </div>
+                    <div class="gt_cmmntBox">
+                        <textarea class="gt_txtarea" placeholder="Message..." id="txt_message" name="txt_message"></textarea>
+                    </div>
+                    <div class="gt_cap_btn">
+                        <div class="g-recaptcha" data-sitekey="6LdyxkYUAAAAAAF5F800JzBLvpkUrNED9EoSFBcd"></div>
+                        <button type="submit" name="grouptravel_btn" id="grouptravel_btn" class="">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-xs-12">
+            <div class="gt_bodytxt">
+                <img src="@(ViewBag.StaticURL + "Content/images/gt.jpg")" />
+                <h3>Why Group Travel</h3>
+                <p>
+                    Book a great travel deal today. We offer you best deal for the most loved destinations at unimaginable prices so that
+                    you can enjoy an unforgettable travel experience with your family and loved ones. Book a great travel deal today. We offer you best deal for the most loved destinations at unimaginable prices so that
+                    you can enjoy an unforgettable travel experience with your family and loved ones. Book a great travel deal today. We offer you best deal for the most loved destinations at unimaginable prices so that
+                    you can enjoy an unforgettable travel experience with your family and loved ones. Book a great travel deal today. We offer you best deal for the most loved destinations at unimaginable prices so that
+                    you can enjoy an unforgettable travel experience with your family and loved ones.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-6 col-xs-12">
+            <div class="gt_bodytxt">
+                <img src="@(ViewBag.StaticURL + "Content/images/gt1.jpg")" />
+                <h3>Why Group Travel</h3>
+                <p>
+                    Book a great travel deal today. We offer you best deal for the most loved destinations at unimaginable prices so that
+                    you can enjoy an unforgettable travel experience with your family and loved ones. Book a great travel deal today. We offer you best deal for the most loved destinations at unimaginable prices so that
+                    you can enjoy an unforgettable travel experience with your family and loved ones. Book a great travel deal today. We offer you best deal for the most loved destinations at unimaginable prices so that
+                    you can enjoy an unforgettable travel experience with your family and loved ones. Book a great travel deal today. We offer you best deal for the most loved destinations at unimaginable prices so that
+                    you can enjoy an unforgettable travel experience with your family and loved ones.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var selectFrom = false;
+            var selectTo = false;
+
+            $('#txtFlightFrom').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/api/getairport",
+                        dataType: "json",
+                        data: {
+                            pickUpLocation: request.term
+                        },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    value: item.Code,
+                                    label: (item.Code + "-" + item.Name + ", " + item.CityName)
+                                }
+                            }));
+                        }
+                    })
+                },
+                open: function (event, ui) { selectFrom = true; },
+                select: function (event, ui) {
+                    $(this).val(ui.item.label);
+                    selectFrom = false;
+                    return false;
+                },
+                close: function (event, ui) {
+                    selectFrom = false;
+                },
+                minLength: 3,
+                autoFocus: true
+            }).blur(function () {
+                if (selectFrom) {
+                    $("#txtFlightFrom").val($('ul.ui-autocomplete li:first a').text());
+                }
+            });
+
+            $("#txtFlightTo").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/api/getairport",
+                        dataType: "json",
+                        data: {
+                            pickUpLocation: request.term
+                        },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    value: item.Code,
+                                    label: (item.Code + "-" + item.Name + ", " + item.CityName)
+                                }
+                            }));
+                        }
+                    })
+                },
+                open: function (event, ui) {
+                    selectTo = true;
+                },
+                select: function (event, ui) {
+                    $(this).val(ui.item.label);
+                    selectTo = false;
+                    return false;
+                },
+                close: function (event, ui) {
+                    selectTo = false;
+                },
+                minLength: 3,
+                autoFocus: true
+            }).blur(function () {
+                if (selectTo) {
+                    $("#txtFlightTo").val($('ul.ui-autocomplete li:first a').text());
+                }
+            });
+        });
+
+        $('#flight_from_date').datetimepicker({
+            timepicker: false,
+            format: 'd-m-Y',
+            minDate: '@DateTime.Now.ToString("yyyy-MM-dd")',
+            onSelectDate: function (ct) {
+                addNightToDate('flight_from_date', 'flight_to_date', 7);
+                $("#flight_to_date").focus();
+            },
+        });
+
+        $('#flight_to_date').datetimepicker({
+            timepicker: false,
+            format: 'd-m-Y',
+            minDate: '@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")',
+            onShow: function (ct) {
+                if ($('#flight_from_date').val()) {
+                    var s_date_arr = $('#flight_from_date').val().split("-");
+                    var s_date = s_date_arr[2] + "-" + s_date_arr[1] + "-" + s_date_arr[0];
+
+                    this.setOptions({
+                        minDate: s_date
+                    })
+                }
+            },
+        });
+        function addNightToDate(fromD, toD, noD) {
+            var s_date_arr = $('#' + fromD).val().split("-");
+            var dat = new Date(s_date_arr[2] + "-" + s_date_arr[1] + "-" + s_date_arr[0]);
+            dat.addDays(noD);
+
+            var c_day = (dat.getDate().toString().length == 1) ? "0" + dat.getDate() : dat.getDate();
+            var c_month = ((dat.getMonth() + 1).toString().length == 1) ? "0" + (dat.getMonth() + 1) : (dat.getMonth() + 1);
+            $('#' + toD).val(c_day + "-" + c_month + "-" + dat.getFullYear());
+        }
+
+        function frmCheck()
+        {
+            if (document.getElementById("txtFlightFrom").value == "") {
+                alert("Please enter Origin.");
+                document.getElementById("txtFlightFrom").focus();
+                return false;
+            }
+            if (document.getElementById("txtFlightTo").value == "") {
+                alert("Please enter Destination.");
+                document.getElementById("txtFlightTo").focus();
+                return false;
+            }
+            if (document.getElementById("flight_from_date").value == "") {
+                alert("Please enter from date.");
+                document.getElementById("flight_from_date").focus();
+                return false;
+            }
+            if (document.getElementById("flight_to_date").value == "") {
+                alert("Please enter to date.");
+                document.getElementById("flight_to_date").focus();
+                return false;
+            }
+            if (document.getElementById("txt_fname").value == "") {
+                alert("Please enter first name.");
+                document.getElementById("txt_fname").focus();
+                return false;
+            }
+            if (document.getElementById("txt_lname").value == "") {
+                alert("Please enter last name.");
+                document.getElementById("txt_lname").focus();
+                return false;
+            }
+
+            if (document.getElementById("txt_email").value == "") {
+                alert("Please enter your email.");
+                document.getElementById("txt_email").focus();
+                return false;
+            }
+            else
+            {
+                var filter = @("/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{0,4}$/");
+                if (!filter.test(document.getElementById("txt_email").value)) {
+                    alert("Please enter your valid email.");
+                    document.getElementById("txt_email").focus();
+                    return false;
+                }
+            }
+            if (document.getElementById("txt_phone").value == "") {
+                alert("Please enter your phone/mobile.");
+                document.getElementById("txt_phone").focus();
+                return false;
+            }
+
+            if (document.getElementById("txt_message").value == "") {
+                alert("Please enter your message.");
+                document.getElementById("txt_message").focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+}

@@ -1,0 +1,141 @@
+﻿@using Viman.Models
+@{
+    ViewBag.Title = "Sitemap";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.StaticURL = Common.StaticURL;
+}
+
+<div class="background_top"></div>
+<div class="main_bredcrum">
+    <div class="container">
+        <div class="col-xs-12">
+            <div class="bread_head">
+                <ul>
+                    <li><a href="@Url.Content("~/")">Home</a></li>
+                    <li><a href="javascript:void(0);" class="fa fa-angle-right angle_bred"></a></li>
+                    <li><a href="@Url.Content("~/sitemap/")">Sitemap</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 abut_bodyhead"><h2>Sitemap</h2></div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="SM_mainbox">
+                <h4>HOME</h4>
+                <ul>
+                    <li><a href="@Url.Content("~/about/")">About Us</a></li>
+                    <li><a href="@Url.Content("~/airlines/")">Airlines</a></li>
+                    <li><a href="@Url.Content("~/best-deals/")">Best Deals</a></li>
+                    <li><a href="@Url.Content("~/contact/")">Contact Us</a></li>
+                    <li><a href="@Url.Content("~/cookies-policy/")">Cookies Policy</a></li>
+                    <li><a href="@Url.Content("~/customer-support/")">Customer Support</a></li>
+                    <li><a href="@Url.Content("~/faq/")">FAQ</a></li>
+                    <li><a href="@Url.Content("~/fare-alert/")">Fare Alert</a></li>
+                    <li><a href="@Url.Content("~/flights/")">Flights</a></li>
+                    <li><a href="@Url.Content("~/group-travel/")">Group Travel</a></li>
+                    <li><a href="@Url.Content("~/holiday-offers/")">Holiday Offer</a></li>
+                    <li><a href="@Url.Content("~/online-check-in/")">Online Check In</a></li>
+                    <li><a href="@Url.Content("~/privacy-policy/")">Privacy Policy</a></li>
+                    <li><a href="@Url.Content("~/terms-conditions/")">Terms</a></li>
+                    <li><a href="@Url.Content("~/travel-documents/")">Travel Documents</a></li>
+                    <li><a href="@Url.Content("~/travel-guide/")">Travel Guide</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="SM_mainbox">
+                <h4>Airlines</h4>
+                <ul>
+                    <li><a href="@Url.Content("~/airlines/air-china/")">Air China</a></li>
+                    <li><a href="@Url.Content("~/airlines/american-airlines/")">American Airlines</a></li>
+                    <li><a href="@Url.Content("~/airlines/british-airways/")">British Airways</a></li>
+                    <li><a href="@Url.Content("~/airlines/cathay-pacific/")">Cathay Pacific</a></li>
+                    <li><a href="@Url.Content("~/airlines/emirates-airlines/")">Emirates Airlines</a></li>
+                    <li><a href="@Url.Content("~/airlines/etihad-airways/")">Etihad Airways</a></li>
+                    <li><a href="@Url.Content("~/airlines/eva-air/")">Eva Air</a></li>
+                    <li><a href="@Url.Content("~/airlines/gulf-air/")">Gulf Air</a></li>
+                    <li><a href="@Url.Content("~/airlines/iberia-airlines/")">Iberia Airlines</a></li>
+                    <li><a href="@Url.Content("~/airlines/klm/")">KLM</a></li>
+                    <li><a href="@Url.Content("~/airlines/malaysia-airlines/")">Malaysia Airlines</a></li>
+                    <li><a href="@Url.Content("~/airlines/oman-air/")">Oman Air</a></li>
+                    <li><a href="@Url.Content("~/airlines/qatar-airways/")">Qatar Airways</a></li>
+                    <li><a href="@Url.Content("~/airlines/singapore-airlines/")">Singapore Airlines</a></li>
+                    <li><a href="@Url.Content("~/airlines/turkish-airlines/")">Turkish Airlines</a></li>
+                    <li><a href="@Url.Content("~/airlines/alitalia/")">Alitalia</a></li>
+                    <li><a href="@Url.Content("~/airlines/brussels-airlines/")">Brussels Airlines</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="SM_mainbox">
+                <h3>Destination</h3>
+                <h4>Algeria</h4>
+                <ul>
+                    <li><a href="@Url.Content("~/flights/algeria/annaba")">Annaba</a></li>
+                </ul>
+                <h4>Australia</h4>
+                <ul>
+                    <li><a href="@Url.Content("~/flights/australia/adelaide")">Adelaide</a></li>
+                    <li><a href="@Url.Content("~/flights/australia/brisbane")">Brisbane</a></li>
+                    <li><a href="@Url.Content("~/flights/australia/cairns")">Cairns</a></li>
+                    <li><a href="@Url.Content("~/flights/australia/melbourne")">Melbourne</a></li>
+                    <li><a href="@Url.Content("~/flights/australia/perth")">Perth</a></li>
+                    <li><a href="@Url.Content("~/flights/australia/sydney")">Sydney</a></li>
+                </ul>
+                <h4>China</h4>
+                <ul>
+                    <li><a href="@Url.Content("~/flights/china/beijing")">Beijing</a></li>
+                    <li><a href="@Url.Content("~/flights/china/hong-kong")">Hong Kong</a></li>
+                </ul>
+                <h4>Indonesia</h4>
+                <ul>
+                    <li><a href="@Url.Content("~/flights/indonesia/denpasar")">Denpasar</a></li>
+                </ul>
+                <h4>Malaysia</h4>
+                <ul>
+                    <li><a href="@Url.Content("~/flights/malaysia/kuala-lumpur")">Kuala Lumpur</a></li>
+                </ul>
+                <h4>New Zealand</h4>
+                <ul>
+                    <li><a href="@Url.Content("~/flights/new-zealand/auckland")">Auckland</a></li>
+                    <li><a href="@Url.Content("~/flights/new-zealand/christchurch")">Christchurch</a></li>
+                    <li><a href="@Url.Content("~/flights/new-zealand/wellington")">Wellington</a></li>
+                </ul>
+                <h4>Philippines</h4>
+                <ul>
+                    <li><a href="@Url.Content("~/flights/philippines/cebu")">Cebu</a></li>
+                    <li><a href="@Url.Content("~/flights/philippines/manila")">Manila</a></li>
+                </ul>
+                <h4>Thailand</h4>
+                <ul>
+                    <li><a href="@Url.Content("~/flights/thailand/bangkok")">Bangkok</a></li>
+                </ul>
+                <h4>United States</h4>
+                <ul>
+                    <li><a href="@Url.Content("~/flights/united-states/atlanta")">Atlanta</a></li>
+                    <li><a href="@Url.Content("~/flights/united-states/boston")">Boston</a></li>
+                    <li><a href="@Url.Content("~/flights/united-states/charlotte")">Charlotte</a></li>
+                    <li><a href="@Url.Content("~/flights/united-states/chicago")">Chicago</a></li>
+                    <li><a href="@Url.Content("~/flights/united-states/dallas")">Dallas</a></li>
+                    <li><a href="@Url.Content("~/flights/united-states/detroit")">Detroit</a></li>
+                    <li><a href="@Url.Content("~/flights/united-states/fort-lauderdale")">Fort Lauderdale</a></li>
+                    <li><a href="@Url.Content("~/flights/united-states/las-vegas")">Las Vegas</a></li>
+                    <li><a href="@Url.Content("~/flights/united-states/los-angeles")">Los Angeles</a></li>
+                    <li><a href="@Url.Content("~/flights/united-states/miami")">Miami</a></li>
+                    <li><a href="@Url.Content("~/flights/united-states/new-jersey")">New Jersey</a></li>
+                    <li><a href="@Url.Content("~/flights/united-states/new-york")">New York</a></li>
+                    <li><a href="@Url.Content("~/flights/united-states/orlando")">Orlando</a></li>
+                    <li><a href="@Url.Content("~/flights/united-states/philadelphia")">Philadelphia</a></li>
+                    <li><a href="@Url.Content("~/flights/united-states/phoenix")">Phoenix</a></li>
+                    <li><a href="@Url.Content("~/flights/united-states/tampa")">Tampa</a></li>
+                    <li><a href="@Url.Content("~/flights/united-states/washington")">Washington</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

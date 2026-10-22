@@ -1,0 +1,167 @@
+﻿@model Viman.Models.Hotels
+@using Viman.Models
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.WebsiteURL = Common.WebsiteURL;
+    ViewBag.StaticURL = Common.StaticURL;
+    ViewBag.Currency = Common.Currency;
+
+    int noOfNight = int.Parse(Common.GetDateDiffDay(Model.HotelSearch.CheckOut, Model.HotelSearch.CheckIn));
+}
+<link type="text/css" rel="stylesheet" href="@(ViewBag.StaticURL + "Content/css/thumbnail-slider.css")" />
+<link type="text/css" rel="stylesheet" href="@(ViewBag.StaticURL + "Content/css/ninja-slider.css")" />
+<div class="background_top"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="hot_bk_rgtPanl_main">
+                <div class="hotel_img_slider">
+                    <div class="owl-carousel owl-theme">
+                        @foreach (HotelsImage itemImage in Model.HotelImage)
+                        {
+                            <div class="item">
+                                <div class="border_1"></div>
+                                <img src="@(itemImage.Image)" />
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="hot_bk_lftPanl_main">
+                <div class="hot_bk_lftPanl">
+                    <div class="hot_bk_hd">
+                        <h3>@(Model.HotelName)</h3>
+                    </div>
+                    <p class="star">
+                        @for (int j = 1; j <= Math.Ceiling(float.Parse(Model.StarRating)); j++)
+                        {
+                            <i class="fa fa-star"></i>
+                        }
+                    </p>
+                    <div class="map">
+                        <i class="fa fa-map-marker"></i>
+                        <span class="map_txt">View Map</span>
+                        <span class="map_add">@(Model.Address)</span>
+                    </div>
+                    <div class="map">
+                        <i class="fa fa-building"></i>
+                        <span class="map_txt">Aminities</span>
+                        <span class="map_add"><a href="#">View all Aminities</a></span>
+                    </div>
+                    <div class="hot_bk_prc">
+                        <p class="od">£@(Model.PerNightPrice.ToString("0.00")) <bdo>/Night</bdo></p>
+                        <p class="td">@(Model.LowestPrice.ToString("0.00")) GBP Total</p>
+                        <p class="nd">@(noOfNight) nights - @(Model.HotelSearch.Rooms) room</p>
+                        <p class="dt">From <b>@(Model.HotelSearch.CheckIn.ToString("dd MMM yyyy"))</b> to <b>@(Model.HotelSearch.CheckOut.ToString("dd MMM yyyy"))</b></p>
+                        <input type="submit" value="Select Room" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="hot_bk_gen">
+                <h4>General</h4>
+                <p>@Html.Raw(HttpUtility.HtmlDecode(Model.Description))</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="hot_bk_room_head">
+                <div class="hot_bk_icon">
+                    <i class="fa fa-tag"></i>
+                </div>
+                <h3>Select your <bdo>room and board type</bdo></h3>
+                <p>@(Model.HotelSearch.CheckIn.ToString("dd MMM yyyy")) - @(Model.HotelSearch.CheckOut.ToString("dd MMM yyyy")) <b>@(noOfNight) nights - @(Model.HotelSearch.Rooms) room</b></p>
+            </div>
+            @foreach (HotelsOptions itemOption in Model.HotelOption)
+            {
+                <div class="hot_bk_room_desp">
+                    @foreach (HotelsRooms itemRooms in itemOption.HotelRoom)
+                    {
+                        <div class="room">
+                            <h3>@(itemRooms.RoomName)</h3>
+                        </div>
+                    }
+
+                    <div class="room_typ">
+                        <p>@(itemOption.BoardType)</p>
+                    </div>
+                    <div class="prc">
+                        <bdo>@(ViewBag.Currency)@(itemOption.TotalPrice)</bdo>
+                        <b>  for @(noOfNight) Night(s)</b><br>
+                        <b>@(ViewBag.Currency)@((float.Parse(itemOption.TotalPrice) / noOfNight).ToString("0.00"))</b> /night
+                    </div>
+                    <div class="room_btn">
+                        <a href="@(ViewBag.StaticURL + "hotels/booking/?sess="+Model.HotelId+"&opt="+itemOption.OptionId)">BOOK NOW</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-xs-12">
+        <div class="hot_bk_room_head">
+            <div class="hot_bk_icon">
+                <i class="fa fa-map-marker"></i>
+            </div>
+            <h3>Explore the accommodation's <bdo>area</bdo></h3>
+            <p>@(Model.Address)</p>
+        </div>
+        <div class="con_map_canvas">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d9932.838691125464!2d-0.593792!3d51.5093692!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xe39ae7977aadab23!2sTravelopedia+Ltd.!5e0!3m2!1sen!2sin!4v1514366253395" width="100%" height="350px" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-xs-12">
+        <div class="hol_bk_info_box">
+            <h3>Hotel Facilities</h3>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="hol_bk_list">
+            <ul>
+                @foreach (HotelsFacility itemFacility in Model.HotelFacility)
+                {
+                    <li><i class="fa fa-angle-right"></i><h3> @(itemFacility.FacilityName)</h3></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="gap">
+    &nbsp;
+</div>
+
+@section scripts{
+    <script type="text/javascript" src="@(ViewBag.StaticURL + "Content/js/owl.carousel.min.js")"></script>
+    <script>
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 0,
+            autoplay: true,
+            nav: true,
+            responsive: {
+                0: { items: 1 }
+            }
+        })
+        $(".owl-prev").html('<i class="fa fa-angle-left"></i>');
+        $(".owl-next").html('<i class="fa fa-angle-right"></i>');
+    </script>
+}
+
+

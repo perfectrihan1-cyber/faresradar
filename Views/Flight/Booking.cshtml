@@ -1,0 +1,797 @@
+﻿@model Viman.Models.FlightsBooking
+@using Viman.Models
+@{
+    ViewBag.Title = "Booking";
+    Layout = "~/Views/Shared/_Layoutinner.cshtml";
+    ViewBag.WebsiteURL = Common.WebsiteURL;
+    ViewBag.StaticURL = Common.StaticURL;
+    ViewBag.Currency = Common.Currency;
+    FlightsSearch flightSearch = ViewBag.flightSearch;
+    Flights flights = ViewBag.flights;
+
+    int mm = 0, nn = 0, pass = 0;
+
+   
+
+
+    double fare = 0;
+    string flightid = "";
+    foreach (FlightsSegment outboundArr in flights.Outbound)
+    {
+
+        fare = Convert.ToDouble(flights.TotalCost.ToString("0.00"));
+
+        flightid = flights.FlightId;
+
+    }
+    if (flightSearch.FlightWay == FlightWay.RoundTrip)
+    {
+
+        foreach (FlightsSegment inboundArr in flights.Inbound)
+        {
+
+            fare = Convert.ToDouble(flights.TotalCost.ToString("0.00"));
+
+            flightid = flights.FlightId;
+
+        }
+
+
+    }
+
+   
+
+}
+<link rel="stylesheet" href="~/css1/booking.css">
+
+<style>
+    .partner-body {
+        padding: 25px;
+        background: #fafafa;
+        border-radius: 8px;
+    }
+
+    .partner-message {
+        font-size: 16px;
+        color: #333;
+        line-height: 26px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .partner-note {
+        background: #fff8e5;
+        border-left: 5px solid #f0ad4e;
+        padding: 15px;
+        color: #555;
+        font-size: 14px;
+        line-height: 22px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+    }
+
+    .partner-confirm {
+        text-align: center;
+        font-size: 17px;
+        font-weight: 600;
+        color: #222;
+        margin: 0;
+    }
+
+    .modal-header {
+        background: #0d6efd;
+        color: #fff;
+        border-radius: 6px 6px 0 0;
+    }
+
+    .modal-title {
+        font-weight: 600;
+    }
+</style>
+<div class="main-wrap">
+    <div class="left-col">
+
+        <div class="book-header">
+            Prices in USD &nbsp;·&nbsp; <span> @(Model.FlightsSearch.From.Code) – @(Model.FlightsSearch.To.Code)</span> &nbsp;·&nbsp;  &nbsp;·&nbsp;  @Convert.ToInt32(Model.FlightsSearch.Adult + Model.FlightsSearch.Child + Model.FlightsSearch.Infant) &nbsp;·&nbsp; Traveller, Economy
+            @if (Model.FlightsSearch.FlightWay == FlightWay.RoundTrip)
+            {<p>Round Trip</p> }
+            else
+            {<p>One Way</p>}
+
+        </div>
+
+        @*<div class="tabs-row">
+            <button class="ftab active">Must include</button>
+            <button class="ftab">Cabin bag</button>
+            <button class="ftab">Checked bag</button>
+        </div>*@
+
+        <div style="font-size:11px;color:#718096;margin-bottom:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px">4 booking options available</div>
+
+
+        <div class="site-card best">
+            <div class="best-badge-bar">
+                <i class="ti ti-rosette-discount-check"></i> Best price — Cheapest option for this flight
+            </div>
+            <div class="card-top">
+                <div class="site-logo-wrap">
+                    <div class="site-logo logo-fg">
+                        <span style="font-size:10px;letter-spacing:0">Fares</span><span style="font-size:10px;color:#c4b5fd">choices</span>
+                    </div>
+                    <div style="font-size:9px;color:#718096;text-align:center;margin-top:3px">.com</div>
+                </div>
+                <div class="site-meta">
+                    <div class="site-name">Fareschoices.com</div>
+                    <div>
+                        <span class="site-stars">★★★★★</span>
+                        <span class="site-reviews">4.9 · 3,245 reviews</span>
+                    </div>
+                    <div class="site-features">
+                        <span class="feat-tag green">UPI accepted</span>
+                        <span class="feat-tag">Instant confirm</span>
+                        <span class="feat-tag">24/7 support</span>
+                    </div>
+                </div>
+                <div class="site-price-block">
+                    <div class="price-main">$@((fare-12).ToString("0.00"))</div>
+                    <div class="price-sub">per adult, incl. taxes</div>
+
+                </div>
+                <button class="select-btn bookBtn" data-id="@flightid" data-site="B">Select</button>
+            </div>
+            <div class="card-divider"></div>
+            <div class="card-details">
+                <div class="detail-item"><i class="ti ti-lock detail-icon"></i> Secure payment</div>
+                <div class="detail-item"><i class="ti ti-refresh detail-icon"></i> Flexible change</div>
+                <div class="detail-item"><i class="ti ti-ticket detail-icon"></i> E-ticket</div>
+                <div class="detail-item" style="color:#c2410c"><i class="ti ti-info-circle" style="color:#c2410c;font-size:13px"></i> Booking fee applies</div>
+            </div>
+        </div>
+
+
+
+
+        <!-- Card 1: ParallelFares -->
+
+
+
+
+
+        <div class="site-card">
+
+            <div class="card-top">
+                <div class="site-logo-wrap">
+                    <div class="site-logo logo-pf">
+                        <span style="font-size:10px;letter-spacing:0">parallel</span><span style="font-size:10px;color:#60a5fa">fares</span>
+                    </div>
+                    <div style="font-size:9px;color:#718096;text-align:center;margin-top:3px">.com</div>
+                </div>
+                <div class="site-meta">
+                    <div class="site-name">ParallelFares.com</div>
+                    <div>
+                        <span class="site-stars">★★★★★</span>
+                        <span class="site-reviews">4.7 · 3,182 reviews</span>
+                    </div>
+                    <div class="site-features">
+                        <span class="feat-tag green">UPI accepted</span>
+                        <span class="feat-tag">Instant confirm</span>
+                        <span class="feat-tag">24/7 support</span>
+                    </div>
+                </div>
+                <div class="site-price-block">
+                    <div class="price-main">$@((fare-10).ToString("0.00"))</div>
+                    <div class="price-sub">per adult, incl. taxes</div>
+                    <div class="price-badge badge-best">Lowest price</div>
+                </div>
+                <button class="select-btn green-btn bookBtn" data-id="@flightid" data-site="A">Select</button>
+            </div>
+            <div class="card-divider"></div>
+            <div class="card-details">
+                <div class="detail-item green"><i class="ti ti-shield-check detail-icon"></i> Free cancellation 24h</div>
+                <div class="detail-item"><i class="ti ti-lock detail-icon"></i> Secure payment</div>
+                <div class="detail-item"><i class="ti ti-ticket detail-icon"></i> E-ticket instant</div>
+                <div class="detail-item"><i class="ti ti-credit-card detail-icon"></i> Pay in parts</div>
+            </div>
+        </div>
+
+
+
+
+
+
+        <!-- Card 2: FaresBridge -->
+        <div class="site-card">
+            <div class="card-top">
+                <div class="site-logo-wrap">
+                    <div class="site-logo logo-fb">
+                        <span style="font-size:10px;letter-spacing:0">fares</span><span style="font-size:10px;color:#5eead4">bridge</span>
+                    </div>
+                    <div style="font-size:9px;color:#718096;text-align:center;margin-top:3px">.com</div>
+                </div>
+                <div class="site-meta">
+                    <div class="site-name">FaresBridge.com</div>
+                    <div>
+                        <span class="site-stars">★★★★☆</span>
+                        <span class="site-reviews">4.5 · 1,822 reviews</span>
+                    </div>
+                    <div class="site-features">
+                        <span class="feat-tag">Price lock</span>
+                        <span class="feat-tag green">Fare alert</span>
+                        <span class="feat-tag orange">+$10 booking fee</span>
+                    </div>
+                </div>
+                <div class="site-price-block">
+                    <div class="price-main">$@((fare-7).ToString("0.00"))</div>
+                    <div class="price-sub">per adult, incl. taxes</div>
+
+                </div>
+                <button class="select-btn bookBtn" data-id="@flightid" data-site="C">Select</button>
+            </div>
+            <div class="card-divider"></div>
+            <div class="card-details">
+                <div class="detail-item"><i class="ti ti-lock detail-icon"></i> Secure payment</div>
+                <div class="detail-item"><i class="ti ti-bell detail-icon"></i> Price alerts</div>
+                <div class="detail-item"><i class="ti ti-ticket detail-icon"></i> E-ticket instant</div>
+                <div class="detail-item" style="color:#c2410c"><i class="ti ti-info-circle" style="color:#c2410c;font-size:13px"></i> No free cancel</div>
+            </div>
+        </div>
+
+        <!-- Card 3: FaresGator -->
+        <div class="site-card">
+            <div class="card-top">
+                <div class="site-logo-wrap">
+                    <div class="site-logo logo-fg">
+                        <span style="font-size:10px;letter-spacing:0">fares</span><span style="font-size:10px;color:#c4b5fd">gator</span>
+                    </div>
+                    <div style="font-size:9px;color:#718096;text-align:center;margin-top:3px">.com</div>
+                </div>
+                <div class="site-meta">
+                    <div class="site-name">FaresGator.com</div>
+                    <div>
+                        <span class="site-stars">★★★★☆</span>
+                        <span class="site-reviews">4.3 · 2,245 reviews</span>
+                    </div>
+                    <div class="site-features">
+                        <span class="feat-tag">Multi-airline compare</span>
+                        <span class="feat-tag orange">+$70 vs best</span>
+                    </div>
+                </div>
+                <div class="site-price-block">
+                    <div class="price-main">$@((fare-5).ToString("0.00"))</div>
+                    <div class="price-sub">per adult, incl. taxes</div>
+
+                </div>
+                <button class="select-btn bookBtn" data-id="@flightid" data-site="E">Select</button>
+            </div>
+            <div class="card-divider"></div>
+            <div class="card-details">
+                <div class="detail-item"><i class="ti ti-lock detail-icon"></i> Secure payment</div>
+                <div class="detail-item"><i class="ti ti-refresh detail-icon"></i> Flexible change</div>
+                <div class="detail-item"><i class="ti ti-ticket detail-icon"></i> E-ticket</div>
+                <div class="detail-item" style="color:#c2410c"><i class="ti ti-info-circle" style="color:#c2410c;font-size:13px"></i> Booking fee applies</div>
+            </div>
+        </div>
+
+        <!-- Card 4: Airfaretool -->
+        <div class="site-card">
+            <div class="card-top">
+                <div class="site-logo-wrap">
+                    <div class="site-logo logo-fg">
+                        <span style="font-size:10px;letter-spacing:0">Airfares</span><span style="font-size:10px;color:#c4b5fd">tool</span>
+                    </div>
+                    <div style="font-size:9px;color:#718096;text-align:center;margin-top:3px">.com</div>
+                </div>
+                <div class="site-meta">
+                    <div class="site-name">Airfaretool.com</div>
+                    <div>
+                        <span class="site-stars">★★★★☆</span>
+                        <span class="site-reviews">4.3 · 2,245 reviews</span>
+                    </div>
+                    <div class="site-features">
+                        <span class="feat-tag">Multi-airline compare</span>
+                        <span class="feat-tag orange">+$70 vs best</span>
+                    </div>
+                </div>
+                <div class="site-price-block">
+                    <div class="price-main">$@((fare-6).ToString("0.00"))</div>
+                    <div class="price-sub">per adult, incl. taxes</div>
+
+                </div>
+                <button class="select-btn bookBtn" data-id="@flightid" data-site="F">Select</button>
+            </div>
+            <div class="card-divider"></div>
+            <div class="card-details">
+                <div class="detail-item"><i class="ti ti-lock detail-icon"></i> Secure payment</div>
+                <div class="detail-item"><i class="ti ti-refresh detail-icon"></i> Flexible change</div>
+                <div class="detail-item"><i class="ti ti-ticket detail-icon"></i> E-ticket</div>
+                <div class="detail-item" style="color:#c2410c"><i class="ti ti-info-circle" style="color:#c2410c;font-size:13px"></i> Booking fee applies</div>
+            </div>
+        </div>
+
+        <!-- Card 5: Flightsearchradar -->
+        <div class="site-card">
+            <div class="card-top">
+                <div class="site-logo-wrap">
+                    <div class="site-logo logo-fb">
+                        <span style="font-size:10px;letter-spacing:0">Flight</span><span style="font-size:10px;color:#5eead4">searchradar</span>
+                    </div>
+                    <div style="font-size:9px;color:#718096;text-align:center;margin-top:3px">.com</div>
+                </div>
+                <div class="site-meta">
+                    <div class="site-name">Flightsearchradar.com</div>
+                    <div>
+                        <span class="site-stars">★★★★☆</span>
+                        <span class="site-reviews">4.5 · 1,822 reviews</span>
+                    </div>
+                    <div class="site-features">
+                        <span class="feat-tag">Price lock</span>
+                        <span class="feat-tag green">Fare alert</span>
+                        <span class="feat-tag orange">+$10 booking fee</span>
+                    </div>
+                </div>
+                <div class="site-price-block">
+                    <div class="price-main">$@((fare-9).ToString("0.00"))</div>
+                    <div class="price-sub">per adult, incl. taxes</div>
+
+                </div>
+                <button class="select-btn bookBtn" data-id="@flightid" data-site="G">Select</button>
+            </div>
+            <div class="card-divider"></div>
+            <div class="card-details">
+                <div class="detail-item"><i class="ti ti-lock detail-icon"></i> Secure payment</div>
+                <div class="detail-item"><i class="ti ti-bell detail-icon"></i> Price alerts</div>
+                <div class="detail-item"><i class="ti ti-ticket detail-icon"></i> E-ticket instant</div>
+                <div class="detail-item" style="color:#c2410c"><i class="ti ti-info-circle" style="color:#c2410c;font-size:13px"></i> No free cancel</div>
+            </div>
+        </div>
+
+
+        <!-- Card 5: Flightsearchradar -->
+        <div class="site-card">
+            <div class="card-top">
+                <div class="site-logo-wrap">
+                    <div class="site-logo logo-fb">
+                        <span style="font-size:10px;letter-spacing:0">Fares</span><span style="font-size:10px;color:#5eead4">bracket</span>
+                    </div>
+                    <div style="font-size:9px;color:#718096;text-align:center;margin-top:3px">.com</div>
+                </div>
+                <div class="site-meta">
+                    <div class="site-name">Faresbracket.com</div>
+                    <div>
+                        <span class="site-stars">★★★★☆</span>
+                        <span class="site-reviews">4.5 · 1,822 reviews</span>
+                    </div>
+                    <div class="site-features">
+                        <span class="feat-tag">Price lock</span>
+                        <span class="feat-tag green">Fare alert</span>
+                        <span class="feat-tag orange">+$10 booking fee</span>
+                    </div>
+                </div>
+                <div class="site-price-block">
+                    <div class="price-main">$@((fare-3).ToString("0.00"))</div>
+                    <div class="price-sub">per adult, incl. taxes</div>
+
+                </div>
+                <button class="select-btn bookBtn" data-id="@flightid" data-site="H">Select</button>
+            </div>
+            <div class="card-divider"></div>
+            <div class="card-details">
+                <div class="detail-item"><i class="ti ti-lock detail-icon"></i> Secure payment</div>
+                <div class="detail-item"><i class="ti ti-bell detail-icon"></i> Price alerts</div>
+                <div class="detail-item"><i class="ti ti-ticket detail-icon"></i> E-ticket instant</div>
+                <div class="detail-item" style="color:#c2410c"><i class="ti ti-info-circle" style="color:#c2410c;font-size:13px"></i> No free cancel</div>
+            </div>
+        </div>
+        <div class="trust-row" style="margin-top:8px">
+            <div class="trust-item"><div class="trust-icon"><i class="ti ti-shield-check"></i></div>Secure booking</div>
+            <div class="trust-item"><div class="trust-icon"><i class="ti ti-headset"></i></div>24/7 support</div>
+            <div class="trust-item"><div class="trust-icon"><i class="ti ti-certificate"></i></div>IATA certified</div>
+            <div class="trust-item"><div class="trust-icon"><i class="ti ti-star"></i></div>4.7 avg rating</div>
+        </div>
+
+    </div>
+
+    <div class="right-col">
+
+        <div class="right-card">
+            <div class="right-card-header">
+                Flight details <span>all times local</span>
+            </div>
+
+            <!-- OUTBOUND HEADER -->
+            <div style="background:#fff8f0;padding:7px 16px;border-bottom:1px solid #ffe4c4;
+                display:flex;justify-content:space-between;align-items:center">
+
+                <span style="font-size:10px;font-weight:700;color:#c2410c;text-transform:uppercase">
+                    ✈ Outbound —
+                    @flights.Outbound.First().DepartureDate.ToString("ddd, dd MMM")
+                </span>
+
+                <span style="font-size:12px;font-weight:700;color:#0e1b4d">
+                    $@(flights.TotalCost.ToString("0.00"))
+                </span>
+            </div>
+
+            @{
+                int cntOB = 1;
+
+                foreach (var outboundArr in flights.Outbound)
+                {
+                    double stop_time = 0;
+
+                    if (cntOB < flights.Outbound.Count)
+                    {
+                        stop_time = double.Parse(Common.GetTime(
+                            flights.Outbound[cntOB].DepartureDate,
+                            outboundArr.ArrivalDate).ToString());
+                    }
+
+
+                    <div class="flight-seg" style="padding:12px 16px;">
+
+                        <div class="seg-direction" style="color:#0770e3;font-weight:600">
+
+                            @(outboundArr.FromAirport.Code) →
+                            @outboundArr.ToAirport.Code
+
+                            <span style="color:#718096;font-weight:400">
+
+                                · @(flights.Outbound.Count - 1) stop(s)
+
+                                ·
+                                @(Math.Floor(double.Parse(outboundArr.TotalTime) / 60))h
+                                @(double.Parse(outboundArr.TotalTime) % 60)m
+
+                            </span>
+
+                        </div>
+
+                        <div class="seg-row">
+
+                            <div>
+                                <div class="seg-airport">
+                                    @outboundArr.FromAirport.Code
+                                </div>
+
+                                <div class="seg-time">
+                                    @outboundArr.DepartureDate.ToString("HH:mm")
+                                </div>
+                            </div>
+
+                            <div class="seg-mid-col">
+
+                                <div class="seg-line-wrap">
+
+                                    <div class="s-dot"></div>
+
+                                    <div class="s-line"></div>
+
+                                    <div class="seg-plane">✈</div>
+
+                                    <div class="s-line"></div>
+
+                                    <div class="s-dot"></div>
+
+                                </div>
+
+                            </div>
+
+                            <div style="text-align:right">
+
+                                <div class="seg-airport">
+                                    @outboundArr.ToAirport.Code
+                                </div>
+
+                                <div class="seg-time">
+                                    @outboundArr.ArrivalDate.ToString("HH:mm")
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div style="font-size:10px;color:#4a5568;margin-top:6px;line-height:1.7">
+
+                            Depart:
+                            @outboundArr.DepartureDate.ToString("ddd, dd-MMM")
+
+                            ·
+
+                            Arrive:
+                            @outboundArr.ArrivalDate.ToString("ddd, dd-MMM")
+
+                            <br>
+
+                            <b>From:</b>
+                            Terminal @outboundArr.FromTerminal
+                            @outboundArr.FromAirport.Name
+
+                            <br>
+
+                            <b>To:</b>
+                            Terminal @outboundArr.ToTerminal
+                            @outboundArr.ToAirport.Name
+
+                        </div>
+
+                        <div style="font-size:10px;color:#4a5568;margin-top:5px">
+
+                            @outboundArr.Airline.Name
+
+                            @outboundArr.CabinClass
+
+                            ·
+
+                            @outboundArr.Airline.Code-@outboundArr.FlightNo
+
+                            <br>
+
+                            🧳
+                            @outboundArr.BaggageAllowance
+
+                            Cabin : 7 KG
+
+                        </div>
+
+                    </div>
+
+                    if (cntOB < flights.Outbound.Count)
+                    {
+                        <div style="background:#f0fdf4;padding:5px 16px;text-align:center;
+                    font-size:10px;color:#166534;font-weight:600;
+                    border-top:1px dashed #bbf7d0;
+                    border-bottom:1px dashed #bbf7d0;">
+
+                            ⏱ Stop :
+                            @(Math.Floor(stop_time / 60)) Hrs
+                            @(Math.Floor(stop_time % 60)) Mins
+
+                        </div>
+
+                        cntOB++;
+                    }
+                }
+            }
+
+            @if (flightSearch.FlightWay == FlightWay.RoundTrip)
+            {
+                <!-- RETURN HEADER -->
+                <div style="background:#f0f4ff;padding:7px 16px;border-top:2px solid #e2e8f0;
+                border-bottom:1px solid #c7d2fe;display:flex;
+                justify-content:space-between;align-items:center">
+
+                    <span style="font-size:10px;font-weight:700;color:#4338ca;
+                    text-transform:uppercase">
+                        ↩ Return —
+                        @flights.Inbound.First().DepartureDate.ToString("ddd, dd MMM")
+                    </span>
+                </div>
+
+                {
+                    int cntIB = 1;
+
+                    foreach (var inboundArr in flights.Inbound)
+                    {
+                        double stop_time = 0;
+
+                        if (cntIB < flights.Inbound.Count)
+                        {
+                            stop_time = double.Parse(
+                                Common.GetTime(
+                                    flights.Inbound[cntIB].DepartureDate,
+                                    inboundArr.ArrivalDate
+                                ).ToString()
+                            );
+                        }
+
+
+                        <div class="flight-seg" style="padding:12px 16px;">
+
+                            <div class="seg-direction"
+                                 style="color:#0770e3;font-weight:600">
+
+                                @inboundArr.FromAirport.Code →
+                                @inboundArr.ToAirport.Code
+
+                                <span style="color:#718096;font-weight:400">
+
+                                    · @(flights.Inbound.Count - 1) stop(s)
+
+                                    ·
+
+                                    @(Math.Floor(double.Parse(inboundArr.TotalTime) / 60))h
+                                    @(double.Parse(inboundArr.TotalTime) % 60)m
+
+                                </span>
+
+                            </div>
+
+                            <div class="seg-row">
+
+                                <div>
+                                    <div class="seg-airport">
+                                        @inboundArr.FromAirport.Code
+                                    </div>
+
+                                    <div class="seg-time">
+                                        @inboundArr.DepartureDate.ToString("HH:mm")
+                                    </div>
+                                </div>
+
+                                <div class="seg-mid-col">
+
+                                    <div class="seg-line-wrap">
+
+                                        <div class="s-dot"></div>
+
+                                        <div class="s-line"></div>
+
+                                        <div class="seg-plane">✈</div>
+
+                                        <div class="s-line"></div>
+
+                                        <div class="s-dot"></div>
+
+                                    </div>
+
+                                </div>
+
+                                <div style="text-align:right">
+
+                                    <div class="seg-airport">
+                                        @inboundArr.ToAirport.Code
+                                    </div>
+
+                                    <div class="seg-time">
+                                        @inboundArr.ArrivalDate.ToString("HH:mm")
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div style="font-size:10px;color:#4a5568;
+                    margin-top:6px;line-height:1.7">
+
+                                Depart :
+                                @inboundArr.DepartureDate.ToString("ddd, dd-MMM")
+
+                                ·
+
+                                Arrive :
+                                @inboundArr.ArrivalDate.ToString("ddd, dd-MMM")
+
+                                <br>
+
+                                <b>From :</b>
+
+                                Terminal @inboundArr.FromTerminal
+                                @inboundArr.FromAirport.Name
+
+                                <br>
+
+                                <b>To :</b>
+
+                                Terminal @inboundArr.ToTerminal
+                                @inboundArr.ToAirport.Name
+
+                            </div>
+
+                            <div style="font-size:10px;color:#4a5568;margin-top:5px">
+
+                                @inboundArr.Airline.Name
+
+                                <span style="text-transform:uppercase">
+                                    @inboundArr.CabinClass
+                                </span>
+
+                                ·
+
+                                @inboundArr.Airline.Code-@inboundArr.FlightNo
+
+                                <br>
+
+                                🧳 @inboundArr.BaggageAllowance
+
+                                Cabin : 7 KG
+
+                            </div>
+
+                        </div>
+
+                        if (cntIB < flights.Inbound.Count)
+                        {
+                            <div style="background:#f0fdf4;
+                    padding:5px 16px;
+                    text-align:center;
+                    font-size:10px;
+                    color:#166534;
+                    font-weight:600;
+                    border-top:1px dashed #bbf7d0;
+                    border-bottom:1px dashed #bbf7d0;">
+
+                                ⏱ Stop :
+                                @(Math.Floor(stop_time / 60)) Hrs
+                                @(Math.Floor(stop_time % 60)) Mins
+
+                            </div>
+
+                            cntIB++;
+                        }
+                    }
+
+                }
+            }
+
+            <div class="right-card">
+                <div class="right-card-header">Price breakdown</div>
+                <div class="fare-summary">
+
+                    <div class="fare-row"><span>Total</span><span>@fare</span></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="partnerModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Leaving Our Website</h5>
+                </div>
+
+                <div class="modal-body partner-body">
+
+                    <p class="partner-message">
+                        You are about to leave <strong>Faresradar</strong> and continue your booking on one of our trusted travel partners.
+                    </p>
+
+                    <div class="partner-note">
+                        <strong>Important:</strong><br />
+                        Flight availability, pricing, payment, and booking confirmation will be completed on the partner website.
+                    </div>
+
+                    <p class="partner-confirm">
+                        Do you want to continue?
+                    </p>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal">
+                        Cancel
+                    </button>
+
+                    <button class="btn btn-primary" id="continueBooking">
+                        Continue
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var bookingUrl = "";
+
+        $(".bookBtn").click(function (e) {
+            debugger;
+            e.preventDefault();
+            var flightId = $(this).data("id");
+            var site = $(this).data("site");
+
+            bookingUrl = "/flight/RedirectToBooking?flightId=" + flightId + "&site=" + site;
+
+            $("#partnerModal").modal("show");
+        });
+
+        $("#continueBooking").click(function () {
+
+            $("#partnerModal").modal("hide");
+
+            window.open(bookingUrl, "_blank");
+        });
+
+    </script>

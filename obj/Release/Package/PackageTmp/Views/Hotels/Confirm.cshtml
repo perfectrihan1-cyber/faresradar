@@ -1,0 +1,64 @@
+﻿@model Viman.Models.HotelsBooking
+@using Viman.Models
+@{
+    ViewBag.Title = "Confirm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.WebsiteURL = Common.WebsiteURL;
+    ViewBag.StaticURL = Common.StaticURL;
+    ViewBag.Currency = Common.Currency;
+}
+
+<div class="background_top"></div>
+
+<div class="container">
+    <div class="gap_small">&nbsp;</div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="hol_cn_check">
+                <i class="fa fa-check-circle"></i>
+                <h2>@(Model.BookerDetail.FirstName), your payment was successful!</h2>
+                <h3>Booking details has been send to <b>@(Model.BookerDetail.Email)</b> &nbsp; Ref : <b style="color:#f00;">@(Model.BookingId)</b></h3>
+            </div>
+            <div class="hol_cn_list_order clearfix">
+                <div class="hol_cn_flt_dtl">
+                    <div class="hol_cn_pss_dtl">
+                        <h3>
+                            <i class="fa fa-bed"></i>
+                            @(Model.Hotels.HotelName)
+                        </h3>
+                        <p>
+                            @for (int j = 1; j <= Math.Ceiling(float.Parse(Model.Hotels.StarRating)); j++)
+                            {
+                                <i class="fa fa-star"></i>
+                            }
+                        </p>
+                    </div>
+                    <div class="hol_cn_addr clearfix">
+                        <h4><b>Address:</b>@(Model.Hotels.Address)</h4>
+                        <span><b>Check in:</b> @(Model.HotelsSearch.CheckIn.ToString("dddd dd MMMM, yyyy"))</span>
+                        <span><b>Check Out:</b> @(Model.HotelsSearch.CheckOut.ToString("dddd dd MMMM, yyyy"))</span>
+                        <span><b>Rooms:</b>@(Common.GetDateDiffDay(Model.HotelsSearch.CheckOut, Model.HotelsSearch.CheckIn)) Night(s), @(Model.HotelsSearch.Rooms) Room(s)</span>
+                        <span><b>Guests:</b> @(ViewBag.AdultsCnt) Adults(s), @(ViewBag.ChildrenCnt) Children(s)</span>
+                    </div>
+
+                    <div class="hol_cn_total clearfix">
+                        <span>Total Amount</span>
+                        <strong>@(ViewBag.Currency) @(Model.Hotels.LowestPrice)</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hol_cn_link_main_border">&nbsp;</div>
+    <div class="hol_cn_link_main clearfix">
+
+        <h2>You might also need in <span> @(Model.HotelsSearch.Location.CityName)</span></h2>
+
+        <ul class="hol_cn_othr_link">
+            <li><a href="@Url.Content("~/hotels/")">Hotels</a></li>
+            <li><a href="@Url.Content("~/car/")">Car</a></li>
+            <li><a href="@Url.Content("~/")">Car + Hotel</a></li>
+            <li><a href="@Url.Content("~/hotel/")">Another Search</a></li>
+        </ul>
+    </div>
+</div>

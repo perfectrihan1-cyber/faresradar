@@ -1,0 +1,609 @@
+﻿@model Viman.Models.CarsResult
+@using Viman.Models
+@{
+    ViewBag.Title = "Result";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.WebsiteURL = Common.WebsiteURL;
+    ViewBag.StaticURL = Common.StaticURL;
+    ViewBag.Currency = Common.Currency;
+}
+
+<div class="background_top"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="car_top_summry">
+                <div class="car_modify_button">
+                    <a href="javascript:void(0);" id="btn_serch_show">
+                        MODIFY
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                </div>
+                <ul class="car_main_li_summry clearfix">
+                    <li>
+                        <div class="car_top_smy_des">
+                            <span>Car Hire in @(Model.CarsSearch.FromLocation.CityName)</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="car_top_smy_date">
+                            <span>@(Model.CarsSearch.PickupDate.ToString("ddd dd MMM, HH:mm")) &nbsp; to&nbsp; <bdo>@(Model.CarsSearch.DropoffDate.ToString("ddd dd MMM, HH:mm"))</bdo></span>
+                        </div>
+                    </li>
+                </ul>
+                <div class="car_srch_searBx">
+                    <div class="car_ind_srch_subBox">
+                        <i class="fa fa-map-marker"></i>
+                        <input type="hidden" name="car_pickup_location_id" id="car_pickup_location_id" value="@(ViewBag.pickupCode)" />
+                        <input type="text" name="car_pickup_location" id="car_pickup_location" placeholder="Location/City" class="car_ind_inputBox" value="@(ViewBag.pickupName)" />
+                    </div>
+                    <div class="car_ind_srch_subBox">
+                        <i class="fa fa-map-marker"></i>
+                        <input type="hidden" name="car_dropoff_location_id" id="car_dropoff_location_id" value="@(ViewBag.dropoffCode)" />
+                        <input type="text" name="car_dropoff_location" id="car_dropoff_location" placeholder="Location/City" class="car_ind_inputBox" value="@(ViewBag.dropoffName)" />
+                    </div>
+                    <div class="car_ind_srch_subBox_dt">
+                        <i class="fa fa-map-marker"></i>
+                        <input type="text" name="car_pickup_date" id="car_pickup_date" placeholder="Pickup Date" value="@((ViewBag.pickupDate==" ")?DateTime.Now.AddDays(2).ToString(" dd-MM-yyyy"):ViewBag.pickupDate)" class="car_ind_inputBox" />
+                    </div>
+                    <div class="car_ind_srch_subBox_tm">
+                        <i class="fa fa-clock-o"></i>
+                        <input type="text" name="car_pickup_time" id="car_pickup_time" placeholder="Time" value="@((ViewBag.pickupTime==" ")?DateTime.Now.AddDays(2).ToString(" HH:mm"):ViewBag.pickupTime)" class="car_ind_inputBox" />
+                    </div>
+                    <div class="car_ind_srch_subBox_dt">
+                        <i class="fa fa-map-marker"></i>
+                        <input type="text" name="car_dropoff_date" id="car_dropoff_date" placeholder="Dropoff Date" value="@((ViewBag.dropoffDate==" ")?DateTime.Now.AddDays(9).ToString(" dd-MM-yyyy"):ViewBag.dropoffDate)" class="car_ind_inputBox" />
+                    </div>
+                    <div class="car_ind_srch_subBox_tm">
+                        <i class="fa fa-clock-o"></i>
+                        <input type="text" name="car_dropoff_time" id="car_dropoff_time" placeholder="Time" value="@((ViewBag.dropoffTime==" ")?DateTime.Now.AddDays(9).ToString(" HH:mm"):ViewBag.dropoffTime)" class="car_ind_inputBox" />
+                    </div>
+                    <input type="button" src="javascript:void(0);" name="car_submit" id="car_submit" class="car_ind_sbm_btn" value="CAR SEARCH">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.msg.Equals("noresult") || Model.CarsList == null)
+{
+    ViewBag.msg = "noresult";
+    <div class="row">
+        <div class="col-md-12">
+            <div class="no_result">
+                <i class="fa fa-frown-o"></i>
+                <p>No results found for your selection. Click <b style="color:#f6921d;">MODIFY</b> to change your search.</p>
+            </div>
+        </div>
+    </div>
+}
+@if (ViewBag.msg.Equals("success") && Model.CarsList != null)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-4">
+                <div class="car_lft_pnl">
+                    <div class="car_head">
+                        <h4>
+                            Search Filter
+                            <i class="fa fa-sliders fa-rotate-270 hidden-xs"></i>
+                        </h4>
+                    </div>
+                    <div class="car_price_panel">
+                        <h4> <i class="fa fa-gbp"></i>Price</h4>
+                        <p class="car_price_range">
+                            <span id="min_price_sp">@(ViewBag.Currency)@(Model.MinPrice)</span>
+                            <span id="max_price_sp">@(ViewBag.Currency)@(Model.MaxPrice)</span>
+                        </p>
+                        <input type="text" class="car_min_max_price" name="min_price" id="min_price" value="@(Model.MinPrice)" style="display:none;">
+                        <input type="text" class="car_min_max_price" name="max_price" id="max_price" value="@(Model.MaxPrice)" style="display:none;">
+                        <div id="slider-range" class="car_scal_price"></div>
+                    </div>
+                    <div class="car_pannel clearfix">
+                        <div class="slc_flrt_all">
+                            <span><a href="javascript:void(0);" class="clear_filter">Clear All</a></span>
+                        </div>
+
+                        <h4><i class="fa fa-map-marker"></i>Availability</h4>
+                        <div class="car_loc">
+                            <label class="loc_car_chkbox" for="available_1">
+                                <input type="checkbox" class="airline_flt available_chk" name="available_chk" id="available_1" value="True">
+                                <span class="checkmark"></span>
+                                <bdo>Available</bdo>
+                            </label>
+                        </div>
+                        <div class="car_loc">
+                            <label class="loc_car_chkbox" for="available_2">
+                                <input type="checkbox" class="airline_flt available_chk" name="available_chk" id="available_2" value="True">
+                                <span class="checkmark"></span>
+                                <bdo>On Request</bdo>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="car_pannel clearfix">
+                        <div class="slc_flrt_all">
+                            <span><a href="javascript:void(0);" class="clear_filter">Clear All</a></span>
+                        </div>
+
+                        <h4><i class="fa fa-map-marker"></i>Transmission</h4>
+                        <div class="car_loc">
+                            <label class="loc_car_chkbox" for="transmission_1">
+                                <input type="checkbox" class="airline_flt transmission_chk" name="transmission_chk" id="transmission_1" value="A">
+                                <span class="checkmark"></span>
+                                <bdo>Automatic</bdo>
+                            </label>
+                        </div>
+                        <div class="car_loc">
+                            <label class="loc_car_chkbox" for="transmission_2">
+                                <input type="checkbox" class="airline_flt transmission_chk" name="transmission_chk" id="transmission_2" value="M">
+                                <span class="checkmark"></span>
+                                <bdo>Manual</bdo>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="car_pannel clearfix">
+                        <div class="slc_flrt_all">
+                            <span><a href="javascript:void(0);" class="clear_filter">Clear All</a></span>
+                        </div>
+                        <h4><i class="fa fa-map-marker"></i>Supplier</h4>
+                        @foreach (string supp in Model.Supplier)
+                        {
+                            <div class="car_loc">
+                                <label class="loc_car_chkbox" for="supplier_@(supp)">
+                                    <input type="checkbox" class="airline_flt supplier_chk" name="supplier_chk" id="supplier_@(supp)" value="@(supp)">
+                                    <span class="checkmark"></span>
+                                    <bdo>@((ViewBag.SupplierList.ContainsKey(supp)) ? ViewBag.SupplierList[supp] : supp)</bdo>
+                                </label>
+                            </div>
+                        }
+                    </div>
+                    <div class="car_pannel clearfix">
+                        <div class="slc_flrt_all">
+                            <span><a href="javascript:void(0);" class="clear_filter">Clear All</a></span>
+                        </div>
+                        <h4><i class="fa fa-map-marker"></i>Passenger</h4>
+                        <div class="car_loc">
+                            <label class="loc_car_chkbox" for="passenger_4">
+                                <input type="checkbox" class="airline_flt passenger_chk" name="passenger_chk" id="passenger_4" value="4">
+                                <span class="checkmark"></span>
+                                <bdo>4</bdo>
+                            </label>
+                        </div>
+                        <div class="car_loc">
+                            <label class="loc_car_chkbox" for="passenger_5">
+                                <input type="checkbox" class="airline_flt passenger_chk" name="passenger_chk" id="passenger_5" value="5">
+                                <span class="checkmark"></span>
+                                <bdo>5</bdo>
+                            </label>
+                        </div>
+                        <div class="car_loc">
+                            <label class="loc_car_chkbox" for="passenger_7">
+                                <input type="checkbox" class="airline_flt" name="passenger_chk" id="passenger_7" value="7">
+                                <span class="checkmark"></span>
+                                <bdo>7</bdo>
+                            </label>
+                        </div>
+                        <div class="car_loc">
+                            <label class="loc_car_chkbox" for="passenger_8">
+                                <input type="checkbox" class="airline_flt passenger_chk" name="passenger_chk" id="passenger_8" value="8">
+                                <span class="checkmark"></span>
+                                <bdo>8</bdo>
+                            </label>
+                        </div>
+                        <div class="car_loc">
+                            <label class="loc_car_chkbox" for="passenger_12">
+                                <input type="checkbox" class="airline_flt passenger_chk" name="passenger_chk" id="passenger_12" value="12">
+                                <span class="checkmark"></span>
+                                <bdo>12</bdo>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="car_pannel clearfix">
+                        <div class="slc_flrt_all">
+                            <span><a href="javascript:void(0);" class="clear_filter">Clear All</a></span>
+                        </div>
+                        <h4><i class="fa fa-map-marker"></i>Fuel Policy</h4>
+                        <div class="car_loc">
+                            <label class="loc_car_chkbox" for="car_petrl">
+                                <input type="checkbox" class="airline_flt" name="airline_chk" id="car_petrl" value="AI">
+                                <span class="checkmark"></span>
+                                <bdo>Petrol</bdo>
+                            </label>
+                        </div>
+                        <div class="car_loc">
+                            <label class="loc_car_chkbox" for="diesL">
+                                <input type="checkbox" class="airline_flt" name="airline_chk" id="diesL" value="AI">
+                                <span class="checkmark"></span>
+                                <bdo>Diesel</bdo>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="car_pannel clearfix">
+                        <div class="slc_flrt_all">
+                            <span><a href="javascript:void(0);" class="clear_filter">Clear All</a></span>
+                        </div>
+                        <h4><i class="fa fa-map-marker"></i>Location</h4>
+                        <div class="car_loc">
+                            <label class="loc_car_chkbox" for="onairp">
+                                <input type="checkbox" class="airline_flt" name="asdf" id="onairp" value="AI">
+                                <span class="checkmark"></span>
+                                <bdo>On Airport</bdo>
+                            </label>
+                        </div>
+                        <div class="car_loc">
+                            <label class="loc_car_chkbox" for="offAirp">
+                                <input type="checkbox" class="airline_flt" name="airline_chk" id="offAirp" value="AI">
+                                <span class="checkmark"></span>
+                                <bdo>Off Airport</bdo>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-8">
+                <div class="car_srch_contner">
+                    <h3 class="car_cont_hd">@(Model.CarsList.Count) cars found in @(Model.CarsSearch.FromLocation.CityName)</h3>
+                </div>
+
+                @foreach (Cars cars in Model.CarsList)
+                {
+                    <div class="car_serch_mainBx" data-passenger="@(cars.Adult+cars.Child+cars.Infant)" data-transmission="@(cars.Transmission)" data-availability="@(cars.OnRequest)" data-supplier="@(cars.Supplier)" data-price="@(cars.TotalCost)">
+                        <div class="clearfix">
+                            <div class="car_srch_img">
+                                <img src="@(cars.ImagePath)" class="img-responsive" />
+                                <div class="car_spons_logo">
+                                    <img src="@("http://www.affordablecarhire.com/images/webnew/suppliers/logo_"+cars.Supplier+".gif")" alt="@(cars.Supplier)" class="img-responsive" />
+                                </div>
+                            </div>
+                            <div class="car_srch_cont ">
+                                <div class="car_cont_head">
+                                    <h3>@(cars.Name)</h3>
+                                    <p>@(cars.Description)</p>
+                                </div>
+                                <div class="car_des_list">
+                                    <ul>
+                                        <li><i class="luggage"></i> <bdo>@(cars.LargeBag + cars.SmallBag) Pieces of Luggage</bdo> </li>
+                                        @*<li><i class="door_5"></i> <bdo>5 Doors</bdo></li>*@
+                                        <li><i class="passenger"></i> <bdo>Up to @(cars.Adult + cars.Child + cars.Infant) Passengers</bdo></li>
+                                        <li><i class="transmission"></i> <bdo>@((cars.Transmission == "A") ? "Automatic" : "Manual") Transmission</bdo></li>
+                                        @*<li><i class="climate"></i> <bdo>Climate Control</bdo> </li>*@
+                                        @*<li><i class="stereo"></i> <bdo>Stereo CD/MP3</bdo></li>*@
+                                        @if (cars.HasAircondition)
+                                        {
+                                            <li><span><i class="ac"></i> <bdo>Air Conditioner</bdo></span></li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="car_srch_prc">
+                            <div class="car_dtl">
+                                <p></p>
+                            </div>
+                            <div class="prc_dtlmBx">
+                                <div class="prc_dtl">
+                                    <h2>@(ViewBag.Currency)@(cars.TotalCost.ToString("0"))</h2>
+                                    <a href="@(ViewBag.StaticURL + "car/detail/?sess=" + cars.CarId)" data-id="@(cars.CarId)" class="book_car_btn">Book Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $("#car_submit").click(function () {
+                if ($("#car_pickup_location").val().trim(' ') == "") {
+                    alert("Please enter your pickup location");
+                    $("#car_pickup_location").focus();
+                    return false;
+                }
+                else if ($("#car_pickup_location").val().trim(' ').indexOf('-') != 3) {
+                    alert("Kindly select pickup location from auto suggest list!");
+                    $("#car_pickup_location").focus();
+                    return false;
+                }
+                else if ($("#car_dropoff_location").val().trim(' ') == "") {
+                    alert("Please enter your dropoff location");
+                    $("#car_dropoff_location").focus();
+                    return false;
+                }
+                else if ($("#car_dropoff_location").val().trim(' ').indexOf('-') != 3) {
+                    alert("Kindly select dropoff location from auto suggest list!");
+                    $("#car_dropoff_location").focus();
+                    return false;
+                } else {
+                    var pickup = "&Pickup=" + $("#car_pickup_location_id").val();
+                    var dropoff = "&Dropoff=" + $("#car_dropoff_location_id").val();
+                    var pickupDate = "&PickupDate=" + $("#car_pickup_date").val().split("-")[2] + "-" + $("#car_pickup_date").val().split("-")[1] + "-" + $("#car_pickup_date").val().split("-")[0] + " " + $("#car_pickup_time").val();
+                    var dropoffDate = "&DropoffDate=" + $("#car_dropoff_date").val().split("-")[2] + "-" + $("#car_dropoff_date").val().split("-")[1] + "-" + $("#car_dropoff_date").val().split("-")[0] + " " + $("#car_dropoff_time").val();
+
+                    var str = "@(ViewBag.StaticURL + "car-hire/search?")SiteCode=VIMAN&SourceMedia=VIMAN" + pickup + dropoff + pickupDate + dropoffDate + "&Currency=GBP";
+                    //alert(str);
+                    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                    $("#cp_from_name").html($("#car_pickup_location").val().split("-")[1]);
+                    $("#cp_from_code").html($("#car_pickup_location").val().split("-")[0]);
+                    $("#cp_to_name").html($("#car_dropoff_location").val().split("-")[1]);
+                    $("#cp_to_code").html($("#car_dropoff_location").val().split("-")[0]);
+                    var pd_tp = $("#car_pickup_date").val().split("-");
+                    $("#cp_pickup_date").html(pd_tp[0] + " " + monthNames[pd_tp[1] - 1] + ", " + pd_tp[2] + " " + $("#car_pickup_time").val());
+                    var dd_tp = $("#car_dropoff_date").val().split("-");
+                    $("#cp_dropoff_date").html(dd_tp[0] + " " + monthNames[dd_tp[1] - 1] + ", " + dd_tp[2] + " " + $("#car_dropoff_time").val());
+                    $("#car_search_popup").show();
+
+                    $('#car_plane').css({ 'left': '0%' }).animate({ 'left': '70%' }, 7000);
+                    window.location = str;
+                }
+            });
+
+            $('#car_pickup_location').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/api/getlocation",
+                        dataType: "json",
+                        data: {
+                            pickUpLocation: request.term
+                        },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    value: item.LocationId,
+                                    label: (item.CityCode + "-" + item.Name)
+                                }
+                            }));
+                        }
+                    })
+                },
+                open: function (event, ui) { selectLocation = false; },
+                select: function (event, ui) {
+                    $("#car_pickup_location").val(ui.item.label);
+                    $("#car_pickup_location_id").val(ui.item.value);
+                    selectLocation = false;
+                    return false;
+                },
+                close: function (event, ui) {
+                    selectLocation = false;
+                },
+                minLength: 3,
+                autoFocus: true
+            }).blur(function () {
+                if (selectLocation) {
+                    $("#car_pickup_location").val($('ul.ui-autocomplete li:first a').text());
+                }
+            }).focus(function () {
+                $(this).autocomplete("search");
+            });
+
+            $('#car_dropoff_location').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/api/getlocation",
+                        dataType: "json",
+                        data: {
+                            pickUpLocation: request.term
+                        },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    value: item.LocationId,
+                                    label: (item.CityCode + "-" + item.Name)
+                                }
+                            }));
+                        }
+                    })
+                },
+                open: function (event, ui) { selectLocation = false; },
+                select: function (event, ui) {
+                    $("#car_dropoff_location").val(ui.item.label);
+                    $("#car_dropoff_location_id").val(ui.item.value);
+                    selectLocation = false;
+                    return false;
+                },
+                close: function (event, ui) {
+                    selectLocation = false;
+                },
+                minLength: 3,
+                autoFocus: true
+            }).blur(function () {
+                if (selectLocation) {
+                    $("#car_dropoff_location").val($('ul.ui-autocomplete li:first a').text());
+                }
+            }).focus(function () {
+                $(this).autocomplete("search");
+            });
+
+            $("#car_pickup_date").datepicker({
+                format: 'dd-mm-yyyy',
+                startDate: '@DateTime.Now.AddDays(2).ToString("dd-MM-yyyy")',
+                autoHide: true
+            }).on('pick.datepicker', function (e) {
+                var currdate = getStr(e.date.getDate()) + "-" + getStr((e.date.getMonth() + 1)) + "-" + e.date.getFullYear();
+                $("#car_dropoff_date").val(currdate);
+                $("#car_dropoff_date").datepicker('setDate', e.date);
+                $("#car_dropoff_date").datepicker('setStartDate', e.date);
+                $("#car_pickup_time").focus();
+            });
+            $("#car_dropoff_date").datepicker({
+                format: 'dd-mm-yyyy',
+                startDate: '@DateTime.Now.AddDays(9).ToString("dd-MM-yyyy")',
+                autoHide: true
+            });
+            $("#car_pickup_time").datetimepicker({
+                timepicker: true,
+                datepicker: false,
+                step: 5,
+                format: 'H:i',
+            });
+            $("#car_dropoff_time").datetimepicker({
+                timepicker: true,
+                datepicker: false,
+                step: 5,
+                format: 'H:i',
+            });
+
+            $("#slider-range").slider({
+                range: true,
+                min: @(Model.MinPrice),
+                max: @(Model.MaxPrice),
+                values: [ @(Model.MinPrice), @(Model.MaxPrice) ],
+                slide: function( event, ui ) {
+                    $("#min_price_sp").html("£" + ui.values[0]);
+                    $("#max_price_sp").html("£" + ui.values[1]);
+                    $("#min_price").val(ui.values[0]);
+                    $("#max_price").val(ui.values[1]);
+                },
+                stop: function( event, ui ) {
+                    changeFilter();
+                }
+            });
+            $("#min_price_sp").html("£" + $("#slider-range").slider("values", 0));
+            $("#max_price_sp").html("£" + $("#slider-range").slider("values", 1));
+            $("#min_price").val($("#slider-range").slider("values", 0));
+            $("#max_price").val($("#slider-range").slider("values", 1));
+
+            $("#btn_serch_show, #btn_serch_showMb").click(function () {
+                $(".srch_box_srchPge_modify").slideToggle("slow");
+            });
+
+            // available filter
+            $(".available_chk").change(function(e){
+                if ($(this).prop('checked')==true)
+                    $(this).parent("label").addClass("active");
+                else
+                    $(this).parent("label").removeClass("active");
+                changeFilter();
+            });
+            $(".transmission_chk").change(function(e){
+                if ($(this).prop('checked')==true)
+                    $(this).parent("label").addClass("active");
+                else
+                    $(this).parent("label").removeClass("active");
+                changeFilter();
+            });
+            $(".supplier_chk").change(function(e){
+                if ($(this).prop('checked')==true)
+                    $(this).parent("label").addClass("active");
+                else
+                    $(this).parent("label").removeClass("active");
+                changeFilter();
+            });
+            $(".passenger_chk").change(function(e){
+                if ($(this).prop('checked')==true)
+                    $(this).parent("label").addClass("active");
+                else
+                    $(this).parent("label").removeClass("active");
+                changeFilter();
+            });
+
+            $(".clear_filter").click(function(){
+                clearFilter();
+            });
+        });
+
+        function clearFilter()
+        {
+            $(".car_serch_mainBx").show();
+
+            $(".available_chk").prop('checked',false);
+            $(".available_chk").parent("label").removeClass("active");
+            $(".transmission_chk").prop('checked',false);
+            $(".transmission_chk").parent("label").removeClass("active");
+            $(".supplier_chk").prop('checked',false);
+            $(".supplier_chk").parent("label").removeClass("active");
+            $(".passenger_chk").prop('checked',false);
+            $(".passenger_chk").parent("label").removeClass("active");
+
+            var options = $("#slider-range").slider( 'option' );
+            $("#slider-range").slider( 'values', [ options.min, options.max ] );
+            $("#min_price_sp").html("£" + options.min);
+            $("#max_price_sp").html("£" + options.max);
+            $("#min_price").val(options.min);
+            $("#max_price").val(options.max);
+
+            $(".main_no_found").hide();
+        }
+
+        function changeFilter()
+        {
+            $(".main_no_found").hide();
+
+            var minp = parseFloat($("#min_price").val());
+            var maxp = parseFloat($("#max_price").val());
+
+            var ava_arr = [];
+            $('input[name=available_chk]:checked').map(function() {
+                ava_arr.push($(this).val());
+            });
+            var tra_arr = [];
+            $('input[name=transmission_chk]:checked').map(function() {
+                tra_arr.push($(this).val());
+            });
+            var sup_arr = [];
+            $('input[name=supplier_chk]:checked').map(function() {
+                sup_arr.push($(this).val());
+            });
+            var pas_arr = [];
+            $('input[name=passenger_chk]:checked').map(function() {
+                pas_arr.push($(this).val());
+            });
+
+            $(".car_serch_mainBx").hide();
+            var main_flag = true;
+
+            $(".car_serch_mainBx").each(function(i) {
+                // price filter
+                var price_flag = false;
+                if(parseFloat($(this).attr("data-price"))>=minp && parseFloat($(this).attr("data-price"))<=maxp)
+                    price_flag = true;
+
+                // available filter
+                var avail_flag = false;
+                if(ava_arr=="")
+                    avail_flag = true;
+                else if($.inArray($(this).attr("data-availability"),ava_arr)!=-1)
+                    avail_flag = true;
+
+                // transmission filter
+                var trans_flag = false;
+                if(tra_arr=="")
+                    trans_flag = true;
+                else if($.inArray($(this).attr("data-transmission"),tra_arr)!=-1)
+                    trans_flag = true;
+
+                // supplier filter
+                var supp_flag = false;
+                if(sup_arr=="")
+                    supp_flag = true;
+                else if($.inArray($(this).attr("data-supplier"),sup_arr)!=-1)
+                    supp_flag = true;
+
+                // passenger filter
+                var pass_flag = false;
+                if(pas_arr=="")
+                    pass_flag = true;
+                else if($.inArray($(this).attr("data-passenger"),pas_arr)!=-1)
+                    pass_flag = true;
+
+                if(price_flag && avail_flag && trans_flag && supp_flag && pass_flag)
+                {
+                    $(this).show();
+                    main_flag = false;
+                }
+            });
+
+            if(main_flag)
+            {
+                $(".main_no_found").show();
+            }
+        }
+
+        $("#btn_serch_show").click(function () {
+            $(".car_srch_searBx").slideToggle("slow");
+        });
+    </script>
+}
+

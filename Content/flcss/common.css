@@ -1,0 +1,35 @@
+/*---------------------------------------------- Common Css For all pages ----------------------------------------------*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin:0; padding:0; border:0; font-size:100%; }
+/*img{ width:100%;} */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display:block; }
+blockquote, q { quotes:none; }
+blockquote:before, blockquote:after, q:before, q:after { content:none; }
+select, input, button { outline:0; }
+:focus { outline:0; outline-color:transparent; outline-style:none; }
+*, *:before, *:after { box-sizing:border-box; }
+a:focus { outline:0; }
+h1, h2 { font-weight:normal; }
+table { border-collapse:collapse; border-spacing:0; }
+body, select, textarea, input { -webkit-font-smoothing:light; font-variant:normal; border:medium none; color:#2D2D2D; font-family: 'Barlow', sans-serif; font-size:100%; /*font-weight:lighter !important;*/ list-style:none outside none; margin:0; outline:0 none; padding:0; text-align:left; text-decoration:none; font-weight: 400; background-color: #fff; }
+/*p { text-align:justify; }*/
+a { text-decoration:none; outline:none; }
+#FlightSearchEngine1_divDatepicker2, #FlightSearchEngine1_divDatepicker { outline:none; }
+ol, ul { list-style: none; }
+input[value="Subscribe"] { outline:none; }
+.rt_on label, .labal, .day, .day2, .date_txt, .date_txt2, .month, .month2, .frto .fr label, .frto .to label, .px_adt label, .px_chd label, .px_inf label, .air label, .cabin label, .fixd label, .frat label, .dir_flt label, .advn, .rooms label, .fph_px_adt label, .fph_px_chd label, .fph_px_inf label, .div_diff label, .dvr_age label, .btn_srch-text, .srch_title_text, .hotlbookimg, .srch_in_title, .ui-datepicker { -webkit-user-select:none; -khtml-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
+.clearfix:after { clear:both; content:" "; display:block; font-size:0; height:0; visibility:hidden; }
+
+.sticky-area { width: 100%; background: #274b63; padding: 0px; display: none; }
+.sticky-area.is-sticky { background: #011f23; position: fixed; top: 0; left: 0; width: 100%; box-shadow: 0 2px 28px 0 rgb(0 0 0 / 9%); display: inline-block; z-index: 1001; }
+.sticky-area .main-content { width: 100%; padding: 15px 0px; display: table; }
+.sticky-area .main-content .logo { display: table-cell; min-width: 200px; max-width: 200px; }
+.sticky-area .main-content .logo img { width: auto; max-width: 100%; margin-top:11px; }
+.sticky-area .main-content .ad-text { font-size: 14px; color: #fff; line-height: 22px; vertical-align: middle; padding: 0 30px; display: table-cell; }
+.sticky-area .main-content .call-area { display: table-cell; min-width: 200px; vertical-align: top; text-align:right;}
+.sticky-area .main-content .call-area i { display: inline-block; font-size: 36px; color: #fff8e4; padding-right: 10px; }
+.sticky-area .main-content .call-area .text-content { display: inline-block; color: #fff; text-align: left; } 
+.sticky-area .main-content .call-area .text-content .text { font-size: 12px; color: #ccc; }
+.sticky-area .main-content .call-area .text-content .number { font-size: 20px; font-weight: 500; line-height:20px;}
+.sticky-area .main-content .call-area .text-content .number a { color: #fff; }
+

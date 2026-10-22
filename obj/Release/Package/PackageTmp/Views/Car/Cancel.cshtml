@@ -1,0 +1,46 @@
+﻿@model Viman.Models.CarsBooking
+@using Viman.Models
+    @{
+        ViewBag.Title = "Cancel";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+        ViewBag.StaticURL = Common.StaticURL;
+    }
+
+    <div class="background_top"></div>
+
+    <div class="container">
+        <div class="gap_small">&nbsp;</div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="car_can_check">
+                    <i class="fa fa-times-circle"></i>
+                    <h2>@(Model.BookerDetail.FirstName), your payment was Abort!</h2>
+                    <h3>Booking details has been send to @(Model.BookerDetail.Email)</h3>
+                </div>
+                <div class="car_cn_list_order clearfix">
+                    <div class="car_cn_flt_dtl">
+                        <div class="car_cn_pss_dtl">
+                            <h3>
+                                <i class="fa fa-car"></i>
+                                @(Model.Cars.Name)
+                            </h3>
+                        </div>
+                        <div class="car_cn_addr clearfix">
+                            <span><b>Pick Up: </b> @(Model.CarsSearch.FromLocation.CityName)</span>
+                            <span><b>Drop Off: </b> @(Model.CarsSearch.ToLocation.CityName)</span>
+                            <span><b>Date and Time: </b>@(Model.CarsSearch.PickupDate.ToString("dddd dd MMMM, yyyy"))</span>
+                            <span><b>Date and Time: </b>@(Model.CarsSearch.DropoffDate.ToString("dddd dd MMMM, yyyy"))</span>
+                        </div>
+                        <div class="car_cn_total clearfix">
+                            <span>Total Amount</span>
+                            <strong>@(ViewBag.Currency) @(Model.Cars.TotalCost.ToString("0.00"))</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gap">
+        &nbsp;
+    </div>

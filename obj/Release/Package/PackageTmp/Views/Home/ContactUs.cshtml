@@ -1,0 +1,169 @@
+﻿
+@{
+    ViewBag.Title = "Contact Us";
+    ViewBag.PageName = "contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="background_top"></div>
+<div class="main_bredcrum">
+    <div class="container">
+        <div class="col-xs-12">
+            <div class="bread_head">
+                <ul>
+                    <li><a href="@Url.Content("~/")">Home</a></li>
+                    <li> <a href="javascript:void(0);" class="fa fa-angle-right angle_bred"></a> </li>
+                    <li><a href="@Url.Content("~/contact/")">Contact us</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="con_enq">
+            <div class="col-xs-12 con_bodyhead"><h2>Reason For Enquiry</h2></div>
+            <div class="col-sm-6 col-xs-12">
+                <div class="con_newRes">
+                    <h3>New Reservation</h3>
+                    <div class="con_content_area">
+                        <div class="con_icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="con_icn_txt">
+                            <p>For queries regarding flight bookings, hotel accommodations or car rentals feel free to call our customer care executive as per your convenience.</p>
+                            <div class="con_phone">
+                                @((Session["SitePhone"] == null) ? "0203 745 4455" : Session["SitePhone"])
+                                <span>Open 7 days a week from 08:00 AM - 11:00 PM.</span>
+                            </div>
+                            <a href="mailto:info@viman.co.uk">info@viman.co.uk</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+                <div class="con_newRes">
+                    <h3>Customer Support (Web bookings)</h3>
+                    <div class="con_content_area">
+                        <div class="con_icon">
+                            <i class="fa fa-user-circle-o"></i>
+                        </div>
+                        <div class="con_icn_txt">
+                            <p>Visit our FAQ section to get accurate answers to your queries or fill the relevant forms to reach us for appropriate or early response.</p>
+                            <div class="con_phone">
+                                0203 745 8181
+                                <span>Open 7 days a week from 08:00 AM - 11:00 PM.</span>
+                            </div>
+                            <a href="mailto:customerservices@viman.co.uk">customerservices@viman.co.uk</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="con_form_main clearfix">
+                <div class="con_form">
+                    <form name="contact_frm" id="contact_frm" method="post" onsubmit="javascript:return frmCheck();">
+                        <div class="con_head">
+                            <h3>Please fill the form below to send enquiry</h3>
+                            @if (ViewBag.msg == "1")
+                            {
+                                <p style="color:green;">Thank you for submit your contact us request. Administrator contact will be soon.</p>
+                            }
+                        </div>
+                        <div class="con_inut_main">
+                            <div class="con_inputBox">
+                                <label>Your Name</label>
+                                <input type="text" name="txt_name" id="txt_name" placeholder="Your Name" class="con_input_sty" />
+                            </div>
+                            <div class="con_inputBox">
+                                <label>Email</label>
+                                <input type="text" name="txt_email" id="txt_email" placeholder="Email" class="con_input_sty" />
+                            </div>
+                            <div class="con_inputBox">
+                                <label>Phone</label>
+                                <input type="text" name="txt_phone" id="txt_phone" placeholder="Phone" class="con_input_sty" />
+                            </div>
+                            <div class="con_cmmntBox">
+                                <label>Message</label>
+                                <textarea name="txt_message" id="txt_message" class="con_txtarea"></textarea>
+                            </div>
+                        </div>
+                        <div class="con_cap_btn">
+                            <button type="submit" name="contact_btn" id="contact_btn" class="">Submit</button>
+                            <div class="g-recaptcha" data-sitekey="6LdyxkYUAAAAAAF5F800JzBLvpkUrNED9EoSFBcd"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="con_map_add">
+            <div class="col-sm-7 col-xs-12">
+                <div class="con_map_canvas">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d9932.838691125464!2d-0.593792!3d51.5093692!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xe39ae7977aadab23!2sTravelopedia+Ltd.!5e0!3m2!1sen!2sin!4v1514366253395" width="100%" height="350px" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+                </div>
+
+            </div>
+
+            <div class="col-sm-5 col-xs-12">
+                <div class="con_add">
+                    <div class="con_subadd">
+                        <h3>Travelopedia Ltd</h3>
+                        <p>Travelopedia Ltd is a company registered in England with company number - 08168135</p>
+                        <p>2nd Floor 7 Mackenzie Street, <br /> Slough – SL1 1XQ</p>
+                        <h4>
+                            <i class="fa fa-phone"></i> @((Session["SitePhone"] == null) ? "0203 745 4455" : Session["SitePhone"])
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script type="text/javascript">
+        function frmCheck()
+        {
+            if (document.getElementById("txt_name").value == "") {
+                alert("Please enter your full name.");
+                document.getElementById("txt_name").focus();
+                return false;
+            }
+            if (document.getElementById("txt_email").value == "") {
+                alert("Please enter your email.");
+                document.getElementById("txt_email").focus();
+                return false;
+            }
+            else
+            {
+                var filter = @("/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{0,4}$/");
+                if (!filter.test(document.getElementById("txt_email").value)) {
+                    alert("Please enter your valid email.");
+                    document.getElementById("txt_email").focus();
+                    return false;
+                }
+            }
+            if (document.getElementById("txt_phone").value == "") {
+                alert("Please enter your phone/mobile.");
+                document.getElementById("txt_phone").focus();
+                return false;
+            }
+            /*if (document.getElementById("txt_subject").value == "") {
+                alert("Please enter your subject.");
+                document.getElementById("txt_subject").focus();
+                return false;
+            }*/
+            if (document.getElementById("txt_message").value == "") {
+                alert("Please enter your message.");
+                document.getElementById("txt_message").focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+}

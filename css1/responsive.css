@@ -1,0 +1,231 @@
+@media (max-width: 1024px) {
+    .row {
+        width: 100%;
+        padding: 20px;
+        margin: auto;
+    }
+
+    h1 {
+        font-size: 1.7em !important;
+    }
+
+    h2 {
+        font-size: 1.4em !important;
+    }
+
+    h3 {
+        font-size: 1.2em !important;
+    }
+
+    button {
+        font-size: 14px;
+    }
+
+    .gap,
+    .gap3 {
+        gap: 10px;
+    }
+
+    .newheader {
+        width: 100% !important;
+
+        .latesthide {
+            display: none;
+        }
+
+        .newhead {
+            width: 100% !important;
+            padding: 10px 20px;
+
+            .icon {
+                margin: auto 0;
+                flex: 1;
+            }
+
+            .left {
+                margin-right: 10px;
+
+                p {
+                    font-size: 18px;
+                }
+            }
+        }
+
+        .right {
+            text-align: center;
+            flex: 1;
+        }
+    }
+
+    .navigate {
+        z-index: 99;
+        display: none;
+        position: absolute;
+        background-color: var(--fourth-color);
+        box-shadow: 0px 2px 2px rgba(20, 20, 20, 0.5);
+        padding: 30px;
+        top: 0;
+        right: 0;
+        width: 60%;
+        height: 100vh;
+        border: none;
+
+        ul {
+            flex-direction: column;
+            gap: 5px !important;
+
+
+            li {
+                margin: 0;
+                padding: 5px;
+                cursor: pointer;
+            }
+
+            a {
+                color: var(--fifth-color) !important;
+            }
+        }
+    }
+
+    #on,
+    #off {
+        font-size: 22px;
+        text-align: right;
+        color: var(--fifth-color);
+    }
+
+    #on {
+        color: var(--fifth-color);
+        max-width: 30px;
+    }
+
+    .cta {
+        display: block;
+
+        a {
+            color: var(--fourth-color) !important;
+            line-height: 1.5;
+        }
+    }
+
+    .grid1,
+    .grid2,
+    .grid3 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.5em !important;
+    }
+
+    h2 {
+        font-size: 1.3em !important;
+    }
+
+    h3 {
+        font-size: 1.17em !important;
+    }
+
+    .d-flex {
+        flex-direction: column;
+    }
+
+    .grid1,
+    .grid2,
+    .grid3,
+    .grid4 {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 10px;
+    }
+
+    .newheader {
+        .right a {
+            font-size: 13px;
+        }
+
+        .headcol {
+            display: none;
+        }
+
+        .newhead .left img {
+            width: 80px;
+        }
+
+        .left {
+            flex: none;
+        }
+    }
+
+    #on1 {
+        margin: auto 0 !important;
+        color: var(--fourth-color);
+        cursor: pointer;
+    }
+
+    .newfooter .newgrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .newfooter {
+        padding-bottom: 60px;
+    }
+
+    .slider-container1 .slide1 {
+        min-width: 100%;
+        max-width: 100%;
+    }
+
+    .BannerBg {
+        .labelcol {
+            border-inline: 0 !important;
+            border-block: 1px solid #cacaca;
+            padding: 15px 0 !important;
+        }
+
+        .search_flights {
+            text-align: center;
+            max-width: 100% !important;
+            margin-top: 5px;
+        }
+
+        i {
+            margin: -8px 0 -8px auto !important;
+        }
+
+        .imgcols {
+            display: none;
+        }
+    }
+
+    .resultrow {
+        .column1 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--primary-color);
+            z-index: 999;
+            padding: 20px;
+            overflow: scroll;
+            display: none;
+        }
+
+        .rescol2 {
+            border-top: 1px solid var(--primary-color);
+            border-left: 0;
+        }
+    }
+
+    .mainresdiv {
+        grid-column: span 1;
+    }
+
+    #fltbutton,
+    #closebtn {
+        display: block;
+    }
+}

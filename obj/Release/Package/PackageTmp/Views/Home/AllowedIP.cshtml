@@ -1,0 +1,115 @@
+﻿@using Viman.Models
+@{
+    ViewBag.Title = "QuickPayment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.StaticURL = Common.StaticURL;
+}
+<div class="background_top"></div>
+
+@if (ViewBag.AllowesIP == "Save")
+{
+    <div class="fl_pay_main_con">
+        <div class="fl_pay_head">
+            <i class="fa fa-spinner fa-pulse fa-5x"></i>
+            <span>IP ADD...</span>
+            <p>You have add IP Successfully.</p>
+        </div>
+    </div>
+}
+
+@if (ViewBag.AllowesIP == "Issue")
+{
+    <div class="fl_pay_main_con">
+        <div class="fl_pay_head">
+            <i class="fa fa-spinner fa-pulse fa-5x"></i>
+            <span>Authentication Allert...</span>
+            <p>User Id or Password  Mismatch Error.</p>
+        </div>
+    </div>
+}
+
+
+@if (ViewBag.AllowesIP == null)
+{
+    <div class="main_bredcrum">
+        <div class="container">
+            <div class="col-xs-12">
+                <div class="bread_head">
+                    <ul>
+                        <li><a href="@Url.Content("~/")">Home</a></li>
+                        <li> <a href="javascript:void(0);" class="fa fa-angle-right angle_bred"></a> </li>
+                        <li><a href="@Url.Content("~/quick-payment/")">Quick Payment</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="qp_bodyhead">
+            <h2>Allow IP</h2>
+        </div>
+        <div class="qp_amt_ref">
+
+            <form method="post" action="@Url.Content("~/Allowed-IP/")" onsubmit="javascript:return frmCheck();">
+                <div class="qp_inpt_amt">
+                    <label>Brand</label>
+                    <input type="text" name="quick_amount" id="quick_Brand" placeholder="Enter the Amount" value="VIMAN" disabled class="qp_inputBx_amt padLFT27" autocomplete="off" />
+                </div>
+                <div class="qp_inpt_amt">
+                    <label>IP.</label>
+                    <input type="text" name="quick_IP" id="quick_IP" placeholder="Enter the IP." class="qp_inputBx_amt" autocomplete="off" />
+                </div>
+
+                <div class="qp_inpt_amt">
+                    <label>User ID</label>
+                    <input type="text" name="quick_UserID" id="quick_UserID" placeholder="Enter the User ID" class="qp_inputBx_amt padLFT27" autocomplete="off" />
+                </div>
+                <div class="qp_inpt_amt">
+                    <label>Password</label>
+                    <input type="password" name="quick_Password" id="quick_Password" placeholder="Enter the the Password" class="qp_inputBx_amt" autocomplete="off" />
+                </div>
+
+                <div class="qp_btn">
+                    <p>Please Allow IP Carefully. On behalf of this IP Back Office Will be Access.</p>
+                    <button type="submit" name="AddIP" id="AddIP">Add IP</button>
+                </div>
+            </form>
+        </div>
+        <div class="qp_righ_side">
+            <div class="qp_contact">
+                <h3>Travelopedia Ltd</h3>
+                <p>Travelopedia Ltd is a company registered in England with company number - 08168135</p>
+                <p>2nd Floor 7 Mackenzie Street, <br> Slough – SL1 1XQ</p>
+                <h4>
+                    <i class="fa fa-phone"></i>
+                    0203 745 4455
+                </h4>
+            </div>
+        </div>
+    </div>
+    <div class="gap_small">&nbsp;</div>
+}
+
+@section scripts{
+    <script type="text/javascript">
+        function frmCheck() {
+            if ($("#quick_IP").val().trim(' ') == "") {
+                alert("Please enter IP Detail.");
+                $("#quick_IP").focus();
+                return false;
+            }
+            if ($("#quick_UserID").val().trim(' ') == "") {
+                alert("Please enter User ID.");
+                $("#quick_UserID").focus();
+                return false;
+            }
+            if ($("#quick_Password").val().trim(' ') == "") {
+                alert("Please enter Password.");
+                $("#quick_Password").focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+}

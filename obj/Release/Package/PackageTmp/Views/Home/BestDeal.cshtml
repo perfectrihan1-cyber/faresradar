@@ -1,0 +1,158 @@
+﻿@using Viman.Models
+@{
+    ViewBag.Title = "BestDeal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.StaticURL = "https://www.flightoffice.co.uk/";
+    ViewBag.Currency = Common.Currency;
+    int cnt = -1;
+}
+
+<div class="background_top"></div>
+<div class="main_bredcrum">
+    <div class="container">
+        <div class="col-xs-12">
+            <div class="bread_head">
+                <ul>
+                    <li><a href="@Url.Content("~/")">Home</a></li>
+                    <li> <a href="javascript:void(0);" class="fa fa-angle-right angle_bred"></a> </li>
+                    <li><a href="@Url.Content("~/best-deals/")">Best Deal</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 abut_bodyhead">
+            <h2>Best Deal</h2>
+        </div>
+        <div class="col-xs-12">
+            <p>Explore the most loved destinations around the world with us at an unimaginable price. We offer you great travel deals to enjoy the most cherished travel experience with your family and loved ones.</p>
+        </div>
+        @foreach (BestDeal BestDealItem in ViewBag.BestDeal)
+        {
+            cnt++;
+            if (cnt % 3 == 0)
+            {
+                <div class="clearfix"></div>
+            }
+
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="bst_deal_container">
+                    <div class="bst_deal_imgBox">
+                        <img src="@(ViewBag.StaticURL + "Media/BestDeal/" + BestDealItem.ImagePath)" />
+                    </div>
+                    <h3>@(BestDealItem.Title)</h3>
+                    <div class="bst_prc_offr clearfix">
+                        <div class="bst_deal_pric">
+                            <p>Per Person</p>
+                            <h3>@(ViewBag.Currency)@(BestDealItem.Price)</h3>
+                        </div>
+                        <div class="bst_deal_offr">
+                            <p>UP TO</p>
+                            <h3>@(BestDealItem.Discount)% OFF</h3>
+                        </div>
+                    </div>
+
+                    <div class="bst_deal_btn">
+                        <a href="javascript:void(0)" data-id="@(BestDealItem.Id)" data-discount="@(BestDealItem.Discount)" class="bst_deal_enqBtn">Enquire Now </a>
+                    </div>
+
+                    <div class="bst_deal_call">
+                        <p>Ref No: @(BestDealItem.RefNo)</p>
+                        <h3> <bdo>Call: </bdo> 0203 745 4455</h3>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="bst_deal_gray">
+    <div class="bst_del_pop">
+        <div class="bst_del_bor">
+            <div class="bst_pop_hd">
+                <h1 id="ho_discount_txt">Take 15% OFF</h1>
+                <p>Please Enter Your Detail Here</p>
+            </div>
+            <div class="bst_pop_name">
+                <input type="hidden" id="txt_ref" name="txt_ref" />
+                <input type="text" name="txt_name" id="txt_name" placeholder="Enter Your Full Name" />
+            </div>
+            <div class="bst_pop_name">
+                <input type="text" name="txt_email" id="txt_email" placeholder="Enter Your Email Here" />
+            </div>
+            <div class="bst_pop_name">
+                <input type="text" name="txt_phone" id="txt_phone" placeholder="Enter Your Phone Number" />
+            </div>
+            <div class="bst_pop_name">
+                <input type="button" id="btn_submit" name="btn_submit" onclick="frmCheck()" value="Get Exclusive Deal" />
+            </div>
+        </div>
+        <div class="bst_deal_close">
+            <i class="fa fa-times"></i>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".bst_deal_enqBtn").click(function () {
+                $("#ho_discount_txt").html("Take " + $(this).data("discount") + "% OFF");
+                $(".bst_deal_gray").fadeIn();
+                $("#txt_ref").val($(this).data("id"));
+            });
+
+            $(".bst_deal_close").click(function () {
+                $(".bst_deal_gray").fadeOut();
+            });
+        });
+
+        function frmCheck()
+        {
+            if (document.getElementById("txt_name").value == "") {
+                alert("Please enter your full name.");
+                document.getElementById("txt_name").focus();
+                return false;
+            }
+            if (document.getElementById("txt_email").value == "") {
+                alert("Please enter your email.");
+                document.getElementById("txt_email").focus();
+                return false;
+            }
+            if (document.getElementById("txt_phone").value == "") {
+                alert("Please enter your phone.");
+                document.getElementById("txt_phone").focus();
+                return false;
+            }
+            else
+            {
+                var filter = @("/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{0,4}$/");
+                if (!filter.test(document.getElementById("txt_email").value)) {
+                    alert("Please enter your valid email.");
+                    document.getElementById("txt_email").focus();
+                    return false;
+                }
+            }
+            
+            $.ajax({
+                type: "POST",
+                url: "@(ViewBag.StaticURL)Home/HolidayEnquery",
+                data: {
+                    EnquiryType: "BestDeal",
+                    FlightDetail: $("#txt_ref").val(),
+                    Name: $("#txt_name").val(),
+                    Email: $("#txt_email").val(),
+                    Phone: $("#txt_phone").val(),
+                },
+                success: function (result) {
+                    alert("Thank you for your request. Please check your email to get best deal.");
+                    $(".bst_deal_gray").fadeOut();
+                }
+            });
+        }
+    </script>
+}

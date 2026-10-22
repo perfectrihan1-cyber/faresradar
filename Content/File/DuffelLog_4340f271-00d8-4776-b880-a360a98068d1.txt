@@ -1,0 +1,3 @@
+[DUFFEL DEBUG] Request JSON: {"data":{"slices":[{"origin":"JFK","destination":"MIA","departure_date":"2026-07-18"},{"origin":"MIA","destination":"JFK","departure_date":"2026-07-24"}],"passengers":[{"type":"adult"}],"cabin_class":"economy","max_connections":2,"return_offers":true}}
+[DUFFEL DEBUG] Response Status Code: 422
+[DUFFEL DEBUG] Response JSON: {"errors":[{"documentation_url":"https://duffel.com/docs/api/overview/response-handling","source":{"field":"departure_date","pointer":"/slices/0/departure_date"},"title":"Invalid date","type":"validation_error","message":"Field 'departure_date' must be after 2026-07-18","code":"invalid_date"}],"meta":{"request_id":"GMPgSipwrHGysW4HtWcF","status":422}}

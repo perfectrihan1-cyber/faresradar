@@ -1,0 +1,615 @@
+﻿@model Viman.Models.FlightsBooking
+@using Viman.Models
+@{
+    ViewBag.Title = "Confirm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.WebsiteURL = Common.WebsiteURL;
+    ViewBag.StaticURL = Common.StaticURL;
+    ViewBag.Currency = Common.Currency;
+
+    FlightsSearch flightSearch = ViewBag.flightSearch;
+    Flights flights = ViewBag.flights;
+    DateTime dt1 = DateTime.Now.Date;
+}
+
+
+
+<div class="container Confirm-Booking">
+
+    <div class="row">
+        <div class="column maincol" style="padding:0;">
+            <div class="payment_msg">
+                <div>
+
+                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                    <h2>Online booking received</h2>
+                    <p><strong>Dear, @(Model.FullName)</strong></p>
+                    <p>
+                        We have received Your Online booking and it has been sent to the airlines for confirmation purposes. <br>
+                        One of our Sales representatives will contact you with an update shortly, alternatively you can give us a call at <strong>+1-877-486-9036</strong> or <br>
+                        send us an email at <strong> support@Expedia.com</strong>
+                    </p>
+                    <p>Please find the details of your online booking below (Please note these are not your e tickets)</p>
+
+
+                </div>
+            </div>
+            <div class="maincolhead">
+                <div class="grid grid1">
+                    <img src="/images/logo1.png" alt="">
+                    <div class="righttext">
+                        <h2>
+                            Booking Confirmation <i class="fa-solid fa-circle-check"></i>
+                        </h2>
+                        <p>
+                            <a href="tel:+18774869036"><i class="fa-solid fa-phone-volume"></i> +1-877-486-9036</a>
+                            &nbsp;|&nbsp;
+                            <a href="mailto: support@Expedia.com"><i class="fa-solid fa-at"></i>  support@Expedia.com</a>
+                        </p>
+                        <p>
+                            <i class="fa-solid fa-location-dot"></i> New Delhi 110093
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="maincoldetail">
+                <div class="grid grid1">
+                    <div>
+                        <h2>Contact Information</h2>
+                        <p><b>E-mail Id: </b> support@Expedia.com</p>
+                        <p><b>Phone Number: </b>+1-877-486-9036</p>
+                        <p><b>Address: </b>New Delhi 110093</p>
+                    </div>
+                    <div class="righttext">
+                        <h2>Booking Details</h2>
+                        <p><b>Booking Id #: </b>@(Model.BookingId)</p>
+                        <p><b>Booking Date: </b>@dt1.ToString("dd-MM-yyyy")</p>
+                        <p>
+                            <b>Status: </b>Confirmed <i class="fa-solid fa-circle-check" style="color: #006600;"></i>
+                        </p>
+                    </div>
+                </div>
+                <br>
+                <div class="grid grid2 innerdetails">
+                    <div class="inner1">
+                        <h2>Flight Details</h2>
+                        <div class="flightdetailsrow">
+                            <div class="" id="outbound">
+                                <div class="cardheader d-flex">
+                                    <p>
+                                        <strong>@(@flightSearch.From.Name)</strong> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <strong>@(@flightSearch.To.Name)</strong>&nbsp;&nbsp;|&nbsp;&nbsp; @(Model.Flights.Outbound[0].CabinClass) - @(Model.Flights.Outbound[0].DepartureDate.ToString("dd MMM yyyy"))
+
+
+                                        <strong>     <i class="fa fa-clock-o" aria-hidden="true"></i> Duration : @(Math.Floor(double.Parse(flights.Outbound[flights.Outbound.Count - 1].TotalTime) / 60))h @(double.Parse(flights.Outbound[flights.Outbound.Count - 1].TotalTime) % 60)m</strong>
+
+
+
+
+                                    </p>
+
+                                </div>
+
+
+                                @{ int cntOB = 1;
+                                    foreach (FlightsSegment outboundArr in flights.Outbound)
+                                    {
+                                        double stop_time = 0;
+                                        if (flights.Outbound.Count > 1)
+                                        {
+                                            stop_time = double.Parse(Common.GetTime(flights.Outbound[flights.Outbound.Count - 1].DepartureDate, flights.Outbound[flights.Outbound.Count - 2].ArrivalDate) + "");
+                                        }
+                                        <div class="fltDetail-row grid">
+
+                                            <div class="fltDtl-airline">
+                                               
+                                                <div class="dltAirline-icon"> <img src="@("https://images.kiwi.com/airlines/64x64/" +  outboundArr.Airline.Code + ".png")" title="@flights.Airline.Name" /></div>
+                                                <div class="dltAirline-txt">
+                                                    <span class="fltDetail-code">@(outboundArr.Airline.Code)@(outboundArr.FlightNo)</span>
+                                                    <p>
+                                                        @(outboundArr.Airline.Name)
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="fltDtl-city">
+                                                <span class="fltDetail-code">@(outboundArr.FromAirport.Code)</span>
+                                                <p>
+                                                    @(outboundArr.DepartureDate.ToString("dd-MMM-yyyy")), @(outboundArr.DepartureDate.ToString("HH:mm"))
+                                                </p>
+                                                <p>@(outboundArr.FromAirport.Name)</p>
+                                            </div>
+                                            <div class="fltDtl-duration">
+                                                <span class="fltDetail-code">&nbsp;</span>
+                                            </div>
+                                            <div class="fltDtl-city">
+                                                <span class="fltDetail-code">@(outboundArr.ToAirport.Code)</span>
+                                                <p>@(outboundArr.ArrivalDate.ToString("dd-MMM-yyyy")), @(outboundArr.ArrivalDate.ToString("HH:mm"))</p>
+                                                <p>@(outboundArr.ToAirport.Name)</p>
+                                            </div>
+                                        </div>
+                                        if (cntOB < flights.Outbound.Count)
+                                        {
+                                            cntOB++;
+                                            <div class="fltTime-row"> Stop-Over: @(Math.Floor(stop_time / 60)) Hrs. @(Math.Floor(stop_time % 60)) Mins <span class="stopRed">CHANGE OF PLANE REQUIRED.</span></div>
+                                        }
+
+                                    }
+                                }
+                            </div>
+
+
+                            @if (flightSearch.FlightWay == FlightWay.RoundTrip)
+                            {
+
+                                <div class="fltWay" id="inbound">
+
+                                    <div class="cardheader d-flex">
+                                        <p>
+                                            <strong>@(@flightSearch.To.Name)</strong> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <strong>@(@flightSearch.From.Name)</strong>&nbsp;&nbsp;|&nbsp;&nbsp; @(Model.Flights.Inbound[0].CabinClass) - @(Model.Flights.Inbound[0].DepartureDate.ToString("dd MMM yyyy"))
+                                            <strong>     <i class="fa fa-clock-o" aria-hidden="true"></i> Duration :@(Math.Floor(double.Parse(flights.Inbound[flights.Inbound.Count - 1].TotalTime) / 60))h @(double.Parse(flights.Inbound[flights.Inbound.Count - 1].TotalTime) % 60)m</strong>
+                                        </p>
+                                    </div>
+                                    @{ int cntIB = 1;
+                                        foreach (FlightsSegment inboundArr in flights.Inbound)
+                                        {
+                                            double stop_time = 0;
+                                            if (flights.Inbound.Count > 1)
+                                            {
+                                                stop_time = double.Parse(Common.GetTime(flights.Inbound[flights.Inbound.Count - 1].DepartureDate, flights.Inbound[flights.Inbound.Count - 2].ArrivalDate) + "");
+                                            }
+
+                                            <div class="fltDetail-row grid">
+
+                                                <div class="fltDtl-airline">
+
+                                                    <div class="dltAirline-icon"> <img src="@("https://images.kiwi.com/airlines/64x64/" +  inboundArr.Airline.Code + ".png")" title="@flights.Airline.Name" /></div>
+                                                    <div class="dltAirline-txt">
+                                                        <span class="fltDetail-code">@(inboundArr.Airline.Code)@(inboundArr.FlightNo)</span>
+                                                        <p>
+                                                            @(inboundArr.Airline.Name)
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="fltDtl-city">
+                                                    <span class="fltDetail-code">@(inboundArr.FromAirport.Code)</span>
+                                                    <p>
+                                                        @(inboundArr.DepartureDate.ToString("dd-MMM-yyyy")), @(inboundArr.DepartureDate.ToString("HH:mm"))
+                                                    </p>
+                                                    <p>@(inboundArr.FromAirport.Name)</p>
+                                                </div>
+                                                <div class="fltDtl-duration">
+
+
+                                                    <span class="fltDetail-code">&nbsp;</span>
+                                                    <p></p>
+                                                </div>
+                                                <div class="fltDtl-city">
+                                                    <span class="fltDetail-code">@(inboundArr.ToAirport.Code)</span>
+                                                    <p>@(inboundArr.ArrivalDate.ToString("dd-MMM-yyyy")), @(inboundArr.ArrivalDate.ToString("HH:mm"))</p>
+                                                    <p>@(inboundArr.ToAirport.Name)</p>
+                                                </div>
+                                            </div>
+                                            if (cntIB < flights.Inbound.Count)
+                                            {
+                                                cntIB++;
+                                                <div class="fltTime-row"> Stop-Over: @(Math.Floor(stop_time / 60)) Hrs.  @(Math.Floor(stop_time % 60)) Mins <span class="stopRed">CHANGE OF PLANE REQUIRED.</span></div>
+                                            }
+
+                                        }
+                                    }
+                                </div>
+
+                            }
+
+
+
+                        </div>
+                        <br>
+                        <div class="tablediv TabBorder">
+                            <table border="1" width="100%">
+
+
+                                <tr>
+
+                                    <th>Passenger Name</th>
+                                    <th>Gender</th>
+                                    <th>DOB</th>
+                                </tr>
+
+                                @{
+                                    foreach (PassengerDetail paxItem in Model.PassengerDetail)
+                                    {
+                                        <tr>
+
+                                            <td>@paxItem.FirstName</td>
+
+
+
+                                            @if (@paxItem.Gender == "1")
+                                            {
+                                                <td>Male</td>
+                                            }
+
+                                            else
+                                            {
+                                                <td>Female</td>
+                                            }
+
+
+                                            <td>@paxItem.DOB.ToString("dd-MM-yyyy")</td>
+                                        </tr>
+                                    }
+
+                                }
+
+                            </table>
+                            <br>
+                            <table border="1" width="100%">
+
+                                <tr>
+                                    <th>Flying From</th>
+                                    <th>Flying To</th>
+                                    <th>Depart Date</th>
+                                    @if (flightSearch.FlightWay == FlightWay.RoundTrip)
+                                    {
+                                        <th>Return Date</th>
+                                    }
+                                </tr>
+                                <tr>
+                                    <td>@(@flights.Outbound[0].FromAirport.Code)---@(@flights.Outbound[0].FromAirport.Name)</td>
+                                    <td>@(Model.FlightsSearch.To.Code)--@(Model.FlightsSearch.To.Name)</td>
+                                    <td>@(Model.Flights.Outbound[0].DepartureDate.ToString("dd MMM yyyy"))</td>
+                                    @if (flightSearch.FlightWay == FlightWay.RoundTrip)
+                                    {
+                                        <td>@(Model.Flights.Inbound[0].DepartureDate.ToString("dd MMM yyyy"))</td>
+                                    }
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    @if (Session["com"] != null && Session["com"] != "")
+                    {
+
+                        <div class="inner2">
+                            <h3>Price Summary</h3>
+                            <hr>
+                            <div class="tablediv pricetable">
+                                <table width="100%">
+                                    <tr>
+                                        <td><span><i class="fa fa-male" aria-hidden="true"></i> @(Model.FlightsFare.Adult) X Adult</span></td>
+                                        <td><bdo>@(ViewBag.Currency) @((((Model.FlightsFare.AdultFare + Model.FlightsFare.AdultTax + Model.FlightsFare.AdultMarkup) * Model.FlightsFare.Adult)-7).ToString("0.00"))</bdo></td>
+                                    </tr>
+                                    @if (Model.FlightsFare.Child > 0)
+                                    {
+                                        <tr>
+                                            <td><i class="fa fa-child" aria-hidden="true"></i> @(Model.FlightsFare.Child) X Child(ren)</td>
+                                            <td><bdo>@(ViewBag.Currency) @((((Model.FlightsFare.ChildFare + Model.FlightsFare.ChildTax + Model.FlightsFare.ChildMarkup) * Model.FlightsFare.Child)-7).ToString("0.00"))</bdo></td>
+                                        </tr>
+                                    }
+
+                                    @if (Model.FlightsFare.Infant > 0)
+                                    {
+                                        <tr>
+                                            <td><span><i class="fa fa-infant" aria-hidden="true"></i> @(Model.FlightsFare.Infant) X Infant(s)</span></td>
+                                            <td><bdo>@(ViewBag.Currency) @((((Model.FlightsFare.InfantFare + Model.FlightsFare.InfantTax + Model.FlightsFare.InfantMarkup) * Model.FlightsFare.Infant)-7).ToString("0.00"))</bdo></td>
+                                        </tr>
+                                    }
+
+                                    <tr>
+                                        <td>Total</td>
+                                        <td><bdo>$@(((Model.FlightsFare.GrandTotal + ((Model.FlightsFare.Adult + Model.FlightsFare.Child + Model.FlightsFare.Infant)))-7).ToString("0.00"))</bdo></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                    }
+
+
+                    else
+                    {
+                        <div class="inner2">
+                            <h3>Price Summary</h3>
+                            <hr>
+                            <div class="tablediv pricetable">
+                                <table width="100%">
+                                    <tr>
+                                        <td><span><i class="fa fa-male" aria-hidden="true"></i> @(Model.FlightsFare.Adult) X Adult</span></td>
+                                        <td><bdo>@(ViewBag.Currency) @((((Model.FlightsFare.AdultFare + Model.FlightsFare.AdultTax + Model.FlightsFare.AdultMarkup) * Model.FlightsFare.Adult)).ToString("0.00"))</bdo></td>
+                                    </tr>
+                                    @if (Model.FlightsFare.Child > 0)
+                                    {
+                                        <tr>
+                                            <td><i class="fa fa-child" aria-hidden="true"></i> @(Model.FlightsFare.Child) X Child(ren)</td>
+                                            <td><bdo>@(ViewBag.Currency) @((((Model.FlightsFare.ChildFare + Model.FlightsFare.ChildTax + Model.FlightsFare.ChildMarkup) * Model.FlightsFare.Child)).ToString("0.00"))</bdo></td>
+                                        </tr>
+                                    }
+
+                                    @if (Model.FlightsFare.Infant > 0)
+                                    {
+                                        <tr>
+                                            <td><span><i class="fa fa-infant" aria-hidden="true"></i> @(Model.FlightsFare.Infant) X Infant(s)</span></td>
+                                            <td><bdo>@(ViewBag.Currency) @((((Model.FlightsFare.InfantFare + Model.FlightsFare.InfantTax + Model.FlightsFare.InfantMarkup) * Model.FlightsFare.Infant)).ToString("0.00"))</bdo></td>
+                                        </tr>
+                                    }
+
+                                    <tr>
+                                        <td>Total</td>
+                                        <td><bdo>$@(((Model.FlightsFare.GrandTotal)).ToString("0.00"))</bdo></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .Confirm-Booking {
+        .grid
+
+    {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .grid2 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+
+    h2 {
+        font-size: 28px;
+    }
+
+    .payment_msg p {
+        color: #fff;
+    }
+
+    .fltDetail-row {
+        display: grid;
+        gap: 10px;
+        grid-template-columns: repeat(4, 1fr);
+        p
+
+    {
+        font-size: 14px;
+        line-height: 1.5 !important;
+    }
+
+    }
+
+    .payment_msg {
+        border-radius: 8px 8px 0 0;
+    }
+
+    .maincol {
+        border: 2px solid #f9676b;
+        border-radius: 10px;
+    }
+
+    .righttext, .righttext p {
+        text-align: right;
+    }
+
+    .maincolhead {
+        background-color: #2d682f;
+        padding: 15px 20px 10px 20px;
+        a, p, h2
+
+    {
+        color: #fff !important;
+    }
+
+    img {
+        width: 125px;
+    }
+
+    hr {
+        border-color: #fff;
+        margin-block: 10px;
+    }
+
+    }
+
+    .maincoldetail {
+        padding: 20px;
+    }
+
+    .row {
+        padding-block: 120px 40px;
+        margin: 0 auto;
+    }
+
+    td,
+    th {
+        padding: 5px 10px;
+    }
+
+    .TabBorder {
+        table
+
+    {
+        border: 1px solid #cacaca;
+    }
+
+    th {
+        border-bottom: 1px solid #808080;
+    }
+
+    }
+
+    .innerdetails {
+        .inner1
+
+    {
+        border: 1px solid #cacaca;
+        padding: 10px 15px;
+        grid-column: span 2;
+        border-radius: 5px;
+        margin-bottom: auto;
+    }
+
+    .inner2 {
+        border: 1px solid #cacaca;
+        padding: 10px 15px;
+        border-radius: 5px;
+        margin-bottom: auto;
+    }
+
+    }
+
+    hr {
+        margin-block: 10px;
+    }
+
+    .pricetable {
+        tr: last-child
+
+    {
+        border-block: 1px solid #808080;
+    }
+
+    }
+
+    ol {
+        list-style-type: number;
+        margin-left: 20px;
+        font-size: 14px;
+    }
+
+    .flightdetailsrow {
+        border: 1px solid #060;
+        border-radius: 5px;
+        margin-top: 10px;
+        .cardheader
+
+    {
+        background-color: #060;
+        padding: 5px 15px;
+        border-radius: 5px 5px 0 0;
+        p
+
+    {
+        color: #fff;
+        line-height: 1.6;
+        font-size: 15px;
+    }
+
+    }
+
+    .innerrow {
+        padding: 20px;
+        border-top: 1px solid #060;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+        text-align: center;
+        div
+
+    {
+        margin: auto 0;
+    }
+
+    p {
+        line-height: 1.6;
+    }
+
+    hr {
+        margin: 0;
+    }
+
+    .flex {
+        p
+
+    {
+        font-size: 15px;
+    }
+
+    div {
+        flex: 1;
+    }
+
+    }
+    }
+    }
+    }
+
+    .payment_msg h2 {
+        color: #fff !important;
+    }
+
+    .payment_msg {
+        padding-block: 25px;
+    }
+
+    .fltDtl-airline, .fltDtl-city, .fltDtl-duration {
+        width: 100%;
+    }
+
+    @@media (max-width: 575px) {
+        .fltDtl-duration {
+            display: none;
+        }
+    }
+
+    @@media (max-width: 1024px) {
+        .tablediv {
+            width: 100%;
+            overflow-x: scroll;
+        }
+
+        .Confirm-Booking {
+            .righttext, .righttext p
+
+    {
+        text-align: left;
+    }
+
+    .grid, .grid2 {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    td,
+    th {
+        min-width: 105px;
+    }
+
+    th {
+        font-size: 14px;
+    }
+
+    .fltDetail-row {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .flightdetailsrow {
+        .innerrow
+
+    {
+        grid-template-columns: repeat(3, 1fr);
+        .flex
+
+    {
+        grid-column: span 3;
+    }
+
+    }
+    }
+
+    .maincoldetail {
+        padding: 10px;
+    }
+
+    .row {
+        padding-block: 90px 20px;
+        max-width: 100%;
+    }
+
+    }
+    }
+</style>

@@ -1,0 +1,147 @@
+﻿@using Viman.Models
+@using System.Data;
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.StaticURL = Common.StaticURL;
+}
+
+<div class="background_top"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            @if (ViewBag.PayResponse == "Session Error")
+            {
+                <h2 style="color:#ff0000; text-align:center;">@ViewBag.PayResponse</h2>
+            }
+            else if (ViewBag.PayResponse == "Server Error")
+            {
+                <h2 style="color:#ff0000; text-align:center;">@ViewBag.PayResponse</h2>
+            }
+            else if (ViewBag.PayResponse == "Payment Error")
+            {
+                <h2 style="color:#ff0000; text-align:center;">@ViewBag.PayResponse</h2>
+            }
+            else if (ViewBag.PayResponse == "Inhouse Redirect")
+            {
+                <div class="fl_pay_main_con">
+                    <div class="fl_pay_head">
+                        <i class="fa fa-spinner fa-pulse fa-5x"></i>
+                        <span>Processing...</span>
+                        <p>Please wait we are processing with your payment! It will take few seconds.</p>
+                        <bdo>The processing is going on. Do not refresh the page or click the <b>"Back"</b> or <b>"Close"</b> button of your browser.</bdo>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="fl_pay_main_con">
+                    <div class="fl_pay_head">
+                        <i class="fa fa-spinner fa-pulse fa-5x"></i>
+                        <span>Processing...</span>
+                        <p>Please wait we are processing with your payment! It will take few seconds.</p>
+                        <bdo>The processing is going on. Do not refresh the page or click the <b>"Back"</b> or <b>"Close"</b> button of your browser.</bdo>
+                    </div>
+                </div>
+            }
+
+            @*<input type="submit" name="eCommPay" id="eCommPay" value="E Comm Pay" />*@
+
+        </div>
+    </div>
+
+
+</div>
+
+
+@section scripts{
+
+
+    @if (ViewBag.PayResponse == "Inhouse Redirect")
+    {
+        <script type="text/javascript">
+            window.setTimeout(function () {
+                window.location.href = "@(ViewBag.StaticURL + "flight/notification/?ref=" + ViewBag.FlightId)";
+            }, 6000);
+        </script>
+    }
+    else
+    {
+        @*<script type="text/javascript">
+                document.getElementById("SagePayForm").submit();
+            </script>*@
+
+        <html>
+        <head>
+            <!-- Adding libraries -->
+            <link rel="stylesheet" href="https://paymentpage.ecommpay.com/shared/merchant.css">
+            <script src="https://paymentpage.ecommpay.com/shared/merchant.js"></script>
+            <script type="text/javascript">var EP_HOST = 'https://paymentpage.ecommpay.com';</script>
+
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9/crypto-js.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9/hmac-sha512.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9/enc-base64.min.js"></script>
+        </head>
+        <body>
+            <!-- HTML Web page code to add the Payment Page widget -->
+            <div class="container">
+                <div class="cart-info">...</div><div id="widget-container"></div>
+            </div>
+            <!-- JS command to open Payment Page -->
+            <script type="text/javascript">
+
+
+            $("#eCommPay").click(function () {
+                generateHash();
+                alert("tets");
+            });
+
+            function generateHash() {
+
+               // var plainText = "customer_phone:@ViewBag.PhNo;merchant_fail_url:https://.test.com;merchant_success_url:http://.localhost:14880/flight/Confirm;payment_amount:@ViewBag.Amt;payment_currency:GBP;payment_id:@ViewBag.PaymentId;project_id:16551;redirect_success_url:https://.test.com";
+                 var plainText = "customer_email:@ViewBag.email;customer_phone:@ViewBag.PhNo;merchant_fail_url:https://.www.viman.co.uk/MrFail;merchant_success_url:https://.www.viman.co.uk/MrSuc;payment_amount:@ViewBag.Amt;payment_currency:GBP;payment_id:@ViewBag.PaymentId;project_id:16551";
+                 //var plainText = "payment_amount:2035;payment_currency:USD;payment_id:X03945;project_id:16551";
+                var secretKey = "3e0905c133d6dac655683ee0d884f03b0b1bb6b06f3ef560c380be0192eec4290219b6c4e971de06ccd09e833618c4f3b01eb19777e2690916572ed4312ffbe0";
+
+                var hashText = CryptoJS.HmacSHA512(plainText, secretKey);
+                //alert(plainText);
+                //alert(secretKey);
+                //alert(hashText);
+                //alert(CryptoJS.enc.Base64.stringify(hashText));
+               // alert("function Execute");
+                return CryptoJS.enc.Base64.stringify(hashText);
+
+            }
+
+            EPayWidget.run(
+                {
+                    customer_email: '@ViewBag.email',
+                    customer_phone: '@ViewBag.PhNo',
+                    merchant_fail_url: "https://.www.viman.co.uk/MrFail",
+                    merchant_success_url: "https://.www.viman.co.uk/MrSuc",//"https://.test.com",
+                    payment_amount: @ViewBag.Amt, // Payment amount
+                    payment_currency: 'GBP', // Payment currency
+                    payment_id: '@ViewBag.PaymentId', // Payment ID
+                    project_id: '16551', // Project ID
+                   // redirect_success_url: "https://.test.com",
+                    signature: generateHash()
+                }, // Signature
+                'post');
+
+
+            //EPayWidget.bind('eCommPay',
+            //    {
+            //        payment_amount: 2035, // Payment amount
+            //        payment_currency: 'USD', // Payment currency
+            //        payment_id: 'X03945', // Payment ID
+            //        project_id: '16551', // Project ID
+            //        signature: generateHash()
+            //    }, // Signature
+            //    'post');
+            </script>
+        </body>
+    </html>
+}
+}

@@ -1,0 +1,332 @@
+﻿@model Viman.Models.FlightsBooking
+@using Viman.Models
+@{
+    ViewBag.Title = "EnquiryNow";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.WebsiteURL = Common.WebsiteURL;
+    ViewBag.StaticURL = Common.StaticURL;
+    ViewBag.Currency = Common.Currency;
+
+    FlightsSearch flightSearch = Model.FlightsSearch;
+    Flights flights = Model.Flights;
+}
+<div class="background_top"></div>
+<div class="main_bredcrum">
+    <div class="container">
+        <div class="col-xs-12">
+            <div class="bread_head">
+                <ul>
+                    <li><a href="@Url.Content("~/")">Home</a></li>
+                    <li> <a href="javascript:void(0);" class="fa fa-angle-right angle_bred"></a> </li>
+                    <li><a href="@Url.Content("~/flight/")">Enquiry Now</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="en_top_summry">
+                <div class="en_modify_button">
+                    <a href="javascript:void(0);" id="">
+                        Quote Ref.: @(Model.BookingId)
+                    </a>
+                </div>
+                <ul class="en_main_li_summry clearfix">
+                    <li>
+                        <div class="en_top_smy_des">
+                            <span>@(flightSearch.From.Code)</span>
+                            <i class="fa fa-angle-right"></i>
+                            <span>@(flightSearch.To.Code)</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="en_top_smy_date">
+                            <i class="fa fa-plane"></i>
+                            <span>@(flightSearch.DepDate.ToString("ddd dd MMM, yyyy"))</span>
+                            @if (flightSearch.FlightWay == FlightWay.RoundTrip)
+                            {
+                                <i class="fa fa-plane rtrn_date"></i>
+                                <span>@(flightSearch.RetDate.ToString("ddd dd MMM, yyyy"))</span>
+                            }
+                        </div>
+                    </li>
+                    <li>
+                        <div class="en_prsn_smry_icon">
+                            <span><i class="fa fa-male"></i> x @(flightSearch.Adult)&nbsp;</span>
+                            @if (flightSearch.Child > 0)
+                            {
+                                <span><i class="fa fa-child"></i> x @(flightSearch.Child)&nbsp;</span>
+                            }
+                            @if (flightSearch.Infant > 0)
+                            {
+                                <span><i class="fa fa-user"></i> x @(flightSearch.Infant)&nbsp;</span>
+                            }
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="en_main_mbl_summry clearfix">
+                <div class="en_top_sum_lft">
+                    <div class="en_top_mb_desti">
+                        <span>@(flightSearch.From.Code)</span>
+                        <i class="fa fa-chevron-right"></i>
+                        <span>@(flightSearch.To.Code)</span>
+                    </div>
+                    <ul class="en_dat_travlr">
+                        <li><span>@(flightSearch.DepDate.ToString("dd MMM"))</span></li>
+                        @if (flightSearch.FlightWay == FlightWay.RoundTrip)
+                        {
+                            <li><span>@(flightSearch.RetDate.ToString("dd MMM"))</span></li>
+                        }
+                        <li><span>@(flightSearch.Adult + flightSearch.Child + flightSearch.Infant) Traveller</span></li>
+                    </ul>
+                </div>
+                <div class="en_modify_button">
+                    <a href="javascript:void(0);" id="en_btn_serch_showMb">
+                        Ref.: @(Model.BookingId)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="en_main_cont">
+                <div class="en_outbnd_main">
+                    <div class="en_out_left">
+                        <h4>OUTBOUND</h4>
+                        <div class="en_logo_airl_main">
+                            <div class="en_logo_airline">
+                                <img src="@(ViewBag.StaticURL + "Content/airline/fit/" + flights.Outbound[0].Airline.Code + ".gif")" title="@(flights.Outbound[0].Airline.Name)">
+                            </div>
+                            <span>@(flights.Outbound[0].Airline.Name)</span>
+                        </div>
+                    </div>
+                    <div class="en_out_arr">
+                        <span>@(flights.Outbound[0].FromAirport.Code)</span>
+                        <bdo>@(flights.Outbound[0].FromAirport.CityName)</bdo><br />
+                        <em>@(flights.Outbound[0].DepartureDate.ToString("dd MMM, yyyy"))</em>
+                    </div>
+                    <div class="en_out_stop">
+                        <div class="en_bor_ds_cen"></div>
+                        <span><i class="fa fa-plane"></i></span>
+                        <bdo>@(flights.Outbound.Count - 1) stop</bdo>
+                    </div>
+                    <div class="en_out_dest">
+                        <span>@(flights.Outbound[flights.Outbound.Count - 1].ToAirport.Code)</span>
+                        <bdo>@(flights.Outbound[flights.Outbound.Count - 1].ToAirport.CityName)</bdo><br />
+                        <em>@(flights.Outbound[flights.Outbound.Count - 1].ArrivalDate.ToString("ddd MMM, yyyy"))</em>
+                    </div>
+                </div>
+                <div class="en_inbound_main">
+                    <div class="en_inb_left">
+                        <h4>INBOUND</h4>
+                        <div class="en_logo_airl_main">
+                            <div class="en_logo_airline">
+                                <img src="@(ViewBag.StaticURL + "Content/airline/fit/" + flights.Inbound[0].Airline.Code + ".gif")" title="@(flights.Inbound[0].Airline.Name)">
+                            </div>
+                            <span>@(flights.Inbound[0].Airline.Name)</span>
+                        </div>
+                    </div>
+                    <div class="en_inb_arr">
+                        <span>@(flights.Inbound[0].FromAirport.Code)</span>
+                        <bdo>@(flights.Inbound[0].FromAirport.CityName)</bdo><br />
+                        <em>@(flights.Inbound[0].DepartureDate.ToString("dd MMM, yyyy"))</em>
+                    </div>
+                    <div class="en_inb_stop">
+                        <div class="en_bor_ds_cen"></div>
+                        <span><i class="fa fa-plane"></i></span>
+                        <bdo>@(flights.Inbound.Count - 1) stop</bdo>
+                    </div>
+                    <div class="en_inb_dest">
+                        <span>@(flights.Inbound[flights.Inbound.Count - 1].ToAirport.Code)</span>
+                        <bdo>@(flights.Inbound[flights.Inbound.Count - 1].ToAirport.CityName)</bdo><br />
+                        <em>@(flights.Inbound[flights.Inbound.Count - 1].ArrivalDate.ToString("ddd MMM, yyyy"))</em>
+                    </div>
+                </div>
+            </div>
+            <div class="en_main_result">
+                <div class="en_result clearfix">
+                    <div class="en_smmry">Summary</div>
+                    <div class="en_smmry">Person</div>
+                    <div class="en_smmry">Fare</div>
+                    <div class="en_smmry">Class</div>
+                    <div class="en_smmry">Total</div>
+                </div>
+                <div class="en_adt_box clearfix">
+                    <div class="en_adl_1"><strong>Adults</strong></div>
+                    <div class="en_adl_1">@(flights.FlightFare.Adult)</div>
+                    <div class="en_adl_1">@(ViewBag.Currency) @((flights.FlightFare.AdultFare + flights.FlightFare.AdultTax + flights.FlightFare.AdultMarkup).ToString("0.00"))</div>
+                    <div class="en_adl_1">@(flightSearch.FlightClass.ToString())</div>
+                    <div class="en_adl_1">@(ViewBag.Currency) @(((flights.FlightFare.AdultFare + flights.FlightFare.AdultTax + flights.FlightFare.AdultMarkup) * flights.FlightFare.Adult).ToString("0.00"))</div>
+                </div>
+                @if (flights.FlightFare.Child > 0)
+                {
+                    <div class="en_adt_box clearfix">
+                        <div class="en_adl_1"><strong>Children</strong></div>
+                        <div class="en_adl_1">@(flights.FlightFare.Child)</div>
+                        <div class="en_adl_1">@(ViewBag.Currency) @((flights.FlightFare.ChildFare + flights.FlightFare.ChildTax + flights.FlightFare.ChildMarkup).ToString("0.00"))</div>
+                        <div class="en_adl_1">@(flightSearch.FlightClass.ToString())</div>
+                        <div class="en_adl_1">@(ViewBag.Currency) @(((flights.FlightFare.ChildFare + flights.FlightFare.ChildTax + flights.FlightFare.ChildMarkup) * flights.FlightFare.Child).ToString("0.00"))</div>
+                    </div>
+                }
+                @if (flights.FlightFare.Infant > 0)
+                {
+                    <div class="en_adt_box clearfix">
+                        <div class="en_adl_1"><strong>Infant</strong></div>
+                        <div class="en_adl_1">@(flights.FlightFare.Infant)</div>
+                        <div class="en_adl_1">@(ViewBag.Currency) @((flights.FlightFare.InfantFare + flights.FlightFare.InfantTax + flights.FlightFare.InfantMarkup).ToString("0.00"))</div>
+                        <div class="en_adl_1">@(flightSearch.FlightClass.ToString())</div>
+                        <div class="en_adl_1">@(ViewBag.Currency) @(((flights.FlightFare.InfantFare + flights.FlightFare.InfantTax + flights.FlightFare.InfantMarkup) * flights.FlightFare.Infant).ToString("0.00"))</div>
+                    </div>
+                }
+                <div class="en_btm_total clearfix">
+                    <div class="en_ttl_box">Total</div>
+                    <div class="en_ttl_box">@(ViewBag.Currency) @((flights.FlightFare.GrandTotal).ToString("0.00"))</div>
+                </div>
+            </div>
+            <div class="en_inf_con">
+                <h2>Information about this exclusive flight offer</h2>
+                <p>Simplifying air travel is our main motto and thus we bring you some amazing offers for saving more on flight bookings. Don’t burden your pocket anymore and avail our best dealson flight bookings. If you want to enjoy an affordable fare then this is the best time to grab the finest flight tickets with Travelopedia because it is quick, easy and convenient.</p>
+                <h3>Information about our exclusive flight offers is as below:</h3>
+                <ul>
+                    <li>Please contact us to check the availability of the particular seat and fare for the selected flight</li>
+                    <li>Due to the availability of the limited number of seats for a particular fare on a given date it is possible that you will be offered higher fare. Alternate flights or dates will be given as per the flight availability status.</li>
+                    <li>Fares displayed are database generated and thus Travelopedia Ltd won’t take any guarantee about the availability of seat for the particular flight selected on the given date.</li>
+                    <li>Due to the unavailability of the seats for a particular fare on a particular date the fare cannot be removed very often as the seat availability situation changes every now and then due to various reasons.</li>
+                    <li>Please reconfirm the fare and the airport taxes before going ahead with any financial agreement because airport taxes depends on airlines and destinations</li>
+                    <li>For cancellation or date change please contact us with details</li>
+                    <li>All bookings are subject to a booking fee of 1%</li>
+                    <li>All Scheduled Airline Tickets Sold by Travelopedia Ltd are covered by an ATOL</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-4">
+
+            <div class="en_righPnl_main">
+                <div class="en_eqry_main">
+                    <div class="en_eqry_phn">
+                        <a href="tel:@((Session["SitePhone"]==null)?"+442037454455": "+44"+Session["SitePhone"].ToString().Replace(" ", "").Substring(1))">
+                            <span><i class="fa fa-phone"></i></span>
+                            <bdo>
+                                @((Session["SitePhone"] == null) ? "0203 745 4455" : Session["SitePhone"])
+                            </bdo>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="en_visit_main">
+                    <div class="en_visit_us">
+                        <span><i class="fa fa-university"></i></span>
+                        <bdo>Visit us</bdo>
+                    </div>
+                </div>
+                <div class="en_add">
+                    <h3>Travelopedia Ltd</h3>
+                    <p>Travelopedia Ltd is a company registered in England with company number - 08168135</p>
+                    <p>2nd Floor 7 Mackenzie Street, <br> Slough – SL1 1XQ</p>
+
+                </div>
+
+                <div class="en_messge_main">
+                    <div class="en_messge_us">
+                        <span><i class="fa fa-envelope"></i></span>
+                        <bdo>Send Enquiry</bdo>
+                    </div>
+                </div>
+
+                <div class="en_main clearfix">
+                    <div class="en_right">
+                        <form method="post" name="en_frm" id="en_frm" onsubmit="javascript:return frmCheck();" action="@Url.Content("~/flight/sendenquiry")">
+                            <div class="en_inputbox">
+                                <label>Full Name</label>
+                                <input type="text" name="en_name" id="en_name" placeholder="Full Name" class="en_input" />
+                            </div>
+                            <div class="en_inputbox">
+                                <label>Email</label>
+                                <input type="text" name="en_email" id="en_email" placeholder="Email" class="en_input" />
+                            </div>
+                            <div class="en_inputbox">
+                                <label>Phone</label>
+                                <input type="text" name="en_phone" id="en_phone" placeholder="Phone" class="en_input" />
+                            </div>
+                            <div class="en_inputbox">
+                                <label>Message</label>
+                                <textarea placeholder="Message" name="en_message" id="en_message" placeholder="Message" class="en_message"></textarea>
+                            </div>
+                            <input type="submit" name="en_submit" id="en_submit" class="en_btn" value="Submit" />
+                        </form>
+                    </div>
+                </div>
+                <div class="en_cal_Img_box">
+                    <img src="@(ViewBag.StaticURL+"Content/images/call_us_girl.jpg")">
+                    <h3>Exclusive Offer on Call</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $('.en_visit_main').click(function () {
+            $('.en_add').slideToggle();
+        });
+
+        $( '.en_messge_main' ).click(function() {
+            $( '.en_main' ).slideToggle();
+        });
+
+        function frmCheck()
+        {
+            if ($("#en_name").val().trim(' ') == "") {
+                alert("Please enter your full name.");
+                $("#en_name").focus();
+                return false;
+            }
+            if ($("#en_email").val().trim(' ') == "") {
+                alert("Please enter your email.");
+                $("#en_email").focus();
+                return false;
+            }
+            else
+            {
+                var filter = @("/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{0,4}$/");
+                if (!filter.test($("#en_email").val())) {
+                    alert("Please enter your valid email.");
+                    $("#en_email").focus();
+                    return false;
+                }
+            }
+            if ($("#en_phone").val().trim(' ') == "") {
+                alert("Please enter your phone.");
+                $("#en_phone").focus();
+                return false;
+            }
+            if ($("#en_message").val().trim(' ') == "") {
+                alert("Please enter your message.");
+                $("#en_message").focus();
+                return false;
+            }
+
+            $.ajax(
+            {
+                type: "POST",
+                url: "@(ViewBag.StaticURL)Flight/SendEnquiry",
+                data: $("#en_frm").serializeArray(),
+                success: function(result){
+                    alert("Thank you for send enquiry to us. Our agent will contact you soon.");
+                    $("#en_name").val("");
+                    $("#en_email").val("");
+                    $("#en_phone").val("");
+                    $("#en_message").val("");
+                }
+            });
+
+            return false;
+        }
+    </script>
+}

@@ -1,0 +1,186 @@
+﻿@using Viman.Models
+@{
+    ViewBag.Title = "Holiday Offer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.StaticURL = "https://www.flightoffice.co.uk/";
+    ViewBag.Currency = Common.Currency;
+    int cnt = -1;
+}
+
+<div class="background_top"></div>
+<div class="main_bredcrum">
+    <div class="container">
+        <div class="col-xs-12">
+            <div class="bread_head">
+                <ul>
+                    <li><a href="@Url.Content("~/")">Home</a></li>
+                    <li> <a href="javascript:void(0);" class="fa fa-angle-right angle_bred"></a> </li>
+                    <li><a href="@Url.Content("~/holiday-offers/")">Holiday Offers</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 abut_bodyhead">
+            <h2>Holiday Offer</h2>
+        </div>
+        <div class="col-xs-12">
+            <p>We help you to enjoy the best vacations of your life across the globe whether you are on adventure safari, enjoy a family vacation, celebrating your honeymoon at the romantic getaway or want to explore the arid deserts.</p>
+        </div>
+        @foreach (HolidayOffer HolidayOfferItem in ViewBag.HolidayOffer)
+        {
+            cnt++;
+            if (cnt % 3 == 0)
+            {
+                <div class="clearfix"></div>
+            }
+            string[] night_arr = HolidayOfferItem.Night.Split(' ');
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="hol_offr_container">
+                    <div class="hol_offr_imgBox">
+                        <img src="@(ViewBag.StaticURL + "Media/BestDeal/" + HolidayOfferItem.ImagePath)" />
+                    </div>
+                    <h3>@(HolidayOfferItem.Title)</h3>
+                    <div class="hol_offr_day">
+                        <div>
+                            <h3>@(night_arr[0])</h3>
+                            <p>Nights</p>
+                        </div>
+                        <div>
+                            <h3>@(night_arr[2])</h3>
+                            <p>Days</p>
+                        </div>
+                        <div>
+                            <h3>@(ViewBag.Currency)@(HolidayOfferItem.Price)</h3>
+                            <p>Per Person</p>
+                        </div>
+                        <div>
+                            <h3>@(HolidayOfferItem.Discount)%</h3>
+                            <p>UP TO/OFF</p>
+                        </div>
+                    </div>
+                    <div class="hol_offr_btn">
+                        <a href="javascript:void(0)" data-id="@(HolidayOfferItem.Id)" data-title="@(HolidayOfferItem.Title)" data-amount="@(ViewBag.Currency)@(HolidayOfferItem.Price)" data-night="@(night_arr[0])" data-days="@(night_arr[2])" data-discount="@(HolidayOfferItem.Discount)" class="hol_offr_enqBtn">Enquire Now </a>
+                    </div>
+
+                    <div class="hol_offr_call">
+                        <p>Ref No: @(HolidayOfferItem.RefNo)</p>
+                        <h3> <bdo>Call: </bdo> 0203 745 4455</h3>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="hol_offr_gray">
+    <div class="hol_offr_pop clearfix">
+        <div class="hol_offr_lft">
+            <img src="@("https://www.viman.co.uk/Content/images/Holiday.jpg")" />
+        </div>
+        <div class="hol_offr_rgt">
+            <h3 id="ho_title_txt">MELBOURNE</h3>
+            <div class="hol_offr_ngt">
+                <div>
+                    <h3 id="ho_nights_txt">07</h3>
+                    <p>Nights</p>
+                </div>
+                <div>
+                    <h3 id="ho_days_txt">08</h3>
+                    <p>Days</p>
+                </div>
+                <div>
+                    <h3 id="ho_price_txt">£475</h3>
+                    <p>Per Person</p>
+                </div>
+            </div>
+
+            <div class="hol_offr_frm">
+                <h4>ENTER YOUR DETAIL BELOW TO UNLOCK</h4>
+                <input type="hidden" id="txt_ref" name="txt_ref" />
+                <div class="hol_offr_name">
+                    <input type="text" name="txt_name" id="txt_name" placeholder="Your Full Name" />
+                </div>
+                <div class="hol_offr_name">
+                    <input type="text" name="txt_email" id="txt_email" placeholder="Your Email" />
+                </div>
+                <div class="hol_offr_name">
+                    <input type="text" name="txt_phone" id="txt_phone" placeholder="Your Phone Number" />
+                </div>
+                <div class="hol_offr_name">
+                    <input type="button" name="btn_submit" id="btn_submit" value="Get My 15% OFF" onclick="frmCheck()" />
+                </div>
+            </div>
+        </div>
+        <div class="hol_offr_close">
+            <i class="fa fa-times"></i>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".hol_offr_enqBtn").click(function () {
+                $("#ho_title_txt").html($(this).data("title"));
+                $("#ho_nights_txt").html($(this).data("night"));
+                $("#ho_days_txt").html($(this).data("days"));
+                $("#ho_price_txt").html($(this).data("amount"));
+                $(".hol_offr_gray").fadeIn();
+                $("#txt_ref").val($(this).data("id"));
+            });
+
+            $(".hol_offr_close").click(function () {
+                $(".hol_offr_gray").fadeOut();
+            });
+        });
+
+        function frmCheck()
+        {
+            if (document.getElementById("txt_name").value == "") {
+                alert("Please enter your full name.");
+                document.getElementById("txt_name").focus();
+                return false;
+            }
+            if (document.getElementById("txt_email").value == "") {
+                alert("Please enter your email.");
+                document.getElementById("txt_email").focus();
+                return false;
+            }
+            if (document.getElementById("txt_phone").value == "") {
+                alert("Please enter your phone.");
+                document.getElementById("txt_phone").focus();
+                return false;
+            }
+            else
+            {
+                var filter = @("/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{0,4}$/");
+                if (!filter.test(document.getElementById("txt_email").value)) {
+                    alert("Please enter your valid email.");
+                    document.getElementById("txt_email").focus();
+                    return false;
+                }
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "@(ViewBag.StaticURL)Home/HolidayEnquery",
+                data: {
+                    EnquiryType: "HolidayOffer",
+                    FlightDetail: $("#txt_ref").val(),
+                    Name: $("#txt_name").val(),
+                    Email: $("#txt_email").val(),
+                    Phone: $("#txt_phone").val(),
+                },
+                success: function (result) {
+                    alert("Thank you for your request. Please check your email to get holiday offer.");
+                    $(".hol_offr_gray").fadeOut();
+                }
+            });
+        }
+    </script>
+}

@@ -1,0 +1,399 @@
+﻿@model Viman.Models.HotelsBooking
+@using Viman.Models
+@{
+    ViewBag.Title = "Booking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.StaticURL = Common.StaticURL;
+    ViewBag.Currency = Common.Currency;
+
+    int noOfNight = int.Parse(Common.GetDateDiffDay(Model.HotelsSearch.CheckOut, Model.HotelsSearch.CheckIn));
+    int passCnt = 0;
+}
+
+<div class="background_top"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-xs-12">
+            <div class="bk_breadcrum clearfix">
+                <ul>
+                    <li class="active">
+                        <a href="javascript:void(0);">
+                            <i class="fa fa-file-text"></i> Itenary
+                            <span class="box_tri"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);">
+                            <i class="fa fa-suitcase"></i> Traveler
+                            <span class="box_tri"></span>
+                        </a>
+                    </li>
+                    <li><a href="javascript:void(0);"><i class="fa fa-credit-card"></i> Payment</a></li>
+                </ul>
+            </div>
+
+            <form name="form1" method="post" onsubmit="return ValidateLoginForm();" action="@Url.Content("~/hotel/payment/")">
+                <div class="main_container_passeger">
+                    <div class="hol_bk_pss_hd">
+                        <h4>
+                            <i class="fa fa-users"></i> Guest Details <span class="fa fa-edit"></span>
+                        </h4>
+                    </div>
+                    <div class="hol_bk_ps_dtl_main">
+                        <div class="hol_bk_mn_pss clearfix">
+                            @for (int j = 1; j <= Model.Hotels.HotelOption[0].HotelRoom.Count; j++)
+                            {
+                                for (int k = 1; k <= int.Parse(Model.Hotels.HotelOption[0].HotelRoom[j - 1].NoAdults); k++)
+                                {
+                                    passCnt++;
+                                    <div class="hol_bk_nm_pss">
+                                        Room @(j): Adult
+                                    </div>
+                                    <div class="hol_main_mr">
+                                        <select class="hol_main_fmr chk_pass" id="title_@(passCnt)" name="title_@(passCnt)">
+                                            <option value="">Select</option>
+                                            <option value="Mr.">Mr.</option>
+                                            <option value="Mrs.">Mrs.</option>
+                                            <option value="Miss">Miss</option>
+                                        </select>
+                                    </div>
+                                    <div class="hol_bk_name">
+                                        <input type="text" placeholder="First Name" name="fname_@(passCnt)" id="fname_@(passCnt)" class="hol_bk_fname chk_pass" autocomplete="off">
+                                    </div>
+                                    <div class="hol_bk_name">
+                                        <input type="text" placeholder="Last Name" name="lname_@(passCnt)" id="lname_@(passCnt)" class="hol_bk_fname chk_pass" autocomplete="off">
+                                    </div>
+                                }
+                                for (int k = 1; k <= int.Parse(Model.Hotels.HotelOption[0].HotelRoom[j - 1].NoChilds); k++)
+                                {
+                                    passCnt++;
+                                    <div class="hol_bk_nm_pss">
+                                        Room @(j): Child
+                                    </div>
+                                    <div class="hol_main_mr">
+                                        <select class="hol_main_fmr chk_pass" id="title_@(passCnt)" name="title_@(passCnt)">
+                                            <option value="">Select</option>
+                                            <option value="Master">Master</option>
+                                            <option value="Miss">Miss</option>
+                                        </select>
+                                    </div>
+                                    <div class="hol_bk_name">
+                                        <input type="text" placeholder="First Name" name="fname_@(passCnt)" id="fname_@(passCnt)" class="hol_bk_fname chk_pass" autocomplete="off">
+                                    </div>
+                                    <div class="hol_bk_name">
+                                        <input type="text" placeholder="Last Name" name="lname_@(passCnt)" id="lname_@(passCnt)" class="hol_bk_fname chk_pass" autocomplete="off">
+                                    </div>
+
+                                }
+                            }
+                            <div class="hol_bk_nm_pss">
+                                Contact Detail
+                            </div>
+                            <div class="hol_bk_add_pss clearfix">
+                                <div class="hol_bk_add_field_main">
+                                    <input type="text" placeholder="Phone" id="phone" name="phone" class="hol_bk_add_field" autocomplete="off">
+                                </div>
+                                <div class="hol_bk_add_field_main marginLft2">
+                                    <input type="text" placeholder="Email" id="email" name="email" class="hol_bk_add_field" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="main_container_address">
+                    <div class="hol_bk_pss_hd">
+                        <h4>
+                            <i class="fa fa-map-marker"></i> Address Detail <span class="fa fa-edit"></span>
+                        </h4>
+                    </div>
+                    <div class="hol_bk_ps_dtl_main">
+                        <div class="hol_bk_add_pss clearfix">
+                            <div class="hol_bk_add_field_main">
+                                <input type="text" placeholder="Address" class="hol_bk_add_field" id="address" name="address">
+                            </div>
+                            <div class="hol_bk_add_field_main marginLft2">
+                                <select class="hol_bk_add_field" name="country" id="country">
+                                    <option value="">Select Country</option>
+                                    @foreach (Country country in ViewBag.countryList)
+                                    {
+                                        <option @((country.Code.Equals("GB")) ? "selected" : "") value="@(country.Code)">@(country.Name)</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="hol_bk_add_field_main">
+                                <input type="text" class="hol_bk_add_field" placeholder="City" id="city" name="city" autocomplete="off">
+                            </div>
+                            <div class="hol_bk_add_field_main marginLft2">
+                                <input type="text" placeholder="Postal Code" id="postcode" name="postcode" class="hol_bk_add_field" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hol_bk_main_card_box">
+                    <div class="hol_bk_card_hd">
+                        <h4><i class="fa fa-credit-card"></i> Card Detail</h4>
+                    </div>
+                    <div class="hol_bk_card_dtl_box">
+                        <img src="@(ViewBag.StaticURL + "Content/images/visa_cards.svg")" />
+                    </div>
+                    <div class="hol_bk_card_dtl_main">
+                        <div class="hol_bk_card_pss clearfix">
+                            <div class="hol_bk_card_field_main">
+                                <label>Card holder's Name</label>
+                                <input type="text" class="hol_bk_card_field" name="cc_name" id="cc_name">
+                            </div>
+                            <div class="hol_bk_card_field_main">
+                                <label>Card Number</label>
+                                <input type="hidden" name="cc_card_type" id="cc_card_type" value="" />
+                                <input type="text" class="hol_bk_card_field cc_number" name="cc_number" id="cc_number" placeholder="•••• •••• •••• ••••">
+                                <i class="fa fa-credit-card"></i>
+                            </div>
+                            <div class="hol_bk_card_field_main">
+                                <div class="hol_bk_crdexp_Main">
+                                    <label>Expiry Date</label>
+                                    <input type="text" class="hol_bk_card_field cc_exp" name="cc_exp" id="cc_exp" placeholder="•• / ••">
+                                </div>
+                                <div class="hol_bk_crdexp_Main">
+                                    <label>Security Code</label>
+                                    <input type="text" class="hol_bk_card_field cc_cvc" name="cc_cvc" id="cc_cvc" placeholder="•••" maxlength="3">
+                                    <i class="fa fa-question"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix hol_bk_total">
+                            <div class="hol_bk_you_pay">
+                                <label>You Pay</label>
+                                <span>@(ViewBag.Currency)@(Model.Hotels.LowestPrice)</span>
+                            </div>
+                            <div class="hol_bk_con_para">
+                                <p>
+                                    By clicking on "Make Payments" I accept the <a href="@Url.Content("~/terms-conditions/")">Terms &amp; Conditions</a> of
+                                    Viman and I accept that my bank card will be charged for the above total amount for this purchase.
+                                </p>
+                            </div>
+                            <div class="hol_bk_btn">
+                                <input type="submit" name="make_payment" id="make_payment" value="Make Payments">
+                                <span>
+                                    <i class="fa fa-lock"></i>
+                                    Your payment is 100% safe
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="hol_bk_scrty">
+                        <h4>Security Code</h4>
+                        <i class="fa fa-times"></i>
+
+                        <div class="hol_bk_scrty_cont">
+                            <p>Where can I find my card's security code?</p>
+                            <img src="@(ViewBag.StaticURL + "Content/images/card_security.svg")" />
+                            <p>
+                                The card security code is located on the back of Visa, Master Card, Discover, Diners Club, and JCB credit
+                                or debit cards and is typically a separate group of 3 digits to the right of the signature strip.
+                            </p>
+                        </div>
+                    </div>*@
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4 col-xs-12">
+            <div class="hol_bk_dtl">
+                <h3>Your Booking Details</h3>
+                <div class="hol_bk_dtl_cont">
+                    <h4>@(Model.Hotels.HotelName)</h4>
+                    <div class="hol_bk_dtl_str">
+                        @for (int j = 1; j <= Math.Ceiling(float.Parse(Model.Hotels.StarRating)); j++)
+                        {
+                            <i class="fa fa-star"></i>
+                        }
+                    </div>
+                    <p><b>Address:</b>@(Model.Hotels.Address)</p>
+                </div>
+                <div class="hol_bk_chk clearfix">
+                    <div class="date_in">
+                        <span><b>Check-in:</b></span>
+                        <span>@(Model.Hotels.HotelSearch.CheckIn.ToString("dddd dd MMMM, yyyy"))</span>
+                    </div>
+                </div>
+                <div class="hol_bk_chk clearfix" style="margin-top:0px;">
+                    <div class="date_in">
+                        <span><b>Check-Out:</b></span>
+                        <span>@(Model.Hotels.HotelSearch.CheckOut.ToString("dddd dd MMMM, yyyy"))</span>
+                    </div>
+                </div>
+                <div class="hol_bk_pss_room">
+                    <p><b>@(noOfNight)</b> nights, <b>@(Model.Hotels.HotelSearch.Rooms)</b> room</p>
+                    <p><b>@(ViewBag.AdultsCnt)</b> adults, <b>@(ViewBag.ChildrenCnt)</b> children</p>
+                </div>
+                <div class="hol_bk_prc_dtl">
+                    <div class="hol_bk_pr_dt">
+                        <i class="fa fa-gbp"></i>
+                        <span>Price Detail (GBP)</span>
+                    </div>
+                    @foreach (HotelsOptions itemOption in Model.Hotels.HotelOption)
+                    {
+                        foreach (HotelsRooms itemRooms in itemOption.HotelRoom)
+                        {
+                            <p>
+                                <i class="fa fa-bed"></i>
+                                <b>1 x @(itemRooms.RoomName)</b><strong>@(ViewBag.Currency)@(itemRooms.RoomPrice)</strong><br />
+                                <b><i class="fa fa-male"></i> @(itemRooms.NoAdults) adult, @(itemRooms.NoChilds) child</b>
+                            </p>
+                        }
+                    }
+                    <p class="hol_bk_discoutn">
+                        Discount
+                        <bdo>@(ViewBag.Currency)@((Model.Hotels.HotelOption[0].DiscountApplied == "") ? "0.00" : Model.Hotels.HotelOption[0].DiscountApplied)</bdo>
+                    </p>
+                    <p class="hol_bk_totalPr">
+                        Total
+                        <bdo>@(ViewBag.Currency)@(Model.Hotels.LowestPrice)</bdo>
+                    </p>
+                </div>
+            </div>
+            <div class="hol_bk_guarnt">
+                <span class="hol_bk_disc">
+                    All prices (including taxes &amp; fees) are quoted in British Pound
+                </span>
+                <p class="hol_bk_chkMrk">
+                    <i class="fa fa-check-circle"></i>
+                    Price Guarantee
+                </p>
+            </div>
+            <div class="hol_bk_cancl_dte">
+                <h3>Hotel Cancelation</h3>
+                <div class="dtl clearfix">
+                    <span class="info">Last Cancel Date:</span>
+                    <span class="date">@(Model.HotelPolicies.CancellationDeadline)</span>
+                </div>
+                @foreach (HotelPolicy policyItem in Model.HotelPolicies.Policies)
+                {
+                    <div class="dtl clearfix">
+                        <span class="info">After @(policyItem.PolicyFrom):</span>
+                        <span class="date">(-) @(ViewBag.Currency)@(policyItem.PolicyValue)</span>
+                    </div>
+                }
+                @foreach (string strItem in Model.HotelPolicies.Restrictions)
+                {
+                    <p>@(strItem)</p>
+                }
+                @foreach (string strItem in Model.HotelPolicies.Alerts)
+                {
+                    <p>@(strItem)</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript" src="@(ViewBag.StaticURL + "Content/js/jquery.payment.min.js")"></script>
+    <script type="text/javascript">
+        $("[data-numeric]").payment('restrictNumeric');
+        $(".cc_number").payment('formatCardNumber');
+        $(".cc_exp").payment('formatCardExpiry');
+        $(".cc_cvc").payment('formatCardCVC');
+
+        $(document).ready(function () {
+            $("#make_payment").click(function () {
+                var pass_flag = true;
+                $(".chk_pass").each(function(i){
+                    if($(this).val().trim(' ') == "")
+                    {
+                        alert("Please enter your guest detail.");
+                        $(this).focus();
+                        pass_flag = false;
+                        return false;
+                    }
+                });
+
+                if(pass_flag)
+                {
+                    if ($("#phone").val().trim(' ') == "")
+                    {
+                        alert("Please enter your phone number.");
+                        $("#phone").focus();
+                        return false;
+                    }
+                    else
+                    {
+                        var phoneNum = $("#phone").val().replace(/[^\d]/g, '');
+                        if(!(phoneNum.length > 7 && phoneNum.length < 15))
+                        {
+                            alert("Please enter your valid phone number.");
+                            $("#phone").focus();
+                            return false;
+                        }
+                    }
+                    if ($("#email").val().trim(' ') == "")
+                    {
+                        alert("Please enter your email.");
+                        $("#email").focus();
+                        return false;
+                    }
+                    else
+                    {
+                        var filter = @("/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{0,4}$/");
+                        if (!filter.test(document.getElementById("email").value)) {
+                            alert("Please enter your valid email.");
+                            document.getElementById("email").focus();
+                            return false;
+                        }
+                    }
+
+                    if ($("#address").val().trim(' ') == "") {
+                        alert("Please enter your full address.");
+                        $("#address").focus();
+                        return false;
+                    }
+                    else if ($("#countryCode").val().trim(' ') == "") {
+                        alert("Please select your country.");
+                        $("#countryCode").focus();
+                        return false;
+                    }
+                    else if ($("#city").val().trim(' ') == "") {
+                        alert("Please enter your city.");
+                        $("#city").focus();
+                        return false;
+                    }
+                    else if ($("#postcode").val().trim(' ') == "") {
+                        alert("Please enter your postcode.");
+                        $("#postcode").focus();
+                        return false;
+                    }
+
+                    var cardType = $.payment.cardType($('.cc_number').val());
+                    if ($("#cc_name").val().trim(' ') == "") {
+                        alert("Please enter your card name.");
+                        $("#cc_name").focus();
+                        return false;
+                    }
+                    else if (!$.payment.validateCardNumber($(".cc_number").val())) {
+                        alert("Please enter your valid card number.");
+                        $(".cc_number").focus();
+                        return false;
+                    }
+                    else if (!$.payment.validateCardExpiry($('.cc_exp').payment('cardExpiryVal'))) {
+                        alert("Please enter your valid card expiry.");
+                        $(".cc_exp").focus();
+                        return false;
+                    }
+                    else if (!$.payment.validateCardCVC($('.cc_cvc').val(), cardType)) {
+                        alert("Please enter your valid card CVC.");
+                        $(".cc_cvc").focus();
+                        return false;
+                    }
+                    $("#cc_card_type").val(cardType);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            });
+        });
+    </script>
+}
+

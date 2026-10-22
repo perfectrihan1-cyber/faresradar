@@ -1,0 +1,195 @@
+﻿@using Viman.Models
+
+@{
+    ViewBag.PageName = "home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section metatags{
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="~/images/favicon1.ico">
+
+    <title>Faresradar – Millions of cheap flights. One simple search.</title>
+}
+<link rel="stylesheet" href="~/css1/index.css">
+
+<script src="~/js/index.js"></script>
+
+
+
+<div class="hero">
+    <h1 class="hero-headline">Millions of cheap flights.<br>One simple search.</h1>
+    @{Html.RenderPartial("~/Views/Shared/_SearchEngine.cshtml");}
+</div>
+    
+
+<div class="features">
+  <div class="features-inner">
+    <div class="feat">
+        <div class="feat-icon"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjE_itQa8yWJmEW8qMwiw7GAp61nm0r4smb2sstmxHk0p9kChI4aJavwvNyT8gjT6xpQ3X5idAoC_-R8mXAmI7z1HS4MS7MHrTWcbpr_P6cOqRc2mvgtZbfLoqxALrDxvj_Db1iEj3aEh_ZElKFrTZ2fxym-d4LKs5B9dBkM3RL0oW9pmj1Suz_tY71LYzF/s1600/search.png" alt="Search" style="width:32px;height:32px;object-fit:contain;flex-shrink:0;margin-top:2px"></div>
+        <div>
+            <div class="feat-title">Search a huge selection</div>
+            <div class="feat-desc">Easily compare flights, airlines, and prices – all in one place</div>
+        </div>
+    </div>
+    <div class="feat">
+        <div class="feat-icon"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgGToM4HKCRgmDy1DBKuYgUpC0PEEDNwpkm7NEP8BAwP8ZHrMIUbfqMpA6yGv4ke39xdTz4UO8CBSiMgctbEGZy4vvXaKztWPMFhiy8tKPUQ_KZDaomH15InUeJGs9bbyg9w8UDqg2sn8h9v5r7BmwKIA1lf6gLBedaIvsMW5Vosl5BtTXHyG5hNC69Y4Ad/s1600/money.png" alt="Money" style="width:32px;height:32px;object-fit:contain;flex-shrink:0;margin-top:2px"></div>
+        <div>
+            <div class="feat-title">Pay no hidden fees</div>
+            <div class="feat-desc">Get a clear price breakdown every step of the way</div>
+        </div>
+    </div>
+    <div class="feat">
+        <div class="feat-icon"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh3OX4KRoL6mmTw7rf7WOipuNmNXYlqXquhnmLFD2d1KABr9ErUERfhUDsnSgP1QiIMWTbRbgWooVe3NVMxoWBrGSdPXhM1tnDbuf1K5wDUr68qFNtIkKoR3jojV8gWIFVrVFd2eosu2ZCxrrT2HlLV7jl_ardAfNCHwU6H-nppIQpuWwKd2in_MCsIPhin/s1600/plane.png" alt="Plane" style="width:32px;height:32px;object-fit:contain;flex-shrink:0;margin-top:2px"></div>
+        <div>
+            <div class="feat-title">Get more flexibility</div>
+            <div class="feat-desc">Change your travel dates with the Flexible ticket option*</div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POPULAR FLIGHTS ═══ -->
+<div class="section">
+    <div class="section-title">Popular flights near you</div>
+    <div class="section-sub">Find deals on domestic and international flights</div>
+
+    <div class="dest-tabs">
+        <button class="dest-tab active" onclick="switchDestTab(this,'intl')">International</button>
+        <button class="dest-tab" onclick="switchDestTab(this,'dom')">Domestic</button>
+    </div>
+
+    <!-- International flights -->
+    <div class="dest-grid" id="intlGrid">
+        <div class="dest-card" onclick="searchRoute('New York','Paris')">
+            <img class="dest-img" src="https://images.unsplash.com/photo-1550340499-a6c60fc8287c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="New York to Paris" loading="lazy">
+            <div class="dest-info">
+                <div class="dest-route">New York to Paris</div>
+                <div class="dest-dates">Jul 3 · Aug 17 · Round-trip</div>
+            </div>
+        </div>
+        <div class="dest-card" onclick="searchRoute('New York','Toronto')">
+            <img class="dest-img" src="https://images.unsplash.com/photo-1569982615761-66697da68502?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="New York to Toronto" loading="lazy">
+            <div class="dest-info">
+                <div class="dest-route">New York to Toronto</div>
+                <div class="dest-dates">Jul 4 · Jul 7 · Round-trip</div>
+            </div>
+        </div>
+        <div class="dest-card" onclick="searchRoute('New York','London')">
+            <img class="dest-img" src="https://images.unsplash.com/photo-1533929736458-ca588d08c8be?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="New York to London" loading="lazy">
+            <div class="dest-info">
+                <div class="dest-route">New York to London</div>
+                <div class="dest-dates">Jul 3 · Aug 21 · Round-trip</div>
+            </div>
+        </div>
+        <div class="dest-card" onclick="searchRoute('New York','Rome')">
+            <img class="dest-img" src="https://images.unsplash.com/photo-1529154036614-a60975f5c760?q=80&w=1476&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="New York to Rome" loading="lazy">
+            <div class="dest-info">
+                <div class="dest-route">New York to Rome</div>
+                <div class="dest-dates">Jul 5 · Jul 23 · Round-trip</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Domestic flights (hidden by default) -->
+    <div class="dest-grid" id="domGrid" style="display:none">
+        <div class="dest-card" onclick="searchRoute('Delhi','Mumbai')">
+            <img class="dest-img" src="https://images.unsplash.com/photo-1429554429301-1c7d5ae2d42e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="New York to Mumbai" loading="lazy">
+            <div class="dest-info">
+                <div class="dest-route">New York to Los Angeles</div>
+                <div class="dest-dates">Jul 5 · Jul 10 · Round-trip</div>
+            </div>
+        </div>
+        <div class="dest-card" onclick="searchRoute('Delhi','Bangalore')">
+            <img class="dest-img" src="https://images.unsplash.com/photo-1719858403364-83f7442a197e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="New York to Bangalore" loading="lazy">
+            <div class="dest-info">
+                <div class="dest-route">New York to San Francisco</div>
+                <div class="dest-dates">Jul 8 · Jul 15 · Round-trip</div>
+            </div>
+        </div>
+        <div class="dest-card" onclick="searchRoute('Delhi','Goa')">
+            <img class="dest-img" src="https://images.unsplash.com/photo-1531335773500-23410807365a?q=80&w=1548&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="New York to Goa" loading="lazy">
+            <div class="dest-info">
+                <div class="dest-route">New York to Seattle</div>
+                <div class="dest-dates">Jul 12 · Jul 19 · Round-trip</div>
+            </div>
+        </div>
+        <div class="dest-card" onclick="searchRoute('Delhi','Chennai')">
+            <img class="dest-img" src="https://images.unsplash.com/photo-1580303898329-556c611441bd?q=80&w=1548&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="New York to Chennai" loading="lazy">
+            <div class="dest-info">
+                <div class="dest-route">New York to Las Vegas</div>
+                <div class="dest-dates">Jul 6 · Jul 13 · Round-trip</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══ STAY BANNER ═══ -->
+<div class="stay-banner">
+    <div class="stay-banner-inner">
+        <div class="stay-content">
+            <div class="stay-title">Unlock smarter<br>summer stays</div>
+            <div class="stay-desc">Boutique, beachfront or breakfast included. Be Summer Smarter and discover unique, affordable stays – even in the places everyone already loves</div>
+            <button class="stay-btn" onclick="showToast('Searching stays...')">Search stays</button>
+        </div>
+    </div>
+</div>
+
+<!-- ═══ ABOUT ═══ -->
+<div class="about-section">
+    <div class="about-title">Search Flights and Hotels</div>
+    <div class="about-text">
+        <p>Faresradar is one of the fastest-growing and most trusted travel platforms that's been revolutionizing the journeys of millions of travellers worldwide. With comprehensive travel solutions ranging from flight tickets to hotel bookings, and ancillary value-added services, Faresradar strives to make the travel experience as seamless as possible.</p>
+        <p>We understand that creating tour plans with family and loved ones can be overwhelming. Therefore, to make your journey simpler and smoother, we offer an exclusive array of the best discounts on our top travel services. By employing these deals, you can embark on your dream tours at wallet-friendly prices without breaking the bank.</p>
+        <p>To amplify the tour experiences, our platform also features unparalleled benefits and assured perks. Some of them include access to popular airlines, partnerships with top hotel chains, discounted prices, effortless bookings and 24/7 customer assistance.</p>
+    </div>
+</div>
+
+<!-- ═══ FAQ ═══ -->
+<div class="faq-section">
+    <div class="faq-title">Booking flights with Faresradar</div>
+    <div class="faq-grid">
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">How does Faresradar work? <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+            <div class="faq-a">Faresradar compares prices from hundreds of airlines and travel sites, showing you the best options in one place so you can book directly or through our partners.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Does Faresradar do hotels too? <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+            <div class="faq-a">Yes! You can search and compare hotels, guesthouses, and unique stays alongside your flights for a complete travel package.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">How can I find the cheapest flight? <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+            <div class="faq-a">Use our flexible date search to compare prices across different travel dates. Setting a price alert will also notify you when fares drop.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">What about car hire? <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+            <div class="faq-a">Faresradar offers car rental comparisons at your destination so you can find the best deals on wheels alongside your travel plans.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Where should I book a flight to right now? <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+            <div class="faq-a">Check our "Popular flights near you" section for trending destinations with great deals departing from your nearest airport.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">What's a Price Alert? <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+            <div class="faq-a">A Price Alert notifies you by email when the price for a specific route changes, helping you book at the right time.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Do I book my flight with Faresradar? <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+            <div class="faq-a">Faresradar directs you to our partner airlines and booking sites to complete your purchase. We compare; they confirm.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Can I book a flexible flight ticket? <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+            <div class="faq-a">Many airlines now offer flexible or refundable tickets. Filter by "Flexible ticket" in the search results to find these options.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">What happens after I have booked my flight? <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+            <div class="faq-a">You'll receive a confirmation email with your booking details. Manage your trip directly through the airline or booking partner's website.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Can I book flights that emit less CO₂? <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+            <div class="faq-a">Yes, we show carbon emission estimates for each flight so you can make a more environmentally conscious choice when booking.</div>
+        </div>
+    </div>
+</div>
+

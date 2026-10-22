@@ -1,0 +1,879 @@
+﻿@model Viman.Models.FlightsBooking
+@using Viman.Models
+@{
+    ViewBag.Title = "Booking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.WebsiteURL = Common.WebsiteURL;
+    ViewBag.StaticURL = Common.StaticURL;
+    ViewBag.Currency = Common.Currency;
+    FlightsSearch flightSearch = ViewBag.flightSearch;
+    Flights flights = ViewBag.flights;
+
+
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.WebsiteURL = Common.WebsiteURL;
+    ViewBag.StaticURL = Common.StaticURL;
+
+
+    int mm = 0, nn = 0, pass = 0;
+
+    <link type="text/css" rel="stylesheet" href="@(ViewBag.StaticURL + "Content/css/owl.carousel.min.css")" />
+    <link type="text/css" rel="stylesheet" href="@(ViewBag.StaticURL + "Content/css/owl.theme.default.min.css")" />
+
+}
+
+
+<div id="divOverlay" class="overlay"></div>
+<div class="page">
+
+
+    <div class="container herobg">
+        <div class="row" style="padding-bottom:20px;">
+            <h1>Flights to @Model.FlightsSearch.To.CityName</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row" style="padding-block:30px;">
+            <form method="post" name="booking_frm" id="booking_frm" action="@Url.Content("~/flight/PaymentUpd/")">
+                <input type="hidden" id="hsearchId" name="hsearchId" value="@(Model.FlightsSearch.SearchId)" />
+                <div class="bookingBox" id="divCardDtl">
+                    <h3><i class="fa fa-map-marker" aria-hidden="true"></i> Make Your Payment</h3>
+                    <div class="cardsImg"><img src="@(ViewBag.StaticURL + "Content/images/master.png")" /></div>
+                    <div class="form-group">
+                        <div class="grid grid1" style="gap:5px 10px;">
+                            <div>
+                                <label>Card holder's Name</label>
+                                <input type="text" name="cc_name" id="cc_name" class="form-control" placeholder="Card holder's Name" value="" autocomplete="off" />
+                            </div>
+                            <div>
+                                <label>Card Type</label>
+                                <select class="form-select" name="cardType" id="cardType" required="required" onchange="SetCvvNo();">
+                                    <option selected="selected" value="cardtype">Card Type</option>
+                                    <option value="jcb">JCB</option>
+                                    <option value="visa">Visa</option>
+                                    <option value="visa">Visa Debit</option>
+                                    <option value="visaelectron">Electron</option>
+                                    <option value="mastercard">Mastercard</option>
+                                    <option value="mastercard">Mastercard debit</option>
+                                    <option value="maestro">Maestro</option>
+                                    <option value="dinersclub">Diners Club International</option>
+                                    <option value="amex">American Express</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Card Number</label>
+                                <input type="text" name="cc_number" id="cc_number" class="form-control" value="" autocomplete="off" inputmode="numeric" pattern="[0-9\s]{13,19}" maxlength="16" placeholder="XXXX XXXX XXXX XXXX" required />
+                            </div>
+                            <div class="grid grid2" style="gap: 15px;">
+                                <div>
+                                    <label>Card Expiry Month</label>
+                                    <input type="text" name="cc_expMM" id="cc_expMM" class="form-control" placeholder="MM" value="" autocomplete="off" maxlength="2" />
+                                </div>
+                                <div>
+                                    <label>Card Expiry Year</label>
+                                    <input type="text" name="cc_expYY" id="cc_expYY" class="form-control" placeholder="YYYY" value="" autocomplete="off" maxlength="4" minlength="4" />
+                                </div>
+                                <div>
+                                    <label>Security Code</label>
+                                    <input type="text" name="securityCode" id="securityCode" class="form-control" placeholder="Security Code" value="" autocomplete="off" maxlength="4" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="bookingCheck">
+                    <div class="alert alert-warning"><input type="checkbox" name="terms" id="bookingTerms" checked style="width: 20px;" /><label style="margin-top:0;" for="bookingTerms">By clicking on "Make Payments" I accept the <a href="/terms.aspx/" target="_blank">Terms &amp; Conditions</a> of way4fly and I accept that my bank card will be charged for the above total amount for this purchase.</label></div>
+                </div>
+
+               
+
+
+               
+                    <div class="booking-price">
+                        <span class="rltPrice"><small>You Pay:</small> $@(((Model.FlightsFare.GrandTotal)).ToString("0.00"))</span>
+                        <p>incl. taxes &amp; fees</p>
+                        <input type="submit" class="btn btn-primary" name="make_payment1" id="make_payment1" value="Make Payments">
+                        <p><small><i class="fa fa-lock"></i> Your payment is 100% safe</small></p>
+                    </div>
+
+                    <input type="hidden" id="hdnBaggagePrice" name="hdnBaggagePrice" value="0" />
+                    <input type="hidden" id="hdnBaggagePcs" name="hdnBaggagePcs" value="0" />
+                    <input type="hidden" id="hdnFreeChangeAmt" name="hdnFreeChangeAmt" value="0" />
+                    <input type="hidden" id="hdnFinalfare" name="hdnFinalfare" value="@((flights.FlightFare.GrandTotal).ToString("0.00"))" />
+                
+            </form>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript" src="@(ViewBag.StaticURL + "Content/js/jquery.payment.min.js")"></script>
+    <script type="text/javascript" src="@(ViewBag.StaticURL + "Content/js/jquery.validate.min.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#idpmt").hide();
+
+            $("#show_cvv_code_detail").click(function(){
+                $("#cvv_code_detail").show();
+            });
+            $("#cvv_code_close").click(function(){
+                $("#cvv_code_detail").hide();
+            });
+
+            $(".adult_datepicker").datepicker({
+                dateFormat: 'dd-mm-yy',
+                minDate: "-90Y",
+                maxDate: '@DateTime.Now.AddYears(-12).ToString("dd-MM-yyyy")',
+                autoHide: true,
+                yearRange: "-100:+0",
+                changeMonth: true,
+                changeYear: true
+            });
+            $(".child_datepicker").datepicker({
+                dateFormat: 'dd-mm-yy',
+                minDate: '@DateTime.Now.AddYears(-12).ToString("dd-MM-yyyy")',
+                maxDate: '@DateTime.Now.AddYears(-2).ToString("dd-MM-yyyy")',
+                autoHide: true,
+                changeMonth: true,
+                changeYear: true
+            });
+            $(".infant_datepicker").datepicker({
+                dateFormat: 'dd-mm-yy',
+                minDate: '@DateTime.Now.AddYears(-2).ToString("dd-MM-yyyy")',
+                maxDate: '@DateTime.Now.ToString("dd-MM-yyyy")',
+                autoHide: true,
+                changeMonth: true,
+                changeYear: true
+            });
+
+            $(".bk_smry_view_detail").click(function(){
+                $("html, body").animate({ scrollTop: "650px" });
+                $(".bk_main_bro").slideDown();
+            });
+
+            $("#pass_cont_next").click(function () {
+                var pass_flag = true;
+                $(".chk_pass").each(function(i){
+                    if($(this).val().trim(' ') == "")
+                    {
+                        alert("Please enter your passenger detail.");
+                        $(this).focus();
+                        pass_flag = false;
+                        return false;
+                    }
+                });
+            });
+
+            $("#pass_addr_back").click(function () {
+                $("#addr_detail").slideUp(function(){ $("#cont_detail").slideDown(); });
+            });
+            $("#pass_addr_next").click(function(){
+
+                if(addr_flag)
+                {
+                    $("#addr_detail").slideUp(function(){ $("#card_detail").slideDown(); });
+                    $("#addr_detail_edit").show();
+                }
+            });
+            $("#addr_detail_edit").click(function(){
+                $(this).hide();
+                $("#cont_detail_edit").show();
+                $("#card_detail").slideUp(function(){ $("#cont_detail").slideUp(function(){ $("#addr_detail").slideDown(); }); });
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $("[data-numeric]").payment('restrictNumeric');
+        $(".cc_number").payment('formatCardNumber');
+        $(".cc_exp").payment('formatCardExpiry');
+        $(".cc_cvc").payment('formatCardCVC');
+
+
+        function SetCvvNo() {
+            var _cardType = $('#cardType').val();
+            if (_cardType === "amex") {
+                $("#cc_cvv").attr('maxlength', '4');
+            }
+            else {
+                $("#cc_cvv").attr('maxlength', '3');
+            }
+        }
+
+        function SetCardType() {
+
+            var cardType = $.payment.cardType($('.cc_number').val());
+            $("#cc_card_type").val(cardType);
+            $('#cardType').val(cardType).change();
+
+        }
+
+    </script>
+
+    <script>
+
+
+        $(document).ready(function(){
+            $(".baggage").click(function(){
+                $(".baggage").removeClass("baggage-select");
+                $(this).addClass("baggage-select");
+            });
+        });
+
+        $(document).ready(function(){
+            $('#spBaggagePrice').text($('#hdnhand_weight').val()+ ' kg PP');
+            $('#spBagname').text('Cabin Bag');
+            if($('#baggage_0').prop("checked") == true)
+            {
+                $('#spBagname1').text('Check In Luggage');
+                $("#spBaggagePrice1").html("Not Included");
+            }
+            if($('#baggage_1').prop("checked") == true)
+            {
+                $('#spBagname1').text('Check In Luggage');
+                $("#spBaggagePrice1").html($('#hdnhold_weight').val()+" kg Included");
+            }
+
+
+        });
+        $(document).ready(function(){
+
+            $("#makePayment_Totalfare").text($("#spntotfare").text());
+
+            if($('#chkFreeChange').prop("checked") == true)
+            {
+
+            }
+            $('#chkFreeChange').change(function(){
+
+                var finalfare=parseFloat($("#spntotfare").text());
+
+                var freechange=parseFloat(0.0);
+
+                if($('#chkFreeChange').prop("checked") == true)
+                {
+                    freechange= parseFloat($('#spfreechange').text());
+                    $('#hdnFreeChangeAmt').val(freechange);
+                    finalfare=finalfare+freechange;
+                }
+                else
+                {
+                    freechange= parseFloat($('#spfreechange').text());
+                    finalfare=finalfare-freechange;
+
+                }
+                $("#makePayment_Totalfare").text(finalfare);
+                $("#spntotfare").html(finalfare);
+                $("#spntotfare1").html(finalfare);
+                $("#hdnFinalfare").val(finalfare);
+
+            });
+        });
+
+        function BaggagePrice(Pcs,BagPrice,GrandTotal,weight)
+        {    $('#spBagname1').text('Check In Luggage');
+            var freechange=parseFloat(0.0);
+            if($('#chkFreeChange').prop("checked") == true)
+            {
+                freechange= parseFloat($('#spfreechange').text());
+            }
+            var grandTotal = (@((Model.FlightsFare.Adult + Model.FlightsFare.Child + Model.FlightsFare.Infant))+freechange+ parseFloat(BagPrice)+ parseFloat(GrandTotal)).toFixed(2);
+
+            if(BagPrice==="0")
+            {
+                $("#makePayment_Totalfare").text($("#spntotfare").text());
+                $("#spntotfare").html(grandTotal);
+                $("#spntotfare1").html(grandTotal);
+                $("#hdnFinalfare").val(grandTotal);
+                $("#hdnBaggagePrice").val(BagPrice);
+                $("#hdnBaggagePcs").val(Pcs);
+            }
+            else
+            {
+                $("#makePayment_Totalfare").text($("#spntotfare").text());
+                $("#spntotfare").html(grandTotal);
+                $("#spntotfare1").html(grandTotal);
+                $("#hdnFinalfare").html(grandTotal);
+                $("#hdnBaggagePrice").val(BagPrice);
+                $("#hdnBaggagePcs").val(Pcs);
+            }
+
+            if((parseInt(BagPrice)==0) && parseInt(Pcs)==0)
+            {  $("#spBaggagePrice1").html("Not Included");
+            }
+
+            if((parseInt(BagPrice)>=0) && parseInt(Pcs)==1)
+            { $("#spBaggagePrice1").html(weight+" kg Included");
+            }
+
+            if((parseInt(BagPrice)>=0) && parseInt(Pcs)==2)
+            {  $("#spBaggagePrice1").html((parseInt(weight) *2)+" kg Included");
+            }
+        }
+    </script>
+    <script>
+        $(document).ready(function(){
+
+            $('#PassengerInfo').show();
+            $('#addressSec').show();
+            $('#paymentSec').show();
+
+        });
+
+        $(document).ready(function(){
+
+            $('#fname_1').keypress(function(){
+                $('#fname_1').css('border-color', '');
+            });
+            $('#lname_1').keypress(function(){
+                $('#lname_1').css('border-color', '');
+            });
+            $('#dob_1').keypress(function(){
+                $('#dob_1').css('border-color', '');
+            });
+            $('#phone').keypress(function(){
+                $('#phone').css('border-color', '');
+            });
+            $('#email').keypress(function(){
+                $('#email').css('border-color', '');
+            });
+            $('#postcode').keypress(function(){
+                $('#postcode').css('border-color', '');
+            });
+            $('#state').keypress(function(){
+                $('#state').css('border-color', '');
+            });
+            $('#city').change(function(){
+                $('#city').css('border-color', '');
+            });
+            $('#address').keypress(function(){
+                $('#address').css('border-color', '');
+            });
+        });
+
+        $('#btnContinue').click(function(){
+
+            var lboolcheck = true;
+
+            if ($('#title_1').val().trim() == '') {
+                lboolcheck = false;
+                $('#addressSec').hide();
+                $('#title_1').css('border-color', 'red');
+
+                alert("Plese Select Title.... ");
+
+            }
+
+            if($('#fname_1').val().trim()=='')
+            {   lboolcheck=false;
+                $('#addressSec').hide();
+                $('#fname_1').css('border-color', 'red');
+            }
+            if($('#lname_1').val().trim()=='')
+            {   lboolcheck=false;
+
+                $('#addressSec').hide();
+                $('#lname_1').css('border-color', 'red');
+            }
+            if($('#dob_1').val().trim()=='')
+            {lboolcheck=false;
+                $('#addressSec').hide();
+                $('#dob_1').css('border-color', 'red');
+            }
+            if($('#phone').val().trim()=='')
+            {lboolcheck=false;
+                $('#addressSec').show();
+                $('#phone').css('border-color', 'red');
+            }
+            if($('#email').val().trim()=='')
+            {lboolcheck=false;
+                $('#addressSec').show();
+                $('#email').css('border-color', 'red');
+            }
+
+            if ($('#address').val().trim() == '') {
+                lboolcheck = false;
+                $('#addressSec').show();
+                $('#address').css('border-color', 'red');
+            }
+
+            if ($('#city').val().trim() == '') {
+                lboolcheck = false;
+                $('#addressSec').show();
+                $('#city').css('border-color', 'red');
+            }
+
+            if ($('#postcode').val().trim() == '') {
+                lboolcheck = false;
+                $('#addressSec').show();
+                $('#postcode').css('border-color', 'red');
+            }
+
+            if(lboolcheck)
+            {
+                $('#PassengerInfo').show();
+                $('#addressSec').show();
+                $('#fname_1').css('border-color', '');
+                $('#lname_1').css('border-color', '');
+                $('#email').css('border-color', '');
+                $('#phone').css('border-color', '');
+                $('#dob_1').css('border-color', '');
+                $('#postcode').css('border-color', '');
+                $('#btnContinue').hide();
+                $('#lblbook').hide();
+
+
+                $('#idpmt').show();
+
+                $.ajax(
+                   {
+                       type: "POST",
+                       url: "@(ViewBag.StaticURL+ "flight/bookingalert")",
+                       data: {
+                           Phone: $("#phone").val(),
+                           Email: $("#email").val(),
+                           FULLname: $("#title_1").val()+" "+$("#fname_1").val()+" "+$("#lname_1").val(),
+                       },
+                       success: function (data) {
+                           // alert("success");
+                       }
+                   });
+            }
+
+
+
+        });
+
+        $('#btnNext1').click(function(){
+
+            var lboolcheck=true;
+            if($('#fname_1').val().trim()=='')
+            {   lboolcheck=false;
+                $('#addressSec').hide();
+                $('#fname_1').css('border-color', 'red');
+            }
+            if($('#lname_1').val().trim()=='')
+            {   lboolcheck=false;
+
+                $('#addressSec').hide();
+                $('#lname_1').css('border-color', 'red');
+            }
+            if($('#dob_1').val().trim()=='')
+            {lboolcheck=false;
+                $('#addressSec').hide();
+                $('#dob_1').css('border-color', 'red');
+            }
+            if($('#phone').val().trim()=='')
+            {lboolcheck=false;
+                $('#addressSec').show();
+                $('#phone').css('border-color', 'red');
+            }
+            if($('#email').val().trim()=='')
+            {lboolcheck=false;
+                $('#addressSec').show();
+                $('#email').css('border-color', 'red');
+            }
+
+            if(lboolcheck)
+            {
+                $('#PassengerInfo').show();
+                $('#addressSec').show();
+                $('#fname_1').css('border-color', '');
+                $('#lname_1').css('border-color', '');
+                $('#email').css('border-color', '');
+                $('#phone').css('border-color', '');
+                $('#dob_1').css('border-color', '');
+
+
+                $.ajax(
+                   {
+                       type: "POST",
+                       url: "@(ViewBag.StaticURL+ "flight/bookingalert")",
+                       data: {
+                           Phone: $("#phone").val(),
+                           Email: $("#email").val(),
+                           FULLname: $("#title_1").val()+" "+$("#fname_1").val()+" "+$("#lname_1").val(),
+                       },
+                       success: function (data) {
+                           // alert("success");
+                       }
+                   });
+            }
+
+            var lboolcheck = true;
+            if ($('#address').val().trim() == '') {
+                lboolcheck = false;
+                $('#paymentSec').show();
+                $('#address').css('border-color', 'red');
+            }
+
+            if ($('#city').val().trim() == '') {
+                lboolcheck = false;
+
+                $('#paymentSec').show();
+                $('#city').css('border-color', 'red');
+            }
+
+            if ($('#postcode').val().trim() == '') {
+                lboolcheck = false;
+                $('#paymentSec').show();
+                $('#postcode').css('border-color', 'red');
+            }
+
+            if (lboolcheck) {
+                $('#paymentSec').show();
+                $('#addressSec').hide();
+
+                $('#postcode').css('border-color', '');
+                $('#city').css('border-color', '');
+                $('#address').css('border-color', '');
+            }
+
+            if ($('#phone').val().trim() == '') {
+                lboolcheck = false;
+                alert("please enter a valid Phone No")
+                $('#phone').focus();
+                return false;
+            }
+            if ($('#email').val().trim() == '') {
+                lboolcheck = false;
+                alert("please enter a valid EmailId")
+                $('#email').focus();
+                return false;
+            }
+
+        });
+
+
+        $('#btnNext2').click(function(){
+
+            var lboolcheck=true;
+            if($('#address').val().trim()=='')
+            {   lboolcheck=false;
+                $('#paymentSec').show();
+                $('#address').css('border-color', 'red');
+            }
+
+            if($('#city').val().trim()=='')
+            {   lboolcheck=false;
+
+                $('#paymentSec').show();
+                $('#city').css('border-color', 'red');
+            }
+
+            if($('#postcode').val().trim()=='')
+            {
+                lboolcheck=false;
+                $('#paymentSec').show();
+                $('#postcode').css('border-color', 'red');
+            }
+
+            if(lboolcheck)
+            {   $('#paymentSec').show();
+                $('#addressSec').hide();
+
+                $('#postcode').css('border-color', '');
+                $('#city').css('border-color', '');
+                $('#address').css('border-color', '');
+            }
+        });
+
+
+        $(document).ready(function(){
+
+            $('#paxinfo').click(function(){
+
+                $('#PassengerInfo').show();
+                $('#addressSec').show();
+                $('#paymentSec').show();
+            });
+            $('#addressinfo').click(function(){
+
+                 if($('#phone').val().trim()=='')
+                 {
+                     lboolcheck = false;
+                     alert("please enter a valid Phone No")
+                     $('#phone').focus();
+                     return false;
+                 }
+                 if($('#email').val().trim()=='')
+                 {
+                    lboolcheck = false;
+                     alert("please enter a valid EmailId")
+                     $('#email').focus();
+                    return false;
+                }
+
+                $('#PassengerInfo').show();
+                 $('#addressSec').show();
+                $('#paymentSec').show();
+
+                 $.ajax(
+                   {
+                       type: "POST",
+                       url: "@(ViewBag.StaticURL+ "flight/bookingalert")",
+                       data: {
+                           Phone: $("#phone").val(),
+                           Email: $("#email").val(),
+                           FULLname: $("#title_1").val()+" "+$("#fname_1").val()+" "+$("#lname_1").val(),
+                       },
+                       success: function (data) {
+                           // alert("success");
+                       }
+                     });
+
+
+
+            });
+            $('#paymentinfo').click(function(){
+
+                $('#PassengerInfo').show();
+                $('#addressSec').show();
+                $('#paymentSec').show();
+            });
+        });
+
+
+        function IsValidate()
+        {
+
+            if($('#fname_1').val().trim()=='')
+            {   alert("Please enter your first name.");
+                $('#fname_1').css('border-color', 'red');
+                $('#PassengerInfo').show();
+                $('#addressSec').show();
+                $('#paymentSec').show();
+                return false;
+            }
+            if($('#lname_1').val().trim()=='')
+            {    alert("Please enter your last name.");
+                $('#lname_1').css('border-color', 'red');
+                $('#PassengerInfo').show();
+                $('#addressSec').show();
+                $('#paymentSec').show();
+                return false;
+            }
+
+            if ($('#pDay_1').val().trim() == '') {
+                alert("Please Select birth of Day.");
+                $('#pDay_1').css('border-color', 'red');
+                return false;
+            }
+
+            if ($('#pMonth_1').val().trim() == '') {
+                alert("Please Select birth of Month.");
+                $('#pMonth_1').css('border-color', 'red');
+                return false;
+            }
+
+
+            if($('#dob_1').val().trim()=='')
+            {
+                alert("Please enter your date of birth.");
+                $('#dob_1').css('border-color', 'red');
+                $('#PassengerInfo').show();
+                $('#addressSec').show();
+                $('#paymentSec').show();
+                return false;
+            }
+
+            if ($("#phone").val().trim(' ') == "")
+            {
+                alert("Please enter your phone number.");
+                $("#phone").focus();
+                $('#phone').css('border-color', 'red');
+                $('#PassengerInfo').show();
+                $('#addressSec').show();
+                $('#paymentSec').show();
+                return false;
+            }
+            else
+            {
+                var phoneNum = $("#phone").val().replace(/[^\d]/g, '');
+                if(!(phoneNum.length > 7 && phoneNum.length < 15))
+                {
+                    alert("Please enter your valid phone number.");
+                    $("#phone").focus();
+                    $('#phone').css('border-color', 'red');
+                    $('#PassengerInfo').show();
+                    $('#addressSec').show();
+                    $('#paymentSec').show();
+                    return false;
+                }
+            }
+
+            if ($("#email").val().trim(' ') == "")
+            {
+                alert("Please enter your email.");
+                $('#email').css('border-color', 'red');
+                $("#email").focus();
+                $('#PassengerInfo').show();
+                $('#addressSec').show();
+                $('#paymentSec').show();
+                return false;
+            }
+            else
+            {
+                var filter = @("/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{0,4}$/");
+                if (!filter.test(document.getElementById("email").value)) {
+                    alert("Please enter your valid email.");
+                    $('#email').css('border-color', 'red');
+                    document.getElementById("email").focus();
+                    $('#PassengerInfo').show();
+                    $('#addressSec').show();
+                    $('#paymentSec').show();
+                    return false;
+                }
+            }
+
+            var addr_flag = true;
+            if ($("#address").val().trim(' ') == "")
+            {
+                alert("Please enter your full address.");
+                $('#address').css('border-color', 'red');
+                addr_flag = false;
+                $("#address").focus();
+
+                $('#PassengerInfo').show();
+                $('#addressSec').show();
+                $('#paymentSec').show();
+
+                return false;
+            }
+            else if ($("#countryCode").val().trim(' ') == "")
+            {
+                alert("Please select your country.");
+                $('#countryCode').css('border-color', 'red');
+                addr_flag = false;
+                $("#countryCode").focus();
+                $('#PassengerInfo').show();
+                $('#addressSec').show();
+                $('#paymentSec').show();
+                return false;
+            }
+            else if ($("#city").val().trim(' ') == "")
+            {
+                alert("Please enter your city.");
+                $('#city').css('border-color', 'red');
+                addr_flag = false;
+                $("#city").focus();
+                $('#PassengerInfo').show();
+                $('#addressSec').show();
+                $('#paymentSec').show();
+                return false;
+            }
+            else if ($("#postcode").val().trim(' ') == "")
+            {
+                alert("Please enter your postcode.");
+                $('#postcode').css('border-color', 'red');
+                addr_flag = false;
+                $("#postcode").focus();
+                $('#PassengerInfo').show();
+                $('#addressSec').show();
+                $('#paymentSec').show();
+                return false;
+            }
+
+
+
+
+            return true;
+        }
+    </script>
+
+
+
+    <script>
+
+        $("#make_payment1").click(function () {
+            debugger;
+            {
+
+
+                ////Card Validation Code
+                var cardType = $.payment.cardType($('.cc_number').val());
+                if ($("#cc_name").val().trim(' ') == "") {
+                    alert("Please enter your card name.");
+                    $("#cc_name").focus();
+                    return false;
+                }
+                else if ($("#cardType").val() == "cardtype") {
+                    alert("Please enter your card type.");
+                    $("#cardType").focus();
+                    return false;
+                }
+
+                if ($("#cc_expMM").val().trim(' ') == "") {
+                    alert("Please enter your card Exp. Month");
+                    $("#cc_expMM").focus();
+                    return false;
+                }
+                if ($("#cc_expYY").val().trim(' ') == "") {
+                    alert("Please enter your card Exp. Year.");
+                    $("#cc_expYY").focus();
+                    return false;
+                }
+                if ($("#securityCode").val().trim(' ') == "") {
+                    alert("Please enter your Security Code.");
+                    $("#securityCode").focus();
+                    return false;
+                }
+                else if (!$.payment.validateCardExpiry($('.cc_exp').payment('cardExpiryVal'))) {
+                    alert("Please enter your valid card expiry.");
+                    $(".cc_exp").focus();
+                    return false;
+                }
+                else if (!$.payment.validateCardCVC($('.securityCode').val(), cardType)) {
+                    alert("Please enter valid CVC No.");
+                    $(".securityCode").focus();
+                    return false;
+                }
+
+                $("#cc_card_type").val(cardType);
+                $('#cardType').val(cardType).change();
+
+                var _cardType = $('#cardType').val();
+                if (_cardType === "amex") {
+                    $("#cc_cvv").attr('maxlength', '4');
+                }
+                else {
+                    $("#cc_cvv").attr('maxlength', '3');
+                }
+
+                if (_cardType === "amex") {
+                    var ccv = $("#cc_cvv").val().length;
+                    if (ccv === 4) {
+                        return true;
+                    }
+                    else {
+                        alert('Please enter valid CVC No.');
+                        $("#cc_cvv").focus();
+                        return false;
+                    }
+                }
+                else {
+                    $("#cc_cvv").attr('maxlength', '3');
+                }
+
+                alert("Test");
+                return true;
+            }
+
+        });
+
+        $("#make_payment").click(function () {
+            if (!IsValidate()) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        });
+    </script>
+
+}

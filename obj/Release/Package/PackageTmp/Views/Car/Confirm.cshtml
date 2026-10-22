@@ -1,0 +1,79 @@
+﻿@model Viman.Models.CarsBooking
+@using Viman.Models
+@{
+    ViewBag.Title = "Confirm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = "Confirm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.WebsiteURL = Common.WebsiteURL;
+    ViewBag.StaticURL = Common.StaticURL;
+    ViewBag.Currency = Common.Currency;
+
+    double carTotal = Model.Cars.TotalCost;
+    if (Model.Cars.XsellLocal != null)
+    {
+        foreach (CarsExtras item in Model.Cars.XsellLocal)
+        {
+            if (item.IsSelect)
+            {
+                carTotal += item.Gross;
+            }
+        }
+    }
+    if (Model.Cars.XsellExtra != null)
+    {
+        foreach (CarsExtras item in Model.Cars.XsellExtra)
+        {
+            if (item.IsSelect)
+            {
+                carTotal += item.Gross;
+            }
+        }
+    }
+}
+
+<div class="background_top"></div>
+
+<div class="container">
+    <div class="gap_small">&nbsp;</div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="car_cn_check">
+                <i class="fa fa-check-circle"></i>
+                <h2>@(Model.BookerDetail.FirstName), your payment was successful!</h2>
+                <h3>Booking details has been send to <b>@(Model.BookerDetail.Email)</b> &nbsp; Ref : <b style="color:#f00;">@(Model.BookingId)</b></h3>
+            </div>
+            <div class="car_cn_list_order clearfix">
+                <div class="car_cn_flt_dtl">
+                    <div class="car_cn_pss_dtl">
+                        <h3>
+                            <i class="fa fa-car"></i>
+                            @(Model.Cars.Name)
+                        </h3>
+                    </div>
+                    <div class="car_cn_addr clearfix">
+                        <span><b>Pick Up: </b> @(Model.CarsSearch.FromLocation.CityName)</span>
+                        <span><b>Drop Off: </b> @(Model.CarsSearch.ToLocation.CityName)</span>
+                        <span><b>Date and Time: </b>@(Model.CarsSearch.PickupDate.ToString("dddd dd MMMM, yyyy"))</span>
+                        <span><b>Date and Time: </b>@(Model.CarsSearch.DropoffDate.ToString("dddd dd MMMM, yyyy"))</span>
+                    </div>
+                    <div class="car_cn_total clearfix">
+                        <span>Total Amount</span>
+                        <strong>@(ViewBag.Currency) @(carTotal.ToString("0.00"))</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="car_cn_link_main_border">&nbsp;</div>
+    <div class="car_cn_link_main clearfix">
+        <h2>You might also need in <span> New York </span></h2>
+        <ul class="car_cn_othr_link">
+            <li><a href="@Url.Content("~/hotels/")">Hotel</a></li>
+            <li><a href="@Url.Content("~/flights/")">Flight</a></li>
+            <li><a href="@Url.Content("~/")">Car + Hotel</a></li>
+            <li><a href="@Url.Content("~/car/")">Another Search</a></li>
+        </ul>
+    </div>
+</div>

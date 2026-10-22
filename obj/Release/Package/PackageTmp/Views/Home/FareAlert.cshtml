@@ -1,0 +1,451 @@
+﻿@using Viman.Models
+@{
+    ViewBag.Title = "Fare Alert";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="background_top"></div>
+<div class="main_bredcrum">
+    <div class="container">
+        <div class="col-xs-12">
+            <div class="bread_head">
+                <ul>
+                    <li><a href="@Url.Content("~/")">Home</a></li>
+                    <li> <a href="javascript:void(0);" class="fa fa-angle-right angle_bred"></a> </li>
+                    <li><a href="@Url.Content("~/fare-alert/")">Fare Alert</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 abut_bodyhead">
+            <h2>Why Fare Alert</h2>
+        </div>
+        <div class="col-xs-12">
+            <div class="FA_tp_cont">
+                <p>
+                    We all love travelling but sometimes the whole pre-arrival process can take away the fantasy of travelling.
+                    Long queues at the airport, heavy rush on check-in desks, long waiting times etc. can be surely avoided.
+                    Check-in for your flight is just a click away from your own computer to lessen this burden and wait times because many
+                    airlines today offer online check-in facility to avoid long queues and thus go straight to the baggage drop. Checking in
+                    online allows you to select your seat so there is no more “Got the middle seat again” and even print the boarding passes
+                    up to 24 hours in advance.
+                </p>
+                <p>
+                    Just find the airline you are flying with and use the Go button to go directly to their online check-in.
+                    You typically need to provide your name, booking confirmation number or sometimes you can also check in with your frequent
+                    flier or credit card number as well.
+                </p>
+                <p>
+                    <b>Note:-</b> Online check-in restrictions and expectations vary depending on the airline you are selecting so it is
+                    recommended to familiarise yourself with these before relying on the service on your day of departure.
+                </p>
+                <p>
+                    If the airline is not listed on the given page then it means they may not provide this service and you may require to
+                    check- in at the airport.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8 col-xs-12">
+            <form name="contact_frm" id="contact_frm" method="post" onsubmit="javascript:return frmCheck();">
+                <div class="FA_form">
+                    @if (ViewBag.msg == "1")
+                    {
+                        <p style="color:green;">Thank you for submit your contact us request. Administrator contact will be soon.</p>
+                    }
+                    <div class="FA_con_info">
+                        <label>Origin</label>
+                        <input type="text" placeholder="Origin" class="FA_con_info_box" name="txt_flight_from" id="txt_flight_from" autocomplete="off">
+                        <i class="fa fa-map-marker"></i>
+                    </div>
+                    <div class="FA_con_info">
+                        <label>Destination</label>
+                        <input type="text" placeholder="Destination" class="FA_con_info_box" name="txt_flight_to" id="txt_flight_to" autocomplete="off">
+                        <i class="fa fa-map-marker"></i>
+                    </div>
+                    <div class="FA_con_info">
+                        <label>Departure Date</label>
+                        <input type="text" placeholder="Departure Date" class="FA_con_info_box" name="txt_from_date" id="txt_from_date">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <div class="FA_con_info">
+                        <label>Return Date</label>
+                        <input type="text" placeholder="Return Date" class="FA_con_info_box" name="txt_to_date" id="txt_to_date">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <div class="FA_con_info prp_popup">
+                        <label>Person</label>
+                        <input type="text" placeholder="1 Adult Economy" class="FA_con_info_box" id="FA_prsn_add" name="FA_prsn_add">
+                        <i class="fa fa-angle-down"></i>
+
+                        <div class="FA_prsn_popup" id="prsn_popup">
+                            <ul class="FA_slect_pssngr">
+                                <li>
+                                    <label>Adult &nbsp;<span>(12+ Years)</span></label>
+                                    <div class="FA_count_pssngr">
+                                        <a href="javascript:void(0);"><em data-field="adult" data-opt="-" class="fa fa-minus inc_der"></em></a>
+                                        <input type="text" readonly="" class="FA_inpt_cout_pssngr" value="1" name="flight_adult" id="flight_adult">
+                                        <a href="javascript:void(0);"><em data-field="adult" data-opt="+" class="fa fa-plus inc_der"></em></a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label>Children &nbsp;<span>(2-11 Years)</span></label>
+                                    <div class="FA_count_pssngr">
+                                        <a href="javascript:void(0);"><em data-field="child" data-opt="-" class="fa fa-minus inc_der"></em></a>
+                                        <input type="text" class="FA_inpt_cout_pssngr" readonly="" value="0" name="flight_child" id="flight_child">
+                                        <a href="javascript:void(0);"><em data-field="child" data-opt="+" class="fa fa-plus inc_der"></em></a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label>Infant &nbsp;<span>(0-2 Years)</span></label>
+                                    <div class="FA_count_pssngr">
+                                        <a href="javascript:void(0);"><em data-field="infant" data-opt="-" class="fa fa-minus inc_der"></em></a>
+                                        <input type="text" class="FA_inpt_cout_pssngr" readonly="" value="0" name="flight_infant" id="flight_infant">
+                                        <a href="javascript:void(0);"><em data-field="infant" data-opt="+" class="fa fa-plus inc_der"></em></a>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="FA_combin_class">
+                                <ul class="FA_in_list_cls">
+                                    <li><input type="radio" name="flight_class" id="flight_class_4" value="4" checked=""><label for="flight_class_4"> Economy</label> </li>
+                                    <li><input type="radio" name="flight_class" id="flight_class_3" value="3"><label for="flight_class_3"> Premium Economy</label> </li>
+                                    <li><input type="radio" name="flight_class" id="flight_class_2" value="2"><label for="flight_class_2"> Business</label></li>
+                                    <li><input type="radio" name="flight_class" id="flight_class_1" value="1"><label for="flight_class_1"> First Class</label></li>
+                                </ul>
+                            </div>
+                            <div class="FA_clss_done">
+                                <a href="javascript:void(0);" id="prsn_done">Done</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="FA_name">
+                        <div class="FA_checkBox">
+                            <input type="checkbox" id="dr_flght" name="dr_flght" value="1">
+                            <label for="dr_flght">Direct Flight</label><br>
+                            <input type="checkbox" id="FlxDate" name="FlxDate" value="1">
+                            <label for="FlxDate">Flexi Date (+/- 3 Days)</label>
+                        </div>
+                    </div>
+                    <div class="FA_name">
+                        <label>First Name</label>
+                        <input type="text" class="FA_name_box" placeholder="First Name" id="txt_fname" name="txt_fname">
+                    </div>
+                    <div class="FA_name">
+                        <label>Last Name</label>
+                        <input type="text" class="FA_name_box" placeholder="Last Name" id="txt_lname" name="txt_lname">
+                    </div>
+                    <div class="FA_name">
+                        <label>Email</label>
+                        <input type="text" class="FA_name_box" placeholder="Email" id="txt_email" name="txt_email">
+                    </div>
+                    <div class="FA_name">
+                        <label>Phone</label>
+                        <input type="text" class="FA_name_box" placeholder="Phone" id="txt_phone" name="txt_phone">
+                    </div>
+                    <div class="FA_cmmntBox">
+                        <textarea class="FA_txtarea" placeholder="Message..." id="txt_message" name="txt_message"></textarea>
+                    </div>
+                    <div class="FA_cap_btn">
+                        <button type="submit" name="contact_btn" id="contact_btn">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-sm-4 col-xs-12">
+            <div class="con_add">
+                <div class="con_subadd">
+                    <h3>Travelopedia Ltd</h3>
+                    <p>Travelopedia Ltd is a company registered in England with company number - 08168135</p>
+                    <p>2nd Floor 7 Mackenzie Street, <br> Slough – SL1 1XQ</p>
+                    <h4>
+                        <i class="fa fa-phone"></i>
+                        0203 745 4455
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script type="text/javascript">
+        $("#FA_prsn_add").click(function () {
+            $(".FA_prsn_popup").slideToggle("slow");
+        });
+
+        $(document).ready(function () {
+            var selectFrom = false;
+            var selectTo = false;
+
+            var isdirect = "&IsDirect=" + (($("input[name=dr_flght]:checked").val()=="1")?"true":"false");
+            var isflexi = "&IsFlexi=" + (($("input[name=FlxDate]:checked").val()=="1")?"true":"false");
+
+            $('#txt_flight_from').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/api/getairport",
+                        dataType: "json",
+                        data: {
+                            pickUpLocation: request.term
+                        },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    value: item.Code,
+                                    label: (item.Code + "-" + item.Name + ", " + item.CityName)
+                                }
+                            }));
+                        }
+                    })
+                },
+                open: function (event, ui) { selectFrom = true; },
+                select: function (event, ui) {
+                    $(this).val(ui.item.label);
+                    selectFrom = false;
+                    return false;
+                },
+                close: function (event, ui) {
+                    selectFrom = false;
+                },
+                minLength: 3,
+                autoFocus: true
+            }).blur(function () {
+                if (selectFrom) {
+                    $("#txt_flight_from").val($('ul.ui-autocomplete li:first a').text());
+                }
+            });
+
+            $("#txt_flight_to").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/api/getairport",
+                        dataType: "json",
+                        data: {
+                            pickUpLocation: request.term
+                        },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    value: item.Code,
+                                    label: (item.Code + "-" + item.Name + ", " + item.CityName)
+                                }
+                            }));
+                        }
+                    })
+                },
+                open: function (event, ui) {
+                    selectTo = true;
+                },
+                select: function (event, ui) {
+                    $(this).val(ui.item.label);
+                    selectTo = false;
+                    return false;
+                },
+                close: function (event, ui) {
+                    selectTo = false;
+                },
+                minLength: 3,
+                autoFocus: true
+            }).blur(function () {
+                if (selectTo) {
+                    $("#txt_flight_to").val($('ul.ui-autocomplete li:first a').text());
+                }
+            });
+        });
+
+        $('#txt_from_date').datetimepicker({
+            timepicker: false,
+            format: 'd-m-Y',
+            minDate: '@DateTime.Now.ToString("yyyy-MM-dd")',
+            onSelectDate: function (ct) {
+                addNightToDate('txt_from_date', 'txt_to_date', 7);
+                $("#txt_to_date").focus();
+            },
+        });
+
+        $('#txt_to_date').datetimepicker({
+            timepicker: false,
+            format: 'd-m-Y',
+            minDate: '@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")',
+            onShow: function (ct) {
+                if ($('#txt_from_date').val()) {
+                    var s_date_arr = $('#txt_from_date').val().split("-");
+                    var s_date = s_date_arr[2] + "-" + s_date_arr[1] + "-" + s_date_arr[0];
+
+                    this.setOptions({
+                        minDate: s_date
+                    })
+                }
+            },
+        });
+        function addNightToDate(fromD, toD, noD) {
+            var s_date_arr = $('#' + fromD).val().split("-");
+            var dat = new Date(s_date_arr[2] + "-" + s_date_arr[1] + "-" + s_date_arr[0]);
+            dat.addDays(noD);
+
+            var c_day = (dat.getDate().toString().length == 1) ? "0" + dat.getDate() : dat.getDate();
+            var c_month = ((dat.getMonth() + 1).toString().length == 1) ? "0" + (dat.getMonth() + 1) : (dat.getMonth() + 1);
+            $('#' + toD).val(c_day + "-" + c_month + "-" + dat.getFullYear());
+        }
+
+        function getPassenger() {
+            var str = $("#flight_adult").val() + " Adult";
+            if ($("#flight_child").val() > 0) {
+                str += ", " + $("#flight_child").val() + "Child";
+            }
+            if ($("#flight_infant").val() > 0) {
+                str += ", " + $("#flight_infant").val() + "Infant";
+            }
+            var chk_cls = $('input[name=flight_class]:checked').val();
+
+            if (chk_cls == "1") {
+                str += ", First";
+            }
+            else if (chk_cls == "2") {
+                str += ", Business";
+            }
+            else if (chk_cls == "3") {
+                str += ", Premimum Economy";
+            }
+            else {
+                str += ", Economy";
+            }
+
+            $("#FA_prsn_add").val(str);
+        }
+
+        $(".inc_der").click(function () {
+            var fld = $(this).attr("data-field");
+            var fld_opt = $(this).attr("data-opt");
+            var adt = parseInt($("#flight_adult").val());
+            var chd = parseInt($("#flight_child").val());
+            var inf = parseInt($("#flight_infant").val());
+
+            if (fld == "adult") {
+                if (fld_opt == "+") {
+                    if ((adt + chd) < 9) {
+                        $("#flight_adult").val(adt + 1);
+                    }
+                }
+                else if (fld_opt == "-") {
+                    if (adt > 1) {
+                        $("#flight_adult").val(adt - 1);
+                    }
+                }
+            }
+            else if (fld == "child") {
+                if (fld_opt == "+") {
+                    if ((adt + chd) < 9) {
+                        $("#flight_child").val(chd + 1);
+                    }
+                }
+                else if (fld_opt == "-") {
+                    if (chd > 0) {
+                        $("#flight_child").val(chd - 1);
+                    }
+                }
+            }
+            else if (fld == "infant") {
+                if (fld_opt == "+") {
+                    if (adt > inf) {
+                        $("#flight_infant").val(inf + 1);
+                    }
+                }
+                else if (fld_opt == "-") {
+                    if (inf > 0) {
+                        $("#flight_infant").val(inf - 1);
+                    }
+                }
+            }
+
+            getPassenger();
+        });
+
+        $("input[name=flight_class]").change(function () {
+            getPassenger();
+        });
+
+        $("#prsn_add").click(function () {
+            $("#prsn_popup").slideDown("slow");
+        });
+        $("#prsn_done").click(function () {
+            $("#prsn_popup").slideUp("slow");
+        });
+        $('body').click(function () {
+            $("#prsn_popup").slideUp("slow");
+        });
+        $('.prp_popup').click(function (e) {
+            e.stopPropagation();
+        });
+
+        function frmCheck()
+        {
+            if (document.getElementById("txt_flight_from").value == "") {
+                alert("Please enter your origin.");
+                document.getElementById("txt_flight_from").focus();
+                return false;
+            }
+            if (document.getElementById("txt_flight_to").value == "") {
+                alert("Please enter your destination.");
+                document.getElementById("txt_flight_to").focus();
+                return false;
+            }
+            if (document.getElementById("flight_from_date").value == "") {
+                alert("Please enter your from date.");
+                document.getElementById("flight_from_date").focus();
+                return false;
+            }
+            if (document.getElementById("flight_to_date").value == "") {
+                alert("Please enter your to date.");
+                document.getElementById("flight_to_date").focus();
+                return false;
+            }
+            if (document.getElementById("txt_fname").value == "") {
+                alert("Please enter your first name.");
+                document.getElementById("txt_fname").focus();
+                return false;
+            }
+            if (document.getElementById("txt_lname").value == "") {
+                alert("Please enter your last name.");
+                document.getElementById("txt_lname").focus();
+                return false;
+            }
+            if (document.getElementById("txt_email").value == "") {
+                alert("Please enter your email.");
+                document.getElementById("txt_email").focus();
+                return false;
+            }
+            else
+            {
+                var filter = @("/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{0,4}$/");
+                if (!filter.test(document.getElementById("txt_email").value)) {
+                    alert("Please enter your valid email.");
+                    document.getElementById("txt_email").focus();
+                    return false;
+                }
+            }
+            if (document.getElementById("txt_phone").value == "") {
+                alert("Please enter your phone/mobile.");
+                document.getElementById("txt_phone").focus();
+                return false;
+            }
+
+            if (document.getElementById("txt_message").value == "") {
+                alert("Please enter your message.");
+                document.getElementById("txt_message").focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+}

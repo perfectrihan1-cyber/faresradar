@@ -1,0 +1,545 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Poppins');
+.Main{
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 99999999;
+    margin-right: 0px;
+    margin-left: 0px;	
+    font-family: 'Poppins', sans-serif;
+    position: absolute;
+}
+.mid{
+    background: #3199da;
+    width: 470px;
+    height: 420px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    top: 0px;
+    margin: auto;	
+    padding-top: 15px;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-bottom: 3px;
+	margin-bottom:15px;
+	-webkit-box-shadow: -1px 10px 34px -2px rgba(0,0,0,0.6);
+	-moz-box-shadow: -1px 10px 34px -2px rgba(0,0,0,0.6);
+	box-shadow: -1px 10px 34px -2px rgba(0,0,0,0.6);
+    margin-bottom: 30px;
+
+}
+.a{
+    height: 20%;
+	text-align:center;
+}
+.a h1{
+	color: yellow;
+	margin:0px;
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+.a p{
+	color: cornsilk;
+	margin:0px;
+}
+.b{
+    height: 50%;
+	text-align:center;
+}
+.loadCircle {
+    width: 140px;
+    height: 130px;
+}
+
+.c{
+    height: 30%;
+    background: #fff;
+}
+.one{
+	width:25%;
+	float:left;
+}
+.two{
+	width:50%;	
+	float:left;
+	text-align:center;
+}
+.two p:nth-child(1){
+    font-size: 24px;
+    line-height: 1;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.two p:nth-child(2){
+    color: #963021;
+    font-size: 16px;	
+}
+
+.three{
+	width:25%;	
+	float:left;
+}
+.girlImg{
+    width: 100%;
+    height: 109px;
+    margin-top: -10px;
+}
+.smallImg{
+    width:100%;
+    height: 90px;
+}
+
+.loadingPanel{
+
+}
+
+.loadingPanelCall{
+    margin-top: 25px;
+    -webkit-box-shadow: 9px 0px 34px 5px rgba(0,0,0,0.04);
+    -moz-box-shadow: 9px 0px 34px 5px rgba(0,0,0,0.04);
+    box-shadow: 9px 0px 34px 5px rgba(0,0,0,0.04);	
+    padding: 10px 10px;
+    border: .25px solid #e2e1e1;
+    text-align: center;
+    margin-bottom:25px;
+}
+
+
+.waitBold{
+font-size: 24px;
+}
+
+.loadingPanelCall .loadingPanelList p{
+    margin: 0px;
+    font-size: 24px;	
+}
+.loadingPanelCall .loadingPanelList i{
+    margin: 0px;
+    padding: 0px;
+    width: auto;
+
+}
+.loadingPanelCall .loadingPanelList p:nth-child(1){
+    font-size: 18px;	
+}
+
+.loadingPanelCall .loadingPanelList p:nth-child(2){
+	color: #3199da;	
+    font-weight: 600;
+}
+
+
+.loadingPanelHeading{
+    background: #f15a24;
+    color: #fff;
+    padding: 5px 0px;
+}
+.loadingPanelHeading i{
+    padding: 0px;
+    margin: 0px;
+    width: 20px;
+}
+.loadingPanelList{	
+}
+.loadingPanelList .btn-group-justified {
+border-bottom: 1px dashed #3199da;
+}
+.loadingPanelList img{
+    width: 100%;
+    -webkit-box-shadow: -1px 10px 34px -3px rgba(0, 0, 0, 0.33);
+    -moz-box-shadow: -1px 10px 34px -3px rgba(0, 0, 0, 0.33);
+    box-shadow: -1px 10px 34px -3px rgba(0, 0, 0, 0.33);
+}
+.loadingPanelList img:last-child{
+
+}
+.loadingPanelList img:nth-child(2) {
+    margin-top: 23px;
+}
+.loadingPanelList .btn-group a{
+	padding: 5px 0px;	
+        font-size: 18px;
+}
+.loadingPanelList .btn-group a:nth-child(2){
+	
+}
+.loadingPanelList .btn-group a:hover{
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: inset 0 3px 5px transparent;
+    box-shadow: inset 0 3px 5px transparent;
+}
+
+.panelUlLi {
+
+}
+.panelUlLi ul{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+.panelUlLi li{
+    display: inline;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 42px;
+    font-family: 'Quicksand', sans-serif;
+}
+.panelUlLi li:nth-child(2){
+    padding: 0px 10px;	
+}
+
+/*loader css*/
+/*PRELOADING------------ */
+#overlayer {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 99999999;
+    background: #ffffcf;
+    background: rgba(255, 255, 255, 0.8117647058823529);
+    background: hsla(0, 0%, 100%, 0.8117647058823529);
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    display: none;
+}
+#overlayer img{
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    margin: auto;
+}
+
+
+.loaderTravelz {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    z-index: 999999999;
+    border: 4px solid #fff;
+    animation: loader 2s infinite ease;
+    margin: auto;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+.loader-inner {
+  vertical-align: top;
+  display: block;
+  width: 100%;
+  background-color: #f15a24;
+  animation: loader-inner 2s infinite ease-in;
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  
+  25% {
+    transform: rotate(180deg);
+  }
+  
+  50% {
+    transform: rotate(180deg);
+  }
+  
+  75% {
+    transform: rotate(360deg);
+  }
+  
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loader-inner {
+  0% {
+    height: 100%;
+  }
+  
+  25% {
+    height: 100%;
+  }
+  
+  50% {
+    height: 100%;
+  }
+  
+  75% {
+    height: 100%;
+  }
+  
+  100% {
+    height: 100%;
+  }
+}
+/*loader css*/
+
+
+@media only screen and ( min-width:300px) and ( max-width:479px){
+.mid {
+    width: 275px;
+    height: 300px;
+}	
+.waitBold {
+    font-size: 17px;
+}
+.a h1 {
+    font-size: 18px;
+}
+.a p {
+    font-size: 12px;
+}
+.panelUlLi li {
+    font-size: 32px;
+}
+
+.loadCircle {
+    width: 90px;
+    height: 80px;
+}
+.girlImg {
+    height: 90px;
+}
+.smallImg {
+    height: 70px;
+}
+.two p:nth-child(1) {
+    display: none;
+}
+.two p:nth-child(2) {
+    color: #963021;
+    font-size: 18px;
+}
+
+
+
+
+
+
+
+
+}
+@media only screen and ( min-width:480px) and ( max-width:767px) {
+    .mid {
+        background: #3199da;
+        width: 440px;
+    }
+}
+
+
+@media only screen and ( min-width:768px) and ( max-width:991px){
+	
+.each-section-booking-for-loading{
+    margin-top: 85px;	
+}	
+.mid{
+	width:350px;
+}
+.one {
+    width: 23%;
+}
+.two {
+    width: 54%;
+}
+.three {
+    width: 23%;
+}
+
+.loadingPanelHeading {
+    font-size: 12px;
+}
+
+.loadingPanelCall .loadingPanelList p:nth-child(1) {
+    font-size: 13px;
+}
+.loadingPanelCall .loadingPanelList p:nth-child(2) {
+    font-size: 15px;
+}
+	
+}
+
+
+
+@media only screen and ( min-width:992px) and ( max-width:1024px){
+	
+.each-section-booking-for-loading{
+    margin-top: 85px;	
+}	
+
+.loadingPanelHeading {
+    font-size: 10px;
+}	
+.loadingPanelList .btn-group a {
+    font-size: 12px;
+}
+
+.loadingPanelCall .loadingPanelList p:nth-child(2) {
+    font-size: 22px;
+}
+	
+}
+.ParentDivLoading{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: #fff;	
+}
+.ChildDivLoading{
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(0, -50%);
+    text-align: center;
+    padding: 25px 10px;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    background: #fff;
+    box-shadow: 0px 0px 45px 0px rgba(15, 6, 0, 0.13);
+    -moz-box-shadow: 0px 0px 45px 0px rgba(15, 6, 0, 0.13);
+    -o-box-shadow: 0px 0px 45px 0px rgba(15, 6, 0, 0.13);
+    -webkit-box-shadow: 0px 0px 45px 0px rgba(15, 6, 0, 0.13);
+    width: 550px;
+    margin: auto;
+}
+
+.gifImg{}
+.gifImg img{}
+.PleaseWaitMsg{
+    line-height: 1;
+    margin-top: 5px;
+    margin-bottom: 12px;
+}
+.PleaseWaitMsg p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.fromToAirportName{
+    color: #00024e;
+    font-size: 20px;
+    font-weight: bold;
+    float: left;
+    width: 100%;
+}
+.fromToAirportName span:nth-child(1){
+    float: left;
+	width:38%;
+	text-align:right;
+}
+.fromToAirportName span:nth-child(2){
+    float: left;
+	width:24%;
+}
+.fromToAirportName span:nth-child(2) img{}
+.fromToAirportName span:nth-child(3){
+    float: right;
+	width:38%;
+	text-align:left;
+}
+.SecurePayment{
+	background: #00024e;
+    color: #fff;
+    line-height: 1;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 13px 0px;
+    float: left;
+    width: 450px;
+    margin: auto;
+    clear: both;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.LoadingCallNow{
+    float: left;
+    width: 500px;
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-top: 10px;
+}
+.LoadingCallNow img{
+    float: left;
+}
+.LoadingCallNow span{
+	float: left;
+    font-size: 44px;
+    font-weight: 900;
+    color: #d10f0f;
+    position: relative;
+    top: 16px;	
+}
+
+@media only screen and (max-width: 767px) {
+	.ChildDivLoading {
+		width:290px;
+	}
+	.fromToAirportName span:nth-child(1) {
+		float: left;
+		width: 100%;
+		text-align: center;
+	}
+	.fromToAirportName span:nth-child(2) {
+		float: left;
+		width: 100%;    
+		margin-top: 5px;
+	}
+	.fromToAirportName span:nth-child(3) {
+		float: right;
+		width: 100%;
+		text-align: center;
+	}
+	.SecurePayment {
+		background: #00024e;
+		color: #fff;
+		line-height: 1;
+		font-size: 18px;
+		font-weight: bold;
+		padding: 13px 0px;
+		float: left;
+		width: 270px;
+		margin: auto;
+		clear: both;
+		margin-left: 10px;
+		margin-right: 10px;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	.LoadingCallNow {
+		float: left;
+		width: 270px;
+		margin-left: 10px;
+		margin-right: 10px;
+		margin-top: 10px;
+	}
+	.LoadingCallNow img {
+		float: none;
+		width: 80px;
+	}
+	.LoadingCallNow span {
+		float: left;
+		font-size: 31px;
+		font-weight: 900;
+		color: #d10f0f;
+		position: relative;
+		top: 10px;
+		width: 100%;
+	}
+
+}

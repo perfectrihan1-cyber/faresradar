@@ -1,0 +1,209 @@
+﻿@using Viman.Models
+@{
+    ViewBag.Title = "QuickPayment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.StaticURL = Common.StaticURL;
+}
+@using SagePay.IntegrationKit;
+
+<div class="background_top"></div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            @if (ViewBag.PayResponse == "Session Error")
+            {
+                <h2 style="color:#ff0000; text-align:center;">@ViewBag.PayResponse</h2>
+            }
+            else if (ViewBag.PayResponse == "Server Error")
+            {
+                <h2 style="color:#ff0000; text-align:center;">@ViewBag.PayResponse</h2>
+            }
+            else if (ViewBag.PayResponse == "Payment Error")
+            {
+                <h2 style="color:#ff0000; text-align:center;">@ViewBag.PayResponse</h2>
+            }
+            else
+            {
+                @*<form action="@SagePaySettings.FormPaymentUrl" method="post" id="SagePayForm" name="SagePayForm">
+                        <input type="hidden" name="VPSProtocol" id="VPSProtocol" value="@SagePaySettings.ProtocolVersion.VersionString()" />
+                        <input type="hidden" name="TxType" id="TxType" value="@SagePaySettings.DefaultTransactionType" />
+                        <input type="hidden" name="Vendor" id="Vendor" value="@SagePaySettings.VendorName" />
+                        <input type="hidden" name="Crypt" id="Crypt" value="@(ViewBag.PayResponse)" />
+                        <div class="fl_pay_main_con">
+                            <div class="fl_pay_head">
+                                <i class="fa fa-spinner fa-pulse fa-5x"></i>
+                                <span>Processing...</span>
+                                <p>You will be redirected to your banks website. it might take a few seconds.</p>
+                                <bdo>Please do not refresh the page or click the <strong> "Back"</strong> or <strong>"Close"</strong>  button of your browser.</bdo>
+                                <input id="submitPayment" name="submitPayment" type="submit" value="Make Payment" style="visibility:hidden;position:absolute;" class="btn btn-primary">
+                            </div>
+                        </div>
+                    </form>*@
+                <div class="fl_pay_main_con">
+                    <div class="fl_pay_head">
+                        <i class="fa fa-spinner fa-pulse fa-5x"></i>
+                        <span>Processing...</span>
+                        <p>You will be redirected to your banks website. it might take a few seconds.</p>
+                        <bdo>Please do not refresh the page or click the <strong> "Back"</strong> or <strong>"Close"</strong>  button of your browser.</bdo>
+                        <input id="submitPayment" name="submitPayment" type="submit" value="Make Payment" style="visibility:hidden;position:absolute;" class="btn btn-primary">
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="gap_small">&nbsp;</div>
+}
+
+
+@section scripts{
+
+    <html>
+    <head>
+        <!-- Adding libraries -->
+        <link rel="stylesheet" href="https://paymentpage.ecommpay.com/shared/merchant.css">
+        <script src="https://paymentpage.ecommpay.com/shared/merchant.js"></script>
+        <script type="text/javascript">var EP_HOST = 'https://paymentpage.ecommpay.com';</script>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9/crypto-js.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9/hmac-sha512.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9/enc-base64.min.js"></script>
+    </head>
+    <body>
+        <!-- HTML Web page code to add the Payment Page widget -->
+        <div class="container">
+            <div class="cart-info">...</div><div id="widget-container"></div>
+        </div>
+        <!-- JS command to open Payment Page -->
+        <script type="text/javascript">
+
+
+            $("#eCommPay").click(function () {
+                generateHash();
+                alert("tets");
+            });
+
+            function generateHash() {
+
+               // var plainText = "customer_phone:@ViewBag.PhNo;merchant_fail_url:https://.test.com;merchant_success_url:http://.localhost:14880/flight/Confirm;payment_amount:@ViewBag.Amt;payment_currency:GBP;payment_id:@ViewBag.PaymentId;project_id:16551;redirect_success_url:https://.test.com";
+                 var plainText = "customer_email:@ViewBag.email;customer_phone:@ViewBag.PhNo;merchant_fail_url:https://.www.viman.co.uk/MrFail;merchant_success_url:https://.www.viman.co.uk/MrSuc;payment_amount:@ViewBag.Amt;payment_currency:GBP;payment_id:@ViewBag.PaymentId;project_id:16551";
+                 //var plainText = "payment_amount:2035;payment_currency:USD;payment_id:X03945;project_id:16551";
+                var secretKey = "3e0905c133d6dac655683ee0d884f03b0b1bb6b06f3ef560c380be0192eec4290219b6c4e971de06ccd09e833618c4f3b01eb19777e2690916572ed4312ffbe0";
+
+                var hashText = CryptoJS.HmacSHA512(plainText, secretKey);
+                //alert(plainText);
+                //alert(secretKey);
+                //alert(hashText);
+                //alert(CryptoJS.enc.Base64.stringify(hashText));
+               // alert("function Execute");
+                return CryptoJS.enc.Base64.stringify(hashText);
+
+            }
+
+            EPayWidget.run(
+                {
+                    customer_email: '@ViewBag.email',
+                    customer_phone: '@ViewBag.PhNo',
+                    merchant_fail_url: "https://.www.viman.co.uk/MrFail",
+                    merchant_success_url: "https://.www.viman.co.uk/MrSuc",//"https://.test.com",
+                    payment_amount: @ViewBag.Amt, // Payment amount
+                    payment_currency: 'GBP', // Payment currency
+                    payment_id: '@ViewBag.PaymentId', // Payment ID
+                    project_id: '16551', // Project ID
+                   // redirect_success_url: "https://.test.com",
+                    signature: generateHash()
+                }, // Signature
+                'post');
+
+
+            //EPayWidget.bind('eCommPay',
+            //    {
+            //        payment_amount: 2035, // Payment amount
+            //        payment_currency: 'USD', // Payment currency
+            //        payment_id: 'X03945', // Payment ID
+            //        project_id: '16551', // Project ID
+            //        signature: generateHash()
+            //    }, // Signature
+            //    'post');
+        </script>
+    </body>
+</html>
+
+<script type="text/javascript">
+        @if (ViewBag.PayResponse != "Form View")
+        {
+            @Html.Raw("document.getElementById(\"SagePayForm\").submit();")
+        }
+
+        function frmCheck()
+        {
+            if ($("#quick_amount").val().trim(' ') == "")
+            {
+                alert("Please enter your payment amount.");
+                $("#quick_amount").focus();
+                return false;
+            }
+            if ($("#quick_fname").val().trim(' ') == "")
+            {
+                alert("Please enter your first name.");
+                $("#quick_fname").focus();
+                return false;
+            }
+            if ($("#quick_lname").val().trim(' ') == "")
+            {
+                alert("Please enter your last name.");
+                $("#quick_lname").focus();
+                return false;
+            }
+            if ($("#quick_email").val().trim(' ') == "")
+            {
+                alert("Please enter your email.");
+                $("#quick_email").focus();
+                return false;
+            }
+            else
+            {
+                var filter = @("/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{0,4}$/");
+                if (!filter.test(document.getElementById("quick_email").value)) {
+                    alert("Please enter your valid email.");
+                    document.getElementById("quick_email").focus();
+                    return false;
+                }
+            }
+            if ($("#quick_phone").val().trim(' ') == "")
+            {
+                alert("Please enter your phone.");
+                $("#quick_phone").focus();
+                return false;
+            }
+            if ($("#quick_address").val().trim(' ') == "")
+            {
+                alert("Please enter your address.");
+                $("#quick_address").focus();
+                return false;
+            }
+            if ($("#quick_city").val().trim(' ') == "")
+            {
+                alert("Please enter your city.");
+                $("#quick_city").focus();
+                return false;
+            }
+            if ($("#quick_postcode").val().trim(' ') == "")
+            {
+                alert("Please enter your postcode.");
+                $("#quick_postcode").focus();
+                return false;
+            }
+            if ($("#quick_countryCode").val().trim(' ') == "")
+            {
+                alert("Please select your country.");
+                $("#quick_countryCode").focus();
+                return false;
+            }
+            return true;
+        }
+</script>
+}

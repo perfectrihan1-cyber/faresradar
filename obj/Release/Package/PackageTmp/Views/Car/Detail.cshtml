@@ -1,0 +1,154 @@
+﻿@model Viman.Models.CarsBooking
+@using Viman.Models
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.StaticURL = Common.StaticURL;
+    ViewBag.Currency = Common.Currency;
+    int total_days = Convert.ToInt32(Common.GetDateDiffDay(Model.CarsSearch.DropoffDate, Model.CarsSearch.PickupDate));
+}
+
+<div class="background_top"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="car_bk_head">
+                <h1>@(Model.Cars.Name)</h1>
+            </div>
+            <div class="car_bk_imgBx">
+                <img src="@(Model.Cars.ImagePath)">
+            </div>
+            <div class="car_bk_cont">
+                <div class="col-sm-12">
+                    <form method="post" action="@(ViewBag.StaticURL+"car/booking")" name="book_frm" id="book_frm">
+                        @if (Model.Cars.XsellLocal != null)
+                        {
+                            foreach (CarsExtras item in Model.Cars.XsellLocal)
+                            {
+                                <div class="car_bk_equpmnt">
+                                    <label class="loc_car_chkbox" for="equipment_@(item.Code)">
+                                        <input type="checkbox" class="airline_flt" name="equipment_chk" id="equipment_@(item.Code)" value="@(item.Code)" data-price="@(item.Gross.ToString("0.00"))" />
+                                        <span class="checkmark"></span>
+                                        <bdo>@(item.Name) <b>@(ViewBag.Currency)@(item.Gross.ToString("0.00"))</b></bdo>
+                                    </label>
+                                </div>
+                            }
+                        }
+                        @if (Model.Cars.XsellExtra != null)
+                        {
+                            foreach (CarsExtras item in Model.Cars.XsellExtra)
+                            {
+                                <div class="car_bk_equpmnt">
+                                    <label class="loc_car_chkbox" for="equipment_@(item.Code)">
+                                        <input type="checkbox" class="airline_flt" name="equipment_chk" id="equipment_@(item.Code)" value="@(item.Code)" data-price="@(item.Gross.ToString("0.00"))" />
+                                        <span class="checkmark"></span>
+                                        <bdo>@(item.Name) <b>@(ViewBag.Currency)@(item.Gross.ToString("0.00"))</b></bdo>
+                                    </label>
+                                </div>
+                            }
+                        }
+                       
+                        <div class="car_bk_equ_ttl">
+                            <ul>
+                                <li>
+                                    <h4>Price Per Day X @(total_days)<b>@(ViewBag.Currency) @((Model.Cars.TotalCost / total_days).ToString("0.00"))</b></h4>
+                                </li>
+                                <li>
+                                    <h4>Equipment<b>@(ViewBag.Currency)<span id="equipment_cost">0.00</span></b></h4>
+                                </li>
+                                <li>
+                                    <h4>Total<b>@(ViewBag.Currency)<span id="total_cost">@(Model.Cars.TotalCost.ToString("0.00"))</span></b></h4>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="car_bk_pay_btn">
+                            <input type="hidden" name="total_price" id="total_price" value="@(Model.Cars.TotalCost.ToString("0.00"))" />
+                            <input type="submit" value="Book Now">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="car_bk_desk_hd">
+                <p>@(Model.Cars.Description)</p>
+            </div>
+            <div class="car_bk_listing">
+                <div class="car_bk_feat">
+                    <h3>Car Features</h3>
+                    <ul>
+                        <li><bdo class="luggage"></bdo> <span>@(Model.Cars.LargeBag + Model.Cars.SmallBag) Pieces of Luggage</span></li>
+                        <li><bdo class="passenger"></bdo> <span>Up to @(Model.Cars.Adult + Model.Cars.Child + Model.Cars.Infant) Passengers</span></li>
+                        <li><bdo class="transmission"></bdo> <span>@((Model.Cars.Transmission == "A") ? "Automatic" : "Manual") Transmission</span></li>
+                    </ul>
+                </div>
+                <div class="car_bk_feat">
+                    <h3>Default Equipment</h3>
+                    <ul>
+                        @if (Model.Cars.HasAircondition)
+                        {
+                            <li><bdo class="ac"></bdo> <span>Air Conditioner</span></li>
+                        }
+                    </ul>
+                </div>
+                <div class="car_bk_feat">
+                    <h3>Pickup Features</h3>
+                    <ul>
+                        <li><bdo class="door_5"></bdo> <span>@(Model.CarsSearch.FromLocation.CityName)</span></li>
+                        <li><bdo class="door_5"></bdo> <span>@(Model.CarsSearch.ToLocation.CityName)</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="clearfix">
+            </div>
+            <div class="car_bk_rght_pnl clearfix">
+                <div class="car_bk_rght_img">
+                    <img src="@(Model.Cars.ImagePath)">
+                    <h3>@(Model.Cars.Name)</h3>
+                </div>
+                <div class="car_bk_cont_right">
+                    <ul>
+                        @*<li>
+                            <h4>Phone:</h4>
+                            <p><i class="fa fa-phone"></i>@(Model.PhoneNo)</p>
+                        </li>
+                        <li>
+                            <h4>Email:</h4>
+                            <p><i class="fa fa-phone"></i>@(Model.Email)</p>
+                        </li>*@
+                        <li>
+                            <h4>Pick UP:</h4>
+                            <p><i class="fa fa-map-marker"></i>@(Model.CarsSearch.FromLocation.CityName)</p>
+                            <p><i class="fa fa-calendar"></i>@(Model.CarsSearch.PickupDate.ToString("dd/MM/yyyy"))</p>
+                            <p><i class="fa fa-clock-o"></i>@(Model.CarsSearch.PickupDate.ToString("HH:mm"))</p>
+                        </li>
+                        <li>
+                            <h4>Drop Off:</h4>
+                            <p><i class="fa fa-map-marker"></i>@(Model.CarsSearch.ToLocation.CityName)</p>
+                            <p><i class="fa fa-calendar"></i>@(Model.CarsSearch.DropoffDate.ToString("dd/MM/yyyy"))</p>
+                            <p><i class="fa fa-clock-o"></i>@(Model.CarsSearch.DropoffDate.ToString("HH:mm"))</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $(".loc_car_chkbox").click(function (e) {
+                var equipment_cost = 0;
+                $('input[name=equipment_chk]:checked').map(function () {
+                    equipment_cost += parseFloat($(this).attr("data-price"));
+                });
+
+                $("#equipment_cost").html(equipment_cost.toFixed(2));
+                equipment_cost = parseFloat(equipment_cost)+parseFloat($("#total_price").val());
+                $("#total_cost").html(equipment_cost.toFixed(2));
+            });
+        });
+    </script>
+}

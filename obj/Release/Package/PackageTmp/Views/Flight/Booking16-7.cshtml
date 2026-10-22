@@ -1,0 +1,1718 @@
+﻿@model Viman.Models.FlightsBooking
+@using Viman.Models
+@{
+    ViewBag.Title = "Booking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.WebsiteURL = Common.WebsiteURL;
+    ViewBag.StaticURL = Common.StaticURL;
+    ViewBag.Currency = Common.Currency;
+    FlightsSearch flightSearch = ViewBag.flightSearch;
+    Flights flights = ViewBag.flights;
+
+    int mm = 0, nn = 0, pass = 0;
+}
+
+<div class="background_top"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4  col-md-push-8">
+            <div class="tirp_main_con">
+                <h3>Trip Summary</h3>
+                <div class="bk_smry_main">
+                    <div class="bk_smry_hd">
+                        <a href="javascript:void(0);" class="bk_smry_view_detail hidden-md hidden-lg"><i class="fa fa-info-circle"></i></a>
+                        <i class="fa fa-plane"></i>
+                        @((flightSearch.FlightWay == FlightWay.OneWay) ? "Oneway" : "Return") Flight
+                        <span>@(flightSearch.Adult + flightSearch.Child + flightSearch.Infant) Tickets : @(flightSearch.Adult + " Adult") @((flightSearch.Child > 0) ? ", " + flightSearch.Child + " Child" : "") @((flightSearch.Infant > 0) ? ", " + flightSearch.Infant + " Infant" : "")</span>
+                    </div>
+                    <div class="bk_sub_dtl">
+                        <div class="bk_logo_nm">
+                            <img src="@(ViewBag.StaticURL + "Content/airline/fit/" + flights.Outbound[0].Airline.Code + ".gif")" />
+                            <span>@(flights.Outbound[0].Airline.Code)-@(flights.Outbound[0].FlightNo)</span>
+                        </div>
+                        <div class="bk_dst_smr">
+                            <span class="bk_arr">
+                                @(flights.Outbound[0].FromAirport.Code)
+                                <em>@(flights.Outbound[0].DepartureDate.ToString("dd MMM, yy"))</em>
+                                <span>@(flights.Outbound[0].DepartureDate.ToString("HH:mm"))</span>
+                            </span>
+                            <span class="bk_mark">
+                                <span class="bk_smr_line">
+                                    <span class="bk_smry_arrow"></span>
+                                </span>
+                            </span>
+                            <span class="bk_dest">
+                                @(flights.Outbound[flights.Outbound.Count - 1].ToAirport.Code)
+                                <em>@(flights.Outbound[flights.Outbound.Count - 1].ArrivalDate.ToString("dd MMM, yy"))</em>
+                                <span>@(flights.Outbound[flights.Outbound.Count - 1].ArrivalDate.ToString("HH:mm"))</span>
+                            </span>
+                        </div>
+                    </div>
+                    @if (flightSearch.FlightWay == FlightWay.RoundTrip)
+                    {
+                        <div class="bk_sub_dtlRtrn">
+                            <div class="bk_logo_nm">
+                                <img src="@(ViewBag.StaticURL + "Content/airline/fit/" + flights.Inbound[0].Airline.Code + ".gif")" />
+                                <span>@(flights.Inbound[0].Airline.Code)-@(flights.Inbound[0].FlightNo)</span>
+                            </div>
+                            <div class="bk_dst_smr">
+                                <span class="bk_arr">
+                                    @(flights.Inbound[0].FromAirport.Code)
+                                    <em>@(flights.Inbound[0].DepartureDate.ToString("dd MMM, yy"))</em>
+                                    <span>@(flights.Inbound[0].DepartureDate.ToString("HH:mm"))</span>
+                                </span>
+                                <span class="bk_mark">
+                                    <span class="bk_smr_line">
+                                    </span>
+                                </span>
+                                <span class="bk_dest">
+                                    @(flights.Inbound[flights.Inbound.Count - 1].ToAirport.Code)
+                                    <em>@(flights.Inbound[flights.Inbound.Count - 1].ArrivalDate.ToString("dd MMM, yy"))</em>
+                                    <span>@(flights.Inbound[flights.Inbound.Count - 1].ArrivalDate.ToString("HH:mm"))</span>
+                                </span>
+                            </div>
+                        </div>
+                    }
+                    <div class="bk_bgge_pss clearfix">
+                        <div class="bk_bagga_pss">
+                            <i class="fa fa-suitcase"></i>
+                            @(flights.Outbound[0].BaggageAllowance), Cabin: 7 KG
+                        </div>
+                        <div class="bk_clsEcy_pss">
+                            <i class="fa fa-university"></i>
+                            @(flights.Outbound[0].CabinClass)
+                        </div>
+                    </div>
+                    <div class="bk_prc_dtl">
+                        <div class="bk_pr_dt">
+                            <i class="fa fa-gbp"></i>
+                            <span>Price Detail (GBP)</span>
+                        </div>
+                        @if (Model.TranscationStatus.Equals("fareupdate"))
+                        {
+                            <p class="bk_price_inc">Your flight price changed by airline. Please double check your price.</p>
+                        }
+                        <p>
+                            <i class="fa fa-male"></i>
+                            @(Model.FlightsFare.Adult) X Adult
+                            <strong>@(ViewBag.Currency) @(((Model.FlightsFare.AdultFare + Model.FlightsFare.AdultTax + Model.FlightsFare.AdultMarkup) * Model.FlightsFare.Adult).ToString("0.00"))</strong>
+                        </p>
+                        @if (Model.FlightsFare.Child > 0)
+                        {
+                            <p>
+                                <i class="fa fa-child"></i>
+                                @(Model.FlightsFare.Child) X Child
+                                <strong>@(ViewBag.Currency) @(((Model.FlightsFare.ChildFare + Model.FlightsFare.ChildTax + Model.FlightsFare.ChildMarkup) * Model.FlightsFare.Child).ToString("0.00"))</strong>
+                            </p>
+                        }
+                        @if (Model.FlightsFare.Infant > 0)
+                        {
+                            <p>
+                                <i class="fa fa-user"></i>
+                                @(Model.FlightsFare.Infant) X Infant
+                                <strong>@(ViewBag.Currency) @(((Model.FlightsFare.InfantFare + Model.FlightsFare.InfantTax + Model.FlightsFare.InfantMarkup) * Model.FlightsFare.Infant).ToString("0.00"))</strong>
+                            </p>
+                        }
+
+                    </div>
+
+                    @if (flights.Provider.ToUpper() != "KIWI")
+                    {
+                        <div class="bk_prc_dtl">
+                            <p>
+                                <i class="fa fa-suitcase chk-l"></i>&nbsp;
+                                <span class="chk-l">&nbsp;Baggage</span>
+                                <strong><span class="chk-r">&nbsp;@(flights.Outbound[0].BaggageAllowance)</span></strong>
+                            </p>
+
+                            <p id="dvwithpcs">
+                                <i class="fa fa-suitcase chk-l"></i>&nbsp;
+                                <span class="chk-l">&nbsp;Cabin</span>
+                                <strong><span class="chk-r">&nbsp;7 KG</span></strong>
+                            </p>
+                        </div>
+                    }
+                    else
+                    {
+
+                        <div class="bk_prc_dtl">
+                            <p>
+                                <i class="fa fa-suitcase chk-l"></i>&nbsp;
+                                <span class="chk-l">&nbsp;<span id="spBagname"></span></span>
+                                <strong><span class="chk-r">&nbsp;<span id="spBaggagePrice"></span></span></strong>
+                            </p>
+
+                            @if (flightSearch.SourceMedia.ToUpper() == "JETCOST")
+                            {
+                                <p id="dvwithpcs" style="display:none;">
+                                    <i class="fa fa-suitcase chk-l"></i>&nbsp;
+                                    <span class="chk-l">&nbsp;<span id="spBagname1"></span></span>
+                                    <strong><span class="chk-r">&nbsp;<span id="spBaggagePrice1"></span></span></strong>
+                                </p>
+                                <p>
+                                    <i class="fa fa-suitcase chk-l"></i>&nbsp;
+                                    <span class="chk-l">&nbsp;<span>Check In Luggage</span></span>
+                                    <strong><span class="chk-r">&nbsp;<span>20 KG PP</span></span></strong>
+                                </p>
+
+                            }
+                            else
+                            {
+                                <p id="dvwithpcs">
+                                    <i class="fa fa-suitcase chk-l"></i>&nbsp;
+                                    <span class="chk-l">&nbsp;<span id="spBagname1"></span></span>
+                                    <strong><span class="chk-r">&nbsp;<span id="spBaggagePrice1"></span></span></strong>
+                                </p>
+
+
+                            }
+
+
+
+
+
+
+                        </div>
+
+                    }
+
+                    <h5 class="bk_atol">
+                        ATOL <span>@(Model.FlightsFare.Adult + Model.FlightsFare.Child + Model.FlightsFare.Infant) Passanger(s) X 2.5</span>
+                        <strong>@(ViewBag.Currency) @((Model.FlightsFare.Adult + Model.FlightsFare.Child + Model.FlightsFare.Infant) * 2.5)</strong>
+                    </h5>
+
+
+                    <p class="bk_totalPr">
+                        Total
+                        <strong>@(ViewBag.Currency) <span id="spntotfare">@((Model.FlightsFare.GrandTotal + Model.FlightsFare.AtolCharge).ToString("0.00"))</span></strong>
+                    </p>
+                    <span class="bk_disc">
+                        All prices (including taxes & fees) are quoted in British Pound
+                    </span>
+                    <p class="bk_chkMrk">
+                        <i class="fa fa-check-circle"></i>
+                        Price Guarantee
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-pull-4">
+            <div class="bk_main_bro">
+                <div class="bk_breadcrum clearfix">
+                    <ul>
+                        <li class="active">
+                            <a href="javascript:void(0);">
+                                <i class="fa fa-file-text"></i> Itenary
+                                <span class="box_tri"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">
+                                <i class="fa fa-suitcase"></i> Traveler
+                                <span class="box_tri"></span>
+                            </a>
+                        </li>
+                        <li><a href="javascript:void(0);"><i class="fa fa-credit-card"></i> Payment</a></li>
+                    </ul>
+                </div>
+                <div class="bk_passng_detail_box">
+                    <div class="bk_passng_head">
+                        <h4>@(flights.Outbound[0].FromAirport.Code) (@(flights.Outbound[0].FromAirport.CityName)) → @(flights.Outbound[flights.Outbound.Count - 1].ToAirport.Code) (@(flights.Outbound[flights.Outbound.Count - 1].ToAirport.CityName))</h4>
+                    </div>
+                    @foreach (FlightsSegment outboundArr in flights.Outbound)
+                    {
+                        double eftOutbound = double.Parse(Common.GetTime(flights.Outbound[mm].ArrivalDate, flights.Outbound[mm].DepartureDate) + "");
+                        mm++;
+                        if (mm != 1)
+                        {
+                            double stop_time = double.Parse(Common.GetTime(flights.Outbound[mm - 1].DepartureDate, flights.Outbound[mm - 2].ArrivalDate) + "");
+                            <div class="bk_stop_over">
+                                <span>
+                                    <i class="fa fa-clock-o"></i>
+                                    Layover Connection time: @(Math.Floor(stop_time / 60))h @(Math.Floor(stop_time % 60))
+                                </span>
+                            </div>
+                        }
+                        <div class="bk_pssn_list clearfix">
+                            <ul>
+                                <li class="client">
+                                    <p>
+                                        <img src="@(ViewBag.StaticURL + "Content/airline/fit/" + outboundArr.Airline.Code + ".gif")" />
+                                    </p>
+                                    <span>@(outboundArr.Airline.Code)-@(outboundArr.FlightNo)</span>
+                                </li>
+                                <li class="arrvl">
+                                    <span class="point">@(outboundArr.FromAirport.Code)</span>
+                                    <span class="dates">@(outboundArr.DepartureDate.ToString("dd MMM, HH:mm"))</span>
+                                    <span class="airprt">@(outboundArr.FromAirport.Name) <bdo class="hidden-xs hidden-sm">@(outboundArr.FromTerminal)</bdo></span>
+                                </li>
+                                <li class="durat">
+                                    <div class="dividers"></div>
+                                    <div class="time_duration">@(Math.Floor(eftOutbound / 60))h @(Math.Floor(eftOutbound % 60))m</div>
+                                </li>
+                                <li class="destin">
+                                    <span class="point">@(outboundArr.ToAirport.Code)</span>
+                                    <span class="dates">@(outboundArr.ArrivalDate.ToString("dd MMM, HH:mm"))</span>
+                                    <span class="airprt">@(outboundArr.ToAirport.Name) <bdo class="hidden-xs hidden-sm">@(outboundArr.ToTerminal)</bdo></span>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                    <div class="bk_inlucs clearfix">
+                        <ul>
+                            <li><i class="fa fa-suitcase"></i> @(flights.Outbound[0].BaggageAllowance), CABIN: 7 KG</li>
+                            <li>Non-Refundable</li>
+                        </ul>
+                    </div>
+                </div>
+
+                @if (flightSearch.FlightWay == FlightWay.RoundTrip)
+                {
+                    <div class="bk_passng_detail_box">
+                        <div class="bk_passng_head">
+                            <h4>@(flights.Inbound[0].FromAirport.Code) (@(flights.Inbound[0].FromAirport.CityName)) → @(flights.Inbound[flights.Inbound.Count - 1].ToAirport.Code) (@(flights.Inbound[flights.Inbound.Count - 1].ToAirport.CityName))</h4>
+                        </div>
+                        @foreach (FlightsSegment inboundArr in flights.Inbound)
+                        {
+                            double eftInbound = double.Parse(Common.GetTime(flights.Inbound[nn].ArrivalDate, flights.Inbound[nn].DepartureDate) + "");
+                            nn++;
+                            if (nn != 1)
+                            {
+                                double stop_time = double.Parse(Common.GetTime(flights.Inbound[nn - 1].DepartureDate, flights.Inbound[nn - 1].ArrivalDate) + "");
+                                <div class="bk_stop_over">
+                                    <span>
+                                        <i class="fa fa-clock-o"></i>
+                                        Layover Connection time: @(Math.Floor(stop_time / 60))h @(Math.Floor(stop_time % 60))
+                                    </span>
+                                </div>
+                            }
+                            <div class="bk_pssn_list clearfix">
+                                <ul>
+                                    <li class="client">
+                                        <p>
+                                            <img src="@(ViewBag.StaticURL + "Content/airline/fit/" + inboundArr.Airline.Code + ".gif")" />
+                                        </p>
+                                        <span>@(inboundArr.Airline.Code)-@(inboundArr.FlightNo)</span>
+                                    </li>
+                                    <li class="arrvl">
+                                        <span class="point">@(inboundArr.FromAirport.Code)</span>
+                                        <span class="dates">@(inboundArr.DepartureDate.ToString("dd MMM, HH:mm"))</span>
+                                        <span class="airprt">@(inboundArr.FromAirport.Name) <bdo class="hidden-xs hidden-sm">@(inboundArr.FromTerminal)</bdo></span>
+                                    </li>
+                                    <li class="durat">
+                                        <div class="dividers"></div>
+                                        <div class="time_duration">@(Math.Floor(eftInbound / 60))h @(Math.Floor(eftInbound % 60))m</div>
+                                    </li>
+                                    <li class="destin">
+                                        <span class="point">@(inboundArr.ToAirport.Code)</span>
+                                        <span class="dates">@(inboundArr.ArrivalDate.ToString("dd MMM, HH:mm"))</span>
+                                        <span class="airprt">@(inboundArr.ToAirport.Name) <bdo class="hidden-xs hidden-sm">@(inboundArr.ToTerminal)</bdo></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+                        <div class="bk_inlucs clearfix">
+                            <ul>
+                                <li><i class="fa fa-suitcase"></i> @(flights.Inbound[0].BaggageAllowance), CABIN: 7 KG</li>
+                                <li>Non-Refundable</li>
+                            </ul>
+                        </div>
+                    </div>
+                }
+            </div>
+
+
+            @if (flights.Provider.ToUpper() == "KIWI")
+            {<input type="hidden" id="hdnhand_weight" name="hdnhand_weight" value="@(flights.Baglimit.hand_weight)" />
+                <input type="hidden" id="hdnhold_weight" name="hdnhold_weight" value="@(flights.Baglimit.hold_weight))" />
+
+                if (flightSearch.SourceMedia.ToUpper() == "JETCOST")
+                {
+                    <div class="main_container_passeger" style="display:none;">
+                        <div class="bk_pss_hd">
+                            <h4>
+                                <i class="fa fa-suitcase" aria-hidden="true"></i> Baggage Information <span class="baggageIcon" id=""><i class="fa fa-plus" aria-hidden="true"></i></span>
+                            </h4>
+                        </div>
+
+                        <div class="bk_ps_dtl_main clearfix" id="baggageSec">
+                            <div class="bk_mn_pss clearfix" style="margin-bottom:10px;">
+                                <h3>Cabin Baggage</h3>
+                                <p>Includes smaller bags that can be taken into the cabin and stored in the overhead locker or under your seat.</p>
+                                <div class="bk_nm_pss">Select one option</div>
+                                <div class="baggage-row baggage-select">
+                                    <input type="radio" name="" id="baggage-1" class="radio" checked="">
+                                    <label>
+                                        <span class="baggage-name"><i class="fa fa-suitcase" aria-hidden="true"></i> Cabin bag</span>
+                                        <span class="baggage-size">@flights.Baglimit.hand_height × @flights.Baglimit.hand_length × @flights.Baglimit.hand_width cm, @flights.Baglimit.hand_weight kg</span>
+                                        <span class="baggage-price">£0</span>
+                                    </label>
+                                </div>
+
+                            </div>
+                            <div class="bk_mn_pss clearfix">
+                                <h3>Checked Baggage</h3>
+                                <p>Includes larger baggage items that you must deposit at the airline check-in counter before going through security at the airport.</p>
+                                <div class="bk_nm_pss">Select one option</div>
+                                @if (flights.ListBagsPrice.Count > 0)
+                                {
+                                    foreach (var item in flights.ListBagsPrice.OrderBy(x => x.BagsPcsPrice))
+                                    {
+                                        if (int.Parse(item.BagsPcs) == 1 && item.BagsPcsPrice == 0.0F)
+                                        {
+                                            <div class="baggage-row baggage-select baggage" id="bag_@item.BagsPcs" onclick="BaggagePrice('@item.BagsPcs','@item.BagsPcsPrice','@flights.FlightFare.GrandTotal','@flights.Baglimit.hold_weight')">
+                                                <input type="radio" name="baggage" id="baggage_@item.BagsPcs" value="@(item.BagsPcsPrice)" class="radio" checked>
+                                                <label for="baggage_@item.BagsPcs">
+                                                    <span class="baggage-name"><i class="fa fa-suitcase" aria-hidden="true"></i> @flights.Baglimit.hold_weight kg Checked bag</span>
+                                                    <span class="baggage-size">@flights.Baglimit.hold_height × @flights.Baglimit.hold_length × @flights.Baglimit.hold_width cm, @flights.Baglimit.hold_weight kg</span>
+                                                    <span class="baggage-price">£<span id="bgPrice_@item.BagsPcs">@item.BagsPcsPrice</span></span>
+                                                </label>
+                                            </div>
+                                        }
+                                        if (int.Parse(item.BagsPcs) == 1 && item.BagsPcsPrice > 0.0F)
+                                        {
+                                            <div class="baggage-row baggage-select baggage" id="bag_0" onclick="BaggagePrice('0','0','@flights.FlightFare.GrandTotal','@flights.Baglimit.hold_weight')">
+                                                <input type="radio" name="baggage" id="baggage_0" class="radio" checked />
+                                                <label for="baggage_0">
+                                                    <span class="baggage-name">X No checked baggage</span>
+                                                    <span class="baggage-size"></span>
+                                                    <span class="baggage-price"></span>
+                                                </label>
+                                            </div>
+
+                                            <div class="baggage-row baggage" id="bag_@item.BagsPcs" onclick="BaggagePrice('@item.BagsPcs','@item.BagsPcsPrice','@flights.FlightFare.GrandTotal','@flights.Baglimit.hold_weight')">
+                                                <input type="radio" name="baggage" id="baggage_@item.BagsPcs" value="@(item.BagsPcsPrice)" class="radio" />
+                                                <label for="baggage_@item.BagsPcs">
+                                                    <span class="baggage-name"><i class="fa fa-suitcase" aria-hidden="true"></i> @flights.Baglimit.hold_weight kg Checked bag</span>
+                                                    <span class="baggage-size">@flights.Baglimit.hold_height × @flights.Baglimit.hold_length × @flights.Baglimit.hold_width cm, @flights.Baglimit.hold_weight kg</span>
+                                                    <span class="baggage-price">£<span id="bgPrice_@item.BagsPcs">@item.BagsPcsPrice</span></span>
+                                                </label>
+                                            </div>
+                                        }
+                                        if (int.Parse(item.BagsPcs) == 2)
+                                        {
+                                            <div class="baggage-row baggage" id="bag_@item.BagsPcs" onclick="BaggagePrice('@item.BagsPcs','@item.BagsPcsPrice','@flights.FlightFare.GrandTotal','@flights.Baglimit.hold_weight')">
+                                                <input type="radio" name="baggage" id="baggage_@item.BagsPcs" value="@(item.BagsPcsPrice)" class="radio" />
+                                                <label for="baggage_@item.BagsPcs">
+                                                    <span class="baggage-name">
+                                                        <i class="fa fa-suitcase" aria-hidden="true"></i>@flights.Baglimit.hold_weight kg Checked bag <br />
+                                                        <i class="fa fa-suitcase" aria-hidden="true"></i> @flights.Baglimit.hold_weight kg Checked bag
+                                                    </span>
+                                                    <span class="baggage-size">
+                                                        @flights.Baglimit.hold_height × @flights.Baglimit.hold_length × @flights.Baglimit.hold_width cm, @flights.Baglimit.hold_weight kg <br />
+                                                        @flights.Baglimit.hold_height × @flights.Baglimit.hold_length × @flights.Baglimit.hold_width cm, @flights.Baglimit.hold_weight kg
+                                                    </span>
+                                                    <span class="baggage-price">£<span id="bgPrice_@item.BagsPcs">@item.BagsPcsPrice</span></span>
+                                                </label>
+                                            </div>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="baggage-row">
+                                        <label for="radio baggage_0">
+                                            <span class="baggage-name"></span>
+                                            <span class="baggage-size"><span style="color:red;font-size:22px;margin:10px;"><i class="fa fa-times"></i></span> Checked baggage is not available for this booking.</span>
+                                            <span class="baggage-price"></span>
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                            <div class="bk_pggrDtlBx" style="display:none">
+                                <div class="bk_pggrDtl freeChanges">
+                                    <div class="float-left">
+                                        <h3 class="fltDlt-h3" style="font-size:22px; text-transform:uppercase; margin-bottom:6px;"><i class="fa fa-ticket" aria-hidden="true"></i> Free Changes</h3>
+                                        <p>Free Changes with-in 24 Hours </p>
+                                    </div>
+                                    <div class="float-right">
+                                        <span class="chargeOn">
+                                            Total Cost £<span id="spfreechange">@((Model.FlightsFare.Adult + Model.FlightsFare.Child + Model.FlightsFare.Infant) * 24)</span>
+                                            <label class="switch">
+                                                <input type="checkbox" id="chkFreeChange" />
+                                                <span class="slider"></span>
+                                            </label>
+                                        </span>
+                                        <p>£24 x @(Model.FlightsFare.Adult + Model.FlightsFare.Child + Model.FlightsFare.Infant) Passanger(s)</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                }
+                else
+                {
+
+                    <div class="main_container_passeger">
+                        <div class="bk_pss_hd">
+                            <h4>
+                                <i class="fa fa-suitcase" aria-hidden="true"></i> Baggage Information <span class="baggageIcon" id=""><i class="fa fa-plus" aria-hidden="true"></i></span>
+                            </h4>
+                        </div>
+
+                        <div class="bk_ps_dtl_main clearfix" id="baggageSec">
+                            <div class="bk_mn_pss clearfix" style="margin-bottom:10px;">
+                                <h3>Cabin Baggage</h3>
+                                <p>Includes smaller bags that can be taken into the cabin and stored in the overhead locker or under your seat.</p>
+                                <div class="bk_nm_pss">Select one option</div>
+                                <div class="baggage-row baggage-select">
+                                    <input type="radio" name="" id="baggage-1" class="radio" checked="">
+                                    <label>
+                                        <span class="baggage-name"><i class="fa fa-suitcase" aria-hidden="true"></i> Cabin bag</span>
+                                        <span class="baggage-size">@flights.Baglimit.hand_height × @flights.Baglimit.hand_length × @flights.Baglimit.hand_width cm, @flights.Baglimit.hand_weight kg</span>
+                                        <span class="baggage-price">£0</span>
+                                    </label>
+                                </div>
+
+                            </div>
+                            <div class="bk_mn_pss clearfix">
+                                <h3>Checked Baggage</h3>
+                                <p>Includes larger baggage items that you must deposit at the airline check-in counter before going through security at the airport.</p>
+                                <div class="bk_nm_pss">Select one option</div>
+                                @if (flights.ListBagsPrice.Count > 0)
+                                {
+                                    foreach (var item in flights.ListBagsPrice.OrderBy(x => x.BagsPcsPrice))
+                                    {
+                                        if (int.Parse(item.BagsPcs) == 1 && item.BagsPcsPrice == 0.0F)
+                                        {
+                                            <div class="baggage-row baggage-select baggage" id="bag_@item.BagsPcs" onclick="BaggagePrice('@item.BagsPcs','@item.BagsPcsPrice','@flights.FlightFare.GrandTotal','@flights.Baglimit.hold_weight')">
+                                                <input type="radio" name="baggage" id="baggage_@item.BagsPcs" value="@(item.BagsPcsPrice)" class="radio" checked>
+                                                <label for="baggage_@item.BagsPcs">
+                                                    <span class="baggage-name"><i class="fa fa-suitcase" aria-hidden="true"></i> @flights.Baglimit.hold_weight kg Checked bag</span>
+                                                    <span class="baggage-size">@flights.Baglimit.hold_height × @flights.Baglimit.hold_length × @flights.Baglimit.hold_width cm, @flights.Baglimit.hold_weight kg</span>
+                                                    <span class="baggage-price">£<span id="bgPrice_@item.BagsPcs">@item.BagsPcsPrice</span></span>
+                                                </label>
+                                            </div>
+                                        }
+                                        if (int.Parse(item.BagsPcs) == 1 && item.BagsPcsPrice > 0.0F)
+                                        {
+                                            <div class="baggage-row baggage-select baggage" id="bag_0" onclick="BaggagePrice('0','0','@flights.FlightFare.GrandTotal','@flights.Baglimit.hold_weight')">
+                                                <input type="radio" name="baggage" id="baggage_0" class="radio" checked />
+                                                <label for="baggage_0">
+                                                    <span class="baggage-name">X No checked baggage</span>
+                                                    <span class="baggage-size"></span>
+                                                    <span class="baggage-price"></span>
+                                                </label>
+                                            </div>
+
+                                            <div class="baggage-row baggage" id="bag_@item.BagsPcs" onclick="BaggagePrice('@item.BagsPcs','@item.BagsPcsPrice','@flights.FlightFare.GrandTotal','@flights.Baglimit.hold_weight')">
+                                                <input type="radio" name="baggage" id="baggage_@item.BagsPcs" value="@(item.BagsPcsPrice)" class="radio" />
+                                                <label for="baggage_@item.BagsPcs">
+                                                    <span class="baggage-name"><i class="fa fa-suitcase" aria-hidden="true"></i> @flights.Baglimit.hold_weight kg Checked bag</span>
+                                                    <span class="baggage-size">@flights.Baglimit.hold_height × @flights.Baglimit.hold_length × @flights.Baglimit.hold_width cm, @flights.Baglimit.hold_weight kg</span>
+                                                    <span class="baggage-price">£<span id="bgPrice_@item.BagsPcs">@item.BagsPcsPrice</span></span>
+                                                </label>
+                                            </div>
+                                        }
+                                        if (int.Parse(item.BagsPcs) == 2)
+                                        {
+                                            <div class="baggage-row baggage" id="bag_@item.BagsPcs" onclick="BaggagePrice('@item.BagsPcs','@item.BagsPcsPrice','@flights.FlightFare.GrandTotal','@flights.Baglimit.hold_weight')">
+                                                <input type="radio" name="baggage" id="baggage_@item.BagsPcs" value="@(item.BagsPcsPrice)" class="radio" />
+                                                <label for="baggage_@item.BagsPcs">
+                                                    <span class="baggage-name">
+                                                        <i class="fa fa-suitcase" aria-hidden="true"></i>@flights.Baglimit.hold_weight kg Checked bag <br />
+                                                        <i class="fa fa-suitcase" aria-hidden="true"></i> @flights.Baglimit.hold_weight kg Checked bag
+                                                    </span>
+                                                    <span class="baggage-size">
+                                                        @flights.Baglimit.hold_height × @flights.Baglimit.hold_length × @flights.Baglimit.hold_width cm, @flights.Baglimit.hold_weight kg <br />
+                                                        @flights.Baglimit.hold_height × @flights.Baglimit.hold_length × @flights.Baglimit.hold_width cm, @flights.Baglimit.hold_weight kg
+                                                    </span>
+                                                    <span class="baggage-price">£<span id="bgPrice_@item.BagsPcs">@item.BagsPcsPrice</span></span>
+                                                </label>
+                                            </div>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="baggage-row">
+                                        <label for="radio baggage_0">
+                                            <span class="baggage-name"></span>
+                                            <span class="baggage-size"><span style="color:red;font-size:22px;margin:10px;"><i class="fa fa-times"></i></span> Checked baggage is not available for this booking.</span>
+                                            <span class="baggage-price"></span>
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                            <div class="bk_pggrDtlBx" style="display:none">
+                                <div class="bk_pggrDtl freeChanges">
+                                    <div class="float-left">
+                                        <h3 class="fltDlt-h3" style="font-size:22px; text-transform:uppercase; margin-bottom:6px;"><i class="fa fa-ticket" aria-hidden="true"></i> Free Changes</h3>
+                                        <p>Free Changes with-in 24 Hours </p>
+                                    </div>
+                                    <div class="float-right">
+                                        <span class="chargeOn">
+                                            Total Cost £<span id="spfreechange">@((Model.FlightsFare.Adult + Model.FlightsFare.Child + Model.FlightsFare.Infant) * 24)</span>
+                                            <label class="switch">
+                                                <input type="checkbox" id="chkFreeChange" />
+                                                <span class="slider"></span>
+                                            </label>
+                                        </span>
+                                        <p>£24 x @(Model.FlightsFare.Adult + Model.FlightsFare.Child + Model.FlightsFare.Infant) Passanger(s)</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <input type="hidden" id="hdnhold_weight" name="hdnhold_weight" value="" />
+                <input type="hidden" id="hdnhand_weight" name="hdnhand_weight" value="" />
+            }
+            <div style="clear:both;"></div>
+            <div class="bk_nxt_prev_box">
+                <a href="javascript:void(0);" id="btnContinue" class="bk_next active">Continue Booking <span>@(ViewBag.Currency) <span id="spntotfare1">@((flights.FlightFare.GrandTotal + Model.FlightsFare.AtolCharge).ToString("0.00"))</span></span></a>
+
+            </div>
+            <div style="clear:both;"></div>
+            <form method="post" name="booking_frm" id="booking_frm" action="@Url.Content("~/flight/payment/")">
+
+                <div>
+                    <div id="dvFirstStep" class="main_container_passeger">
+                        <div class="bk_pss_hd">
+                            <h4 id="paxinfo">
+                                <i class="fa fa-users"></i> Passenger Details <span class="fa fa-edit" id="cont_detail_edit"></span>
+                            </h4>
+                        </div>
+                        <div id="PassengerInfo" class="bk_ps_dtl_main clearfix">
+                            @for (int aa = 1; aa <= flightSearch.Adult; aa++)
+                            {
+                                pass++;
+                                <div class="bk_mn_pss clearfix">
+                                    <div class="bk_nm_pss">
+                                        Traveller @(pass): Adult
+                                    </div>
+                                    <div class="main_mr">
+                                        <select name="title_@(pass)" id="title_@(pass)" class="main_fmr chk_pass">
+                                            <option value="Mr">Mr</option>
+                                            <option value="Mrs">Mrs</option>
+                                            <option value="Miss">Miss</option>
+                                        </select>
+                                    </div>
+                                    <div class="bk_name">
+                                        <input type="text" name="fname_@(pass)" id="fname_@(pass)" placeholder="First Name" class="bk_fname chk_pass" autocomplete="off" />
+                                    </div>
+                                    <div class="bk_name">
+                                        <input type="text" name="lname_@(pass)" id="lname_@(pass)" placeholder="Last Name" class="bk_fname chk_pass" autocomplete="off" />
+                                    </div>
+                                    <div class="bk_name">
+                                        <input type="text" name="dob_@(pass)" id="dob_@(pass)" placeholder="Date of Birth" class="bk_fname chk_pass adult_datepicker" autocomplete="off" readonly="true" />
+                                    </div>
+                                </div>
+                            }
+                            @for (int aa = 1; aa <= flightSearch.Child; aa++)
+                            {
+                                pass++;
+                                <div class="bk_mn_pss clearfix">
+                                    <div class="bk_nm_pss">
+                                        Traveller @(pass): Child
+                                    </div>
+                                    <div class="main_mr">
+                                        <select name="title_@(pass)" id="title_@(pass)" class="main_fmr chk_pass">
+                                            <option value="Mr">Mr</option>
+                                            <option value="Mrs">Mrs</option>
+                                            <option value="Miss">Miss</option>
+                                        </select>
+                                    </div>
+                                    <div class="bk_name">
+                                        <input type="text" name="fname_@(pass)" id="fname_@(pass)" placeholder="First Name" class="bk_fname chk_pass" autocomplete="off" />
+                                    </div>
+                                    <div class="bk_name">
+                                        <input type="text" name="lname_@(pass)" id="lname_@(pass)" placeholder="Last Name" class="bk_fname chk_pass" autocomplete="off" />
+                                    </div>
+                                    <div class="bk_name">
+                                        <input type="text" name="dob_@(pass)" id="dob_@(pass)" placeholder="Date of Birth" class="bk_fname chk_pass child_datepicker" autocomplete="off" readonly="true" />
+                                    </div>
+                                </div>
+                            }
+                            @for (int aa = 1; aa <= flightSearch.Infant; aa++)
+                            {
+                                pass++;
+                                <div class="bk_mn_pss clearfix">
+                                    <div class="bk_nm_pss">
+                                        Traveller @(pass): Infant
+                                    </div>
+                                    <div class="main_mr">
+                                        <select name="title_@(pass)" id="title_@(pass)" class="main_fmr chk_pass">
+                                            <option value="Mr">Mr</option>
+                                            <option value="Mrs">Mrs</option>
+                                            <option value="Miss">Miss</option>
+                                        </select>
+                                    </div>
+                                    <div class="bk_name">
+                                        <input type="text" name="fname_@(pass)" id="fname_@(pass)" placeholder="First Name" class="bk_fname chk_pass" autocomplete="off" />
+                                    </div>
+                                    <div class="bk_name">
+                                        <input type="text" name="lname_@(pass)" id="lname_@(pass)" placeholder="Last Name" class="bk_fname chk_pass" autocomplete="off" />
+                                    </div>
+                                    <div class="bk_name">
+                                        <input type="text" name="dob_@(pass)" id="dob_@(pass)" placeholder="Date of Birth" class="bk_fname chk_pass infant_datepicker" autocomplete="off" readonly="true" />
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="bk_add_pss clearfix">
+                                <h3>
+                                    <i class="fa fa-phone"></i> Contact Detail
+                                </h3>
+                                <div class="bk_add_field_main">
+                                    <input type="text" name="phone" id="phone" placeholder="Phone" class="bk_add_field" autocomplete="off" />
+                                </div>
+                                <div class="bk_add_field_main marginLft2">
+                                    <input type="text" name="email" id="email" placeholder="Email Id" class="bk_add_field" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="bk_nxt_prev_box">
+                                <a href="javascript:void(0);" id="btnNext1" class="bk_next active">NEXT</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="main_container_address">
+                        <div class="bk_pss_hd">
+                            <h4 id="addressinfo">
+                                <i class="fa fa-map-marker"></i> Address Detail <span class="fa fa-edit" id="addr_detail_edit"></span>
+                            </h4>
+                        </div>
+                        <div class="bk_ps_dtl_main clearfix" id="addressSec" style="display:none;">
+                            <div class="bk_add_pss clearfix">
+                                <div class="bk_add_field_main">
+                                    <input type="text" name="address" id="address" placeholder="Address" class="bk_add_field" autocomplete="off" />
+                                </div>
+                                <div class="bk_add_field_main marginLft2">
+                                    <select class="bk_add_field" name="countryCode" id="countryCode">
+                                        <option value="">Select Country</option>
+                                        <option value="AF">Afghanistan</option>
+                                        <option value="AX">Åland Islands</option>
+                                        <option value="AL">Albania</option>
+                                        <option value="DZ">Algeria</option>
+                                        <option value="AS">American Samoa</option>
+                                        <option value="AD">Andorra</option>
+                                        <option value="AO">Angola</option>
+                                        <option value="AI">Anguilla</option>
+                                        <option value="AQ">Antarctica</option>
+                                        <option value="AG">Antigua and Barbuda</option>
+                                        <option value="AR">Argentina</option>
+                                        <option value="AM">Armenia</option>
+                                        <option value="AW">Aruba</option>
+                                        <option value="AU">Australia</option>
+                                        <option value="AT">Austria</option>
+                                        <option value="AZ">Azerbaijan</option>
+                                        <option value="BS">Bahamas</option>
+                                        <option value="BH">Bahrain</option>
+                                        <option value="BD">Bangladesh</option>
+                                        <option value="BB">Barbados</option>
+                                        <option value="BY">Belarus</option>
+                                        <option value="BE">Belgium</option>
+                                        <option value="BZ">Belize</option>
+                                        <option value="BJ">Benin</option>
+                                        <option value="BM">Bermuda</option>
+                                        <option value="BT">Bhutan</option>
+                                        <option value="BO">Bolivia, Plurinational State of</option>
+                                        <option value="BQ">Bonaire, Sint Eustatius and Saba</option>
+                                        <option value="BA">Bosnia and Herzegovina</option>
+                                        <option value="BW">Botswana</option>
+                                        <option value="BV">Bouvet Island</option>
+                                        <option value="BR">Brazil</option>
+                                        <option value="IO">British Indian Ocean Territory</option>
+                                        <option value="BN">Brunei Darussalam</option>
+                                        <option value="BG">Bulgaria</option>
+                                        <option value="BF">Burkina Faso</option>
+                                        <option value="BI">Burundi</option>
+                                        <option value="KH">Cambodia</option>
+                                        <option value="CM">Cameroon</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="CV">Cape Verde</option>
+                                        <option value="KY">Cayman Islands</option>
+                                        <option value="CF">Central African Republic</option>
+                                        <option value="TD">Chad</option>
+                                        <option value="CL">Chile</option>
+                                        <option value="CN">China</option>
+                                        <option value="CX">Christmas Island</option>
+                                        <option value="CC">Cocos (Keeling) Islands</option>
+                                        <option value="CO">Colombia</option>
+                                        <option value="KM">Comoros</option>
+                                        <option value="CG">Congo</option>
+                                        <option value="CD">Congo, the Democratic Republic of the</option>
+                                        <option value="CK">Cook Islands</option>
+                                        <option value="CR">Costa Rica</option>
+                                        <option value="CI">Côte d'Ivoire</option>
+                                        <option value="HR">Croatia</option>
+                                        <option value="CU">Cuba</option>
+                                        <option value="CW">Curaçao</option>
+                                        <option value="CY">Cyprus</option>
+                                        <option value="CZ">Czech Republic</option>
+                                        <option value="DK">Denmark</option>
+                                        <option value="DJ">Djibouti</option>
+                                        <option value="DM">Dominica</option>
+                                        <option value="DO">Dominican Republic</option>
+                                        <option value="EC">Ecuador</option>
+                                        <option value="EG">Egypt</option>
+                                        <option value="SV">El Salvador</option>
+                                        <option value="GQ">Equatorial Guinea</option>
+                                        <option value="ER">Eritrea</option>
+                                        <option value="EE">Estonia</option>
+                                        <option value="ET">Ethiopia</option>
+                                        <option value="FK">Falkland Islands (Malvinas)</option>
+                                        <option value="FO">Faroe Islands</option>
+                                        <option value="FJ">Fiji</option>
+                                        <option value="FI">Finland</option>
+                                        <option value="FR">France</option>
+                                        <option value="GF">French Guiana</option>
+                                        <option value="PF">French Polynesia</option>
+                                        <option value="TF">French Southern Territories</option>
+                                        <option value="GA">Gabon</option>
+                                        <option value="GM">Gambia</option>
+                                        <option value="GE">Georgia</option>
+                                        <option value="DE">Germany</option>
+                                        <option value="GH">Ghana</option>
+                                        <option value="GI">Gibraltar</option>
+                                        <option value="GR">Greece</option>
+                                        <option value="GL">Greenland</option>
+                                        <option value="GD">Grenada</option>
+                                        <option value="GP">Guadeloupe</option>
+                                        <option value="GU">Guam</option>
+                                        <option value="GT">Guatemala</option>
+                                        <option value="GG">Guernsey</option>
+                                        <option value="GN">Guinea</option>
+                                        <option value="GW">Guinea-Bissau</option>
+                                        <option value="GY">Guyana</option>
+                                        <option value="HT">Haiti</option>
+                                        <option value="HM">Heard Island and McDonald Islands</option>
+                                        <option value="VA">Holy See (Vatican City State)</option>
+                                        <option value="HN">Honduras</option>
+                                        <option value="HK">Hong Kong</option>
+                                        <option value="HU">Hungary</option>
+                                        <option value="IS">Iceland</option>
+                                        <option value="IN">India</option>
+                                        <option value="ID">Indonesia</option>
+                                        <option value="IR">Iran, Islamic Republic of</option>
+                                        <option value="IQ">Iraq</option>
+                                        <option value="IE">Ireland</option>
+                                        <option value="IM">Isle of Man</option>
+                                        <option value="IL">Israel</option>
+                                        <option value="IT">Italy</option>
+                                        <option value="JM">Jamaica</option>
+                                        <option value="JP">Japan</option>
+                                        <option value="JE">Jersey</option>
+                                        <option value="JO">Jordan</option>
+                                        <option value="KZ">Kazakhstan</option>
+                                        <option value="KE">Kenya</option>
+                                        <option value="KI">Kiribati</option>
+                                        <option value="KP">Korea, Democratic People's Republic of</option>
+                                        <option value="KR">Korea, Republic of</option>
+                                        <option value="KW">Kuwait</option>
+                                        <option value="KG">Kyrgyzstan</option>
+                                        <option value="LA">Lao People's Democratic Republic</option>
+                                        <option value="LV">Latvia</option>
+                                        <option value="LB">Lebanon</option>
+                                        <option value="LS">Lesotho</option>
+                                        <option value="LR">Liberia</option>
+                                        <option value="LY">Libya</option>
+                                        <option value="LI">Liechtenstein</option>
+                                        <option value="LT">Lithuania</option>
+                                        <option value="LU">Luxembourg</option>
+                                        <option value="MO">Macao</option>
+                                        <option value="MK">Macedonia, the former Yugoslav Republic of</option>
+                                        <option value="MG">Madagascar</option>
+                                        <option value="MW">Malawi</option>
+                                        <option value="MY">Malaysia</option>
+                                        <option value="MV">Maldives</option>
+                                        <option value="ML">Mali</option>
+                                        <option value="MT">Malta</option>
+                                        <option value="MH">Marshall Islands</option>
+                                        <option value="MQ">Martinique</option>
+                                        <option value="MR">Mauritania</option>
+                                        <option value="MU">Mauritius</option>
+                                        <option value="YT">Mayotte</option>
+                                        <option value="MX">Mexico</option>
+                                        <option value="FM">Micronesia, Federated States of</option>
+                                        <option value="MD">Moldova, Republic of</option>
+                                        <option value="MC">Monaco</option>
+                                        <option value="MN">Mongolia</option>
+                                        <option value="ME">Montenegro</option>
+                                        <option value="MS">Montserrat</option>
+                                        <option value="MA">Morocco</option>
+                                        <option value="MZ">Mozambique</option>
+                                        <option value="MM">Myanmar</option>
+                                        <option value="NA">Namibia</option>
+                                        <option value="NR">Nauru</option>
+                                        <option value="NP">Nepal</option>
+                                        <option value="NL">Netherlands</option>
+                                        <option value="NC">New Caledonia</option>
+                                        <option value="NZ">New Zealand</option>
+                                        <option value="NI">Nicaragua</option>
+                                        <option value="NE">Niger</option>
+                                        <option value="NG">Nigeria</option>
+                                        <option value="NU">Niue</option>
+                                        <option value="NF">Norfolk Island</option>
+                                        <option value="MP">Northern Mariana Islands</option>
+                                        <option value="NO">Norway</option>
+                                        <option value="OM">Oman</option>
+                                        <option value="PK">Pakistan</option>
+                                        <option value="PW">Palau</option>
+                                        <option value="PS">Palestinian Territory, Occupied</option>
+                                        <option value="PA">Panama</option>
+                                        <option value="PG">Papua New Guinea</option>
+                                        <option value="PY">Paraguay</option>
+                                        <option value="PE">Peru</option>
+                                        <option value="PH">Philippines</option>
+                                        <option value="PN">Pitcairn</option>
+                                        <option value="PL">Poland</option>
+                                        <option value="PT">Portugal</option>
+                                        <option value="PR">Puerto Rico</option>
+                                        <option value="QA">Qatar</option>
+                                        <option value="RE">Réunion</option>
+                                        <option value="RO">Romania</option>
+                                        <option value="RU">Russian Federation</option>
+                                        <option value="RW">Rwanda</option>
+                                        <option value="BL">Saint Barthélemy</option>
+                                        <option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
+                                        <option value="KN">Saint Kitts and Nevis</option>
+                                        <option value="LC">Saint Lucia</option>
+                                        <option value="MF">Saint Martin (French part)</option>
+                                        <option value="PM">Saint Pierre and Miquelon</option>
+                                        <option value="VC">Saint Vincent and the Grenadines</option>
+                                        <option value="WS">Samoa</option>
+                                        <option value="SM">San Marino</option>
+                                        <option value="ST">Sao Tome and Principe</option>
+                                        <option value="SA">Saudi Arabia</option>
+                                        <option value="SN">Senegal</option>
+                                        <option value="RS">Serbia</option>
+                                        <option value="SC">Seychelles</option>
+                                        <option value="SL">Sierra Leone</option>
+                                        <option value="SG">Singapore</option>
+                                        <option value="SX">Sint Maarten (Dutch part)</option>
+                                        <option value="SK">Slovakia</option>
+                                        <option value="SI">Slovenia</option>
+                                        <option value="SB">Solomon Islands</option>
+                                        <option value="SO">Somalia</option>
+                                        <option value="ZA">South Africa</option>
+                                        <option value="GS">South Georgia and the South Sandwich Islands</option>
+                                        <option value="SS">South Sudan</option>
+                                        <option value="ES">Spain</option>
+                                        <option value="LK">Sri Lanka</option>
+                                        <option value="SD">Sudan</option>
+                                        <option value="SR">Suriname</option>
+                                        <option value="SJ">Svalbard and Jan Mayen</option>
+                                        <option value="SZ">Swaziland</option>
+                                        <option value="SE">Sweden</option>
+                                        <option value="CH">Switzerland</option>
+                                        <option value="SY">Syrian Arab Republic</option>
+                                        <option value="TW">Taiwan, Province of China</option>
+                                        <option value="TJ">Tajikistan</option>
+                                        <option value="TZ">Tanzania, United Republic of</option>
+                                        <option value="TH">Thailand</option>
+                                        <option value="TL">Timor-Leste</option>
+                                        <option value="TG">Togo</option>
+                                        <option value="TK">Tokelau</option>
+                                        <option value="TO">Tonga</option>
+                                        <option value="TT">Trinidad and Tobago</option>
+                                        <option value="TN">Tunisia</option>
+                                        <option value="TR">Turkey</option>
+                                        <option value="TM">Turkmenistan</option>
+                                        <option value="TC">Turks and Caicos Islands</option>
+                                        <option value="TV">Tuvalu</option>
+                                        <option value="UG">Uganda</option>
+                                        <option value="UA">Ukraine</option>
+                                        <option value="AE">United Arab Emirates</option>
+                                        <option value="GB" selected>United Kingdom</option>
+                                        <option value="US">United States</option>
+                                        <option value="UM">United States Minor Outlying Islands</option>
+                                        <option value="UY">Uruguay</option>
+                                        <option value="UZ">Uzbekistan</option>
+                                        <option value="VU">Vanuatu</option>
+                                        <option value="VE">Venezuela, Bolivarian Republic of</option>
+                                        <option value="VN">Viet Nam</option>
+                                        <option value="VG">Virgin Islands, British</option>
+                                        <option value="VI">Virgin Islands, U.S.</option>
+                                        <option value="WF">Wallis and Futuna</option>
+                                        <option value="EH">Western Sahara</option>
+                                        <option value="YE">Yemen</option>
+                                        <option value="ZM">Zambia</option>
+                                        <option value="ZW">Zimbabwe</option>
+                                    </select>
+                                </div>
+                                <div class="bk_add_field_main">
+                                    <input type="text" name="city" id="city" placeholder="City" class="bk_add_field" autocomplete="off" />
+                                </div>
+                                <div class="bk_add_field_main marginLft2">
+                                    <input type="text" name="postcode" id="postcode" placeholder="Postal Code" class="bk_add_field" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="bk_nxt_prev_box">
+                                <a id="btnNext2" href="javascript:void(0);" class="bk_next active">NEXT</a>
+                            </div>
+
+                        </div>
+
+                        <div class="bk_pss_hd">
+                           
+
+                            @{
+                                var lcheck = false;
+
+                                var marketing = Model.SourceMedia.ToString().ToUpper();
+                                var provider = Model.Flights.Provider.ToString().ToUpper();
+                                var FetchType = (ViewBag.flightSearch.IsDeepLink) ? "DEEPLINK" : "META";
+                                string sql1 = "SELECT IsSagePay_Viman FROM ApiService where SiteCode = 'VIMAN' AND VendorCode = '" + marketing + "' and ProviderCode = '" + provider + "' and Fetchtype = '" + FetchType + "' and IsSagePay_Viman='active'";
+                                System.Data.DataTable dtx = new System.Data.DataTable();
+                                dtx = SqlData.Data.SqlHelperData.ExecuteDataset(SqlData.Data.SqlHelperData.ConnectionString, System.Data.CommandType.Text, sql1).Tables[0];
+                                if (dtx.Rows.Count > 0)
+                                {
+                                    lcheck = true;
+                                }
+
+
+                                @if (!lcheck)
+                                {
+                                    <div>
+                                        <div class="bk_main_card_box">
+                                            <div class="bk_card_hd">
+                                                <h4 id="paymentinfo"><i class="fa fa-credit-card"></i> Card Detail</h4>
+                                            </div>
+                                            <div class="bk_card_dtl_main" id="paymentSec" style="display:block;">
+                                                <div class="bk_card_dtl_box">
+                                                    <img src="@(ViewBag.StaticURL + "Content/images/visa_cards.svg")">
+                                                </div>
+                                                <div class="bk_card_pss clearfix">
+                                                    <div class="bk_card_field_main">
+                                                        <label>Card holder's Name</label>
+                                                        <input type="text" class="bk_add_field" name="cc_name" id="cc_name" placeholder="Card holder's Name" required />
+                                                    </div>
+                                                    <div class="bk_card_field_main">
+                                                        <label>Card Type</label>
+                                                        <select name="cardType" id="cardType" required="required" class="bk_add_field" onchange="SetCvvNo();">
+                                                            <option selected="selected" value="cardtype">Card Type</option>
+                                                            <option value="jcb">JCB</option>
+                                                            <option value="visa">Visa</option>
+                                                            <option value="visa">Visa Debit</option>
+                                                            <option value="visaelectron">Electron</option>
+                                                            <option value="mastercard">Mastercard</option>
+                                                            <option value="mastercard">Mastercard debit</option>
+                                                            <option value="maestro">Maestro</option>
+                                                            <option value="dinersclub">Diners Club International</option>
+                                                            <option value="amex">American Express</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="bk_card_field_main">
+                                                        <label>Card Number</label>
+                                                        <input type="hidden" name="cc_card_type" id="cc_card_type" value="" />
+                                                        <input type="tel" class="bk_card_field cc_number" name="cc_number" id="cc_number" placeholder="•••• •••• •••• ••••" onblur="SetCardType();" />
+                                                        <i class="fa fa-credit-card"></i>
+                                                    </div>
+                                                    <div class="bk_card_field_main">
+                                                        <div class="bk_crdexp_Main">
+                                                            <label>Expiry Date</label>
+                                                            <input type="tel" class="bk_card_field cc_exp" name="cc_exp" id="cc_exp" placeholder="•• / ••" />
+                                                        </div>
+                                                        <div class="bk_crdexp_Main">
+                                                            <label>CVV Code</label>
+                                                            <input type="tel" class="bk_card_field cc_cvc" name="cc_cvv" id="cc_cvv" placeholder="•••" />
+                                                            <i class="fa fa-question" id="show_cvv_code_detail"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="bk_htl_chkbx fltr_checkBox">
+                                                    <input type="checkbox" id="hotel_chk" name="hotel_chk" value="1" />
+                                                    <span class="checkmark"></span>
+                                                    <label for="hotel_chk">For hotel booking please check this box and our agent will soon get back to you with cheapest available options.</label>
+                                                </div>
+
+                                                <div class="bk_htl_chkbx_grn fltr_checkBox">
+                                                    <input type="checkbox" id="signup_chk" name="signup_chk" value="1" checked>
+                                                    <span class="checkmark"></span>
+                                                    <label for="signup_chk">Sign up NOW for cheap deals, competitions &amp; great offers straight to your inbox.</label>
+                                                </div>
+
+                                                <div class="bk_terms_con clearfix">
+                                                    <div class="bk_you_pay">
+                                                        <label>You Pay</label>
+                                                        <span>@(ViewBag.Currency)<span id="makePayment_Totalfare"> @((flights.FlightFare.GrandTotal + flights.FlightFare.AtolCharge).ToString("0.00"))</span></span>
+                                                    </div>
+                                                    <div class="bk_con_para">
+                                                        <p>By clicking on "Make Payments" I accept the <a href="@Url.Content("~/terms-conditions/")">Terms & Conditions</a> of Flight Office and I accept that my bank card will be charged for the above total amount for this purchase.</p>
+                                                    </div>
+                                                    <div class="bk_btn">
+                                                        <input type="submit" name="make_payment1" id="make_payment1" value="Make Payments" />
+                                                        <span>
+                                                            <i class="fa fa-lock"></i>
+                                                            Your payment is 100% safe
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="bk_scrty" id="cvv_code_detail">
+                                                <h4>CVV Code</h4>
+                                                <i class="fa fa-times" id="cvv_code_close"></i>
+                                                <div class="bk_scrty_cont">
+                                                    <p>Where can I find my card's security code?</p>
+                                                    <img src="@(ViewBag.StaticURL + "Content/images/card_security.svg")">
+                                                    <p>
+                                                        The card security code is located on the back of Visa, Master Card, Discover, Diners Club, and JCB credit
+                                                        or debit cards and is typically a separate group of 3 digits to the right of the signature strip.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                { <div class="bk_card_hd">
+                                        <h4 id="paymentinfo"><i class="fa fa-credit-card"></i> Payment </h4>
+                                    </div>
+
+                                    <div id="paymentSec" class="bk_card_dtl_main">
+                                        <div class="bk_htl_chkbx fltr_checkBox">
+                                            <input type="checkbox" id="hotel_chk" name="hotel_chk" value="1" />
+                                            <span class="checkmark"></span>
+                                            <label for="hotel_chk"> For hotel booking please check this box and our agent will soon get back to you with cheapest available options.</label>
+                                        </div>
+
+                                        <div class="bk_htl_chkbx_grn fltr_checkBox">
+                                            <input type="checkbox" id="signup_chk" name="signup_chk" value="1" checked>
+                                            <span class="checkmark"></span>
+                                            <label for="signup_chk">Sign up NOW for cheap deals, competitions &amp; great offers straight to your inbox.</label>
+                                        </div>
+
+                                        <div class="bk_terms_con clearfix">
+                                            <div class="bk_you_pay">
+                                                <label>You Pay</label>
+                                                <span>@(ViewBag.Currency)<span id="makePayment_Totalfare">@((flights.FlightFare.GrandTotal + flights.FlightFare.AtolCharge).ToString("0.00"))</span></span>
+                                            </div>
+                                            <div class="bk_con_para">
+                                                <p>By clicking on "Make Payments" I accept the <a href="@Url.Content("~/terms-conditions/")">Terms & Conditions</a> of Flight Office and I accept that my bank card will be charged for the above total amount for this purchase.</p>
+                                            </div>
+                                            <div class="bk_btn">
+                                                <input type="submit" name="make_payment" id="make_payment" value="Make Payments" />
+                                                <span>
+                                                    <i class="fa fa-lock"></i>
+                                                    Your payment is 100% safe
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="booking-info">
+                        <h4><i class="fa fa-info-circle" aria-hidden="true"></i> Terms & Conditions</h4>
+                        <ul>
+                            <li>This Website uses Master Card Secure Code, Verified by Visa and American Express Safe Key for the security and privacy of our customers.</li>
+                            <li>This is a promotional fare and the availability is limited and the prices are subject to change unless it is paid and issued.</li>
+                            <li>Kindly check with us if you need a changeable ticket as promotional fares are  Non- refundable and Non-Changeable. Please give us a call at 0203 642 6835 and talk to our experienced staff  if you need changeable tickets.</li>
+                            <li>Certain promotional fares may not include check in Baggage.</li>
+                            <li>If you have any special request, please let us know and we will send the request through to the airline. Please note that the requests are not guaranteed but we shall make every effort to make sure the airlines looks into your request. Airline is the only authority to confirm you the seats and meals or special assistance like wheelchair.</li>
+                            <li>It is your responsibility to ensure that you understand and comply with all the passport, visa and health requirements of all the countries involved in your itinerary (including those that you transit).</li>
+                            <li>Kindly reconfirm your flights 72Hours before departure both ways to make sure you are aware about any last minute changes to your flight timings made by the Airlines.</li>
+                        </ul>
+                    </div>
+
+                    <div class="gap"></div>
+                    <input type="hidden" id="hdnBaggagePrice" name="hdnBaggagePrice" value="0" />
+                    <input type="hidden" id="hdnBaggagePcs" name="hdnBaggagePcs" value="0" />
+                    <input type="hidden" id="hdnFreeChangeAmt" name="hdnFreeChangeAmt" value="0" />
+
+                    <input type="hidden" id="hdnFinalfare" name="hdnFinalfare" value="@((flights.FlightFare.GrandTotal + Model.FlightsFare.AtolCharge).ToString("0.00"))" />
+
+
+                </form>
+            </div>
+        </div>
+ </div>
+
+    @section scripts{
+        <script type="text/javascript" src="@(ViewBag.StaticURL + "Content/js/jquery.payment.min.js")"></script>
+        <script type="text/javascript">
+        $(document).ready(function () {
+            $("#show_cvv_code_detail").click(function(){
+                $("#cvv_code_detail").show();
+            });
+            $("#cvv_code_close").click(function(){
+                $("#cvv_code_detail").hide();
+            });
+
+            $(".adult_datepicker").datepicker({
+                format: 'dd-mm-yyyy',
+                endDate: '@DateTime.Now.AddYears(-12).ToString("dd-MM-yyyy")',
+                autoHide: true
+            });
+            $(".child_datepicker").datepicker({
+                format: 'dd-mm-yyyy',
+                startDate: '@DateTime.Now.AddYears(-12).ToString("dd-MM-yyyy")',
+                endDate: '@DateTime.Now.AddYears(-2).ToString("dd-MM-yyyy")',
+                autoHide: true
+            });
+            $(".infant_datepicker").datepicker({
+                format: 'dd-mm-yyyy',
+                startDate: '@DateTime.Now.AddYears(-2).ToString("dd-MM-yyyy")',
+                endDate: '@DateTime.Now.ToString("dd-MM-yyyy")',
+                autoHide: true
+            });
+
+            $(".bk_smry_view_detail").click(function(){
+                $("html, body").animate({ scrollTop: "650px" });
+                $(".bk_main_bro").slideDown();
+            });
+
+            $("#pass_cont_next").click(function () {
+                var pass_flag = true;
+                $(".chk_pass").each(function(i){
+                    if($(this).val().trim(' ') == "")
+                    {
+                        alert("Please enter your passenger detail.");
+                        $(this).focus();
+                        pass_flag = false;
+                        return false;
+                    }
+                });
+            });
+
+            $("#pass_addr_back").click(function () {
+                $("#addr_detail").slideUp(function(){ $("#cont_detail").slideDown(); });
+            });
+            $("#pass_addr_next").click(function(){
+
+                if(addr_flag)
+                {
+                    $("#addr_detail").slideUp(function(){ $("#card_detail").slideDown(); });
+                    $("#addr_detail_edit").show();
+                }
+            });
+            $("#addr_detail_edit").click(function(){
+                $(this).hide();
+                $("#cont_detail_edit").show();
+                $("#card_detail").slideUp(function(){ $("#cont_detail").slideUp(function(){ $("#addr_detail").slideDown(); }); });
+            });
+        });
+        </script>
+
+        <script type="text/javascript">
+            $("[data-numeric]").payment('restrictNumeric');
+            $(".cc_number").payment('formatCardNumber');
+            $(".cc_exp").payment('formatCardExpiry');
+            $(".cc_cvc").payment('formatCardCVC');
+
+
+            function SetCvvNo() {
+                var _cardType = $('#cardType').val();
+                if (_cardType === "amex") {
+                    $("#cc_cvv").attr('maxlength', '4');
+                }
+                else {
+                    $("#cc_cvv").attr('maxlength', '3');
+                }
+            }
+
+            function SetCardType() {
+
+                var cardType = $.payment.cardType($('.cc_number').val());
+                $("#cc_card_type").val(cardType);
+                $('#cardType').val(cardType).change();
+
+            }
+
+        </script>
+
+        <script>
+
+
+        $(document).ready(function(){
+            $(".baggage").click(function(){
+                $(".baggage").removeClass("baggage-select");
+                $(this).addClass("baggage-select");
+            });
+        });
+
+        $(document).ready(function(){
+            $('#spBaggagePrice').text($('#hdnhand_weight').val()+ ' kg PP');
+            $('#spBagname').text('Cabin Bag');
+            if($('#baggage_0').prop("checked") == true)
+            {
+                $('#spBagname1').text('Check In Luggage');
+                $("#spBaggagePrice1").html("Not Included");
+            }
+            if($('#baggage_1').prop("checked") == true)
+            {
+                $('#spBagname1').text('Check In Luggage');
+                $("#spBaggagePrice1").html($('#hdnhold_weight').val()+" kg Included");
+            }
+
+
+        });
+        $(document).ready(function(){
+
+            $("#makePayment_Totalfare").text($("#spntotfare").text());
+
+            if($('#chkFreeChange').prop("checked") == true)
+            {
+
+            }
+            $('#chkFreeChange').change(function(){
+
+                var finalfare=parseFloat($("#spntotfare").text());
+
+                var freechange=parseFloat(0.0);
+
+                if($('#chkFreeChange').prop("checked") == true)
+                {
+                    freechange= parseFloat($('#spfreechange').text());
+                    $('#hdnFreeChangeAmt').val(freechange);
+                    finalfare=finalfare+freechange;
+                }
+                else
+                {
+                    freechange= parseFloat($('#spfreechange').text());
+                    finalfare=finalfare-freechange;
+
+                }
+                $("#makePayment_Totalfare").text(finalfare);
+                $("#spntotfare").html(finalfare);
+                $("#spntotfare1").html(finalfare);
+                $("#hdnFinalfare").val(finalfare);
+
+            });
+        });
+
+        function BaggagePrice(Pcs,BagPrice,GrandTotal,weight)
+        {    $('#spBagname1').text('Check In Luggage');
+            // alert(BagPrice +" PCS="+ Pcs);
+            // No checked baggage (Not Included)
+            // 23 kg Checked bag but price 0 THEN (23 kg INCLUED)
+            //  23 kg Checked bag but price geater tHEN  0 (23 kg Inclued)
+            //  23 X 23 kg Checked bag (46 kg Inclued)
+            var freechange=parseFloat(0.0);
+            if($('#chkFreeChange').prop("checked") == true)
+            {
+                freechange= parseFloat($('#spfreechange').text());
+            }
+            var grandTotal = (@((Model.FlightsFare.Adult + Model.FlightsFare.Child + Model.FlightsFare.Infant))+freechange+ parseFloat(BagPrice)+ parseFloat(GrandTotal)).toFixed(2);
+
+            if(BagPrice==="0")
+            {
+                // $("#spBaggagePrice").html("FREE");
+                $("#makePayment_Totalfare").text($("#spntotfare").text());
+                $("#spntotfare").html(grandTotal);
+                $("#spntotfare1").html(grandTotal);
+                $("#hdnFinalfare").val(grandTotal);
+                $("#hdnBaggagePrice").val(BagPrice);
+                $("#hdnBaggagePcs").val(Pcs);
+            }
+            else
+            {
+                //  $("#spBaggagePrice").html("$"+BagPrice);
+                $("#makePayment_Totalfare").text($("#spntotfare").text());
+                $("#spntotfare").html(grandTotal);
+                $("#spntotfare1").html(grandTotal);
+                $("#hdnFinalfare").html(grandTotal);
+                $("#hdnBaggagePrice").val(BagPrice);
+                $("#hdnBaggagePcs").val(Pcs);
+            }
+
+            if((parseInt(BagPrice)==0) && parseInt(Pcs)==0)
+            {  $("#spBaggagePrice1").html("Not Included");
+            }
+
+            if((parseInt(BagPrice)>=0) && parseInt(Pcs)==1)
+            { $("#spBaggagePrice1").html(weight+" kg Included");
+            }
+
+            if((parseInt(BagPrice)>=0) && parseInt(Pcs)==2)
+            {  $("#spBaggagePrice1").html((parseInt(weight) *2)+" kg Included");
+            }
+        }
+        </script>
+        <script>
+        $(document).ready(function(){
+
+            $('#PassengerInfo').hide();
+            $('#addressSec').hide();
+            $('#paymentSec').hide();
+
+        });
+
+        $(document).ready(function(){
+
+            $('#fname_1').keypress(function(){
+                $('#fname_1').css('border-color', '');
+            });
+            $('#lname_1').keypress(function(){
+                $('#lname_1').css('border-color', '');
+            });
+            $('#dob_1').keypress(function(){
+                $('#dob_1').css('border-color', '');
+            });
+            $('#phone').keypress(function(){
+                $('#phone').css('border-color', '');
+            });
+            $('#email').keypress(function(){
+                $('#email').css('border-color', '');
+            });
+            $('#postcode').keypress(function(){
+                $('#postcode').css('border-color', '');
+            });
+            $('#state').keypress(function(){
+                $('#state').css('border-color', '');
+            });
+            $('#city').change(function(){
+                $('#city').css('border-color', '');
+            });
+            $('#address').keypress(function(){
+                $('#address').css('border-color', '');
+            });
+        });
+
+        $('#btnContinue').click(function(){
+            $('#PassengerInfo').show();
+            $('#btnContinue').hide();
+        });
+
+        $('#btnNext1').click(function(){
+
+            var lboolcheck=true;
+            if($('#fname_1').val().trim()=='')
+            {   lboolcheck=false;
+                $('#addressSec').hide();
+                $('#fname_1').css('border-color', 'red');
+            }
+            if($('#lname_1').val().trim()=='')
+            {   lboolcheck=false;
+
+                $('#addressSec').hide();
+                $('#lname_1').css('border-color', 'red');
+            }
+            if($('#dob_1').val().trim()=='')
+            {lboolcheck=false;
+                $('#addressSec').hide();
+                $('#dob_1').css('border-color', 'red');
+            }
+            if($('#phone').val().trim()=='')
+            {lboolcheck=false;
+                $('#addressSec').hide();
+                $('#phone').css('border-color', 'red');
+            }
+            if($('#email').val().trim()=='')
+            {lboolcheck=false;
+                $('#addressSec').hide();
+                $('#email').css('border-color', 'red');
+            }
+
+            if(lboolcheck)
+            {   $('#PassengerInfo').hide();
+                $('#addressSec').show();
+                $('#fname_1').css('border-color', '');
+                $('#lname_1').css('border-color', '');
+                $('#email').css('border-color', '');
+                $('#phone').css('border-color', '');
+                $('#dob_1').css('border-color', '');
+
+
+                $.ajax(
+                   {
+                       type: "POST",
+                       url: "@(ViewBag.StaticURL+ "flight/bookingalert")",
+                       data: {
+                           Phone: $("#phone").val(),
+                           Email: $("#email").val(),
+                           FULLname: $("#title_1").val()+" "+$("#fname_1").val()+" "+$("#lname_1").val(),
+                       },
+                       success: function (data) {
+                           // alert("success");
+                       }
+                   });
+
+            }
+        });
+
+
+        $('#btnNext2').click(function(){
+
+            //$('#paymentSec').show();
+            //$('#addressSec').hide();
+
+            var lboolcheck=true;
+            if($('#address').val().trim()=='')
+            {   lboolcheck=false;
+                $('#paymentSec').hide();
+                $('#address').css('border-color', 'red');
+            }
+
+            if($('#city').val().trim()=='')
+            {   lboolcheck=false;
+
+                $('#paymentSec').hide();
+                $('#city').css('border-color', 'red');
+            }
+
+            if($('#postcode').val().trim()=='')
+            {
+                lboolcheck=false;
+                $('#paymentSec').hide();
+                $('#postcode').css('border-color', 'red');
+            }
+
+            if(lboolcheck)
+            {   $('#paymentSec').show();
+                $('#addressSec').hide();
+
+                $('#postcode').css('border-color', '');
+                $('#city').css('border-color', '');
+                $('#address').css('border-color', '');
+            }
+        });
+
+
+        $(document).ready(function(){
+
+            $('#paxinfo').click(function(){
+
+                $('#PassengerInfo').show();
+                $('#addressSec').hide();
+                $('#paymentSec').hide();
+            });
+            $('#addressinfo').click(function(){
+
+                $('#PassengerInfo').hide();
+                $('#addressSec').show();
+                $('#paymentSec').hide();
+            });
+            $('#paymentinfo').click(function(){
+
+                $('#PassengerInfo').hide();
+                $('#addressSec').hide();
+                $('#paymentSec').show();
+            });
+        });
+
+
+        function IsValidate()
+        {
+
+            if($('#fname_1').val().trim()=='')
+            {   alert("Please enter your first name.");
+                $('#fname_1').css('border-color', 'red');
+                $('#PassengerInfo').show();
+                $('#addressSec').hide();
+                $('#paymentSec').hide();
+                return false;
+            }
+            if($('#lname_1').val().trim()=='')
+            {    alert("Please enter your last name.");
+                $('#lname_1').css('border-color', 'red');
+                $('#PassengerInfo').show();
+                $('#addressSec').hide();
+                $('#paymentSec').hide();
+                return false;
+            }
+
+            if($('#dob_1').val().trim()=='')
+            {
+                alert("Please enter your date of birth.");
+                $('#dob_1').css('border-color', 'red');
+                $('#PassengerInfo').show();
+                $('#addressSec').hide();
+                $('#paymentSec').hide();
+                return false;
+            }
+
+            if ($("#phone").val().trim(' ') == "")
+            {
+                alert("Please enter your phone number.");
+                $("#phone").focus();
+                $('#phone').css('border-color', 'red');
+                $('#PassengerInfo').show();
+                $('#addressSec').hide();
+                $('#paymentSec').hide();
+                return false;
+            }
+            else
+            {
+                var phoneNum = $("#phone").val().replace(/[^\d]/g, '');
+                if(!(phoneNum.length > 7 && phoneNum.length < 15))
+                {
+                    alert("Please enter your valid phone number.");
+                    $("#phone").focus();
+                    $('#phone').css('border-color', 'red');
+                    $('#PassengerInfo').show();
+                    $('#addressSec').hide();
+                    $('#paymentSec').hide();
+                    return false;
+                }
+            }
+
+            if ($("#email").val().trim(' ') == "")
+            {
+                alert("Please enter your email.");
+                $('#email').css('border-color', 'red');
+                $("#email").focus();
+                $('#PassengerInfo').show();
+                $('#addressSec').hide();
+                $('#paymentSec').hide();
+                return false;
+            }
+            else
+            {
+                var filter = @("/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{0,4}$/");
+                if (!filter.test(document.getElementById("email").value)) {
+                    alert("Please enter your valid email.");
+                    $('#email').css('border-color', 'red');
+                    document.getElementById("email").focus();
+                    $('#PassengerInfo').show();
+                    $('#addressSec').hide();
+                    $('#paymentSec').hide();
+                    return false;
+                }
+            }
+
+            var addr_flag = true;
+            if ($("#address").val().trim(' ') == "")
+            {
+                alert("Please enter your full address.");
+                $('#address').css('border-color', 'red');
+                addr_flag = false;
+                $("#address").focus();
+
+                $('#PassengerInfo').hide();
+                $('#addressSec').show();
+                $('#paymentSec').hide();
+
+                return false;
+            }
+            else if ($("#countryCode").val().trim(' ') == "")
+            {
+                alert("Please select your country.");
+                $('#countryCode').css('border-color', 'red');
+                addr_flag = false;
+                $("#countryCode").focus();
+                $('#PassengerInfo').hide();
+                $('#addressSec').show();
+                $('#paymentSec').hide();
+                return false;
+            }
+            else if ($("#city").val().trim(' ') == "")
+            {
+                alert("Please enter your city.");
+                $('#city').css('border-color', 'red');
+                addr_flag = false;
+                $("#city").focus();
+                $('#PassengerInfo').hide();
+                $('#addressSec').show();
+                $('#paymentSec').hide();
+                return false;
+            }
+            else if ($("#postcode").val().trim(' ') == "")
+            {
+                alert("Please enter your postcode.");
+                $('#postcode').css('border-color', 'red');
+                addr_flag = false;
+                $("#postcode").focus();
+                $('#PassengerInfo').hide();
+                $('#addressSec').show();
+                $('#paymentSec').hide();
+                return false;
+            }
+
+            return true;
+        }
+        </script>
+
+
+
+        <script>
+
+            $("#make_payment1").click(function () {
+
+                if (!IsValidate()) {
+                    return false;
+                }
+                else {
+
+
+                    //Card Validation Code
+                    var cardType = $.payment.cardType($('.cc_number').val());
+                    if ($("#cc_name").val().trim(' ') == "") {
+                        alert("Please enter your card name.");
+                        $("#cc_name").focus();
+                        return false;
+                    }
+                    else if ($("#cardType").val() == "cardtype") {
+                        alert("Please enter your card type.");
+                        $("#cardType").focus();
+                        return false;
+                    }
+                    else if (!$.payment.validateCardNumber($(".cc_number").val())) {
+                        alert("Please enter your valid card number.");
+                        $(".cc_number").focus();
+                        return false;
+                    }
+                    else if (!$.payment.validateCardExpiry($('.cc_exp').payment('cardExpiryVal'))) {
+                        alert("Please enter your valid card expiry.");
+                        $(".cc_exp").focus();
+                        return false;
+                    }
+                    else if (!$.payment.validateCardCVC($('.cc_cvc').val(), cardType)) {
+                        alert("Please enter valid CVC No.");
+                        $(".cc_cvc").focus();
+                        return false;
+                    }
+
+                    $("#cc_card_type").val(cardType);
+                    $('#cardType').val(cardType).change();
+                    //return true;
+
+                    var _cardType = $('#cardType').val();
+                    if (_cardType === "amex") {
+                        $("#cc_cvv").attr('maxlength', '4');
+                    }
+                    else {
+                        $("#cc_cvv").attr('maxlength', '3');
+                    }
+
+                    if (_cardType === "amex") {
+                        var ccv = $("#cc_cvv").val().length;
+                        if (ccv === 4) {
+                            return true;
+                        }
+                        else {
+                            alert('Please enter valid CVC No.');
+                            $("#cc_cvv").focus();
+                            return false;
+                        }
+                    }
+                    else {
+                        $("#cc_cvv").attr('maxlength', '3');
+                    }
+                    return true;
+                }
+
+            });
+
+            $("#make_payment").click(function () {
+                if (!IsValidate()) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+
+
+
+
+
+
+            });
+        </script>
+
+    }

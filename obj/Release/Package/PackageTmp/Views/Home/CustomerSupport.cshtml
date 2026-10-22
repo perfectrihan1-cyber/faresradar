@@ -1,0 +1,123 @@
+﻿@using Viman.Models
+@{
+    ViewBag.Title = "CustomerSupport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.StaticURL = Common.StaticURL;
+}
+
+<div class="background_top"></div>
+<div class="main_bredcrum">
+    <div class="container">
+        <div class="col-xs-12">
+            <div class="bread_head">
+                <ul>
+                    <li><a href="@Url.Content("~/")">Home</a></li>
+                    <li> <a href="javascript:void(0);" class="fa fa-angle-right angle_bred"></a> </li>
+                    <li><a href="@Url.Content("~/customer-support/")">Customer Support</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+
+        <div class="col-xs-12 abut_bodyhead"><h2>Customer Support</h2></div>
+        <div class="col-md-8 col-xs-12">
+            <div class="row">
+                <div class="col-xs-12">
+                    <p class="CS_bdyTxt">
+                        If you find any issues with booking or change your mind to move your flight and holiday dates then just don’t worry. Provide us all the relevant information and one of the members of the team will contact you shortly with the best available options.
+                    </p>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="CS_resMainbox">
+                        <h4>New Reservation</h4>
+                        <p>Have a query in regards to booking a flight, hotel or car hire speak to one of our specialist reservation team member.</p>
+                        <div class="CS_phn">
+                            <span>0203 745 4455</span>
+                            <p>Mon-Sat: 0800-2300 | Sun: 0900-2200</p>
+                            <a href="mailto:info@viman.co.uk">info@viman.co.uk</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="CS_resMainbox">
+                        <h4>Customer Services</h4>
+                        <p>Visit our FAQs or we recommend you to use the relevant form to reach the appropriate team for an earlier response.</p>
+                        <div class="CS_phn">
+                            <span>0203 745 8181</span>
+                            <p>Mon-Sat: 0800-2300 | Sun: 0900-2200</p>
+                            <a href="mailto:customerservices@viman.co.uk">customerservices@viman.co.uk</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-12">
+            <div class="CS_main clearfix">
+                <div class="CS_right">
+                    <form name="contact_frm" id="contact_frm" method="post" onsubmit="javascript:return frmCheck();">
+                        <h3>Please Enter your Detail Here</h3>
+                        @if (ViewBag.msg == "1")
+                        {
+                            <p style="color:green;">Thank you for submit your contact us request. Administrator contact will be soon.</p>
+                        }
+                        <div class="CS_inputbox">
+                            <input type="text" name="txt_name" id="txt_name" placeholder="Full Name" class="CS_input">
+                        </div>
+                        <div class="CS_inputbox">
+                            <input type="text" name="txt_email" id="txt_email" placeholder="Email" class="CS_input">
+                        </div>
+                        <div class="CS_inputbox">
+                            <input type="text" name="txt_phone" id="txt_phone" placeholder="Phone" class="CS_input">
+                        </div>
+                        <div class="CS_inputbox">
+                            <textarea class="CS_message" name="txt_message" id="txt_message" placeholder="Message"></textarea>
+                        </div>
+                        <input type="submit" name="contact_btn" id="contact_btn" class="CS_btn" value="Submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        function frmCheck()
+        {
+            if (document.getElementById("txt_name").value == "") {
+                alert("Please enter your full name.");
+                document.getElementById("txt_name").focus();
+                return false;
+            }
+            if (document.getElementById("txt_email").value == "") {
+                alert("Please enter your email.");
+                document.getElementById("txt_email").focus();
+                return false;
+            }
+            else
+            {
+                var filter = @("/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{0,4}$/");
+                if (!filter.test(document.getElementById("txt_email").value)) {
+                    alert("Please enter your valid email.");
+                    document.getElementById("txt_email").focus();
+                    return false;
+                }
+            }
+            if (document.getElementById("txt_phone").value == "") {
+                alert("Please enter your phone/mobile.");
+                document.getElementById("txt_phone").focus();
+                return false;
+            }
+            if (document.getElementById("txt_message").value == "") {
+                alert("Please enter your message.");
+                document.getElementById("txt_message").focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+}

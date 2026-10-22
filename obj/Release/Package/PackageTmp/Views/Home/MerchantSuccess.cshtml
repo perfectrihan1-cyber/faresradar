@@ -1,0 +1,39 @@
+﻿@model Viman.Models.FlightsBooking
+@using Viman.Models
+@{
+    ViewBag.Title = "Confirm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.WebsiteURL = Common.WebsiteURL;
+    ViewBag.StaticURL = Common.StaticURL;
+    ViewBag.Currency = Common.Currency;
+}
+<div class="background_top"></div>
+<div class="container">
+    <div class="gap_small">&nbsp;</div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="cn_check">
+                <i class="fa fa-check-circle"></i>
+
+                <h2> ONLINE ORDER RECEIVED</h2>
+                    We have received Your Online Order and it has been sent to the airlines for confirmation purposes. One of our Sales representatives will contact you with an update shortly, alternatively you can give us a call at 0203 642 6835 or send us an email at info@viman.co.uk
+                   <br /> Please find the details of your online order below (Please note these are not your e tickets)
+
+            </div>
+            
+        </div>
+    </div>
+    <div class="cn_link_main_border">&nbsp;</div>
+    <div class="cn_link_main clearfix">
+
+        
+
+        <ul class="cn_othr_link">
+            <li><a href="@Url.Content("~/hotel/")">Hotel</a></li>
+            <li><a href="@Url.Content("~/car/")">Car</a></li>
+            <li><a href="@Url.Content("~/holiday-offers/")">Car + Hotel</a></li>
+            <li><a href="@Url.Content("~/")">Another Search</a></li>
+        </ul>
+    </div>
+</div>
+

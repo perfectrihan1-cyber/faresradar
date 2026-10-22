@@ -1,0 +1,62 @@
+﻿@using Viman.Models
+
+@{
+    ViewBag.PageName = "home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+
+}
+
+@section metatags{
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="~/images/favicon.ico">
+
+    <title>Contact-Us</title>
+
+}
+<link rel="stylesheet" href="~/css1/index.css">
+
+<div class="hero">
+    <h1 style="color:white!important">Contact - US</h1>
+</div>
+  
+
+<div class="container1 contact">
+    <div class="row1 d-flex gap">
+        <div class="column right">
+            <h2>Contact Information</h2>
+            <div class="column1">
+                <div class="flex">
+                    <h3 style="padding: 4px 11px !important;"><i class="fa-solid fa-location-dot"></i></h3>
+                    <p>8330 Commerce Way, APT 408, Miami Lakes 33016, USA</p>
+                </div>
+
+                <div class="flex">
+                    <h3 style="padding: 4px 8px !important;"><i class="fa-solid fa-phone"></i></h3>
+                    <p>+1-833-263-6016</p>
+                </div>
+
+                <div class="flex">
+                    <h3 style="padding: 4px 8px !important;"><i class="fa-solid fa-envelope-open-text"></i></h3>
+                    <p>info@faresradar.com</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column leftcol">
+            <h2>Send us a message</h2>
+            <form action="">
+                <input type="text" placeholder="Full Name" name="" id="">
+                <div class="d-flex gap1" style="gap: 5px;">
+                    <input type="tel" placeholder="Phone Number" name="" id="">
+                    <input type="email" placeholder="E-mail" name="" id="">
+                </div>
+                <textarea name="" id="" placeholder="Message"></textarea>
+                <button class="button">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,984 @@
+﻿@model Viman.Models.HotelsResult
+@using Viman.Models
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "Result";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.WebsiteURL = Common.WebsiteURL;
+    ViewBag.StaticURL = Common.StaticURL;
+    ViewBag.Currency = Common.Currency;
+
+    int noOfNight = int.Parse(Common.GetDateDiffDay(Model.HotelsSearch.CheckOut, Model.HotelsSearch.CheckIn));
+}
+<link type="text/css" rel="stylesheet" href="@(ViewBag.StaticURL + "Content/css/powertip.css")" />
+<div class="background_top"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="hol_top_summry">
+                <div class="hol_modify_button">
+                    <a href="javascript:void(0);" id="btn_serch_show">
+                        MODIFY
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                </div>
+
+                <div class="hol_top_sum_lft clearfix">
+                    <div class="hol_top_mb_desti">
+                        <span>@(Model.HotelsSearch.Location.CityName + ", " + Model.HotelsSearch.Location.CountryName)</span>
+                    </div>
+                    <ul class="hol_dat_travlr">
+                        <li><span>@(Model.HotelsSearch.CheckIn.ToString("dd MMM"))</span></li>
+                        <li><span>@(Model.HotelsSearch.CheckOut.ToString("dd MMM"))</span></li>
+                        <li><span>@(Model.HotelsSearch.Rooms) Room, @(ViewBag.AdultsCnt + ViewBag.ChildrenCnt) Guest</span></li>
+                    </ul>
+                </div>
+
+                <ul class="hol_main_li_summry clearfix">
+                    <li>
+                        <div class="hol_top_smy_des">
+                            <span>@(Model.HotelsSearch.Location.CityName + ", " + Model.HotelsSearch.Location.CountryName)</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="hol_top_smy_date">
+                            <span>@(Model.HotelsSearch.CheckIn.ToString("ddd dd MMM, yyyy")) &nbsp; to&nbsp; <bdo>@(Model.HotelsSearch.CheckOut.ToString("ddd dd MMM, yyyy"))</bdo> (@(noOfNight) Nights)</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="hol_prsn_smry_icon">
+                            <span>@(Model.HotelsSearch.Rooms) Room(s), @(ViewBag.AdultsCnt + ViewBag.ChildrenCnt) Guest(s)</span>
+                        </div>
+                    </li>
+                </ul>
+                <div class="res_hol_ind_main_searbox">
+                    <div>
+                        <div class="hol_ind_srch_subBox hol_inlg_dvc"> 
+                            <i class="fa fa-map-marker"></i>
+                            <input type="hidden" value="@(Model.HotelsSearch.Location.TravellandaCityId)" id="city_id" name="city_id" />
+                            <input type="text" placeholder="Location/City" name="city_name" id="city_name" value="@(ViewBag.cityName)" class="hol_ind_inputBox">
+                        </div>
+
+                        <div class="hol_ind_srch_subBox hol_inlg_date">
+                            <i class="fa fa-calendar" for="from_date"></i>
+                            <input type="text" placeholder="Check-in Date" class="hol_ind_inputBox" value="@((ViewBag.checkInDate != "") ? ViewBag.checkInDate : DateTime.Now.AddDays(2).ToString("dd-MM-yyyy"))" id="check_in_date" name="check_in_date" readonly="true">
+                        </div>
+                        <div class="hol_ind_srch_subBox hol_inlg_datergt">
+                            <i class="fa fa-calendar" for="to_date"></i>
+                            <input type="text" placeholder="Check-Out Date" class="hol_ind_inputBox" value="@((ViewBag.checkOutDate != "") ? ViewBag.checkOutDate : DateTime.Now.AddDays(7).ToString("dd-MM-yyyy"))" name="check_out_date" id="check_out_date" readonly="true">
+                        </div>
+                        <div class="hol_ind_srch_subBox hol_inlg_date prp_hotel_popup">
+                            <div id="prsn_add_hotel">
+                                <i class="fa fa-angle-down"></i>
+                                <input type="text" name="txt_hotel_pax" id="txt_hotel_pax" placeholder="@((Model.HotelsSearch.Rooms.Equals(""))?"1":Model.HotelsSearch.Rooms) Room(s), @(ViewBag.AdultsCnt) Adult(s), @(ViewBag.ChildrenCnt) Child(s)" style="cursor:pointer;" readonly class="hol_ind_inputBox">
+                            </div>
+                            <div class="hol_person_dropdown" id="prsn_hotel_popup">
+                                <ul class="slect_room">
+                                    <li>
+                                        <label>Room</label>
+                                        <div class="count_persn">
+                                            <a href="javascript:void(0);"><em data-field="room" data-opt="-" class="fa fa-minus inc_der"></em></a>
+                                            <input type="text" value="@((Model.HotelsSearch.Rooms.Equals(""))?"1":Model.HotelsSearch.Rooms)" name="hotel_room" id="hotel_room" readonly class="inpt_cout_persn">
+                                            <a href="javascript:void(0);"><em data-field="room" data-opt="+" class="fa fa-plus inc_der"></em></a>
+                                        </div>
+                                    </li>
+                                </ul>
+                                @for (int j = 1; j <= 6; j++)
+                                {
+                                    <div class="hotel_adult_count" id="adt_chd_@(j)" style="display:@((j == 1 || j <= int.Parse(Model.HotelsSearch.Rooms)) ? "block" : "none");">
+                                        <ul>
+                                            <li>
+                                                <label>Adult </label>
+                                                <div class="count_persn">
+                                                    <a href="javascript:void(0);"><em data-field="adult_@(j)" data-opt="-" class="fa fa-minus inc_der"></em></a>
+                                                    <input type="text" value="@((Model.HotelsSearch.Adults.Length >= j)?Model.HotelsSearch.Adults[j-1]:"1")" name="adult_@(j)" id="adult_@(j)" readonly class="inpt_cout_persn">
+                                                    <a href="javascript:void(0);"><em data-field="adult_@(j)" data-opt="+" class="fa fa-plus inc_der"></em></a>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <label>Child </label>
+                                                <div class="count_persn">
+                                                    <a href="javascript:void(0);"><em data-field="child_@(j)" data-opt="-" class="fa fa-minus inc_der"></em></a>
+                                                    <input type="text" value="@((Model.HotelsSearch.Childs.GetLength(0) >= j)?Model.HotelsSearch.Childs[j-1].Length+"":"0")" name="child_@(j)" id="child_@(j)" readonly class="inpt_cout_persn">
+                                                    <a href="javascript:void(0);"><em data-field="child_@(j)" data-opt="+" class="fa fa-plus inc_der"></em></a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="hotel_chd_age" id="hotel_chd_age_@(j)" style="display:@((Model.HotelsSearch.Childs.GetLength(0) >= j)?"block":"none");">
+                                            <label class="chil_label">Child Age:</label>
+                                            @for (int k = 1; k <= 4; k++)
+                                            {
+                                                <span id="parnt_chl_age">
+                                                    <span id="parnt_child">
+                                                        <select name="child_@(j)_@(k)" id="child_@(j)_@(k)" class="hotel_chd_age_fld_@(j)" style="display:@((Model.HotelsSearch.Childs.GetLength(0) >= j && Model.HotelsSearch.Childs[j-1].Length >= k)? "inline-block" : "none");">
+                                                            <option value="">--</option>
+                                                            <option @((Model.HotelsSearch.Childs.GetLength(0) >= j && Model.HotelsSearch.Childs[j - 1].Length >= k && Model.HotelsSearch.Childs[j - 1][k - 1].Equals("1")) ? "selected" : "") value="1">01</option>
+                                                            <option @((Model.HotelsSearch.Childs.GetLength(0) >= j && Model.HotelsSearch.Childs[j - 1].Length >= k && Model.HotelsSearch.Childs[j - 1][k - 1].Equals("2")) ? "selected" : "") value="2">02</option>
+                                                            <option @((Model.HotelsSearch.Childs.GetLength(0) >= j && Model.HotelsSearch.Childs[j - 1].Length >= k && Model.HotelsSearch.Childs[j - 1][k - 1].Equals("3")) ? "selected" : "") value="3">03</option>
+                                                            <option @((Model.HotelsSearch.Childs.GetLength(0) >= j && Model.HotelsSearch.Childs[j - 1].Length >= k && Model.HotelsSearch.Childs[j - 1][k - 1].Equals("4")) ? "selected" : "") value="4">04</option>
+                                                            <option @((Model.HotelsSearch.Childs.GetLength(0) >= j && Model.HotelsSearch.Childs[j - 1].Length >= k && Model.HotelsSearch.Childs[j - 1][k - 1].Equals("5")) ? "selected" : "") value="5">05</option>
+                                                            <option @((Model.HotelsSearch.Childs.GetLength(0) >= j && Model.HotelsSearch.Childs[j - 1].Length >= k && Model.HotelsSearch.Childs[j - 1][k - 1].Equals("6")) ? "selected" : "") value="6">06</option>
+                                                            <option @((Model.HotelsSearch.Childs.GetLength(0) >= j && Model.HotelsSearch.Childs[j - 1].Length >= k && Model.HotelsSearch.Childs[j - 1][k - 1].Equals("7")) ? "selected" : "") value="7">07</option>
+                                                            <option @((Model.HotelsSearch.Childs.GetLength(0) >= j && Model.HotelsSearch.Childs[j - 1].Length >= k && Model.HotelsSearch.Childs[j - 1][k - 1].Equals("8")) ? "selected" : "") value="8">08</option>
+                                                            <option @((Model.HotelsSearch.Childs.GetLength(0) >= j && Model.HotelsSearch.Childs[j - 1].Length >= k && Model.HotelsSearch.Childs[j - 1][k - 1].Equals("9")) ? "selected" : "") value="9">09</option>
+                                                            <option @((Model.HotelsSearch.Childs.GetLength(0) >= j && Model.HotelsSearch.Childs[j - 1].Length >= k && Model.HotelsSearch.Childs[j - 1][k - 1].Equals("10")) ? "selected" : "") value="10">10</option>
+                                                            <option @((Model.HotelsSearch.Childs.GetLength(0) >= j && Model.HotelsSearch.Childs[j - 1].Length >= k && Model.HotelsSearch.Childs[j - 1][k - 1].Equals("11")) ? "selected" : "") value="11">11</option>
+                                                        </select>
+                                                    </span>
+                                                </span>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                                <div class="hol_clss_done" id="hol_ind_done">
+                                    <a href="javascript:void(0);" id="prsn_done_hotel">Done</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hol_ind_srch_subBox hol_inlg_datergt">
+                            <select class="hol_ind_inputBox" name="nationality" id="nationality">
+                                <option value="">Select Country</option>
+                                @foreach (Country country in ViewBag.countryList)
+                                {
+                                    <option @((country.Code.Equals("GB")) ? "selected" : "") value="@(country.Code)">@(country.Name)</option>
+                                }
+                            </select>
+                        </div>
+                        <input href="javascript:void(0);" type="submit" name="hotel_submit" id="hotel_submit" class="hol_ind_sbm_btn">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blue_pop" id="hotel_popup">
+    <div class="blue_clock">
+        <div class="spinnerClock">
+            <div class="spinnerClock__clock"></div>
+            <div class="spinnerClock__minHand"></div>
+            <div class="spinnerClock__secHand"></div>
+            <div class="spinnerClock__secondHand"></div>
+        </div>
+
+        <h3>Looking for your hotels!</h3>
+        <p>Please Wait... it will take a couple of seconds</p>
+    </div>
+</div>
+<div class="gap">
+</div>
+@if (ViewBag.msg.Equals("noresult") || Model.HotelsList == null)
+{
+    ViewBag.msg = "noresult";
+    <div class="row">
+        <div class="col-md-12">
+            <div class="no_result">
+                <i class="fa fa-frown-o"></i>
+                <p>No results found for your selection. Click <b style="color:#f6921d;">MODIFY</b> to change your search.</p>
+            </div>
+        </div>
+    </div>
+}
+@if (ViewBag.msg.Equals("success") && Model.HotelsList != null)
+{
+    <div class="container">
+        <div class="row" ng-app="HotelApp" ng-controller="HotelController">
+            <div class="col-md-3 col-xs-12">
+                <div class="hol_lft_pnl">
+                    <div class="hol_head">
+                        <h4>
+                            Search Filter
+                            <i class="fa fa-sliders fa-rotate-270 hidden-xs"></i>
+                        </h4>
+                    </div>
+                    <div class="hol_src_name">
+                        <h3>Search Hotel By Name</h3>
+                        <input type="text" placeholder="Hotel Name" ng-model="hotelName" name="hotel_name" id="hotel_name" />
+                        <i class="fa fa-search"></i>
+                    </div>
+                    <div class="hol_price_panel">
+                        <h4> <i class="fa fa-gbp"></i> Price</h4>
+                        <p class="hol_price_range">
+                            <span id="hol_min_price">@(ViewBag.Currency + Model.MinPrice)</span>
+                            <span id="hol_max_price">@(ViewBag.Currency + Model.MaxPrice)</span>
+                        </p>
+                        <input type="button" id="priceEvent" ng-click="priceChanged();" style="display:none;" />
+                        <input type="text" class="hol_min_max_price" ng-model="lowestPrice.minPrice" name="min_price" id="min_price" value="@(Model.MinPrice)" style="display:none;">
+                        <input type="text" class="hol_min_max_price" ng-model="lowestPrice.maxPrice" name="max_price" id="max_price" value="@(Model.MaxPrice)" style="display:none;">
+                        <div id="slider-range" class="scal_price"></div>
+                    </div>
+
+                    <div class="star_pannel">
+                        <div class="slc_flrt_all">
+                            <span><a href="javascript:void(0);" ng-click="clearFilter();" class="clear_filter">Clear All</a></span>
+                        </div>
+                        <!--<i class="fa fa-star"></i>-->
+                        <h4>Star Rating</h4>
+                        @for (int j = 1; j <= 5; j++)
+                        {
+                            <div class="star_hol">
+                                <label class="star_chkbox" for="star_@(j)">
+                                    <input type="checkbox" class="airline_flt" name="filterStar" id="star_@(j)" ng-model="StarRating@(j)" value="@(j)">
+                                    <span class="checkmark"></span>
+                                    <span class="star_symb">
+                                        @for (int k = 1; k <= j; k++)
+                                        {
+                                            <i class="fa fa-star"></i>
+                                        }
+                                        <bdo>(@(Model.StarExtra[j - 1].TotalCount))</bdo>
+                                    </span>
+                                </label>
+                            </div>
+                        }
+
+                    </div>
+                    <div class="hol_pannel clearfix">
+                        <div class="slc_flrt_all">
+                            <span><a href="javascript:void(0);" ng-click="clearFilter();" class="clear_filter">Clear All</a></span>
+                        </div>
+
+                        <h4><i class="fa fa-map-marker"></i> Area Type</h4>
+                        @if (Model.NearByLocation != null)
+                        {
+                            foreach (string nearBy in Model.NearByLocation)
+                            {
+                                <div class="hol_loc">
+                                    <label class="loc_hot_chkbox" for="nearby_@(nearBy.Replace(" ", "").Replace("/", "").Replace("'", "").Replace("(", "").Replace(")", ""))">
+                                        <input type="checkbox" class="airline_flt" name="filterNearPlace" id="nearby_@(nearBy.Replace(" ", "").Replace("/", "").Replace("'", "").Replace("(", "").Replace(")", ""))" ng-model="NearBy@(nearBy.Replace(" ", "").Replace("/", "").Replace("'", "").Replace("(", "").Replace(")", ""))" value="@(nearBy)">
+                                        <span class="checkmark"></span>
+                                        <bdo>@(nearBy)</bdo>
+                                    </label>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="hol_pannel clearfix">
+                        <div class="slc_flrt_all">
+                            <span><a href="javascript:void(0);" ng-click="clearFilter();" class="clear_filter">Clear All</a></span>
+                        </div>
+
+                        <h4><i class="fa fa-map-marker"></i> Board Type</h4>
+                        @foreach (string boardType in Model.BoardType)
+                        {
+                            <div class="hol_loc">
+                                <label class="loc_hot_chkbox" for="boardtype_@(boardType.Replace(" ", "").Replace("/", "").Replace("'", "").Replace("(", "").Replace(")", ""))">
+                                    <input type="checkbox" class="airline_flt" name="filterBoardType" id="boardtype_@(boardType.Replace(" ", "").Replace("/", "").Replace("'", "").Replace("(", "").Replace(")", ""))" ng-model="BoardType@(boardType.Replace(" ","").Replace("/", "").Replace("'", "").Replace("(", "").Replace(")", ""))" value="@(boardType)">
+                                    <span class="checkmark"></span>
+                                    <bdo>@(boardType)</bdo>
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-9  col-xs-12">
+                <div id="auto_load">
+                    <div class="dummy_srch_head">
+                        <h2 class="loading_line_s">
+                            <span class="inner_loader"></span>
+                        </h2>
+                    </div>
+                    <div class="dummy_srch_head">
+                        <h2 class="loading_line_s">
+                            <span class="inner_loader"></span>
+                        </h2>
+                    </div>
+                    <div class="hot_srch_man_box clearfix">
+                        <div class="hot_srch_cont_box">
+                            <div class="dummy_srch_img clearfix">
+                                <div class="bg_bbb loading_line_s">
+                                    <span class="inner_loader"></span>
+
+                                </div>
+                            </div>
+                            <div class="dummy_sr_lgo">
+                                <div class="loading_line_h">
+                                    <span class="inner_loader">
+                                        &nbsp;
+                                    </span>
+
+                                </div>
+                                <div class="hot_srch_star_box">
+                                    <img src="@(ViewBag.StaticURL + "Content/images/hotel_star_gray.svg")" />
+                                    <img src="@(ViewBag.StaticURL + "Content/images/hotel_star_gray.svg")" />
+                                    <img src="@(ViewBag.StaticURL + "Content/images/hotel_star_gray.svg")" />
+                                    <img src="@(ViewBag.StaticURL + "Content/images/hotel_star_gray.svg")" />
+                                    <img src="@(ViewBag.StaticURL + "Content/images/hotel_star_gray.svg")" />
+                                </div>
+                                <div class="loading_line_t">
+                                    <span class="inner_loader">
+                                        &nbsp;
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dummmy_txt">
+
+                            <div class="dummy_mbltxt">
+                                <h3>
+                                    <div class="loading_line_h">
+                                        <span class="inner_loader">
+                                            &nbsp;
+                                        </span>
+
+                                    </div>
+                                </h3>
+
+                                <div class="loading_line_p">
+                                    <span class="inner_loader">
+                                        &nbsp;
+                                    </span>
+
+                                </div>
+
+                            </div>
+                            <div class="dummy_mbltxt1">
+                                <h3>
+                                    <div class="loading_line_h">
+                                        <span class="inner_loader">
+                                            &nbsp;
+                                        </span>
+
+                                    </div>
+                                </h3>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <div class="hot_srch_man_box clearfix">
+                        <div class="hot_srch_cont_box">
+                            <div class="dummy_srch_img clearfix">
+                                <div class="bg_bbb loading_line_s">
+                                    <span class="inner_loader"></span>
+
+                                </div>
+                            </div>
+                            <div class="dummy_sr_lgo">
+                                <div class="loading_line_h">
+                                    <span class="inner_loader">
+                                        &nbsp;
+                                    </span>
+
+                                </div>
+                                <div class="hot_srch_star_box">
+                                    <img src="@(ViewBag.StaticURL + "Content/images/hotel_star_gray.svg")" />
+                                    <img src="@(ViewBag.StaticURL + "Content/images/hotel_star_gray.svg")" />
+                                    <img src="@(ViewBag.StaticURL + "Content/images/hotel_star_gray.svg")" />
+                                    <img src="@(ViewBag.StaticURL + "Content/images/hotel_star_gray.svg")" />
+                                    <img src="@(ViewBag.StaticURL + "Content/images/hotel_star_gray.svg")" />
+                                </div>
+                                <div class="loading_line_t">
+                                    <span class="inner_loader">
+                                        &nbsp;
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dummmy_txt">
+
+                            <div class="dummy_mbltxt">
+                                <h3>
+                                    <div class="loading_line_h">
+                                        <span class="inner_loader">
+                                            &nbsp;
+                                        </span>
+
+                                    </div>
+                                </h3>
+
+                                <div class="loading_line_p">
+                                    <span class="inner_loader">
+                                        &nbsp;
+                                    </span>
+
+                                </div>
+
+                            </div>
+                            <div class="dummy_mbltxt1">
+                                <h3>
+                                    <div class="loading_line_h">
+                                        <span class="inner_loader">
+                                            &nbsp;
+                                        </span>
+
+                                    </div>
+                                </h3>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <div class="hot_srch_man_box clearfix">
+                        <div class="hot_srch_cont_box">
+                            <div class="dummy_srch_img clearfix">
+                                <div class="bg_bbb loading_line_s">
+                                    <span class="inner_loader"></span>
+
+                                </div>
+                            </div>
+                            <div class="dummy_sr_lgo">
+                                <div class="loading_line_h">
+                                    <span class="inner_loader">
+                                        &nbsp;
+                                    </span>
+
+                                </div>
+                                <div class="hot_srch_star_box">
+                                    <img src="@(ViewBag.StaticURL + "Content/images/hotel_star_gray.svg")" />
+                                    <img src="@(ViewBag.StaticURL + "Content/images/hotel_star_gray.svg")" />
+                                    <img src="@(ViewBag.StaticURL + "Content/images/hotel_star_gray.svg")" />
+                                    <img src="@(ViewBag.StaticURL + "Content/images/hotel_star_gray.svg")" />
+                                    <img src="@(ViewBag.StaticURL + "Content/images/hotel_star_gray.svg")" />
+                                </div>
+                                <div class="loading_line_t">
+                                    <span class="inner_loader">
+                                        &nbsp;
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dummmy_txt">
+
+                            <div class="dummy_mbltxt">
+                                <h3>
+                                    <div class="loading_line_h">
+                                        <span class="inner_loader">
+                                            &nbsp;
+                                        </span>
+
+                                    </div>
+                                </h3>
+
+                                <div class="loading_line_p">
+                                    <span class="inner_loader">
+                                        &nbsp;
+                                    </span>
+
+                                </div>
+
+                            </div>
+                            <div class="dummy_mbltxt1">
+                                <h3>
+                                    <div class="loading_line_h">
+                                        <span class="inner_loader">
+                                            &nbsp;
+                                        </span>
+
+                                    </div>
+                                </h3>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="data_load" style="display:none;">
+                    <div class="res_hot_mai_hd">
+                        <h2><span>{{hotelResult.HotelsList.length}}</span>&nbsp; Hotel search for you
+                            <bdo>{{hotelOrderByText}} <i class="fa fa-sort"></i> </bdo>
+                        </h2>
+                        <div class="hol_srt_by">
+                            <ul>
+                                <li><a href="javascript:void(0);" ng-click="hotelOrderBy('LowestPrice', false)">Price (low to high)</a></li>
+                                <li><a href="javascript:void(0);" ng-click="hotelOrderBy('LowestPrice', true)">Price (high to low)</a></li>
+                                <li><a href="javascript:void(0);" ng-click="hotelOrderBy('HotelName', false)">Hotel Name (A-Z)</a></li>
+                                <li><a href="javascript:void(0);" ng-click="hotelOrderBy('HotelName', true)">Hotel Name (Z-A)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="hol_srch_pgn">
+                        <select name="noPerPage" id="noPerPage" ng-init="noPerPage='50'" ng-model="noPerPage" class="form-control pull-left" style="width:75px;">
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <dir-pagination-controls class="pull-right" max-size="7" direction-links="true" boundary-links="true" on-page-change="pageChanged(newPageNumber)"> </dir-pagination-controls>
+                    </div>
+
+                    <div class="res_hot_main_box clearfix" dir-paginate="hotels in hotelResult.HotelsList | starFilter | priceFilter | nearPlaceFilter | boardTypeFilter | filter : {HotelName : hotelName} | orderBy : order_item : order_reverse | itemsPerPage : noPerPage" ng-init="hotelIndex = $index" data-loop="{{hotelIndex}}">
+                        <div class="res_hot_img_box">
+                            <img src="{{hotels.HotelImage[0].Image}}" />
+                        </div>
+                        <div class="res_hot_cont_box">
+                            <h4>{{hotels.HotelName}}</h4>
+                            <div class="hot_srch_star_box">
+                                <img src="@(ViewBag.StaticURL + "Content/images/hotel_star.svg")" ng-if="hotels.StarRating >= 1" />
+                                <img src="@(ViewBag.StaticURL + "Content/images/hotel_star.svg")" ng-if="hotels.StarRating >= 2" />
+                                <img src="@(ViewBag.StaticURL + "Content/images/hotel_star.svg")" ng-if="hotels.StarRating >= 3" />
+                                <img src="@(ViewBag.StaticURL + "Content/images/hotel_star.svg")" ng-if="hotels.StarRating >= 4" />
+                                <img src="@(ViewBag.StaticURL + "Content/images/hotel_star.svg")" ng-if="hotels.StarRating >= 5" />
+                            </div>
+                            <p class="res_hol_loc">
+                                <i class="fa fa-map-marker"></i>
+                                <b>{{hotels.Address}}</b>
+                            </p>
+                            <p class="res_hol_desp">{{hotels.Description.substr(0,200) | htmlToPlaintext}}</p>
+                        </div>
+                        <div class="res_hot_prc_box">
+                            <div class="btm_touch">
+                                <div class="res_hot_prc_off">
+                                    @*<p class="off">17% OFF</p>
+                                        <p class="reg_prc">£211</p>*@
+                                    <h4 class="main_prc"><bdo></bdo> @(ViewBag.Currency) {{hotels.PerNightPrice | number:2}}</h4>
+                                    <p class="smal_txt">{{hotels.LowestPrice | number:2}} GBP total</p>
+                                </div>
+                                <div class="res_hot_vw_dl">
+                                    <a href="@(ViewBag.StaticURL + "hotels/detail/?sess="){{hotels.HotelId}}" class="book_hotel_btn" data-id="{{hotels.HotelId}}">Book Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts{
+    <script type="text/javascript" src="@(ViewBag.StaticURL + "Content/js/angular/angular.min.js")"></script>
+    <script type="text/javascript" src="@(ViewBag.StaticURL + "Content/js/powertip.js")"></script>
+    <script type="text/javascript">
+        var HotelApp = angular.module('HotelApp', ['angularUtils.directives.dirPagination'])
+        HotelApp.controller('HotelController', ['$scope', '$filter', function ($scope, $filter) {
+            $scope.hotelResult = @Html.Raw(Common.ConvertJson(Model));
+            $scope.lowestPrice = { 'minPrice': @(Model.MinPrice), 'maxPrice': @(Model.MaxPrice) };
+            $scope.order_item = 'LowestPrice';
+            $scope.order_reverse = false;
+            $scope.hotelOrderByText = "Price (low to high)";
+
+            $scope.totalPerPage = ["20", "50", "100"];
+            $scope.noPerPage = 50;
+            $scope.currentPage = 1;
+            $scope.currentPageStart = 1;
+            $scope.currentPageEnd = $scope.noPerPage;
+            $scope.TotalHotelResult = $scope.hotelResult.HotelsList.length;
+            if ($scope.currentPageEnd > $scope.TotalHotelResult) {
+                $scope.currentPageEnd = $scope.TotalHotelResult;
+            }
+
+            $("#slider-range").slider({
+                range: true,
+                min: @(Model.MinPrice),
+                max: @(Model.MaxPrice),
+                values: [ @(Model.MinPrice), @(Model.MaxPrice) ],
+                slide: function(event, ui){
+                    $("#hol_min_price").html("£" + ui.values[0]);
+                    $("#hol_max_price").html("£" + ui.values[1]);
+                    $("#min_price").val(ui.values[0]);
+                    $("#max_price").val(ui.values[1]);
+                },
+                stop: function( event, ui ) {
+                    $("#priceEvent").trigger('click');
+                }
+            });
+
+            $scope.priceChanged = function () {
+                $filter('priceFilter')(1);
+            };
+
+            $scope.clearFilter = function () {
+                alert("hello");
+                $scope.hotelName = '';
+
+                $("#min_price").val($scope.lowestPrice.minPrice);
+                $("#max_price").val($scope.lowestPrice.maxPrice);
+                $("#hol_min_price").text("£" + $scope.lowestPrice.minPrice);
+                $("#hol_max_price").text("£" + $scope.lowestPrice.maxPrice);
+                alert("hello1");
+                $('input[name="filterStar"]').attr('checked', false);
+                $('input[name="filterBoardType"]').attr('checked', false);
+                $('input[name="filterNearPlace"]').attr('checked', false);
+                alert("hello2");
+            };
+
+            $scope.hotelOrderBy = function (orderItem, orderReverse) {
+                $scope.order_item = orderItem;
+                $scope.order_reverse = orderReverse;
+
+                if (orderItem == "LowestPrice" && orderReverse)
+                    $scope.hotelOrderByText = "Price Low to High";
+                else if (orderItem == "LowestPrice" && !orderReverse)
+                    $scope.hotelOrderByText = "Price High to Low";
+                else if (orderItem == "HotelName" && orderReverse)
+                    $scope.hotelOrderByText = "Hotel Name (Z-A)";
+                else if (orderItem == "HotelName" && !orderReverse)
+                    $scope.hotelOrderByText = "Hotel Name (A-Z)";
+                else if (orderItem == "StarRating" && orderReverse)
+                    $scope.hotelOrderByText = "Guest Rating (high to low)";
+                else if (orderItem == "StarRating" && !orderReverse)
+                    $scope.hotelOrderByText = "Guest Rating (low to high)";
+                else if (orderItem == "NearByDistance" && orderReverse)
+                    $scope.hotelOrderByText = "Distance (high to low)";
+                else if (orderItem == "NearByDistance" && !orderReverse)
+                    $scope.hotelOrderByText = "Distance (low to high)";
+            };
+
+            $scope.pageChanged = function (newPage) {
+                $scope.currentPage = newPage;
+                $scope.currentPageStart = ((newPage - 1) * $scope.noPerPage) + 1;
+                $scope.currentPageEnd = newPage * $scope.noPerPage;
+                if ($scope.currentPageEnd > $scope.TotalHotelResult) {
+                    $scope.currentPageEnd = $scope.TotalHotelResult;
+                }
+            };
+        }]);
+
+        HotelApp.filter('htmlToPlaintext', function() {
+            return function(text) {
+                return  text ? String(text).replace(/<[^>]+>/gm, '') : '';
+            };
+        });
+
+        HotelApp.filter('priceFilter', function () {
+            return function (items, price) {
+                var filtered = [];
+                var minPrice = parseInt(($("#min_price").val()) ? $("#min_price").val() : @(Model.MinPrice));
+                var maxPrice = parseInt(($("#max_price").val()) ? $("#max_price").val() : @(Model.MaxPrice));
+
+                angular.forEach(items, function (item) {
+                    if (item.PerNightPrice >= minPrice && item.PerNightPrice <= maxPrice) {
+                        filtered.push(item);
+                    }
+                });
+
+                return filtered;
+            };
+        });
+
+        HotelApp.filter('starFilter', function () {
+            return function (items, num) {
+                var filtered = [];
+                var curr_star = [];
+                var curr_star_all = false; //$('input[name="filterStarAll"]').is(':checked');
+
+                $('input[name="filterStar"]:checked').each(function () {
+                    curr_star.push(this.value);
+                });
+
+                angular.forEach(items, function (item) {
+                    if (curr_star.length == 0 || curr_star_all) {
+                        filtered.push(item);
+                    } else {
+                        if ($.inArray(item.StarRating, curr_star) != -1) {
+                            filtered.push(item);
+                        }
+                    }
+                });
+
+                return filtered;
+            };
+        });
+
+        HotelApp.filter('nearPlaceFilter', function () {
+            return function (items, num) {
+                var filtered = [];
+                var curr_place = [];
+                var curr_place_all = $('input[name="filterNearPlaceAll"]').is(':checked');
+
+                $('input[name="filterNearPlace"]:checked').each(function () {
+                    curr_place.push(this.value);
+                });
+
+                angular.forEach(items, function (item) {
+                    if (curr_place.length == 0 || curr_place_all) {
+                        filtered.push(item);
+                    } else {
+                        if ($.inArray(item.NearByLocation, curr_place) != -1) {
+                            filtered.push(item);
+                        }
+                    }
+                });
+
+                return filtered;
+            };
+        });
+
+        HotelApp.filter('boardTypeFilter', function () {
+            return function (items, num) {
+                var filtered = [];
+                var curr_board = [];
+                var curr_board_all = false; //$('input[name="filterBoardTypeAll"]').is(':checked');
+
+                $('input[name="filterBoardType"]:checked').each(function () {
+                    curr_board.push(this.value);
+                });
+
+                angular.forEach(items, function (item) {
+                    if (curr_board.length == 0 || curr_board_all) {
+                        filtered.push(item);
+                    } else {
+                        var temp_board = item.OnBoardType.split(',');
+                        angular.forEach(temp_board, function (tboard) {
+                            if ($.inArray(tboard, curr_board) != -1) {
+                                filtered.push(item);
+                            }
+                        });
+                    }
+                });
+
+                return filtered;
+            };
+        });
+
+        $(window).on("load", function(){
+            $.ready.then(function(){
+                $("#auto_load").hide();
+                $("#data_load").show();
+            });
+        });
+
+        $(function () {
+            $("#hotel_submit").click(function () {
+                if ($("#city_id").val().trim(' ') == "") {
+                    alert("Please enter your location or city.");
+                    $("#city_name").focus();
+                    return false;
+                }
+                else if ($("#check_in_date").val().trim(' ') == "") {
+                    alert("Please select your check in date.");
+                    $("#check_in_date").focus();
+                    return false;
+                }
+                else if ($("#check_out_date").val().trim(' ') == "") {
+                    alert("Please select your check out date.");
+                    $("#check_out_date").focus();
+                    return false;
+                }
+                else {
+                    var city_name = "&City=" + $("#city_id").val();
+                    var checkInDate = "&CheckInDate=" + $("#check_in_date").val().split("-")[2] + "-" + $("#check_in_date").val().split("-")[1] + "-" + $("#check_in_date").val().split("-")[0];
+                    var checkOutDate = "&CheckOutDate=" + $("#check_out_date").val().split("-")[2] + "-" + $("#check_out_date").val().split("-")[1] + "-" + $("#check_out_date").val().split("-")[0];
+                    var nationality = "&Nationality=" + $("#nationality").val();
+                    var room_txt = "", adult_txt = "", child_txt = "";
+                    var room = parseInt($("#hotel_room").val());
+                    room_txt += "&Room=" + room;
+                    var adt_cnt = 0, chd_cnt = 0;
+                    for (var i = 1; i <= room; i++)
+                    {
+                        adt_cnt += parseInt($("#adult_" + i).val());
+                        chd_cnt += parseInt($("#child_" + i).val());
+
+                        adult_txt += "," + $("#adult_" + i).val();
+                        var child_sub_txt = "";
+                        for(var j = 1; j <= parseInt($("#child_" + i).val()); j++)
+                        {
+                            child_sub_txt += "," + $("#child_" + i + "_" + j).val();
+                        }
+                        child_txt += "$" + child_sub_txt.substring(1);
+                    }
+                    room_txt += "&Adult=" + adult_txt.substring(1);
+                    room_txt += "&Child=" + child_txt.substring(1);
+
+                    var str = "@(ViewBag.WebsiteURL + "hotels/search?")SiteCode=VIMAN&SourceMedia=VIMAN" + city_name + checkInDate + checkOutDate + room_txt + nationality + "&Currency=GBP&IsAvilable=false";
+                    //alert(str);
+                    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                    $("#fp_city_name").html($("#city_name").val().split(",")[0]);
+                    var dd_tp = $("#check_in_date").val().split("-");
+                    $("#fp_checkin_date").html(dd_tp[0] + " " + monthNames[dd_tp[1] - 1] + ", " + dd_tp[2]);
+                    var rd_tp = $("#check_out_date").val().split("-");
+                    $("#fp_checkout_date").html(rd_tp[0] + " " + monthNames[rd_tp[1] - 1] + ", " + rd_tp[2]);
+                    $("#fp_rooms").html($("#hotel_room").val() + " Room(s)");
+                    $("#fp_guests").html(adt_cnt + " Adult, " + chd_cnt + " Child");
+                    $("#hotel_popup").show();
+
+                    window.location = str;
+                }
+            });
+
+            var selectLocation = false;
+
+            $('#city_name').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/api/getcity",
+                        dataType: "json",
+                        data: {
+                            pickUpLocation: request.term
+                        },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    value: item.TravellandaCityId,
+                                    label: (item.CityName + ", " + item.CountryName)
+                                }
+                            }));
+                        }
+                    })
+                },
+                open: function (event, ui) { selectLocation = true; },
+                select: function (event, ui) {
+                    $("#city_name").val(ui.item.label);
+                    $("#city_id").val(ui.item.value);
+                    selectLocation = false;
+                    return false;
+                },
+                close: function (event, ui) {
+                    selectLocation = false;
+                },
+                minLength: 3,
+                autoFocus: true
+            }).blur(function () {
+                if (selectLocation) {
+                    $("#city_name").val($('ul.ui-autocomplete li:first a').text());
+                }
+            }).focus(function () {
+                $(this).autocomplete("search");
+            });
+
+            $("#check_in_date").datepicker({
+                format: 'dd-mm-yyyy',
+                startDate: '@DateTime.Now.AddDays(2).ToString("dd-MM-yyyy")',
+                autoHide: true
+            }).on('pick.datepicker', function (e) {
+                var currdate = getStr(e.date.getDate()) + "-" + getStr((e.date.getMonth() + 1)) + "-" + e.date.getFullYear();
+                $("#check_out_date").val(currdate);
+                $("#check_out_date").datepicker('setDate', e.date);
+                $("#check_out_date").datepicker('setStartDate', e.date);
+                $("#check_out_date").focus();
+            });
+            $("#check_out_date").datepicker({
+                format: 'dd-mm-yyyy',
+                startDate: '@DateTime.Now.AddDays(7).ToString("dd-MM-yyyy")',
+                autoHide: true
+            });
+
+            $("#prsn_add_hotel").click(function () {
+                $("#prsn_hotel_popup").slideDown("slow");
+            });
+            $("#prsn_done_hotel").click(function () {
+                $("#prsn_hotel_popup").slideUp("slow");
+            });
+            $('body').click(function () {
+                $("#prsn_hotel_popup").slideUp("slow");
+            });
+            $('.prp_hotel_popup').click(function (e) {
+                e.stopPropagation();
+            });
+
+            $(".inc_der").click(function () {
+                var fld = $(this).attr("data-field");
+                var fld_opt = $(this).attr("data-opt");
+                var room = parseInt($("#hotel_room").val());
+
+                if (fld == "room") {
+                    if (fld_opt == "+") {
+                        if (room < 6) {
+                            room = room + 1;
+                            $("#hotel_room").val(room);
+                        }
+                    }
+                    else if (fld_opt == "-") {
+                        if (room > 1) {
+                            room = room - 1;
+                            $("#hotel_room").val(room);
+                        }
+                    }
+                }
+
+                var fld_val = room + " Room(s)";
+                var total_adt = 0, total_chd = 0;
+                $(".adt_chd_cnt").hide();
+                for(var i=1; i<=room;i++)
+                {
+                    $("#adt_chd_" + i).show();
+                    var adt = parseInt($("#adult_"+i).val());
+                    var chd = parseInt($("#child_"+i).val());
+                    if (fld == "adult_" + i) {
+                        if (fld_opt == "+") {
+                            if ((adt + chd) < 5) {
+                                adt = adt + 1;
+                                $("#adult_"+i).val(adt);
+                            }
+                        }
+                        else if (fld_opt == "-") {
+                            if (adt > 1) {
+                                adt = adt - 1;
+                                $("#adult_"+i).val(adt);
+                            }
+                        }
+                    }
+                    else if (fld == "child_" + i) {
+                        if (fld_opt == "+") {
+                            if ((adt + chd) < 5) {
+                                chd = chd + 1;
+                                $("#child_" + i).val(chd);
+                            }
+                        }
+                        else if (fld_opt == "-") {
+                            if (chd > 0) {
+                                chd = chd - 1;
+                                $("#child_" + i).val(chd);
+                            }
+                        }
+
+                        if (chd == 0) {
+                            $("#hotel_chd_age_" + i).hide();
+                        }
+                        else {
+                            $("#hotel_chd_age_" + i).show();
+                            $(".hotel_chd_age_fld_" + i).hide();
+                            for (var j = 1; j <= chd; j++) {
+                                $("#child_" + i + "_" + j).show();
+                            }
+                        }
+                    }
+
+                    total_adt += adt;
+                    total_chd += chd;
+                }
+
+                fld_val = fld_val + ", " + total_adt + " Adults(s), " + total_chd + " Child(s)";
+                $("#txt_hotel_pax").val(fld_val);
+            });
+
+
+
+
+            $("#btn_serch_show, #btn_serch_showMb").click(function () {
+                $(".hol_outer_search_box").slideToggle("slow");
+            });
+            $(".res_hot_mai_hd").click(function () {
+                $(".hol_srt_by").slideToggle("slow");
+            });
+            $('.north').powerTip({ placement: 'n' });
+
+            /*if($(document).width() > 990){
+                if ($('#sticky').length) {
+                    var el = $('#sticky');
+                    var stickyTop = $('#sticky').offset().top;
+                    var stickyHeight = $('#sticky').height();
+
+                    $(window).scroll(function () {
+                        var limit = $('#footer').offset().top - stickyHeight - 13;
+                        var windowTop = $(window).scrollTop();
+                        if (stickyTop < windowTop) {
+                            el.addClass("sticky_pos")
+                        } else {
+                            el.removeClass("sticky_pos");
+                        }
+
+                        if (limit < windowTop) {
+                            var diff = limit - windowTop;
+                            el.css({
+                                top: diff
+                            });
+                        }
+                    });
+                }
+            }*/
+        });
+        $("#btn_serch_show, #btn_serch_showMb").click(function () {
+            $(".hol_outer_search_box").slideToggle("slow");
+        });
+
+        $("#btn_serch_show").click(function () {
+            $(".res_hol_ind_main_searbox").slideToggle("slow");
+        });
+    </script>
+}
